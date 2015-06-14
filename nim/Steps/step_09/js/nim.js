@@ -1,16 +1,24 @@
 "use strict";
 
 var rows = document.querySelectorAll(".matches");
+var total = document.querySelectorAll(".matches img").length;
 //console.log(matches);
 
 for (var ii=0; ii<rows.length; ii++) {
   var row = rows[ii];
+
   row.onclick = hideMatch;
 }
 
 function hideMatch(event) {
   var match = event.target;
   match.classList.add("removed");
+
+  var selector = ".matches img.removed";
+  var removed = document.querySelectorAll(selector).length;
+  if (removed === total) {
+    window.alert("You lose.");
+  }
 }
 
 function reset() {

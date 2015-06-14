@@ -1,0 +1,25 @@
+body {
+  font-size: 12px;
+}
+
+.matches img{
+padding: 0 1em;
+width: 1em;
+height: 10em;
+}
+.matches img:not(.removed):hover{
+background: lightgray;
+}
+.matches.five img:first-child{
+margin-left: 3em;
+}
+.matches.three img:first-child{
+margin-left: 6em;
+}
+.matches.one img:first-child{
+margin-left: 9em;
+}
+div.matches img.removed {
+opacity: 0.1;
+}
+
