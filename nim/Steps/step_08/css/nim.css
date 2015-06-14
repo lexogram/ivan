@@ -7,7 +7,7 @@ padding: 0 1em;
 width: 1em;
 height: 10em;
 }
-.matches img:hover{
+.matches img:not(.removed):hover{
 background: lightgray;
 }
 .matches.five img:first-child{
@@ -19,3 +19,7 @@ margin-left: 6em;
 .matches.one img:first-child{
 margin-left: 9em;
 }
+div.matches img.removed {
+opacity: 0.1;
+}
+
