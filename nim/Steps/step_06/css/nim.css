@@ -1,0 +1,21 @@
+body {
+  font-size: 12px;
+}
+
+div[class|=matches] img{
+padding: 0 1em;
+width: 1em;
+height: 10em;
+}
+div[class|=matches] img:hover{
+background: lightgray;
+}
+.matches-five img:first-child{
+margin-left: 3em;
+}
+.matches-three img:first-child{
+margin-left: 6em;
+}
+.matches-one img:first-child{
+margin-left: 9em;
+}
