@@ -6,7 +6,6 @@ var total = document.querySelectorAll(".matches img").length;
 
 for (var ii=0; ii<rows.length; ii++) {
   var row = rows[ii];
-
   row.onclick = hideMatch;
 }
 
