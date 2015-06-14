@@ -1,12 +1,12 @@
 "use strict";
 
-var matches = document.querySelectorAll(".matches");
+var rows = document.querySelectorAll(".matches");
 //console.log(matches);
 
-for (var ii=0; ii<matches.length; ii++) {
-  var match = matches[ii];
+for (var ii=0; ii<rows.length; ii++) {
+  var row = rows[ii];
 
-  match.onclick = function (event) {
+  row.onclick = function (event) {
     var match = event.target;
     match.classList.add("removed");
   };
