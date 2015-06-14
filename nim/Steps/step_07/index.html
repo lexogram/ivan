@@ -40,9 +40,8 @@
   for (var ii=0; ii<matches.length; ii++) {
     var match = matches[ii];
   
-    match.onclick = function (event) {
-      var match = event.target;
-      match.classList.add("removed");
+    match.onclick = function () {
+      this.classList.add("removed");
     };
   }
  </script> 

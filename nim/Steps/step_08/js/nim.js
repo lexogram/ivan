@@ -1,6 +1,6 @@
 "use strict";
 
-var matches = document.querySelectorAll(".matches img");
+var matches = document.querySelectorAll(".matches");
 //console.log(matches);
 
 for (var ii=0; ii<matches.length; ii++) {
