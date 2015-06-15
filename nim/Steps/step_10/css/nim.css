@@ -36,6 +36,9 @@ height: 10em;
 .matches img:not(.removed):hover{
 background: #333;
 }
+div.matches img.removed {
+opacity: 0.1;
+}
 
 .turns p {
 width: 50%;
