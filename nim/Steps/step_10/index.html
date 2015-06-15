@@ -6,33 +6,42 @@
   <link rel="stylesheet" href="css/nim.css" />
 </head>
 <body>
-<h1>Nim</h1>
-<div class="matches seven">
-<img src="/nim/img/match.png" alt="match">
-<img src="/nim/img/match.png" alt="match">
-<img src="/nim/img/match.png" alt="match">
-<img src="/nim/img/match.png" alt="match">
-<img src="/nim/img/match.png" alt="match">
-<img src="/nim/img/match.png" alt="match">
-<img src="/nim/img/match.png" alt="match">
-</div>
-<div class="matches five">
-<img src="/nim/img/match.png" alt="match">
-<img src="/nim/img/match.png" alt="match">
-<img src="/nim/img/match.png" alt="match">
-<img src="/nim/img/match.png" alt="match">
-<img src="/nim/img/match.png" alt="match">
-</div>
-<div class="matches three">
-<img src="/nim/img/match.png" alt="match">
-<img src="/nim/img/match.png" alt="match">
-<img src="/nim/img/match.png" alt="match">
-</div>
-<div class="matches one">
-<img src="/nim/img/match.png" alt="match">
-</div>
-<button type="button" onclick="reset()">Reset</button>
+<main>
+  <h1>Nim</h1>
+  <div class="game">
+    <div class="matches seven">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+    </div>
+      <div class="matches five">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+    </div>
+    <div class="matches three">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+    </div>
+    <div class="matches one">
+      <img src="/nim/img/match.png" alt="match">
+    </div>
+
+    <div class="turns">
+      <p class="player1 active">Player 1</p><p class="player2">Player 2</p>
+    </div>
+  </div>
+
+  <button type="button" onclick="reset()">Start new game</button>
 
  <script src="js/nim.js"></script> 
+</main>
 </body>
 </html>

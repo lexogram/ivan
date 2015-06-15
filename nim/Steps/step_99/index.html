@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="css/nim.css" />
+</head>
+<body>
+<main>
+<h1>Nim</h1>
+<div class="game">
+  <div class="matches seven">
+    <img src="/nim/img/match.png" alt="match">
+    <img src="/nim/img/match.png" alt="match">
+    <img src="/nim/img/match.png" alt="match">
+    <img src="/nim/img/match.png" alt="match">
+    <img src="/nim/img/match.png" alt="match">
+    <img src="/nim/img/match.png" alt="match">
+    <img src="/nim/img/match.png" alt="match">
+  </div>
+  <div class="matches five">
+    <img src="/nim/img/match.png" alt="match">
+    <img src="/nim/img/match.png" alt="match">
+    <img src="/nim/img/match.png" alt="match">
+    <img src="/nim/img/match.png" alt="match">
+    <img src="/nim/img/match.png" alt="match">
+  </div>
+  <div class="matches three">
+    <img src="/nim/img/match.png" alt="match">
+    <img src="/nim/img/match.png" alt="match">
+    <img src="/nim/img/match.png" alt="match">
+  </div>
+  <div class="matches one">
+   <img src="/nim/img/match.png" alt="match">
+  </div>
+
+  <div class="turns">
+    <p class="player1 active">Player 1</p>
+    <p class="player2">Player 2</p>
+  </div>
+
+  <div class="winner overlay active">
+    <div class="mask"></div>
+    <div class="dialog">
+      <p>Player 1 wins!</p>
+    </div>
+  </div>
+
+  <div class="instructions overlay">
+    <input type="checkbox" id="toggle" />
+    <div class="dialog mask">
+      <label for="toggle">x</label>
+      <h2>Rules</h2>
+      <p>When it is your turn:</p>
+      <ul>
+        <li>You can remove one or more matches from any line</li>
+        <li>You must remove at least one match</li>
+        <li>You can only remove matches from one line</li>
+        <li><span class="active">The player who takes the last match is the loser.</span></li>
+      </ul>
+    </div>
+  </div>
+</div> 
+
+<div class="newgame">
+  <button type="button" onclick="reset()">Start new game</button>
+  <button type="button">Start new game against computer</button>
+  <button type="button">Computer to start new game</button>
+</div>
+
+<div class="confirm overlay">
+  <div class="mask"></div>
+  <div class="dialog">
+    <p>
+      Do you really want to quit this game and start a new one?
+    </p>
+    <button type="button">Start new game</button>
+    <button type="button">Continue current game</button>
+  </div>
+</div>
+</main>
+
+<div class="languages">
+  <a href="#english" id="english">
+    <img src="/nim/img/flag-ca.png" /></a>
+  <a href="#中文" id="中文">
+    <img src="/nim/img/flag-cn.png" />
+  </a>
+  <a href="#français" id="français">
+    <img src="/nim/img/flag-fr.png" />
+  </a>
+  <a href="#русский" id="русский">
+    <img src="/nim/img/flag-ru.png" />
+  </a>
+  <a href="#ไทย" id="ไทย">
+    <img src="/nim/img/flag-th.png" />
+  </a>
+  </div>
+</div>
+ <script src="js/nim.js"></script> 
+</body>
+</html>
