@@ -26,16 +26,20 @@ Tutorial for creating a game of [Nim](https://ru.wikipedia.org/wiki/Ним_(иг
     * *Instructions*
     * *Button to hide instructions*
     * *Language menu*
-  11. JS: Activate button "Start new game" to reset the images
-  12. ALL: Prevent user from clicking on 2 different rows
-  13. JS: Show whose turn it is: Player 1 | Player 2
+  11.  
+    * JS: (Dis)activate "Start new game" button
+    * JS: Show whose turn it is: Player 1 | Player 2
+  12. 
+    * JS: Clean up code
+    * HTML: Simplify attributes and classes
+    * JS: Force player to remove a match before clicking `Done`
+  13.
+    * JS: Prevent user from clicking on 2 different rows
+    * JS: No reaction if user clicks on a removed match
   14. JS: Show "Player X wins" when last match is taken
 
   
   15. JS: Artificial Intelligence — play against computer
-  16. JS: Cheating and how to prevent it
-  17. JS: Start again confirmation
-  18. JS: Choose language
-  19. CSS: Transition when match is taken 
-  20. JS + IMAGE: Use sprites to show when a match is taken
+  16. JS: Start again confirmation
+  17. JS: Choose language
 

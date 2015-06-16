@@ -23,8 +23,8 @@
       turn.onclick = nextTurn;
     }
 
-    start.disabled = true;
-    toggleNextTurn(false);
+    start.onclick = reset
+    reset()
   }
 
   function hideMatch(event) {
@@ -48,7 +48,6 @@
       turn = turns[ii];
       turn.disabled = !enabled
     }
-
   }
 
   function nextTurn(event) {
@@ -60,10 +59,8 @@
 
     toggleNextTurn(false)
   }
- 
-  function reset(event) {
-    event = event || window.event
 
+  function reset() {
     var matches = document.querySelectorAll(".matches img.removed");
     var match, player
 
@@ -75,15 +72,15 @@
     for (var ii=0; ii<players.length; ii++) {
       player = players[ii];
       if (ii === 0) {
-        player.classList.add("active");
-      } else {
         player.classList.remove("active");
+      } else {
+        player.classList.add("active");
       }
     }
 
     start.disabled = true;
-    toggleNextTurn(false)
+    nextTurn();
   }
 
   initialize();
-})()
+})();
