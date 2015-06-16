@@ -36,10 +36,11 @@ Tutorial for creating a game of [Nim](https://ru.wikipedia.org/wiki/Ним_(иг
   13.
     * JS: Prevent user from clicking on 2 different rows
     * JS: No reaction if user clicks on a removed match
-  14. JS: Show "Player X wins" when last match is taken
-
-  
-  15. JS: Artificial Intelligence — play against computer
-  16. JS: Start again confirmation
-  17. JS: Choose language
-
+  14. JS: Show "Player X wins" when last match is taken (alert)
+  15. HTML + JSS: Show "Player X wins" as an overlay
+  16. Play against computer
+    * ALL: Computer start again buttons
+    * JS: Computer makes random choice
+  17. JS: Artificial intelligence – computer makes best choice
+  18. ALL: Start again confirmation
+  19. ALL: Choose language

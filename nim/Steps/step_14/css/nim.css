@@ -1,0 +1,65 @@
+html, body {
+height: 100%;
+margin: 0;
+color: #fff;
+}
+html {
+background: #333;
+}
+body {
+font-size: 9px;
+width: 35em;
+background-color: #000;
+margin: 0 auto;
+}
+main{
+width: 24em;
+margin: 0 auto;
+}
+h1 {
+margin: 0;
+padding: 1em;
+text-align: center;
+}
+button {
+width: 100%;
+}
+
+.matches {
+text-align:center;
+}
+.matches img{
+padding: 1em;
+width: 1em;
+height: 10em;
+}
+.matches img:not(.removed):hover{
+background: #333;
+}
+div.matches img.removed {
+opacity: 0.1;
+}
+
+div.turns {
+padding: 2em 0;
+}
+.turns div {
+width: 50%;
+font-size: 2em;
+display: inline-block;
+text-align: center;
+}
+.turns p {
+margin: 0.25em 0;
+}
+.active {
+color: #ffc;
+font-weight: bold;
+}
+.turns :not(.active) button {
+display: none;
+}
+
+.disabled {
+opacity: 0.2;
+}

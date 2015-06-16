@@ -7,7 +7,7 @@
   var turns = document.querySelectorAll(".turns button");
   var start = document.querySelectorAll(".start button")[0];
   var players = document.querySelectorAll(".turns div");
-  var row
+  var row, winner
 
 
   function initialize() {
@@ -48,7 +48,7 @@
     var selector = ".matches img.removed";
     var removed = document.querySelectorAll(selector).length;
     if (removed === total) {
-      window.alert("You lose.");
+      window.alert(winner+" wins!");
     }
 
     start.disabled = false;
@@ -86,6 +86,7 @@
     next.classList.add("active");
 
     row = -1;
+    winner = active.getElementsByTagName("p")[0].innerHTML
     toggleNextTurn(false);
   }
  
