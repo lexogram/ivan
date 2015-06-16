@@ -44,3 +44,4 @@ Tutorial for creating a game of [Nim](https://ru.wikipedia.org/wiki/Ним_(иг
   17. JS: Artificial intelligence – computer makes best choice
   18. ALL: Start again confirmation
   19. ALL: Choose language
+  20. JS: Allow undo 
