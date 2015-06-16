@@ -40,6 +40,9 @@ div.matches img.removed {
 opacity: 0.1;
 }
 
+div.turns {
+padding: 2em 0;
+}
 .turns div {
 width: 50%;
 font-size: 2em;
@@ -51,8 +54,8 @@ margin: 0.25em 0;
 }
 .active {
 color: #ffc;
-text-weight: bold;
+font-weight: bold;
 }
-.start {
-margin-top: 2em;
+.turns :not(.active) button {
+display: none;
 }
