@@ -38,10 +38,19 @@ Tutorial for creating a game of [Nim](https://ru.wikipedia.org/wiki/Ним_(иг
     * JS: No reaction if user clicks on a removed match
   14. JS: Show "Player X wins" when last match is taken (alert)
   15. HTML + JSS: Show "Player X wins" as an overlay
-  16. Play against computer
+  16. Play against computer part 1
     * ALL: Computer start again buttons
+    * JS: Show names of players
+  17. Play against computer part 2
     * JS: Computer makes random choice
-  17. JS: Artificial intelligence – computer makes best choice
-  18. ALL: Start again confirmation
-  19. ALL: Choose language
-  20. JS: Allow undo 
+  18. Play against computer part 3
+    * JS: Artificial intelligence – computer makes best choice
+  19. ALL: Start again confirmation
+  20. ALL: Show rules
+
+Extra steps:
+ - ALL: Choose language
+ - JS: Allow undo 
+ - JS:  Drag to select matches
+ - ALL: Make accessible
+ - HTML + CSS: Adapt for iPhone, iPad, Android, ... devices
