@@ -35,11 +35,19 @@
     </div>
 
     <div class="turns">
-      <p class="player1 active">Player 1</p><p class="player2">Player 2</p>
+      <div class="player1 active">
+        <p>Player 1</p>
+        <button type="button">Done</button>
+      </div><div class="player2">
+        <p>Player 2</p>
+        <button type="button">Done</button>
+      </div>
     </div>
   </div>
 
-  <button type="button" onclick="reset()">Start new game</button>
+  <div class="start">
+    <button type="button" onclick="reset()">Start new game</button>
+  </div>
 
  <script src="js/nim.js"></script> 
 </main>

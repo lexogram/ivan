@@ -7,7 +7,7 @@ html {
 background: #333;
 }
 body {
-font-size: 10px;
+font-size: 9px;
 width: 35em;
 background-color: #000;
 margin: 0 auto;
@@ -40,13 +40,19 @@ div.matches img.removed {
 opacity: 0.1;
 }
 
-.turns p {
+.turns div {
 width: 50%;
 font-size: 2em;
 display: inline-block;
 text-align: center;
 }
+.turns p {
+margin: 0.25em 0;
+}
 .active {
 color: #ffc;
 text-weight: bold;
+}
+.start {
+margin-top: 2em;
 }
