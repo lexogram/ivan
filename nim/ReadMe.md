@@ -49,8 +49,11 @@ Tutorial for creating a game of [Nim](https://ru.wikipedia.org/wiki/Ним_(иг
   18. Play against computer part 3
     * JS: Introduction to testing
     * JS: Artificial intelligence – computer makes best choice
-  19. ALL: Start again confirmation
-  20. ALL: Show rules
+  19. CSS + JS
+    * No :hover on matches in rows where you can't remove a match
+    * Matches fade out when removed by computer
+  20 ALL: Start again confirmation
+  21. ALL: Show rules
 
 Extra steps:
  - ALL: Choose language
