@@ -8,6 +8,7 @@
   var players = document.querySelectorAll(".turns div");
   var winOverlay = document.querySelectorAll(".winner.overlay")[0];
   var winField = document.querySelectorAll(".winner p")[0];
+  var winners = ["1357", "1247", "1256", "1346", "1155", "1144", "1133", "1122", "257", "347", "356", "246", "145", "123", "111", "55", "44", "33", "22", "1"]
   var taken, row, winner;
   var useAI, computerToPlay, player1, player2;
   var rowsWithMatches, matchesInRows;
@@ -158,9 +159,11 @@
   }
 
   function computerChooseMove() {
-    if (false) {
+    var string = convertToString(matchesInRows);
+
+    if (winners.indexOf(string) < 0) {
       findWinningMove();
-    } else {
+   } else {
       chooseRandomMove();
     }
 
@@ -168,8 +171,92 @@
     nextTurn();
   }
 
-  function findWinningMove() {
+  function convertToString(array) {
+    var string;
 
+    array = array.slice(0);
+    array.sort(); // [7, 5, 0, 1] => [0, 1, 5, 7]
+    while (array[0] === 0) {
+      array.shift();
+    }
+    // [1, 5, 7]
+    string = array.join(""); // "157"
+
+    return string;
+  }
+
+  function findWinningMove() {
+    var rowsWithOneMatch = 0;
+    var rowsWithMultipleMatches = 0;
+    var rowToTakeFrom;
+
+    function checkMatchCounts() {
+      var matchesInRow;
+      for (var ii=0; ii<matchesInRows.length; ii++) {
+        matchesInRow = matchesInRows[ii];
+
+        switch (matchesInRow) {
+          case 0:
+          break;
+
+          case 1:
+            rowsWithOneMatch++;
+          break;
+
+          default:
+            rowsWithMultipleMatches++;
+            rowToTakeFrom = ii;
+        }
+      }
+    }
+
+    function createOddNumberOfRowsWithOneMatch() {
+      var adjust = 0;
+
+      if (isNaN(rowToTakeFrom)) {
+        // No row has more than one match.
+        row = rowsWithMatches[0];
+        adjust = 1;
+      } else {
+        row = rowToTakeFrom;
+      }
+
+      if ((rowsWithOneMatch + adjust) % 2) {
+        // Delete all matches in the row with multiple matches
+        taken = matchesInRows[row];
+      } else {
+        // Leave one match in the row with multiple matches
+        taken = matchesInRows[row] - 1;
+      }
+    }
+
+    function reduceXORtoZero() {
+      var xor = 0;
+      var matchCount, leave;
+
+      for (var ii=0; ii<matchesInRows.length; ii++) {
+        xor = xor ^ matchesInRows[ii];
+      }
+
+      for (var ii=0; ii<matchesInRows.length; ii++) {
+        matchCount = matchesInRows[ii];
+        leave = xor ^ matchCount;
+        if (leave > matchCount) {
+          continue;
+        }
+
+        row = ii;
+        taken = matchCount - leave;
+        break;
+      }
+    }
+
+    checkMatchCounts();
+    if (rowsWithMultipleMatches < 2) {
+      createOddNumberOfRowsWithOneMatch();
+    } else {
+      reduceXORtoZero();
+    }
   }
 
   function chooseRandomMove() {

@@ -92,7 +92,11 @@
 
   function showWinner() {
     //alert (winner+" wins!")
-    winField.innerHTML = winner+" wins!";
+    if (winner === "You") {
+      winField.innerHTML = "You win!"
+    } else {
+      winField.innerHTML = winner+" wins!";
+    }
     winOverlay.classList.remove("hidden");
   }
 

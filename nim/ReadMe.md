@@ -13,12 +13,12 @@ Tutorial for creating a game of [Nim](https://ru.wikipedia.org/wiki/Ним_(иг
   7. JS + CSS: Dim an image when it is clicked
   8. JS + HTML: Reset button
   9. JS: Reset + game over alert
- 99. HTML + CSS: Create full game layout (and dim/hide inactive elements)
+  99. HTML + CSS: Create full game layout (and dim/hide inactive elements)
     * Body
     * Background
     * Start new game
-    * *Computer starts new game*
     * *Start new game against computer*
+    * *Computer starts new game*
     * *Do you want to start again? \[Continue playing\] \[Start new game\]*
     * Player 1~~'s turn~~
     * Player 2~~'s turn~~
@@ -39,18 +39,22 @@ Tutorial for creating a game of [Nim](https://ru.wikipedia.org/wiki/Ним_(иг
   14. JS: Show "Player X wins" when last match is taken (alert)
   15. HTML + JSS: Show "Player X wins" as an overlay
   16. Play against computer part 1
-    * ALL: Computer start again buttons
-    * JS: Show names of players
+    * HTML: Computer start again buttons
+      * Start new game against computer
+      * Computer starts new game
+    * CSS: Arrange new buttons
+    * JS: Show names of players in player list and in winner display
   17. Play against computer part 2
     * JS: Computer makes random choice
   18. Play against computer part 3
+    * JS: Introduction to testing
     * JS: Artificial intelligence – computer makes best choice
   19. ALL: Start again confirmation
   20. ALL: Show rules
 
 Extra steps:
  - ALL: Choose language
- - JS: Allow undo 
+ - JS:  Allow undo 
  - JS:  Drag to select matches
  - ALL: Make accessible
  - HTML + CSS: Adapt for iPhone, iPad, Android, ... devices

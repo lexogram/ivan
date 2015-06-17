@@ -1,0 +1,220 @@
+<script>
+;(function tests(){
+
+  // Variables used in the nim.js script
+  var rowsWithMatches, matchesInRows, row, taken
+
+  // Variables only used here for testing purposes
+  var winners   // array of winning configurations as strings
+  var total     // number of tests run
+  var fails = 0 // number of tests failed
+  
+
+
+  /**
+   * This is the method to test. 
+   */
+  function computerChooseMove() {
+    var rowsWithOneMatch = 0;
+    var rowsWithMultipleMatches = 0;
+    var rowToTakeFrom
+
+    function checkMatchCounts() {
+      var matchesInRow;
+      for (var ii=0; ii<matchesInRows.length; ii++) {
+        matchesInRow = matchesInRows[ii];
+
+        switch (matchesInRow) {
+          case 0:
+          break;
+
+          case 1:
+            rowsWithOneMatch++;
+          break;
+
+          default:
+            rowsWithMultipleMatches++;
+            rowToTakeFrom = ii;
+        }
+      }
+    }
+
+    function createOddNumberOfRowsWithOneMatch() {
+      row = rowToTakeFrom;
+      if (rowsWithOneMatch % 2) {
+        // Delete all matches in the row with multiple matches
+        taken = matchesInRows[row];
+      } else {
+        // Leave one match in the row with multiple matches
+        taken = matchesInRows[row] - 1;
+      }
+    }
+
+    checkMatchCounts();
+    if (rowsWithMultipleMatches === 1) {
+      createOddNumberOfRowsWithOneMatch();
+    } else {
+      // All rows have 1 or 0 matches. Take 1 match from any row.
+      row = rowsWithMatches[0];
+      taken = 1;
+    }
+  }
+
+
+
+  /**
+   * runTest checks if the incoming matchArray is already in a 
+   * winning configuration. If so, there is no possible winning move,
+   * so the test is not run. If matchArray is not a known winning
+   * combination, then computerChooseMove() is called. If the code in
+   * computerChooseMove() is correct, then `row` and `taken` should
+   * be set to a winning combination.
+   * 
+   * @param  {array} matchArray: format [≤7, ≤5, ≤3, ≤1]
+   * @action         generates the appropriate arrays for
+   *                 rowsWithMatches and matchesInRows, then calls
+   *                 computerChooseMove
+   */
+  function runTest(matchArray) {
+    var input = convertToString(matchArray);
+    var output, fail;
+
+    if (winners.indexOf(input) < 0) {
+      // The matches are not currently in a winning configuration
+      // Create a copy that can be modified without changing the
+      // original.
+      matchesInRows = matchArray.slice(0);
+
+      // Determine which rows contain matches that can be taken
+      rowsWithMatches = [];
+      for (var ii=0; ii<matchesInRows.length; ii++) {
+        if (matchesInRows[ii]) {
+          rowsWithMatches.push(ii);
+        }
+      }
+
+      // Ask the AI algorithm for its best answer
+      computerChooseMove(); // sets row and taken
+
+      // Update matchesInRows to show the result of the move
+      matchesInRows[row] = matchesInRows[row] - taken;
+
+      // Check if the matches are now in a winning configuration
+      output = convertToString(matchesInRows);
+      fail = winners.indexOf(output) < 0;
+
+      if (fail) {
+        // The algorithm has failed. Log the result for further study
+        fails ++;
+        console.log("bad move: ", matchArray, matchesInRows);
+      }
+
+    } else {
+      // Don't run the test on a configuration where it is bound to
+      // fail.
+      //console.log("winning configuration: ", matchArray);
+    }
+  }
+
+
+
+  /**
+   * Create an array of winning configurations, to compare with the
+   * output of computerChooseMove()
+   */
+  function createWinningConfigurations () {
+    winners = [
+      [7, 5, 3, 1]
+    , [7, 4, 2, 1]
+    , [6, 5, 2, 1]
+    , [6, 4, 3, 1]
+    , [5, 5, 1, 1]
+    , [4, 4, 1, 1]
+    , [3, 3, 1, 1]
+    , [2, 2, 1, 1]
+    , [7, 5, 2]
+    , [7, 4, 3]
+    , [6, 5, 3]
+    , [6, 4, 2]
+    , [5, 4, 1]
+    , [3, 2, 1]
+    , [1, 1, 1]
+    , [5, 5]
+    , [4, 4]
+    , [3, 3]
+    , [2, 2]
+    , [1]
+    ];
+
+    function convertToStrings(array) {
+      for (var ii=0; ii<array.length; ii++) {
+        array[ii] = convertToString(array[ii]);
+      }
+    }
+
+    convertToStrings(winners);
+  }
+
+
+
+  /**
+   * Converts the input array to a string of integers in ascending
+   * order. Zeros will be omitted
+   * 
+   * @param  {array}  array should be a list of integers from 0-7
+   * @return {string} 
+   * @example         [7, 5, 0, 1] => "157"
+   */
+  function convertToString(array) {
+    var string;
+
+    array = array.slice(0)
+    array.sort(); // [7, 5, 0, 1] => [0, 1, 5, 7]
+    while (array[0] === 0) {
+      array.shift();
+    }
+    // [1, 5, 7]
+    string = array.join(""); // "157"
+
+    return string;
+  }
+
+
+
+  function start() {
+    total = 0;
+    createWinningConfigurations();
+
+    // runTest([7, 5, 3, 1]);
+
+    // for (ii=0; ii<total; ii++) {
+    //   runTest([6, 5, 3, 1])
+    // }
+
+    var aLimit = 8
+    var bLimit = 2 // 6
+    var cLimit = 2 // 4
+    var dLimit = 2 // 4
+
+    var a,b,c,d
+    for (a=0; a<aLimit; a++){
+      for (b=0; b<bLimit; b++){
+        for (c=0; c<cLimit; c++){
+          for (d=0; d<dLimit; d++){
+            if (a||b||c||d) { // not all values are zero
+              total++;
+              runTest([a, b, c, d])
+            }
+          }            
+        }         
+      }    
+    }
+
+    console.log("Total: "+total+", fails: "+fails);
+  } 
+
+
+
+  start();
+})();
+</script>
