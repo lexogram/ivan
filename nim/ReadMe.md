@@ -26,10 +26,10 @@ Tutorial for creating a game of [Nim](https://ru.wikipedia.org/wiki/Ним_(иг
     * *Instructions*
     * *Button to hide instructions*
     * *Language menu*
-  11.  
+  11.
     * JS: (Dis)activate "Start new game" button
     * JS: Show whose turn it is: Player 1 | Player 2
-  12. 
+  12.
     * JS: Clean up code
     * HTML: Simplify attributes and classes
     * JS: Force player to remove a match before clicking `Done`
@@ -52,12 +52,14 @@ Tutorial for creating a game of [Nim](https://ru.wikipedia.org/wiki/Ним_(иг
   19. CSS + JS
     * No :hover on matches in rows where you can't remove a match
     * Matches fade out when removed by computer
-  20 ALL: Start again confirmation
-  21. ALL: Show rules
+    * JS: No need to click `Done` when you take the last match
+  20. ALL: Show rules
 
 Extra steps:
+ - ALL: Start again confirmation
  - ALL: Choose language
- - JS:  Allow undo 
+ - JS:  Allow undo
  - JS:  Drag to select matches
+ - JS:  Automatically apply `Done` if you take all matches in a row
  - ALL: Make accessible
  - HTML + CSS: Adapt for iPhone, iPad, Android, ... devices
