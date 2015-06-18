@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="css/nim.css" />
+</head>
+<body>
+<main>
+  <h1>Nim</h1>
+  <div class="game">
+    <div class="matches seven">
+      <img src="img/match.png" alt="match">
+      <img src="img/match.png" alt="match">
+      <img src="img/match.png" alt="match">
+      <img src="img/match.png" alt="match">
+      <img src="img/match.png" alt="match">
+      <img src="img/match.png" alt="match">
+      <img src="img/match.png" alt="match">
+    </div>
+      <div class="matches five">
+      <img src="img/match.png" alt="match">
+      <img src="img/match.png" alt="match">
+      <img src="img/match.png" alt="match">
+      <img src="img/match.png" alt="match">
+      <img src="img/match.png" alt="match">
+    </div>
+    <div class="matches three">
+      <img src="img/match.png" alt="match">
+      <img src="img/match.png" alt="match">
+      <img src="img/match.png" alt="match">
+    </div>
+    <div class="matches one">
+      <img src="img/match.png" alt="match">
+    </div>
+
+    <div class="turns">
+      <div class="player1">
+         <button type="button">Done</button>
+       <p>Player 1</p>
+      </div><div class="player2">
+        <button type="button">Done</button>
+        <p>Player 2</p>
+      </div>
+    </div>
+
+    <div class="winner overlay active">
+      <div class="mask"></div>
+      <div class="dialog">
+        <p>The computer wins!</p>
+      </div>
+    </div>
+
+    <div class="instructions overlay">
+      <div class="mask"></div>
+      <div class="dialog">
+        <h2>Rules</h2>
+        <p>There are 16 matches, arranged in four rows. There are seven matches in the first row, five in the second row, three in the third row and one in the last row.</p>
+        <p>When it is your turn:</p>
+        <ul>
+          <li>You can remove one or more matches from any row</li>
+          <li>You must remove at least one match</li>
+          <li>You can only remove matches from one row</li>
+          <li><span class="active">The player who takes the last match is the loser.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="start">
+    <button type="button" class="playerStarts">Start new game against computer</button>
+    <button type="button" class="computerStarts">Computer to start new game</button>
+    <button type="button" class="twoPlayers">Start new 2-player game</button>
+  </div>
+
+  <input type="checkbox" checked id="rules" />
+  <label for="rules">Rules</label>
+</main>
+
+<script src="js/nim.js"></script>
+</body>
+</html>
