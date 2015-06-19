@@ -1,7 +1,7 @@
 @font-face {
-  font-family: 'FontAwesome';
-  src: url('/fonts/fontawesome-webfont.eot?v=4.1.0');
-  src: url('/fonts/fontawesome-webfont.eot?#iefix&v=4.1.0') format('embedded-opentype'), url('/fonts/fontawesome-webfont.woff?v=4.1.0') format('woff'), url('/fonts/fontawesome-webfont.ttf?v=4.1.0') format('truetype'), url('/fonts/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular') format('svg');
+  font-family: 'asides';
+  src: url('/fonts/asides.eot');
+  src: url('/fonts/asides.eot') format('embedded-opentype'), url('/fonts/asides.woff') format('woff'), url('/fonts/asides.ttf') format('truetype'), url('/fonts/asides.svg') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -197,7 +197,9 @@ section{
 .warn,
 .note,
 .tip,
-.info {
+.git,
+.info,
+pre {
 display: block;
 padding: 0.5em;
 box-sizing: border-box;
@@ -223,37 +225,53 @@ border-color: #efe;
 border-right-color: #ded;
 border-bottom-color: #ded;
 }
+.git {
+background: #fde7fd;
+border-color: #fef;
+border-right-color: #ede;
+border-bottom-color: #ede;
+}
 .info {
 background: #e4e7fd;
 border-color: #eef;
 border-right-color: #dde;
 border-bottom-color: #dde;
 }
-.fa::before {
-font-family: FontAwesome;
+pre {
+background: #ddd;
+border-color: #ccc;
+border-right-color: #eee;
+border-bottom-color: #eee;
+}
+.aside::before {
+font-family: asides;
 padding: 0 0.5em 0 0;
 font-size: 1.2em;
 color: #66c;
 }
 .warn::before {
-content: "\f071";
+content: "\e803";
 color: #c66;
 }
 .note::before {
-content: "\f14b";
+content: "\e800";
 color: #cc6;
 }
 .tip::before {
-content: "\f0eb";
+content: "\e804";
 color: #6c6;
 }
 .info::before {
-content: "\f05a"; /* "\f129"; */
+content: "\e801"; /* "\f129"; */
 color: #66c;
+}
+.git::before {
+content: "\e802";
+color: #666;
 }
 
 @media print
 {
-  #side, header { display: none; }
-  article { display: block; }
+  #side, header img { display: none; }
+  main, header { display: block; }
 }
