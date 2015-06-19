@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'asides';
-  src: url('/fonts/asides.eot');
-  src: url('/fonts/asides.eot') format('embedded-opentype'), url('/fonts/asides.woff') format('woff'), url('/fonts/asides.ttf') format('truetype'), url('/fonts/asides.svg') format('svg');
+  src: url('../fonts/asides.eot');
+  src: url('../fonts/asides.eot') format('embedded-opentype'), url('../fonts/asides.woff') format('woff'), url('../fonts/asides.ttf') format('truetype'), url('../fonts/asides.svg') format('svg');
   font-weight: normal;
   font-style: normal;
 }
