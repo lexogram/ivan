@@ -17,25 +17,26 @@
 <ol>
 <li><a href="#top">Overview</a></li>
 <li><a href="#html">Your HTML page</a></li>
-<li><a href="#git">Your Git repo</a></li>
+<li><a href="#git">Your GitHub repo</a></li>
 <li><a href="#image">Adding an image</a></li>
 <li><a href="#push">Saving to GitHub</a></li>
 <li><a href="#div">Rows of images</a></li>
 <li><a href="#css">Styling with CSS</a></li>
 <li><a href="#js">JavaScript</a></li>
-<li><a href="#restart">The Restart button</a></li>
+<li><a href="#button">The Reset button</a></li>
 <li><a href="#reset">Resetting the game</a></li>
 <li><a href="#layout">The game layout</a></li>
 <li><a href="#turns">Whose turn is it?</a></li>
 <li><a href="#rules">Enforcing rules</a></li>
 <li><a href="#rows">One row at a time</a></li>
 <li><a href="#winner">Who won?</a></li>
-<li><a href="#overly">Using an overlay</a></li>
+<li><a href="#overlay">Using an overlay</a></li>
 <li><a href="#player">Computer player</a></li>
 <li><a href="#random">Random moves</a></li>
 <li><a href="#ai">Intelligent moves</a></li>
-<li><a href="#ai">Final details</a></li>
+<li><a href="#final">Final details</a></li>
 <li><a href="#toggle">Showing the rules</a></li>
+<li><a href="#meta">Invisible data</a></li>
 </ol>
 <p>Future Improvements</p>
 <ul>
@@ -63,12 +64,7 @@
 </nav>
 </header>
 <article>
-<section id="top">
-<h2>Overview</h2>
-<p class="top">This tutorial shows you how to create a simple strategy game, where the computer will beat you every time, unless you know how to avoid the trap.</p>
-<p class="top">You will be learning to write HTML, CSS and JavaScript. You will also learn how to use GitHub to save and display your work, and how to write code that tests your code. You don't need any previous knowledge of programming, but an inquisitive mind is a bonus.</p>
-<p class="top aside info">You can see the completed game <a href="complete/">here</a>. You might like to try to beat the computer before you learn to write the code that will beat all other players.</p>
-</section>
+<!-- YOUR HTML PAGE -->
 <section id="html">
 <h2>Your first HTML page</h2>
 <p>I'm assuming that you have never created an HTML page before. HTML means "HyperText Markup Language". You will soon see what this means.</p><p>This is what a very simple HTML page looks like:</p>
@@ -86,11 +82,27 @@
 <figure><img src="img/page.png" alt="screenshot of simple HTML page in different browsers"/>
 <figcaption>Figure 1: How HTML &lt;title&gt; and &lt;body&gt; HTML elements appear in a browser</figcaption></figure>
 <h3>Do It Yourself</h3>
-<p>It's time to create your own HTML page.</p>
-
+<p>It's easy to create your own HTML page. If you haven't already got a text editor, <a href="http://www.sublimetext.com/2">download and install a trial copy of Sublime Text</a>. Open your text editor and create a new document. In the programming community, it is a tradition that your first program in any new language should display the words <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program#History">"Hello World"</a>. You can type this (or any other message you like), then save your file as <code>index.html</code>.</p>
+<p>Find the file that you have just created on your desktop, and double-click on it. It should open in your favourite browser.</p>
+<figure><img src="img/helloWorld.png" alt="A Hello World HTML page displayed in a browser" /><figcaption>Figure 2. A Hello World HTML page displayed in a Google Chrome</figcaption></figure>
+<h3>The starting page for your game</h3>
+<p>Only you can see the file on your desktop that you opened in your browser. You want other people in other places to see your game.</p>
+<p>Your next step will be to put an HTML file onto the GitHub server, so that anyone in the world can see it. But first, you'll want your HTML code to look professional. Copy the following text and paste it into your <code>index.html</code> document, then save it.</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Nim&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Your game will go here&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>What do you expect to see when you open this new version of your <code>index.html</code> file in your browser? Try it and see.</p>
+<p class="next">If you are eager to continue building your game, click on <a href="#git">Your GitHub repo</a> in the menu on the left. If you want to know more about what all this HTML code does, click on Understanding HTML Tags below and continue reading.</p>
 <div class="details">
 <input type="checkbox" id="details-html"/>
-<label for="details-html">Understanding HTML tags</label>
+<label for="details-html">Understanding HTML Tags</label>
 <div>
 <p>You can recognize HTML code because of the <span class="keyword">tags</span> that it uses. Tags are instructions that are enclosed in <code>&lt;</code> and <code>&gt;</code> pointed <span class="keyword">angle brackets</span>, in this style: <code>&lt;style&gt;</code>.</p>
 <h4>Closing Tags</h4>
@@ -103,26 +115,42 @@
 <dt><code>&lt;p&gt;...&lt;/p&gt;</code></dt><dd>This indicates a paragraph of text.</dd>
 </dl>
 <h4>Self-closing Tags</h4>
-
-
+<p>Some tags, such as <code>&lt;!DOCTYPE html&gt;</code> are <span class="keyword">self-closing</span>. A self-closing tag stands on its own, with no matching tag to close it later. Self-closing tags are typically used for elements that cannot have text inside then. For example</p>
+<dl>
+<dt><code>&lt;!DOCTYPE html&gt;</code></dt>
+<dd>The very first line of an HTML file tells the browser what kind of file it is. Browsers can read many kinds of files: XML files, which contain arrays of data, SVG files which contain the formulae needed to draw smooth Scalable Vector Graphics, image files such as JPG and PNG, and many more.</dd>
+<dt><code>&lt;img&gt;</code></dt><dd>The <code>&lt;img&gt;</code> tag tells the browser where to find a file that displays an image. You will be working with the <code>&lt;img&gt;</code> tag in section <a href="#image">4: Adding an image.</a></dd>
+<dt><code>&lt;link&gt;</code></dt><dd>The <code>&lt;link&gt;</code> tag tells the browser where to find a file that gives rules on the appearance and layout of the web page. You will be using the <code>&lt;link&gt;</code> tag in section <a href="#css">7: Styling with CSS.</a></dd>
+<dt><code>&lt;input&gt;</code></dt><dd>The <code>&lt;input&gt;</code> tag lets you create elements such as buttons and editable fields that allow the visitor to interact with your page. You will be adding a checkbox <code>&lt;input&gt;</code> to your page in   section <a href="#image">21: Showing the rules.</a></dd>
+<dt><code>&lt;meta&gt;</code></dt><dd>The <code>&lt;meta&gt;</code> tag can be used to tell the browser and bots that visit your site what your page is about, what language it's in, how it should be categorized in search engines. You will be adding a <code>&lt;meta&gt;</code> in section <a href="#image">4: Adding an image.</a></dd>
+</dl>
 <p>By the time you gave finished this tutorial, you will also have used all the following tags (in order of appearance):</p>
 <ul>
-<li><a href=""><code>&lt;h1&gt;</code></a></li>
-<li><a href=""><code>&lt;img&gt;</code></a></li>
-<li><a href=""><code>&lt;div&gt;</code></a></li>
-<li><a href=""><code>&lt;link&gt;</code></a></li>
-<li><a href=""><code>&lt;script&gt;</code></a></li>
-<li><a href=""><code>&lt;button&gt;</code></a></li>
-<li><a href=""><code>&lt;main&gt;</code></a></li>
-<li><a href=""><code>&lt;h2&gt;</code></a></li>
-<li><a href=""><code>&lt;ul&gt;</code></a></li>
-<li><a href=""><code>&lt;li&gt;</code></a></li>
-<li><a href=""><code>&lt;input&gt;</code></a></li>
-<li><a href=""><code>&lt;label&gt;</code></a></li>
-<li><a href=""><code>&lt;meta&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_hn.asp"><code>&lt;h1&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_img.asp"><code>&lt;img&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_div.asp"><code>&lt;div&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_link.asp"><code>&lt;link&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_script.asp"><code>&lt;script&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_button.asp"><code>&lt;button&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_main.asp"><code>&lt;main&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_ul.asp"><code>&lt;ul&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_li.asp"><code>&lt;li&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_input.asp"><code>&lt;input&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_label.asp"><code>&lt;label&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_meta.asp"><code>&lt;meta&gt;</code></a></li>
 </ul>
 <p>You can find a full list of the tags used to create HTML elements <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">here</a>.</p>
-<p class="aside note">In practice, if a file has an <code>.html</code> extension, most modern browsers will treat everything inside it as HTML, even if there is no <code>&lt;html&gt;</code> element, if there is more than one <code>&lt;html&gt;</code> element, or if there is text outside the <code>html</code> element. Modern browsers may also display content correctly even if the <code>body</code> is missing, or if there is more than one <code>body</code> element. Nonetheless, it is good practice to use these elements correctly. Other developers will notice if your code is badly written.</p>
+</div>
+</div>
+
+<div class="nuggets">
+<input type="checkbox" id="nuggets-html"/>
+<label for="nuggets-html">Tips and Tricks</label>
+<div>
+<figure class="aside tip"><p>If you are using Sublime Text, you can use a shortcut to open your HTML file in a browser.</p><img src="img/openInBrowser.png" alt="Sublime Text's right-click shortcut to open an HTML file in your browser" /><figcaption>Figure 3. Right-click on your document and choose Open In Browser</figcaption></figure>
+<p class="aside info">
+Why call your file <code>index.html</code>? In fact, you could call your html file anything you like. The fact that the first line is <code>&lt;!DOCTYPE html&gt;</code> tells your browser all it needs to know. When you visit a site, if your browser doesn't ask for any particular file, the server on the site will send you <code>index.html</code> by default, if a file with that name exists. Unless you have a very good reason for using a different name, it is good practice to use <code>index.html</code></p>
+<p class="aside note">As you saw in your Hello World test, if a file has an <code>.html</code> extension, most modern browsers will treat everything inside it as HTML, even if there is no <code>&lt;html&gt;</code> element, if there is more than one <code>&lt;html&gt;</code> element, or if there is text outside the <code>html</code> element. Modern browsers may also display content correctly even if the <code>body</code> is missing, or if there is more than one <code>body</code> element. Nonetheless, it is good practice to use these elements correctly. Other developers will notice if your code is badly written.</p>
 <p class="aside note">The browser will not display any text between an opening angle bracket <code>&lt;</code> character and a closing angle bracket <code>&gt;</code>. If you use a tag that the browser does not recognize, such as <code>&lt;unofficial_tag&gt;</code>, the browser will simply ignore it. Older browsers may ignore tags that were officially introduced after they were released.</p>
 </div>
 </div>
@@ -131,21 +159,153 @@
 <input type="checkbox" id="details-trouble-html"/>
 <label for="details-trouble-html">Troubleshooting your HTML page</label>
 <div>
-<p>Ouch. Your HTML page is not appearing correctly in the browser.</p>
+<p>Ouch. Your HTML page is not appearing correctly in the browser. Perhaps one of these steps will help you:</p>
+<ul>
+<li>If you are not using Sublime Text, perhaps your text editor is saving your files in a <code class="keyword">rich text</code> format, such as <code>.doc</code> or <code>.rtf</code>. Make sure that you are saving in a plain text format, using <code>.html</code> as the extension.</li>
+<li>There may be many files called <code>index.html</code> on your computer. Make sure that you are opening the right one. If you are using Sublime Text, you can use the right-click > Show in Browser shortcut, to be sure that you are opening the same document that you are working on.</li>
+</ul>
 </div>
 </div>
-
 </section>
 
+<!-- YOUR GITHUB REPO -->
 <section id="git">
+<h2>Creating a Repository on GitHub</h2>
+<p></p>
+</section>
+
+<!-- ADDING AN IMAGE -->
+<section id="image">
+<h2>Adding an Image</h2>
+<p></p>
+</section>
+
+<!-- SAVING TO GITHUB -->
+<section id="push">
+<h2>Saving Your Changes to GitHub</h2>
+<p></p>
+</section>
+
+<!-- ROWS OF IMAGES -->
+<section id="div">
+<h2>Creating Four Rows of Images</h2>
+<p></p>
+</section>
+
+<!-- STYLING WITH CSS -->
+<section id="css">
+<h2>Using Cascading Style Sheets</h2>
+<p></p>
+</section>
+
+<!-- JAVASCRIPT -->
+<section id="js">
+<h2>Hiding Images with JavaScript</h2>
+<p></p>
+</section>
+
+<!-- THE RESET BUTTON -->
+<section id="button">
+<h2>Creating a Reset Button</h2>
+<p></p>
+</section>
+
+<!-- RESETTING THE GAME -->
+<section id="reset">
+<h2>Resetting the Game</h2>
+<p></p>
+</section>
+
+<!-- THE GAME LAYOUT -->
+<section id="layout">
+<h2>The Game Layout</h2>
+<p></p>
+</section>
+
+<!-- SNTH -->
+<section id="git">
+<h2>snth</h2>
+<p></p>
+</section>
+
+<!-- WHOSE TURN IS IT? -->
+<section id="turns">
+<h2>Whose Turn Is It?</h2>
+<p></p>
+</section>
+
+<!-- ENFORCING RULES -->
+<section id="rules">
+<h2>Enforcing the Rules</h2>
+<p></p>
+</section>
+
+<!-- ONE ROW AT A TIME -->
+<section id="rows">
+<h2>One Row at a Time</h2>
+<p></p>
+</section>
+
+<!-- WHO WON? -->
+<section id="winner">
+<h2>Who Won?</h2>
+<p></p>
+</section>
+
+<!-- USING AN OVERLAY -->
+<section id="overlay">
+<h2>Using an Overlay</h2>
+<p></p>
+</section>
+
+<!-- COMPUTER PLAYER -->
+<section id="player">
+<h2>Creating a Computer Player</h2>
+<p></p>
+</section>
+
+<!-- RANDOM MOVES -->
+<section id="random">
+<h2>Making Random Moves</h2>
+<p></p>
+</section>
+
+<!-- INTELLIGENT MOVES -->
+<section id="ai">
+<h2>Making Intelligent Moves</h2>
+<p></p>
+</section>
+
+<!-- FINAL DETAILS -->
+<section id="final">
+<h2>Taking Care of the Final Details</h2>
+<p></p>
+</section>
+
+<!-- SHOWING THE RULES -->
+<section id="toggle">
+<h2>Showing the Rules</h2>
+<p></p>
+</section>
+
+<!-- INVISIBLE DATA -->
+<section id="meta">
+<h2>Invisible data</h2>
+<p></p>
+</section>
+
+<section id="hash">
 <h2></h2>
 <p></p>
 </section>
 
-
+<!-- OVERVIEW : SECTION 0 -->
 <section id="top">
-<h2></h2>
-<p></p>
+<h2>Overview</h2>
+<p class="top">This tutorial shows you how to create a simple strategy game, where the computer will beat you every time, unless you know how to avoid the trap.</p>
+<p class="top">You will be learning to write HTML, CSS and JavaScript. You will also learn how to use GitHub to save and display your work, and how to write code that tests your code. You don't need any previous knowledge of programming, but an inquisitive mind is a bonus.</p>
+<p class="top aside info">You can see the completed game <a href="complete/">here</a>. You might like to try to beat the computer before you learn to write the code that will beat all other players.</p>
+<p>When you're ready to begin, click on item <a href="#html">2: Your HTML Page</a> in the menu on the left, or click on the Next &gt; arrow at the top right.</p>
 </section>
 </article>
 </main>
