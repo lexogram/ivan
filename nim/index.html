@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title></title>
-<link rel="stylesheet" href="/css/core.css" />
-<script src="/js/core.js"></script>
+<link rel="stylesheet" href="../css/core.css" />
 </head>
 
 <body>
@@ -12,7 +11,7 @@
 <div id="side">
 <div class="column">
 <div class="logo">
-<img src="/img/logo.png" alt="openbook home" />
+<a href="../"><img src="/img/logo.png" alt="openbook home" /></a>
 </div>
 <nav>
 <ol>
@@ -73,7 +72,15 @@
 <section id="html">
 <h2>Your first HTML page</h2>
 <p>I'm assuming that you have never created an HTML page before. HTML means "HyperText Markup Language". This is what a very simple HTML page looks like:</p>
-<pre>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Text for tab / title bar&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;This appears inside the browser window&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </pre>
 </section>
 
@@ -85,5 +92,6 @@
 </article>
 </main>
 </div>
+<script src="../js/core.js"></script>
 </body>
 </html>
