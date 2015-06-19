@@ -2,7 +2,7 @@
 <html lang=en>
 <head>
 <meta charset="utf-8">
-<title></title>
+<title>HTML5 game tutorial</title>
 <link rel="stylesheet" href="../css/core.css" />
 </head>
 
@@ -47,7 +47,7 @@
 <li><a href="#auto">Automating actions</a></li>
 <li><a href="#enter">ENTER = [ Done ]</a></li>
 <li><a href="#a11y">Accessibility</a></li>
-<ul>
+</ul>
 </nav>
 </div>
 </div>
@@ -71,17 +71,75 @@
 </section>
 <section id="html">
 <h2>Your first HTML page</h2>
-<p>I'm assuming that you have never created an HTML page before. HTML means "HyperText Markup Language". This is what a very simple HTML page looks like:</p>
+<p>I'm assuming that you have never created an HTML page before. HTML means "HyperText Markup Language". You will soon see what this means.</p><p>This is what a very simple HTML page looks like:</p>
 <pre>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-&lt;head&gt;
-  &lt;title&gt;Text for tab / title bar&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;p&gt;This appears inside the browser window&lt;/p&gt;
-&lt;/body&gt;
+  &lt;head&gt;
+    &lt;title&gt;This appears in the tab / title bar&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;This appears inside the browser window&lt;/p&gt;
+  &lt;/body&gt;
 &lt;/html&gt;
 </pre>
+<p>Here's how this HTML page looks in different browsers.</p>
+<figure><img src="img/page.png" alt="screenshot of simple HTML page in different browsers"/>
+<figcaption>Figure 1: How HTML &lt;title&gt; and &lt;body&gt; HTML elements appear in a browser</figcaption></figure>
+<h3>Do It Yourself</h3>
+<p>It's time to create your own HTML page.</p>
+
+<div class="details">
+<input type="checkbox" id="details-html"/>
+<label for="details-html">Understanding HTML tags</label>
+<div>
+<p>You can recognize HTML code because of the <span class="keyword">tags</span> that it uses. Tags are instructions that are enclosed in <code>&lt;</code> and <code>&gt;</code> pointed <span class="keyword">angle brackets</span>, in this style: <code>&lt;style&gt;</code>.</p>
+<h4>Closing Tags</h4>
+<p>Most HTML tags come in matching pairs, with an <span class="keyword">opening</span> and a <span class="keyword">closing</span> tag. Closing tags contain a forward slash <code>/</code> character, followed by the first word of the matching opening tag. The expression to describe a pair of matching tags, plus all the data between them, is <span class="keyword">HTML element</span>. In the example above, you can see the following pairs of tags, creating five different HTML elements.</p>
+<dl>
+<dt><code>&lt;html&gt;...&lt;/html&gt;</code></dt><dd><p>This tells the browser to treat all the information between these tags as HTML code. There should always be an opening <code>&lt;html&gt;</code> tag at the beginning of an HTML document, and a closing <code>&lt;/html&gt;</code> tag at the end.</p><p>There should only be one <code>html</code> element in an HTML file.</p></dd>
+<dt><code>&lt;head&gt;...&lt;/head&gt;</code></dt><dd><p>The <code>head</code> element contains instructions to the browser that are not shown inside the browser window. In sections 7 and 8, you will add instructions to tell the browser where to find additional files to download. The <code>head</code> can also contain information for search engines that summarize the contents of the page.</p></dd>
+<dt><code>&lt;title&gt;...&lt;/title&gt;</code></dt><dd><p>As you can see from the screen shot in figure 1, the text inside the <code>title</code> element appears in the title bar of the browser window, or as a label in the tab for the current page.</p><p>Search engines like <a href="http://www.google.com">Google</a>, <a href="http://www.yandex.com">Yandex</a> and <a href="http://www.baidu.com">Baidu</a> use the text in the <code>title</code> element to understand the main purpose of the page.</p></dd>
+<dt><code>&lt;body&gt;...&lt;/body&gt;</code></dt><dd><p>The <code>body</code> element contains everything that will appear inside the browser window. There should only be one <code>body</code> element.</p></dd>
+<dt><code>&lt;p&gt;...&lt;/p&gt;</code></dt><dd>This indicates a paragraph of text.</dd>
+</dl>
+<h4>Self-closing Tags</h4>
+
+
+<p>By the time you gave finished this tutorial, you will also have used all the following tags (in order of appearance):</p>
+<ul>
+<li><a href=""><code>&lt;h1&gt;</code></a></li>
+<li><a href=""><code>&lt;img&gt;</code></a></li>
+<li><a href=""><code>&lt;div&gt;</code></a></li>
+<li><a href=""><code>&lt;link&gt;</code></a></li>
+<li><a href=""><code>&lt;script&gt;</code></a></li>
+<li><a href=""><code>&lt;button&gt;</code></a></li>
+<li><a href=""><code>&lt;main&gt;</code></a></li>
+<li><a href=""><code>&lt;h2&gt;</code></a></li>
+<li><a href=""><code>&lt;ul&gt;</code></a></li>
+<li><a href=""><code>&lt;li&gt;</code></a></li>
+<li><a href=""><code>&lt;input&gt;</code></a></li>
+<li><a href=""><code>&lt;label&gt;</code></a></li>
+<li><a href=""><code>&lt;meta&gt;</code></a></li>
+</ul>
+<p>You can find a full list of the tags used to create HTML elements <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">here</a>.</p>
+<p class="aside note">In practice, if a file has an <code>.html</code> extension, most modern browsers will treat everything inside it as HTML, even if there is no <code>&lt;html&gt;</code> element, if there is more than one <code>&lt;html&gt;</code> element, or if there is text outside the <code>html</code> element. Modern browsers may also display content correctly even if the <code>body</code> is missing, or if there is more than one <code>body</code> element. Nonetheless, it is good practice to use these elements correctly. Other developers will notice if your code is badly written.</p>
+<p class="aside note">The browser will not display any text between an opening angle bracket <code>&lt;</code> character and a closing angle bracket <code>&gt;</code>. If you use a tag that the browser does not recognize, such as <code>&lt;unofficial_tag&gt;</code>, the browser will simply ignore it. Older browsers may ignore tags that were officially introduced after they were released.</p>
+</div>
+</div>
+
+<div class="trouble">
+<input type="checkbox" id="details-trouble-html"/>
+<label for="details-trouble-html">Troubleshooting your HTML page</label>
+<div>
+<p>Ouch. Your HTML page is not appearing correctly in the browser.</p>
+</div>
+</div>
+
+</section>
+
+<section id="git">
+<h2></h2>
+<p></p>
 </section>
 
 

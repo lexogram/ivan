@@ -170,13 +170,24 @@ filter: FlipH;
 -ms-filter: "FlipH";
 }
 
-h1, h2 {
-margin: 12px 0;
+h1, h2, h3 {
+margin: 1em 0 0;
 font-family: "Gill Sans",Helvetica, sans-serif;
-font-size:18px;
 font-weight:bold;
-margin-top: 2em;
 color: #003;
+}
+h1, h2 {
+font-size:1.2em;
+}
+h2, h3, h4 {
+color: #336;
+}
+h3 {
+font-size:1.1em;
+}
+h4 {
+font-size:1em;
+font-style: oblique;
 }
 article{
 -webkit-flex-grow: 1;
@@ -247,7 +258,6 @@ border-bottom-color: #eee;
 font-family: asides;
 padding: 0 0.5em 0 0;
 font-size: 1.2em;
-color: #66c;
 }
 .warn::before {
 content: "\e803";
@@ -268,6 +278,101 @@ color: #66c;
 .git::before {
 content: "\e802";
 color: #666;
+}
+figure{
+text-align: center;
+}
+figcaption{
+font-size: 0.8em;
+font-weight: bold;
+}
+
+.keyword{
+font-style:oblique;
+}
+code{
+background-color: #eee;
+}
+.details div{
+background-color: #f8f8ff;
+border: 0px solid #eef;
+}
+.details code{
+background-color: #eef;
+}
+.details label,
+.details label::before{
+color: #336;
+}
+.trouble div{
+background-color: #ffe;
+border: 0px solid #ffc;
+}
+.trouble code{
+background-color: #ffe;
+}
+.trouble label,
+.trouble label::before{
+color: #633;
+}
+.warn code{
+background-color: #ecc;
+}
+.note code{
+background-color: #eec;
+}
+.tip code{
+background-color: #cec;
+}
+.git code{
+background-color: #ece;
+}
+.info code{
+background-color: #cce;
+}
+dt {
+font-weight: bold;
+margin-bottom: 0.25em;
+}
+dd p {
+margin: 0;
+margin-bottom: 0.25em;
+}
+
+input[type=checkbox] {
+position: absolute;
+clip: rect(0, 0, 0, 0);
+top: 0;
+}
+input[type=checkbox] + label{
+font-family: "Gill Sans",Helvetica, sans-serif;
+font-weight: bold;
+position: relative;
+z-index: 1;
+}
+input[type=checkbox] + label::before{
+font-family: asides;
+padding: 0 0.5em 0 0.3em;
+font-size: 2em;
+content: "\e805";
+position: relative;
+top: 0.2em;
+}
+input[type=checkbox]:checked + label::before{
+padding-right: 0.45em;
+content: "\e806";
+}
+input[type=checkbox] ~ div{
+height: 0;
+overflow: hidden;
+position: relative;
+top: -2.2em;
+}
+input[type=checkbox]:checked ~ div{
+height: auto;
+padding: 0.5em;
+padding-top: 2em;
+border-width: 1px;
 }
 
 @media print
