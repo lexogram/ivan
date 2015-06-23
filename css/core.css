@@ -283,6 +283,31 @@ color: #66c;
 content: "\e802";
 color: #666;
 }
+
+input[type="checkbox"][id~=nix] + label::before,
+input[type="checkbox"][id~=nix]:checked + label::before {
+content: "\e807";
+/* color: #3e110c; */
+}
+input[type="checkbox"][id~=mac] + label::before,
+input[type="checkbox"][id~=mac]:checked + label::before {
+content: "\e808";
+/* color: #598Bee; */
+}
+input[type="checkbox"][id~=win] + label::before,
+input[type="checkbox"][id~=win]:checked + label::before {
+content: "\e809";
+/* color: #eecf83; */
+}
+input[type="checkbox"][id~=nix]:checked + label ,
+input[type="checkbox"][id~=nix]:checked + label::before,
+input[type="checkbox"][id~=mac]:checked + label ,
+input[type="checkbox"][id~=mac]:checked + label::before ,
+input[type="checkbox"][id~=win]:checked + label,
+input[type="checkbox"][id~=win]:checked + label::before {
+color: #333;
+}
+
 figure{
 text-align: center;
 }
@@ -299,6 +324,10 @@ font-style:oblique;
 }
 code{
 background-color: #eee;
+}
+
+div.details {
+margin-top: 1em;
 }
 .details div{
 background-color: #f8f8ff;
@@ -348,6 +377,7 @@ background-color: #ece;
 .info code{
 background-color: #ccf;
 }
+
 dt {
 font-weight: bold;
 margin-bottom: 0.25em;
