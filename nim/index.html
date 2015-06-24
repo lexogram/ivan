@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div id="content">
+<div id="container">
 <div id="side">
 <div class="column">
 <div class="logo">
@@ -71,10 +71,10 @@
 <pre>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
-    &lt;title&gt;This appears in the tab / title bar&lt;/title&gt;
+    &lt;title&gt;<span class="new">This appears in the tab / title bar</span>&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p&gt;This appears inside the browser window&lt;/p&gt;
+    &lt;p&gt;<span class="new">This appears inside the browser window</span>&lt;/p&gt;
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>
@@ -82,24 +82,25 @@
 <figure><img src="img/page.png" alt="screenshot of simple HTML page in different browsers"/>
 <figcaption>Figure 1: How HTML &lt;title&gt; and &lt;body&gt; HTML elements appear in a browser</figcaption></figure>
 <h3>Do It Yourself</h3>
-<p>It's easy to create your own HTML page. If you haven't already got a text editor, <a href="http://www.sublimetext.com/2">download and install a trial copy of Sublime Text</a>. Open your text editor and create a new document. In the programming community, it is a tradition that your first program in any new language should display the words <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program#History">"Hello World"</a>. You can type this (or any other message you like), then save your file as <code>index.html</code>.</p>
+<p>It's easy to create your own page and display it in a browser. If you haven't already got a text editor, <a href="http://www.sublimetext.com/2">download and install a trial copy of Sublime Text</a>. Open your text editor and create a new document.</p>
+<p>In the programming community, it is a tradition that your first program in any new language should display the words <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program#History">"Hello World"</a>. You can type this (or any other message you like), then save your file as <code>index.html</code>.</p>
 <p>Find the file that you have just created on your desktop, and double-click on it. It should open in your favourite browser.</p>
 <figure><img src="img/helloWorld.png" alt="A Hello World HTML page displayed in a browser" /><figcaption>Figure 2. A Hello World HTML page displayed in a Google Chrome</figcaption></figure>
 <h3>The starting page for your game</h3>
 <p>Only you can see the file on your desktop that you opened in your browser. You want other people in other places to see your game.</p>
-<p>Your next step will be to put an HTML file onto the GitHub server, so that anyone in the world can see it. But first, you'll want your HTML code to look professional. Copy the following text and paste it into your <code>index.html</code> document, then save it.</p>
-<pre>&lt;!DOCTYPE html&gt;
+<p>Your next step will be to put an HTML file onto this server, so that anyone in the world can see it. But first, you'll want your HTML code to look professional. Copy the following text and paste it into your <code>index.html</code> document, then save it.</p>
+<pre class="revised">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
-    &lt;title&gt;Nim&lt;/title&gt;
+    &lt;title&gt;<span class="new">Nim</span>&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p&gt;Your game will go here&lt;/p&gt;
+    &lt;p&gt;<span class="new">Your game will go here</span>&lt;/p&gt;
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>
 <p>What do you expect to see when you open this new version of your <code>index.html</code> file in your browser? Try it and see.</p>
-<p class="next">If you are eager to continue building your game, click on <a href="#git">3: Your GitHub repo</a> in the menu on the left. If you want to know more about what all this HTML code does, click on Understanding HTML Tags below and continue reading.</p>
+<p class="aside info">If you are eager to continue building your game, click on <a href="#git">3: Your GitHub repo</a> in the menu on the left. If you want to know more about what all this HTML code does, click on Understanding HTML Tags below and continue reading.</p>
 <div class="details">
 <input type="checkbox" id="details-html"/>
 <label for="details-html">Understanding HTML Tags</label>
@@ -166,6 +167,9 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 </ul>
 </div>
 </div>
+<!--footer>
+<a href=#html><img src="../img/arrow.png" alt="next" /></a>
+</footer-->
 </section>
 
 <!-- YOUR GITHUB REPO -->
@@ -177,6 +181,9 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <a href="https://pages.github.com/">GitHub Pages</a>
 <code>git --version</code>
 <a href="https://git-scm.com/downloads">Download Git</a>
+<!--footer>
+<a href=#html><img src="../img/arrow.png" alt="next" /></a>
+</footer-->
 </section>
 
 <!-- ADDING AN IMAGE -->
@@ -310,7 +317,10 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <p class="top">This tutorial shows you how to create a simple strategy game, where the computer will beat you every time, unless you know how to avoid the trap.</p>
 <p class="top">You will be learning to write HTML, CSS and JavaScript. You will also learn how to use GitHub to save and display your work, and how to write code that tests your code. You don't need any previous knowledge of programming, but an inquisitive mind is a bonus.</p>
 <p class="top aside info">You can see the completed game <a href="complete/">here</a>. You might like to try to beat the computer before you learn to write the code that will beat all other players.</p>
-<p>When you're ready to begin, click on item <a href="#html">2: Your HTML Page</a> in the menu on the left, or click on the Next &gt; arrow at the top right.</p>
+<p>When you're ready to begin, click on item <a href="#html">2: Your HTML Page</a> in the menu on the left, or click on the Next &gt; arrow below.</p>
+<!--footer>
+<a href=#html><img src="../img/arrow.png" alt="next" /></a>
+</footer-->
 </section>
 </article>
 </main>
