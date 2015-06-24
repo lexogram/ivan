@@ -76,6 +76,9 @@ font-weight:bold;
 margin: 0 1em;
 font-weight: normal;
 }
+#arrows ul{
+  display:none;
+}
 nav ul li {
 padding: 0.25em 1em;
 }
