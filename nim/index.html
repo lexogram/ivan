@@ -17,7 +17,9 @@
 <ol>
 <li><a href="#top">Overview</a></li>
 <li><a href="#html">Your HTML page</a></li>
-<li><a href="#git">Your GitHub repo</a></li>
+<li><a href="#git">Getting Git</a></li>
+<li><a href="#github">Your GitHub repo</a></li>
+<li><a href="#branch">Creating a branch</a></li>
 <li><a href="#image">Adding an image</a></li>
 <li><a href="#push">Saving to GitHub</a></li>
 <li><a href="#div">Rows of images</a></li>
@@ -79,17 +81,16 @@
 &lt;/html&gt;
 </pre>
 <p>Here's how this HTML page looks in different browsers.</p>
-<figure><img src="img/page.png" alt="screenshot of simple HTML page in different browsers"/>
+<figure><img src="img/01_page.png" alt="screenshot of simple HTML page in different browsers"/>
 <figcaption>Figure 1: How HTML &lt;title&gt; and &lt;body&gt; HTML elements appear in a browser</figcaption></figure>
 <h3>Do It Yourself</h3>
-<p>It's easy to create your own page and display it in a browser. If you haven't already got a text editor, <a href="http://www.sublimetext.com/2">download and install a trial copy of Sublime Text</a>. Open your text editor and create a new document.</p>
-<p>In the programming community, it is a tradition that your first program in any new language should display the words <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program#History">"Hello World"</a>. You can type this (or any other message you like), then save your file as <code>index.html</code>.</p>
+<p>In fact, your browser will display even simpler pages. In the programming community, it is a tradition that your first program in any new language should display the words <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program#History">"hello world"</a>. To honour that tradition, you can create your own Hello World page and open it in your browser.</p>
+<p>If you haven't already got a text editor, <a href="http://www.sublimetext.com/2">download and install a trial copy of Sublime Text</a>. Open your text editor and create a new document. You can type <code>hello world</code></center> (or any other message you like), then save your file as <code>index.html</code>.</p>
 <p>Find the file that you have just created on your desktop, and double-click on it. It should open in your favourite browser.</p>
-<figure><img src="img/helloWorld.png" alt="A Hello World HTML page displayed in a browser" /><figcaption>Figure 2. A Hello World HTML page displayed in a Google Chrome</figcaption></figure>
-<h3>The starting page for your game</h3>
-<p>Only you can see this file that you saved on your local hard drive and that you opened in your browser. You want other people in other places to see your game.</p>
-<p>Your next step will be to put an HTML file onto this server, so that anyone in the world can see it.
-<p class="aside info">If you are eager to continue building your game, click on <a href="#git">3: Your GitHub repo</a> in the menu on the left. If you want to know more about what all this HTML code does, click on Understanding HTML Tags below and continue reading.</p>
+<figure><img src="img/02_helloWorld.png" alt="A Hello World HTML page displayed in a browser" /><figcaption>Figure 2. A Hello World HTML page displayed in a Google Chrome</figcaption></figure>
+<h3>Hello... Desktop</h3>
+<p>Actually, the world can't see your message yet. This file that you saved on your local hard drive is only visible in your browser. Your next step will be to put an HTML file onto this server, so that anyone in the world can see it.
+<p class="aside next">If you are eager to continue building your game, click on <a href="#git">3: Getting Git</a> in the menu on the left. Your Hello World message should be online when you have completed step 5. If you want to know more about what all the HTML code does, click on Understanding HTML Tags below and continue reading.</p>
 <div class="details">
 <input type="checkbox" id="details-html"/>
 <label for="details-html">Understanding HTML Tags</label>
@@ -137,7 +138,7 @@
 <input type="checkbox" id="nuggets-html"/>
 <label for="nuggets-html">Tips and Tricks</label>
 <div>
-<figure class="aside tip"><p>If you are using Sublime Text, you can use a shortcut to open your HTML file in a browser.</p><img src="img/openInBrowser.png" alt="Sublime Text's right-click shortcut to open an HTML file in your browser" /><figcaption>Figure 3. Right-click on your document and choose Open In Browser</figcaption></figure>
+<figure class="aside tip"><p>If you are using Sublime Text, you can use a shortcut to open your HTML file in a browser.</p><img src="img/03_openInBrowser.png" alt="Sublime Text's right-click shortcut to open an HTML file in your browser" /><figcaption>Figure 3. Right-click on your document and choose Open In Browser</figcaption></figure>
 <p class="aside info">
 Why call your file <code>index.html</code>? In fact, you could call your html file anything you like. The fact that the first line is <code>&lt;!DOCTYPE html&gt;</code> tells your browser all it needs to know. When you visit a site, if your browser doesn't ask for any particular file, the server on the site will send you <code>index.html</code> by default, if a file with that name exists. Unless you have a very good reason for using a different name, it is good practice to use <code>index.html</code></p>
 <p class="aside note">As you saw in your Hello World test, if a file has an <code>.html</code> extension, most modern browsers will treat everything inside it as HTML, even if there is no <code>&lt;html&gt;</code> element, if there is more than one <code>&lt;html&gt;</code> element, or if there is text outside the <code>html</code> element. Modern browsers may also display content correctly even if the <code>body</code> is missing, or if there is more than one <code>body</code> element. Nonetheless, it is good practice to use these elements correctly. Other developers will notice if your code is badly written.</p>
@@ -161,21 +162,210 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 </footer-->
 </section>
 
-<!-- YOUR GITHUB REPO -->
+<!-- GETTING GIT -->
 <section id="git">
-<h2>Creating a Repository on GitHub</h2>
+<h2>Getting started with Git</h2>
 <p>GitHub is a meeting place for the open source community, where ideas are shared, where everyone can benefit from the energy and initiatives of others. A budding programmer like you has everything to gain from joining a community like this.</p>
-<p>The Git application itself tracks the progress of your project. It creates a space for you make experiments, to make mistakes, to explore new possibilities without getting lost. 
-</p>
-<p>It's quite possible that git is already installed on your computer</p>
-<a href="https://guides.github.com/activities/hello-world/">Hello World tutorial</a>
-<p>Add a license</p>
-<a href="https://pages.github.com/">GitHub Pages</a>
+<p>The Git application itself tracks the progress of your project. It creates a space for you make experiments, to make mistakes, to explore new possibilities without getting lost.</p>
+<h3>git --version</h3>
+<p>It's quite possible that git is already installed on your computer. To find out, <a href="/html/terminal.html">open a Terminal window</a> and type:</p>
+<pre>git --version</pre>
+<p>If all goes well, you should see something like the screenshot below.</p>
+<figure>
+<img src="img/04_versionWin.png" alt="Command Prompt showing git --" />
+<img src="img/04_versionMac.png" alt="Terminal showing git --" />
+<figcaption>Figure 4. Running <code>git --version</code> on different operating systems</figcaption>
+</figure>
+<p class="aside note">If your version of git is 1.7.4.4 or earlier, or if you see a message like <code>git is not a recognized command</code>, then you can find more details in the Installing and Updating Git section below.</p>
+<p class="aside next">If you simply want to keep moving forward, then click on <a href="#github">4: Your GitHub repo</a> in the menu on the left. If you want to learn more about <code>git</code> commands, then you can continue reading the Understanding Git Commands section.</p>
+
+<div class="trouble">
+<input type="checkbox" id="git-version-trouble"/>
+<label for="git-version-trouble">Installing and Updating Git</label>
+<div>
+<p>Installing Git</p>
+<p>Updating Git</p>
 <code>git --version</code>
 <a href="https://git-scm.com/downloads">Download Git</a>
+</div>
+</div>
+
+<div class="details">
+<input type="checkbox" id="git-command-details"/>
+<label for="git-command-details">Understanding Git Commands</label>
+<div>
+<p></p>
+<h4></h4>
+</div>
+</div>
+
+<div class="nuggets">
+<input type="checkbox" id="nuggets-html"/>
+<label for="nuggets-html">Tips and Tricks</label>
+<div>
+<p>You can use the Git application to work with many different sites that provide version control hosting. Some examples are: <a href="https://bitbucket.org/">Bitbucket</a> and <a href="https://gitlab.com/">GitLab</a>. Other sites that help you to create applications in the cloud, such as <a href="https://www.heroku.com/">Heroku</a> and <a href="https://c9.io/">Cloud 9</a> offer integration with GitHub.</p>
+<p>You can find a list of hosted version control services on <a href="http://www.slant.co/topics/153/~what-is-the-best-hosted-version-control-service">slant.co</a></p>
+</div>
+</div>
 <!--footer>
 <a href=#html><img src="../img/arrow.png" alt="next" /></a>
 </footer-->
+</section>
+
+<!-- YOUR GITHUB REPO -->
+<section id="github">
+<h2>Your GitHub repository</h2>
+<p>Now you're ready to open a GitHub acccount. This wont't take long (although finding a username that you like and that isn't already taken can be time-consuming). I've used the name "blackslate" in my examples.</p>
+<p>Go to the <a href="https://github.com/join">Join GitHub</a> page, and fill in the form.</p>
+<p class="aside note">At the time of writing, Git requires you to use only the characters <code>A-Z</code>, <code>a-z</code> and <code>-</code> (hyphens) for your username and for the names of your projects. Names with other punctuation, special characters, accents or non-Roman letters, like <span class="gold">!android_</span> or <span class="gold">Andréa</span> or <span class="gold">Андрей</span>, are not permitted.</p>
+<figure>
+<img src="05_joinGitHub.png" alt="" />
+<figcaption>Figure 5. Create a personal account on GitHub</figcaption>
+</figure>
+<figure>
+<img src="06_choosePlan.png" alt="" />
+<figcaption>Figure 6. Choose a free plan</figcaption>
+</figure>
+<figure>
+<img src="07_newRepository.png" alt="" />
+<figcaption>Figure 7. You're ready to create a repository</figcaption>
+</figure>
+<p class="aside tip">You might like to take GitHub's own tour now, to learn about the basic Git commands, or you might like to bookmark the <a href="https://guides.github.com/activities/hello-world/">Hello World tutorial</a> or the <a href="try.github.io/">Try Git tutorial</a> so that you can come back to these after the world has seen you say "Hello!"</p>
+<p>On the right of the page, you can see a big green New Repository button. Click on that and fill in the Repository Name field. This first time, to keep everything simple, leave everything else exactly the way it is, and click on the Create Repository button. It's a good idea to fill in the optional Description field, though.</p>
+<figure>
+<img src="08_createRepository.png" alt="" />
+<figcaption>Figure 8. Give your project a name</figcaption>
+</figure>
+<p>You'll find yourself on a page full of choices and command line code. No worries. When you find yourself here again later, you will have a much clearer understanding of what all this means.</p>
+<figure>
+<img src="09_copyRepoURL.png" alt="" />
+<figcaption>Figure 9. Copy the URL for your new repository</figcaption>
+</figure>
+<p>The most important thing to do now is to <strong>copy the URL for your new GitHub repository</strong>. You can do this by clicking on the Copy To Clipboard button, as shown in Figure 10 above. You'll need to paste this URL into a Terminal window in the next step.</p>
+<p class="aside next">Your immediate aim is to get your Hello World page online, so I propose to take an unconventional shortcut. If you want to know what the conventional path is, then you can read the Branches and Pages section below. If you want to move along quickly, just click on the item <a href="#branch">5: Creating a branch</a> in the menu on the left.</p>
+
+<div class="details">
+<input type="checkbox" id="master-branch-details"/>
+<label for="master-branch-details">Branches and Pages</label>
+<div>
+<p>The repository that you have just created is empty. By default, Git calls it <span class="keyword">master</span>. You can think of it as the main trunk of a tree.</p>
+<p>Normally, you would save your work in the master <span class="keyword">branch</span> of your project. When you want to add something new to your project, the normal practice is to create a secondary branch, and to work on that.This means that the master branch remains strong and solid, and any mistakes you make while you are working will not affect it. When everything in the new branch is working well, you can <span class="keyword">merge</span> it back into the main branch, like one arm of a river follows a different course before flowing back into the main channel.</p>
+<p>You can give your branches any name you like (so long as they only use the 53 permitted characters). Normally, you would use a name that describes the change you are about to make.</p>
+<p>While you are working on a project, it is often helpful to maintain a web site to let people know what you are doing, how they can help, and how your project can help them. GitHub has used a neat technique that allows you to integrate your website into your GitHub repository itself.</p>
+<p><strong>If you create a branch called <span class="keyword">gh-pages</span> (short for GitHub pages), and you place a file named <code>index.html</code> in the root folder of the branch, then GitHub will automatically treat the gh-pages branch as a web site.</strong></p>
+<p>You can find more information about this at <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+<p>To get your first project online as quickly as possible, you can :</p>
+<ul>
+  <li>Create a master branch (as you have just done) and leave it empty</li>
+  <li>Create a gh-pages branch (as you are about to do) and use it for all your development.</li>
+  <li>Create secondary branches, as your work progresses, and merge them back into the gh-pages branch when you are ready.</li>
+</ul>
+<p>Telling the world about your project is the best way to find people who are willing to help you. In future projects, you will know how to create a strong web presence, right from the beginning... and you will also know that you should use the <span class="keyword">master</span> branch for your main development.</p>
+</div>
+</div>
+
+<div class="trouble">
+<input type="checkbox" id="git-repo-trouble"/>
+<label for="git-version-trouble">Troubleshooting your first repo</label>
+<div>
+<p>Oops. Something went wrong. Here are some things that you can check.</p>
+<dl>
+  <dt>When you created your repository, did you click on any buttons, other than Create Repository?</dt>
+  <dd>If you added a ReadMe file, a .gitignore file or a license file to your repository, online through the GitHub "new repository" page, then the remote repository on the GitHub site will already contain files. You won't be able to push any new files to the remote repository until you have downloaded them to your local repository.</dd>
+</dl>
+  
+</ul>
+</div>
+</div>
+
+</section>
+
+<!-- CREATING A BRANCH -->
+<section id="branch">
+<h2>Creating a branch</h2>
+<blockquote>Any sufficiently advanced technology is indistinguishable from magic.
+<cite>Arthur C. Clarke</cite>
+</blockquote>
+<p>You've just created an empty <span class="keyword">master</span> repository, like a dry river bed. And now I'm going to show you how to make a <span class="keyword">branch</span> from this repository. This is much easier to do when the master repository is still empty.</p>
+<p class="aside kudos">Many thanks to <a href="https://github.com/cmrberry">Rachel Berry</a> of GitHub for pointing out this technique to me.</p>
+
+<p>The next few instructions may seem a little like magic to you for now, but you will soon make sense of them. You can read up about the git commands in the Understanding Cloning section below. Here's what you need to do:</p>
+<ul>
+<li>On your desktop, create an empty folder in the place where you would like to save your new project. I called my folder <code>nim</code>. It might be easier for you if you do the same.</li>
+<li>Open a Terminal window. You're going to create a command that gives it control of your new <code>nim</code> folder.</li>
+<li>Type <code>cd&nbsp;</code> (that's "cd " followed by a space). This means <span class="keyword">change directory</span>.</li>
+<li>Drag the icon of your <code>nim</code> folder onto the Terminal window. This will automatically insert the path to your folder after the <code>cd&nbsp;</code> that you have just typed.</li>
+<li>Press the Enter key to execute the command. You can imagine that the Terminal now has power over what happens in the <code>nim</code> folder.</li>
+</ul>
+<figure>
+<img src="10_cdCommand.png" alt="" />
+<figcaption>Figure 10. Using the <code>cd</code> command in a Terminal window</figcaption>
+</figure>
+<ul>
+<li>Still in the Terminal window, type: <code>git clone&nbsp;</code> (followed by a space), then paste in the URL that you copied at the end of the last step, then add a space and <code>&nbsp;gh-pages</code>. The complete command might look something like this:<br /><code>git clone https://github.com/blackslate/nim.git gh-pages</code>
+<br />Press the Enter key.</li>
+</ul>
+<p class="aside note">On Windows, the standard Ctrl-V keyboard shortcut may not work in a Command Prompt window. You may need to right-click, then select Paste from the contextual menu.</p>
+<p>The clone command should copy all the contents of your new repository on the GitHub server (which is empty) into a folder named <code>gh-pages</code> inside your <code>nim</code> folder. The output in the Terminal should look something like this:</p>
+<figure>
+<img src="11_clone.png" alt="" />
+<figcaption>Figure 11. Using <code>git clone</code> to create a local repository.</figcaption>
+</figure>
+<p>The <code>git clone</code> command also created an invisible folder called <code>.git</code> inside the new <code>gh-pages</code> folder, as you can see in Figure 13 below. This contains all the data that the Git application needs to keep track of the changes that you make to your project.</p>
+<figure>
+<img src="12_invisibleGit.png" alt="" />
+<figcaption>Figure 12. The contents of the invisible <code>.git</code> folder</figcaption>
+</figure>
+<p class="aside tip">To learn how to make "invisible" files visible on your computer, you can read the Tips and Tricks section below.</p>
+<p>Now for some more command line magic. (Do you remember what the <code>cd&nbsp;</code> command does?)</p>
+<ul>
+  <li>In the Terminal window, type the following 3 commands:</li>
+</ul>
+<pre>cd gh-pages
+git checkout --orphan gh-pages
+git status</pre>
+<p>To understand what the <code>checkout --orphan</code> command does, see the Tips and Tricks section below. The <code>git status</code> command is one that you will use often. It lists all the files that you have changed, before you <span class="keyword">commit</span> the changes to Git's memory system.</p>
+<p>Here's how your Terminal window might look now:</p>
+<figure>
+<img src="13_orphanBranch.png" alt="" />
+<figcaption>Figure 13. Checking out a new <span class="keyword">orphan</span> branch of your project</figcaption>
+</figure>
+<p>Just a few more actions, and you'll see your Hello World web page online.</p>
+<ul>
+<li>On your computer desktop, find the <code>index.html</code> file that you made in step 2, and drag or copy it into your new gh-pages folder.</li>
+<li>In the Terminal window, run the <code>git status</code> command again. You'll see that Git is aware of the change that you have made.</li>
+</ul>
+<figure>
+<img src="14_status.png" alt="" />
+<figcaption>Figure 14. The <code>status</code> of your project is updated each time you make a change.</figcaption>
+</figure>
+<ul>
+<li>Now you're going to tell Git that you are confident about the changes that you have made. In the Terminal window, type the following 3 commands:</li>
+</ul>
+<pre>git add -A
+git commit -m "Initial commit to the gh-pages branch"
+git push origin gh-pages
+</pre>
+<figure>
+<img src="15_commit.png" alt="" />
+<figcaption>Figure 15. Pushing your changes to the remote GitHub repository</figcaption>
+</figure>
+<p>That's it! Now you can visit your new web site is your browser. Just one last action: to type in the URL for your GitHub site. For me, it will be:</p>
+<a href="http://blackslate.github.io/nim/">http://blackslate.github.io/nim/</a>
+<p>For you, if you called your repository "nim", then all you have to do is replace my "blackslate" username with your own username</p>
+<p>http://&lt;yourUserName&gt;.github.io/nim/</p>
+<figure>
+<img src="16_helloWorld.png" alt="" />
+<figcaption>Figure 16. A Hello that the world can see</figcaption>
+</figure>
+
+<div class="nuggets">
+<input type="checkbox" id="nuggets-html"/>
+<label for="nuggets-html">Tips and Tricks</label>
+<div>
+<p class="aside tip">Showing invisible files</p>
+</div>
+</div>
 </section>
 
 <!-- ADDING AN IMAGE -->
@@ -309,7 +499,7 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <p class="top">This tutorial shows you how to create a simple strategy game, where the computer will beat you every time, unless you know how to avoid the trap.</p>
 <p class="top">You will be learning to write HTML, CSS and JavaScript. You will also learn how to use GitHub to save and display your work, and how to write code that tests your code. You don't need any previous knowledge of programming, but an inquisitive mind is a bonus.</p>
 <p class="top aside info">You can see the completed game <a href="complete/">here</a>. You might like to try to beat the computer before you learn to write the code that will beat all other players.</p>
-<p>When you're ready to begin, click on item <a href="#html">2: Your HTML Page</a> in the menu on the left, or click on the Next &gt; arrow below.</p>
+<p class="aside next">When you're ready to begin, click on item <a href="#html">2: Your HTML Page</a> in the menu on the left.</p>
 <!--footer>
 <a href=#html><img src="../img/arrow.png" alt="next" /></a>
 </footer-->

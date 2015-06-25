@@ -10,6 +10,7 @@ html,
 body {
 height: 100%;
 font-family: Helvetica, sans-serif;
+font-size: 13px;
 }
 html{
 margin: 0;
@@ -103,9 +104,28 @@ a:hover,
 a:active  {
 color: #339;
 }
+.next a:link {
+color:#060;
+}
+.next a:visited {
+color: #030;
+}
+.next a:hover,
+.next a:active  {
+color: #393;
+}
 #side nav li:hover {
 background-color: rgba(0,0,255,0.1);
 transition: 0.3s;
+}
+
+blockquote {
+font-style: oblique;
+}
+cite {
+display: block;
+color: #66c;
+font-style: normal;
 }
 
 main {
@@ -220,6 +240,8 @@ display: block;
 .tip,
 .git,
 .info,
+.next,
+.kudos,
 pre {
 display: block;
 padding: 0.5em;
@@ -241,10 +263,10 @@ border-right-color: #eed;
 border-bottom-color: #eed;
 }
 .tip {
-background: #e4fde7;
-border-color: #efe;
-border-right-color: #ded;
-border-bottom-color: #ded;
+background: #e4fdfd;
+border-color: #eff;
+border-right-color: #dee;
+border-bottom-color: #dee;
 }
 .git {
 background: #fde7fd;
@@ -258,11 +280,23 @@ border-color: #eef;
 border-right-color: #dde;
 border-bottom-color: #dde;
 }
+.next {
+background: #e4fde4;
+border-color: #efe;
+border-right-color: #ded;
+border-bottom-color: #ded;
+}
+.kudos {
+background: #e0d0ff;
+border-color: #edf;
+border-right-color: #dce;
+border-bottom-color: #dce;
+}
 pre {
 background: #eee;
 border-color: #ccc;
-border-right-color: #eee;
-border-bottom-color: #eee;
+border-right-color: #f4f4ff;
+border-bottom-color: #f4f4ff;
 }
 .aside::before {
 font-family: asides;
@@ -279,14 +313,30 @@ color: #cc6;
 }
 .tip::before {
 content: "\e804";
-color: #6c6;
+color: #6cc;
 }
 .info::before {
-content: "\e801"; /* "\f129"; */
+content: "\e801";
 color: #66c;
 }
+.next::before {
+content: "\e80b";
+color: #6c6;
+}
+.kudos::before {
+content: "\e80d";
+color: #96c;
+}
 .git::before {
+content: "\e80c";
+color: #666;
+}
+.hub::before {
 content: "\e802";
+color: #666;
+}
+.cc::before {
+content: "\e80a";
 color: #666;
 }
 
@@ -318,7 +368,7 @@ figure{
 text-align: center;
 }
 figcaption{
-font-size: 0.8em;
+font-size: 0.9em;
 font-weight: bold;
 }
 figure p {
@@ -347,15 +397,15 @@ background-color: #eef;
 color: #336;
 }
 .nuggets div{
-background-color: #f8fff8;
-border: 0px solid #efe;
+background-color: #f8ffff;
+border: 0px solid #eff;
 }
 .nuggets code{
-background-color: #efe;
+background-color: #eff;
 }
 .nuggets label,
 .nuggets label::before{
-color: #363;
+color: #366;
 }
 .trouble div{
 background-color: #ffe;
@@ -428,10 +478,6 @@ padding: 0.5em;
 padding-top: 2em;
 border-width: 1px;
 }
-p.next {
-color: #336;
-font-style: oblique;
-}
 span.new {
 font-weight: bold;
 color: #000;
@@ -439,6 +485,9 @@ color: #000;
 span.red {
 font-weight: bold;
 color: #900;
+}
+span.gold {
+color: #960;
 }
 pre.revised {
 font-weight: normal;
@@ -456,5 +505,5 @@ background:#ccf;
 @media print
 {
   #side, header img { display: none; }
-  main, header { display: block; }
+  main, header, section { display: block; }
 }
