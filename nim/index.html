@@ -219,26 +219,26 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <p>Go to the <a href="https://github.com/join">Join GitHub</a> page, and fill in the form.</p>
 <p class="aside note">At the time of writing, Git requires you to use only the characters <code>A-Z</code>, <code>a-z</code> and <code>-</code> (hyphens) for your username and for the names of your projects. Names with other punctuation, special characters, accents or non-Roman letters, like <span class="gold">!android_</span> or <span class="gold">Andréa</span> or <span class="gold">Андрей</span>, are not permitted.</p>
 <figure>
-<img src="05_joinGitHub.png" alt="" />
+<img src="img/05_joinGitHub.png" alt="" />
 <figcaption>Figure 5. Create a personal account on GitHub</figcaption>
 </figure>
 <figure>
-<img src="06_choosePlan.png" alt="" />
+<img src="img/06_choosePlan.png" alt="" />
 <figcaption>Figure 6. Choose a free plan</figcaption>
 </figure>
 <figure>
-<img src="07_newRepository.png" alt="" />
+<img src="img/07_newRepository.png" alt="" />
 <figcaption>Figure 7. You're ready to create a repository</figcaption>
 </figure>
 <p class="aside tip">You might like to take GitHub's own tour now, to learn about the basic Git commands, or you might like to bookmark the <a href="https://guides.github.com/activities/hello-world/">Hello World tutorial</a> or the <a href="try.github.io/">Try Git tutorial</a> so that you can come back to these after the world has seen you say "Hello!"</p>
 <p>On the right of the page, you can see a big green New Repository button. Click on that and fill in the Repository Name field. This first time, to keep everything simple, leave everything else exactly the way it is, and click on the Create Repository button. It's a good idea to fill in the optional Description field, though.</p>
 <figure>
-<img src="08_createRepository.png" alt="" />
+<img src="img/08_createRepository.png" alt="" />
 <figcaption>Figure 8. Give your project a name</figcaption>
 </figure>
 <p>You'll find yourself on a page full of choices and command line code. No worries. When you find yourself here again later, you will have a much clearer understanding of what all this means.</p>
 <figure>
-<img src="09_copyRepoURL.png" alt="" />
+<img src="img/09_copyRepoURL.png" alt="" />
 <figcaption>Figure 9. Copy the URL for your new repository</figcaption>
 </figure>
 <p>The most important thing to do now is to <strong>copy the URL for your new GitHub repository</strong>. You can do this by clicking on the Copy To Clipboard button, as shown in Figure 10 above. You'll need to paste this URL into a Terminal window in the next step.</p>
@@ -298,7 +298,7 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <li>Press the Enter key to execute the command. You can imagine that the Terminal now has power over what happens in the <code>nim</code> folder.</li>
 </ul>
 <figure>
-<img src="10_cdCommand.png" alt="" />
+<img src="img/10_cdCommand.png" alt="" />
 <figcaption>Figure 10. Using the <code>cd</code> command in a Terminal window</figcaption>
 </figure>
 <ul>
@@ -308,12 +308,12 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <p class="aside note">On Windows, the standard Ctrl-V keyboard shortcut may not work in a Command Prompt window. You may need to right-click, then select Paste from the contextual menu.</p>
 <p>The clone command should copy all the contents of your new repository on the GitHub server (which is empty) into a folder named <code>gh-pages</code> inside your <code>nim</code> folder. The output in the Terminal should look something like this:</p>
 <figure>
-<img src="11_clone.png" alt="" />
+<img src="img/11_clone.png" alt="" />
 <figcaption>Figure 11. Using <code>git clone</code> to create a local repository.</figcaption>
 </figure>
 <p>The <code>git clone</code> command also created an invisible folder called <code>.git</code> inside the new <code>gh-pages</code> folder, as you can see in Figure 13 below. This contains all the data that the Git application needs to keep track of the changes that you make to your project.</p>
 <figure>
-<img src="12_invisibleGit.png" alt="" />
+<img src="img/12_invisibleGit.png" alt="" />
 <figcaption>Figure 12. The contents of the invisible <code>.git</code> folder</figcaption>
 </figure>
 <p class="aside tip">To learn how to make "invisible" files visible on your computer, you can read the Tips and Tricks section below.</p>
@@ -327,7 +327,7 @@ git status</pre>
 <p>To understand what the <code>checkout --orphan</code> command does, see the Tips and Tricks section below. The <code>git status</code> command is one that you will use often. It lists all the files that you have changed, before you <span class="keyword">commit</span> the changes to Git's memory system.</p>
 <p>Here's how your Terminal window might look now:</p>
 <figure>
-<img src="13_orphanBranch.png" alt="" />
+<img src="img/13_orphanBranch.png" alt="" />
 <figcaption>Figure 13. Checking out a new <span class="keyword">orphan</span> branch of your project</figcaption>
 </figure>
 <p>Just a few more actions, and you'll see your Hello World web page online.</p>
@@ -336,7 +336,7 @@ git status</pre>
 <li>In the Terminal window, run the <code>git status</code> command again. You'll see that Git is aware of the change that you have made.</li>
 </ul>
 <figure>
-<img src="14_status.png" alt="" />
+<img src="img/14_status.png" alt="" />
 <figcaption>Figure 14. The <code>status</code> of your project is updated each time you make a change.</figcaption>
 </figure>
 <ul>
@@ -347,7 +347,7 @@ git commit -m "Initial commit to the gh-pages branch"
 git push origin gh-pages
 </pre>
 <figure>
-<img src="15_commit.png" alt="" />
+<img src="img/15_commit.png" alt="" />
 <figcaption>Figure 15. Pushing your changes to the remote GitHub repository</figcaption>
 </figure>
 <p>That's it! Now you can visit your new web site is your browser. Just one last action: to type in the URL for your GitHub site. For me, it will be:</p>
@@ -355,7 +355,7 @@ git push origin gh-pages
 <p>For you, if you called your repository "nim", then all you have to do is replace my "blackslate" username with your own username</p>
 <p>http://&lt;yourUserName&gt;.github.io/nim/</p>
 <figure>
-<img src="16_helloWorld.png" alt="" />
+<img src="img/16_helloWorld.png" alt="" />
 <figcaption>Figure 16. A Hello that the world can see</figcaption>
 </figure>
 

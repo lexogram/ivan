@@ -366,6 +366,7 @@ color: #333;
 
 figure{
 text-align: center;
+margin:0;
 }
 figcaption{
 font-size: 0.9em;
