@@ -412,8 +412,9 @@ color: #366;
 background-color: #ffe;
 border: 0px solid #ffc;
 }
-.trouble code{
-background-color: #ffe;
+.trouble code,
+.trouble pre{
+background-color: #eed;
 }
 .trouble label,
 .trouble label::before{
