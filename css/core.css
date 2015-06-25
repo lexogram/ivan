@@ -426,13 +426,16 @@ background-color: #ecc;
 background-color: #eec;
 }
 .tip code{
-background-color: #cec;
+background-color: #ecc;
 }
 .git code{
 background-color: #ece;
 }
 .info code{
 background-color: #ccf;
+}
+.next code{
+background-color: #cfc;
 }
 
 dt {
