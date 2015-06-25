@@ -317,7 +317,7 @@ border-bottom-color: #f4f4ff;
 div.aside p:last-child {
 margin-bottom: 0;
 }
-.nuggets .aside {
+.tips .aside {
 margin: 0.5em 3em;
 }
 .aside::before {
@@ -409,7 +409,7 @@ code{
 background-color: #eee;
 }
 
-div.details {
+.aside + div.optional {
 margin-top: 1em;
 }
 .details div{
@@ -423,15 +423,15 @@ background-color: #eef;
 .details label::before{
 color: #336;
 }
-.nuggets div{
+.tips div{
 background-color: #f8ffff;
 border: 0px solid #eff;
 }
-.nuggets code{
+.tips code{
 background-color: #eff;
 }
-.nuggets label,
-.nuggets label::before{
+.tips label,
+.tips label::before{
 color: #366;
 }
 .trouble div{
