@@ -18,7 +18,7 @@ background: #002;
 }
 body{
 max-width: 800px;
-min-width: 512px;
+min-width: 480px;
 margin: 0 auto;
 }
 
@@ -313,6 +313,12 @@ background: #eee;
 border-color: #ccc;
 border-right-color: #f4f4ff;
 border-bottom-color: #f4f4ff;
+}
+div.aside p:last-child {
+margin-bottom: 0;
+}
+.nuggets .aside {
+margin: 0.5em 3em;
 }
 .aside::before {
 font-family: asides;
