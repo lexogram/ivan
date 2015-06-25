@@ -114,6 +114,14 @@ color: #030;
 .next a:active  {
 color: #393;
 }
+.mail a:link,
+.mail a:visited {
+color: #ccc;
+}
+.mail a:hover,
+.mail a:active  {
+color: #eee;
+}
 #side nav li:hover {
 background-color: rgba(0,0,255,0.1);
 transition: 0.3s;
@@ -242,6 +250,7 @@ display: block;
 .info,
 .next,
 .kudos,
+.mail,
 pre {
 display: block;
 padding: 0.5em;
@@ -292,6 +301,13 @@ border-color: #edf;
 border-right-color: #dce;
 border-bottom-color: #dce;
 }
+.mail {
+background: #336;
+border-color: #669;
+border-right-color: #003;
+border-bottom-color: #003;
+color: #fff;
+}
 pre {
 background: #eee;
 border-color: #ccc;
@@ -326,6 +342,10 @@ color: #6c6;
 .kudos::before {
 content: "\e80d";
 color: #96c;
+}
+.mail::before {
+content: "\e80e";
+color: #fff;
 }
 .git::before {
 content: "\e80c";
