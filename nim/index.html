@@ -176,17 +176,38 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <img src="img/04_versionMac.png" alt="Terminal showing git --" />
 <figcaption>Figure 4. Running <code>git --version</code> on different operating systems</figcaption>
 </figure>
-<p class="aside note">If your version of git is 1.7.9.5 or earlier, or if you see a message like <code>git is not a recognized command</code>, then you can find more details in the Installing and Updating Git section below.</p>
+<p class="aside note">If your version of git is 1.7.9.5 or earlier, or if you see a message like <code>git is not a recognized command</code>, then you can find more details about what to do in the Installing and Updating Git section below.</p>
 <p class="aside next">If you simply want to keep moving forward, then click on <a href="#github">4: Your GitHub repo</a> in the menu on the left. If you want to learn more about <code>git</code> commands, then you can continue reading the Understanding Git Commands section.</p>
 
 <div class="trouble">
 <input type="checkbox" id="git-version-trouble"/>
 <label for="git-version-trouble">Installing and Updating Git</label>
 <div>
-<p>Installing Git</p>
-<p>Updating Git</p>
-<code>git --version</code>
-<a href="https://git-scm.com/downloads">Download Git</a>
+<h4>Installing Git: Windows</h4>
+<p>Git is not installed by default on the Windows operating system. The easiest way to install it is to <a href="https://git-scm.com/download/win">download an installer</a>. When you click on the link, the download should start automatically.</p>
+<p class="aside warn">You can launch the installer application and simply click on the Next &gt; button, <strong>until you reach the screen Adjusting Your PATH Environment</strong>. (See image below). Here, it is best to select the Use Git From The Windows Command Prompt radio button. The Windows Command Prompt uses the Windows-standard <code>/</code> character in path names, which means that you can copy and paste path names from the Explorer windows, or drag files onto the Command Prompt window to paste their paths automatically into the window. Perhaps later, you will prefer to use the Git Bash application: selecting the second radio button, as shown in the image below, will allow you to choose the option you like best.</p>
+<figure>
+<img src="img/04_installGitWindows.png" alt="" />
+<figcaption>Choose - Use Git From The Windows Command Prompt</figcaption>
+</figure>
+<h4>Updating Git: Mac</h4>
+<p>Git is installed by default on Mac OS X. However, older versions of the Mac operating system may have versions which are now considered obsolete. Mac OS 10.8 (Snow Leopard) for example, comes with version 1.7.4.4. Using this would cause an error if relied on it when following the instructions in section 5.</p>
+<p>The Mac OS X operating system relies on its own version of Git for certain housekeeping tasks. As a result, is is better not to update the pre-installed version of Git.</p>
+<p>A safer option is to install an up-to-date version of Git, and to use the newer version for all your work.</p>
+<p>You can <a href="https://git-scm.com/downloads">download the most recent version of Git</a> from git-scm.com, and run the installer. However, when you run <code>git --version</code> in the Terminal window, you will probably see that the old version continues to be used.</p>
+<p>To tell your Mac that you want to use the newer version, you need to execute some command line commands. Here are commands that I use on Mac OS 10.8.5 after running the Git installer for version 2.3.5:</p>
+<pre class="revised"><span class="new">git --version
+git version 1.7.4.4
+<span class="new">which git</span>
+/usr/bin/git</pre>
+<p>The original version is still active. It as located in a hidden folder. The Git installer places the new version in a different hidden file. The next command tells Mac OS X where to find the newer version. The following commands confirm that the newer version is now active.</p>
+<pre>
+<span class="new">PATH=/usr/local/git/bin:$PATH</span>
+<span class="new">which git</span>
+/usr/local/git/bin/git
+<span class="new">git --version</span>
+git version 2.3.5
+</pre>
 </div>
 </div>
 
@@ -413,12 +434,6 @@ git push origin gh-pages
 <!-- THE GAME LAYOUT -->
 <section id="layout">
 <h2>The Game Layout</h2>
-<p></p>
-</section>
-
-<!-- SNTH -->
-<section id="git">
-<h2>snth</h2>
 <p></p>
 </section>
 
