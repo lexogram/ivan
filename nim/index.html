@@ -139,7 +139,9 @@
 <input type="checkbox" id="tips-html"/>
 <label for="tips-html">Tips and Tricks</label>
 <div>
-<figure class="aside tip"><p>If you are using Sublime Text, you can use a shortcut to open your HTML file in a browser.</p><img src="img/03_openInBrowser.png" alt="Sublime Text's right-click shortcut to open an HTML file in your browser" /><figcaption>Figure 3. Right-click on your document and choose Open In Browser</figcaption></figure>
+<div class="aside tip">If you are using Sublime Text, you can use a shortcut to open your HTML file in a browser
+<figure><img src="img/03_openInBrowser.png" alt="Sublime Text's right-click shortcut to open an HTML file in your browser" /><figcaption>Figure 3. Right-click on your document and choose Open In Browser</figcaption></figure>
+</div> 
 <p class="aside info">
 Why call your file <code>index.html</code>? In fact, you could call your html file anything you like. The fact that the first line is <code>&lt;!DOCTYPE html&gt;</code> tells your browser all it needs to know. When you visit a site, if your browser doesn't ask for any particular file, the server on the site will send you <code>index.html</code> by default, if a file with that name exists. Unless you have a very good reason for using a different name, it is good practice to use <code>index.html</code></p>
 <p class="aside note">As you saw in your Hello World test, if a file has an <code>.html</code> extension, most modern browsers will treat everything inside it as HTML, even if there is no <code>&lt;html&gt;</code> element, if there is more than one <code>&lt;html&gt;</code> element, or if there is text outside the <code>html</code> element. Modern browsers may also display content correctly even if the <code>body</code> is missing, or if there is more than one <code>body</code> element. Nonetheless, it is good practice to use these elements correctly. Other developers will notice if your code is badly written.</p>
@@ -156,6 +158,7 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <li>If you are not using Sublime Text, perhaps your text editor is saving your files in a <code class="keyword">rich text</code> format, such as <code>.doc</code> or <code>.rtf</code>. Make sure that you are saving in a plain text format, using <code>.html</code> as the extension.</li>
 <li>There may be many files called <code>index.html</code> on your computer. Make sure that you are opening the right one. If you are using Sublime Text, you can use the right-click > Show in Browser shortcut, to be sure that you are opening the same document that you are working on.</li>
 </ul>
+<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 <!--footer>
@@ -178,7 +181,7 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <figcaption>Figure 4. Running <code>git --version</code> on different operating systems</figcaption>
 </figure>
 <p class="aside note">If your version of git is 1.7.9.5 or earlier, or if you see a message like <code>git is not a recognized command</code>, then you can find more details about what to do in the Installing and Updating Git section below.</p>
-<p class="aside next">If you simply want to keep moving forward, then click on <a href="#github">4: Your GitHub repo</a> in the menu on the left. If you want to learn more about <code>git</code> commands, then you can continue reading the Understanding Git Commands section.</p>
+<p class="aside next">If you simply want to keep moving forward, then click on <a href="#github">4: Your GitHub repo</a> in the menu on the left. If you want to learn more about Terminal commands, then you can continue reading the Understanding Terminal Commands section.</p>
 
 <div class="optional trouble">
 <input type="checkbox" id="trouble-git"/>
@@ -189,7 +192,7 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <p class="aside warn">You can launch the installer application and simply click on the Next &gt; button, <strong>until you reach the screen Adjusting Your PATH Environment</strong>. (See image below). Here, it is best to select the Use Git From The Windows Command Prompt radio button. The Windows Command Prompt uses the Windows-standard <code>/</code> character in path names, which means that you can copy and paste path names from the Explorer windows, or drag files onto the Command Prompt window to paste their paths automatically into the window. Perhaps later, you will prefer to use the Git Bash application: selecting the second radio button, as shown in the image below, will allow you to choose the option you like best.</p>
 <figure>
 <img src="img/04_installGitWindows.png" alt="" />
-<figcaption>Choose - Use Git From The Windows Command Prompt</figcaption>
+<figcaption>Figure 5. Choose - Use Git From The Windows Command Prompt</figcaption>
 </figure>
 <h4>Updating Git: Mac</h4>
 <p>Git is installed by default on Mac OS X. However, older versions of the Mac operating system may have versions which are now considered obsolete. Mac OS 10.8 (Snow Leopard) for example, comes with version 1.7.4.4. Using this would cause an error if relied on it when following the instructions in section 5.</p>
@@ -209,15 +212,23 @@ git version 1.7.4.4
 <span class="new">git --version</span>
 git version 2.3.5
 </pre>
+<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 
 <div class="optional details">
 <input type="checkbox" id="details-git"/>
-<label for="details-git">Understanding Git Commands</label>
+<label for="details-git">Understanding Terminal Commands</label>
 <div>
-<p></p>
-<h4></h4>
+<h4>Command Line Tools</h4>
+<p>You probably have plenty of experience using a mouse in a point-and-click <span class="keyword">graphic user interface</span> (GUI). You are used to double-clicking on files to open them, and dragging them from one folder to another, to move them. You are used to opening an application when you want to send an email, edit a photo or listen to music. There is always visual feedback on the screen to tell you, a human, what is happening. Even if it's only an endless progress bar.</p>
+<p>And yet, at any given time, there are many applications running on your computer which do not appear anywhere on the screen. These are the <span class="keyword">command-line tools</span> (CLT).</p>
+<p>When you go to a restaurant, you see the waiters who come to your table, with their little notebooks, but you do not normally see the cooks. Without the cooks, however, the restaurant would fail.</p>
+<p>When you type a command into a Terminal window, you can imagine that you are talking directly to the cooks that produce all the goodness. The Terminal window is the equivalent of a waiter's notebook.</p>
+<p>The operating system itself takes care of some commands, like <code>cd&nbsp;</code>. Other commands need a special <span class="strike">chef</span>  CLT application to take care of them, so you need to refer to the name of the application first. For example, <code>git --version</code> tells the application <code>git</code> (which has no window that you can see on the screen) to send back information about which <code>version</code> it is.</p>
+<h4>Git commands</h4>
+<p>To see all the commands that <code>git</code> can understand, you can type <code>git --help</code>.</p>
+<p>For information on all these commands, you can refer to <a href="https://git-scm.com/docs">the official documentation</a>. However, this information can be overwhelming. Each time a <code>git</code> command is first used in this tutorial, you will find more information about how to use it in the optional sections at the foot of the page.</p>
 </div>
 </div>
 
@@ -225,8 +236,10 @@ git version 2.3.5
 <input type="checkbox" id="tips-git"/>
 <label for="tips-git">Tips and Tricks</label>
 <div>
-<p>You can use the Git application to work with many different sites that provide version control hosting. Some examples are: <a href="https://bitbucket.org/">Bitbucket</a> and <a href="https://gitlab.com/">GitLab</a>. Other sites that help you to create applications in the cloud, such as <a href="https://www.heroku.com/">Heroku</a> and <a href="https://c9.io/">Cloud 9</a> offer integration with GitHub.</p>
-<p>You can find a list of hosted version control services on <a href="http://www.slant.co/topics/153/~what-is-the-best-hosted-version-control-service">slant.co</a></p>
+<h4>Using Git in other ways</h4>
+<p class="aside tip">You can use the Git application to work with many different sites that provide version control hosting. Some examples are: <a href="https://bitbucket.org/">Bitbucket</a>, <a href="https://gitlab.com/">GitLab</a> and <a href="https://launchpad.net/">Launchpad</a>. Other sites that help you to create applications in the cloud, such as <a href="https://www.heroku.com/">Heroku</a> and <a href="https://c9.io/">Cloud 9</a> offer integration with GitHub.<br /><br />You can find a list of hosted version control services on <a href="http://www.slant.co/topics/153/~what-is-the-best-hosted-version-control-service">slant.co</a></p>
+<h4>Copy and Paste in the Windows Command Prompt</h4>
+<p class="aside tip">The standard keyboard shortcuts like <code>Ctrl-C</code> and <code>Ctrl-Z</code> were introduced by Apple in 1984 and were adopted in Windows applications only much later. The Windows Command Prompt uses an older keyboard shortcut system. In the Windows Command Prompt, you will need to use <code>Alt-Spacebar</code> to show a contextual menu, and then press the letter that appears underlined in the menu item that you want to use.<br /><br />For example, to select text, you can press <code>Alt-Spacebar</code> then E (for <code><span class="under">E</span>dit</code>), then M (for <code><span class="under">M</span>ark</code>). You can now use the arrow keys to move the selection around and extend it. Pressing Enter will copy the highlighted text to your clipboard. Use <code>Alt-Spacebar <span class="under">E</span>dit</code>, <code><span class="under">P</span>aste</code> to paste your text.</p>
 </div>
 </div>
 <!--footer>
@@ -240,28 +253,31 @@ git version 2.3.5
 <p>Now you're ready to open a GitHub acccount. This wont't take long (although finding a username that you like and that isn't already taken can be time-consuming). I've used the name "blackslate" in my examples.</p>
 <p>Go to the <a href="https://github.com/join">Join GitHub</a> page, and fill in the form.</p>
 <p class="aside note">At the time of writing, Git requires you to use only the characters <code>A-Z</code>, <code>a-z</code> and <code>-</code> (hyphens) for your username and for the names of your projects. Names with other punctuation, special characters, accents or non-Roman letters, like <span class="gold">!android_</span> or <span class="gold">Andréa</span> or <span class="gold">Андрей</span>, are not permitted.</p>
+<p>The first page asks for a username and an email address that are not currently registered on GitHub.</p>
 <figure>
 <img src="img/05_joinGitHub.png" alt="" />
-<figcaption>Figure 5. Create a personal account on GitHub</figcaption>
+<figcaption>Figure 6. Create a personal account on GitHub</figcaption>
 </figure>
+<p>On the second page, you can accept the Free plan, which is already chosen as the default. Simply press the Finish Sign Up button.</p>
 <figure>
 <img src="img/06_choosePlan.png" alt="" />
-<figcaption>Figure 6. Choose a free plan</figcaption>
+<figcaption>Figure 7. Choose a free plan</figcaption>
 </figure>
+<p>This is the very first time you are visiting GitHub as a registered user, so you see a special screen, suggesting that you take the official tour of what Git and GitHub can do for you. When you return to this page in the future, the top section will be different.
 <figure>
 <img src="img/07_newRepository.png" alt="" />
-<figcaption>Figure 7. You're ready to create a repository</figcaption>
+<figcaption>Figure 8. You're ready to create a repository</figcaption>
 </figure>
 <p class="aside tip">You might like to take GitHub's own tour now, to learn about the basic Git commands, or you might like to bookmark the <a href="https://guides.github.com/activities/hello-world/">Hello World tutorial</a> or the <a href="try.github.io/">Try Git tutorial</a> so that you can come back to these after the world has seen you say "Hello!"</p>
-<p>On the right of the page, you can see a big green New Repository button. Click on that and fill in the Repository Name field. This first time, to keep everything simple, leave everything else exactly the way it is, and click on the Create Repository button. It's a good idea to fill in the optional Description field, though.</p>
+<p>On the right of the page, you can see a big green New Repository button. Click on that and fill in the Repository Name field. A new page will appear. This first time, to keep everything simple, leave everything else exactly the way it is, and just click on the Create Repository button. (You might like to fill in the optional Description field, though.)</p>
 <figure>
 <img src="img/08_createRepository.png" alt="" />
-<figcaption>Figure 8. Give your project a name</figcaption>
+<figcaption>Figure 9. Give your project a name</figcaption>
 </figure>
 <p>You'll find yourself on a page full of choices and command line code. No worries. When you find yourself here again later, you will have a much clearer understanding of what all this means.</p>
 <figure>
 <img src="img/09_copyRepoURL.png" alt="" />
-<figcaption>Figure 9. Copy the URL for your new repository</figcaption>
+<figcaption>Figure 10. Copy the URL for your new repository</figcaption>
 </figure>
 <p>The most important thing to do now is to <strong>copy the URL for your new GitHub repository</strong>. You can do this by clicking on the Copy To Clipboard button, as shown in Figure 10 above. You'll need to paste this URL into a Terminal window in the next step.</p>
 <p class="aside next">Your immediate aim is to get your Hello World page online, so I propose to take an unconventional shortcut. If you want to know what the conventional path is, then you can read the Branches and Pages section below. If you want to move along quickly, just click on the item <a href="#branch">5: Creating a branch</a> in the menu on the left.</p>
@@ -270,33 +286,29 @@ git version 2.3.5
 <input type="checkbox" id="details-github"/>
 <label for="details-github">Branches and Pages</label>
 <div>
-<p>The repository that you have just created is empty. By default, Git calls it <span class="keyword">master</span>. You can think of it as the main trunk of a tree.</p>
-<p>Normally, you would save your work in the master <span class="keyword">branch</span> of your project. When you want to add something new to your project, the normal practice is to create a secondary branch, and to work on that.This means that the master branch remains strong and solid, and any mistakes you make while you are working will not affect it. When everything in the new branch is working well, you can <span class="keyword">merge</span> it back into the main branch, like one arm of a river follows a different course before flowing back into the main channel.</p>
+<p>In this tutorial, you will be following a path that has already been prepared for you, taking predictable steps to recreate something that already exists. This is reassuring, but it is not how you will be working in the future.</p>
+<p>When you start working on your first real project, you will be creating something that is different from anything anyone else has ever made before. There will be no clear path; there will be many possible paths that you can follow. You will not know in advance which ones will bring you to a dead end, and which ones will lead you to where you plan to go. You may not even be entirely sure where your journey will lead you. The original creators of iTunes were probably focused on playing music; they did not imagine that their project would develop into a shopping mall.</p>
+<p>The purpose of Git is to allow you to explore many possible paths at the same time. You can test two different techniques for achieving the same result, and then decide which is better. Different developers can move off in different directions, each creating something new, and then the whole team can discuss which approach is likely to be the best way forward. Perhaps later, you will discover something that makes you realize that one of the abandoned paths is in fact the right one to take.</p>
+<p>Git allows you to keep track of all the paths that anyone in the team has followed. It allows you bring all the best discoveries from the secondary paths, and to weave them all together into a single strand.</p>
+<p>Git uses a mixed bag of words to describe this process. It uses words like <span class="keyword">branch</span>, <span class="keyword">fork</span>, <span class="keyword">clone</span>, <span class="keyword">checkout</span>, <span class="keyword">merge</span>, <span class="keyword">push</span> and <span class="keyword">pull</span>. You can find a full list of all the keywords used by Git <a href="https://git-scm.com/docs">here</a>.</p>
+<h4>Branches</h4>
+<p>As a rule, you start a project with a single branch called <span class="keyword">master</span>. The master branch will contain only code that has been tested extensively, to ensure that it is stable. Each time you want to make a change (which might not be so stable), you create a new branch, and you work on that. Let's imagine that you call the new branch <span class="keyword">develop</span>. When you first create the develop branch, it is identical to the master branch. When you have tested your new code and have decided that the develop branch is stable, you can merge the changes back into the master branch, like one arm of a river flowing back into the main channel. After each new merge, the master branch and the develop branch might again be identical. You can continue working in the develop branch, and make additional branches from that. Your additional branches may be for proposed bug fixes, for new features and for experiments.</p>
+<figure>
+<img src="https://git-scm.com/images/about/branches@2x.png" width="500" height="288" alt="Branches">
+<figcaption>Figure 11. The multiple paths or <span class="keyword">branches</span> in a project repository</figcaption>
+</figure>
 <p>You can give your branches any name you like (so long as they only use the 53 permitted characters). Normally, you would use a name that describes the change you are about to make.</p>
-<p>While you are working on a project, it is often helpful to maintain a web site to let people know what you are doing, how they can help, and how your project can help them. GitHub has used a neat technique that allows you to integrate your website into your GitHub repository itself.</p>
-<p><strong>If you create a branch called <span class="keyword">gh-pages</span> (short for GitHub pages), and you place a file named <code>index.html</code> in the root folder of the branch, then GitHub will automatically treat the gh-pages branch as a web site.</strong></p>
+<h4>Pages</h4>
+<p>While you are working on a project, it is often helpful to maintain a web site to let people know what you are doing, how they can help, and how your project can help them. GitHub has used a neat technique that allows you to integrate your web site into your GitHub repository itself.</p>
+<p><strong>If you create a special branch called <span class="keyword">gh-pages</span> (short for GitHub pages), and you place a file named <code>index.html</code> in the root folder of the branch, then GitHub will automatically treat the gh-pages branch as a web site.</strong></p>
 <p>You can find more information about this at <a href="https://pages.github.com/">GitHub Pages</a>.</p>
-<p>To get your first project online as quickly as possible, you can :</p>
+<p>To get your first project online as quickly as possible, you can:</p>
 <ul>
-  <li>Create a master branch (as you have just done) and leave it empty</li>
+  <li>Create a repository (as you have just done) and leave it empty. If it is empty, it has no master branch.</li>
   <li>Create a gh-pages branch (as you are about to do) and use it for all your development.</li>
   <li>Create secondary branches, as your work progresses, and merge them back into the gh-pages branch when you are ready.</li>
 </ul>
-<p>Telling the world about your project is the best way to find people who are willing to help you. In future projects, you will know how to create a strong web presence, right from the beginning... and you will also know that you should use the <span class="keyword">master</span> branch for your main development.</p>
-</div>
-</div>
-
-<div class="optional trouble">
-<input type="checkbox" id="trouble-github"/>
-<label for="trouble-github">Troubleshooting your first repo</label>
-<div>
-<p>Oops. Something went wrong. Here are some things that you can check.</p>
-<dl>
-  <dt>When you created your repository, did you click on any buttons, other than Create Repository?</dt>
-  <dd>If you added a ReadMe file, a .gitignore file or a license file to your repository, online through the GitHub "new repository" page, then the remote repository on the GitHub site will already contain files. You won't be able to push any new files to the remote repository until you have downloaded them to your local repository.</dd>
-</dl>
-  
-</ul>
+<p>Telling the world about your project is the best way to find people who are willing to help you. In future projects, you will know how to create a strong web presence, right from the beginning. In future projects, you will know to use the <span class="keyword">master</span> branch for your main development.</p>
 </div>
 </div>
 
@@ -308,61 +320,69 @@ git version 2.3.5
 <blockquote>Any sufficiently advanced technology is indistinguishable from magic.
 <cite>Arthur C. Clarke</cite>
 </blockquote>
-<p>You've just created an empty <span class="keyword">master</span> repository, like a dry river bed. And now I'm going to show you how to make a <span class="keyword">branch</span> from this repository. This is much easier to do when the master repository is still empty.</p>
+<p>You've just created an empty repository, like a dry river bed. And now I'm going to show you how to make a special <span class="keyword">branch</span> from this repository. This is much easier to do when the repository is still empty.</p>
 <p class="aside kudos">Many thanks to <a href="https://github.com/cmrberry">Rachel Berry</a> of GitHub for pointing out this technique to me.</p>
 
-<p>The next few instructions may seem a little like magic to you for now, but you will soon make sense of them. You can read up about the git commands in the Understanding Cloning section below. Here's what you need to do:</p>
+<p>The next few instructions may seem a little like magic to you for now, but you will soon make sense of them. In the Understanding Cloning section below, you can read up about the <code>git</code> commands that you will be using. Here's what you need to do:</p>
 <ul>
-<li>On your desktop, create an empty folder in the place where you would like to save your new project. I called my folder <code>nim</code>. It might be easier for you if you do the same.</li>
-<li>Open a Terminal window. You're going to create a command that gives it control of your new <code>nim</code> folder.</li>
-<li>Type <code>cd&nbsp;</code> (that's "cd " followed by a space). This means <span class="keyword">change directory</span>.</li>
-<li>Drag the icon of your <code>nim</code> folder onto the Terminal window. This will automatically insert the path to your folder after the <code>cd&nbsp;</code> that you have just typed.</li>
-<li>Press the Enter key to execute the command. You can imagine that the Terminal now has power over what happens in the <code>nim</code> folder.</li>
+<li><strong>On your desktop, create an empty folder</strong> in the place where you would like to save your new project. I have called my folder <code>nim</code>. It might be easier for you if you do the same.</li>
+<li><strong><a href="html/terminal.html">Open a Terminal window</a></strong>. You're going to create a command that gives the Terminal control of your new <code>nim</code> folder. You'll create the command in three separate stages. The complete command might look something like this:<br />
+<code>cd /Users/james/nim</code></li>
+<ol>
+<li><strong>Type <code>cd&nbsp;</code></strong> (that's "cd " followed by a space). This means <span class="keyword">change directory</span>.</li>
+<li><strong>Drag the icon of your <code>nim</code> folder onto the Terminal window</strong>. This will automatically insert the path to your folder after the <code>cd&nbsp;</code> that you have just typed.</li>
+<li><strong>Press the Enter key</strong> to execute the command. The Terminal now has power over what happens in your <code>nim</code> folder.</li>
 </ul>
+</ol>
 <figure>
 <img src="img/10_cdCommand.png" alt="" />
-<figcaption>Figure 10. Using the <code>cd</code> command in a Terminal window</figcaption>
+<figcaption>Figure 12. Using the <code>cd</code> command in a Terminal window</figcaption>
 </figure>
 <ul>
-<li>Still in the Terminal window, type: <code>git clone&nbsp;</code> (followed by a space), then paste in the URL that you copied at the end of the last step, then add a space and <code>&nbsp;gh-pages</code>. The complete command might look something like this:<br /><code>git clone https://github.com/blackslate/nim.git gh-pages</code>
-<br />Press the Enter key.</li>
+<li>Still in the Terminal window:</li>
+<ol>
+<li><strong>Type: <code>git clone&nbsp;</code></strong> (with a space after "clone")</li>
+<li><strong>Paste in the URL that you copied</strong> at the end of the last step</li>
+<li><strong>Add a space and <code>&nbsp;gh-pages</code></strong>. The complete command might look something like this, except that you will use your own username instead of "blackslate":<br /><code>git clone https://github.com/<strong>blackslate</strong>/nim.git gh-pages</code></li>
+<li><strong>Press the Enter key</strong>.</li>
+</ol>
 </ul>
 <p class="aside note">On Windows, the standard Ctrl-V keyboard shortcut may not work in a Command Prompt window. You may need to right-click, then select Paste from the contextual menu.</p>
-<p>The clone command should copy all the contents of your new repository on the GitHub server (which is empty) into a folder named <code>gh-pages</code> inside your <code>nim</code> folder. The output in the Terminal should look something like this:</p>
+<p>Inside your <code>nim</code> folder you should now see a folder named <code>gh-pages</code>. The clone command should have copied into it all the contents of your new repository on the GitHub server (in other words, nothing, since your new repository is still empty). The output in the Terminal should look something like this:</p>
 <figure>
 <img src="img/11_clone.png" alt="" />
-<figcaption>Figure 11. Using <code>git clone</code> to create a local repository.</figcaption>
+<figcaption>Figure 13. Using <code>git clone</code> to create a local repository.</figcaption>
 </figure>
-<p>The <code>git clone</code> command also created an invisible folder called <code>.git</code> inside the new <code>gh-pages</code> folder, as you can see in Figure 13 below. This contains all the data that the Git application needs to keep track of the changes that you make to your project.</p>
+<p>The <code>git clone</code> command also created an invisible folder called <code>.git</code> inside the new <code>gh-pages</code> folder, as you can see in Figure 14 below. This contains all the data that the Git application needs to keep track of the changes that you make to your project.</p>
 <figure>
 <img src="img/12_invisibleGit.png" alt="" />
-<figcaption>Figure 12. The contents of the invisible <code>.git</code> folder</figcaption>
+<figcaption>Figure 14. The contents of the invisible <code>.git</code> folder</figcaption>
 </figure>
 <p class="aside tip">To learn how to make "invisible" files visible on your computer, you can read the Tips and Tricks section below.</p>
 <p>Now for some more command line magic. (Do you remember what the <code>cd&nbsp;</code> command does?)</p>
 <ul>
-  <li>In the Terminal window, type the following 3 commands:</li>
+  <li>In the Terminal window, <strong>type the following 3 commands</strong>:</li>
 </ul>
 <pre>cd gh-pages
 git checkout --orphan gh-pages
 git status</pre>
-<p>To understand what the <code>checkout --orphan</code> command does, see the Tips and Tricks section below. The <code>git status</code> command is one that you will use often. It lists all the files that you have changed, before you <span class="keyword">commit</span> the changes to Git's memory system.</p>
+<p>To understand what the <code>checkout --orphan</code> command does, see the Understanding Git Commands section below. The <code>git status</code> command is one that you will use often. It lists all the files that you have changed, before you <span class="keyword">commit</span> the changes to Git's memory system.</p>
 <p>Here's how your Terminal window might look now:</p>
 <figure>
 <img src="img/13_orphanBranch.png" alt="" />
-<figcaption>Figure 13. Checking out a new <span class="keyword">orphan</span> branch of your project</figcaption>
+<figcaption>Figure 15. Checking out a new <span class="keyword">orphan</span> branch of your project</figcaption>
 </figure>
 <p>Just a few more actions, and you'll see your Hello World web page online.</p>
 <ul>
-<li>On your computer desktop, find the <code>index.html</code> file that you made in step 2, and drag or copy it into your new gh-pages folder.</li>
+<li>On your computer desktop, find the <code>index.html</code> file that you made in step 2, and <strong>drag or copy your <code>index.html</code> file into your new <code>gh-pages</code> folder</strong>.</li>
 <li>In the Terminal window, run the <code>git status</code> command again. You'll see that Git is aware of the change that you have made.</li>
 </ul>
 <figure>
 <img src="img/14_status.png" alt="" />
-<figcaption>Figure 14. The <code>status</code> of your project is updated each time you make a change.</figcaption>
+<figcaption>Figure 16. The <code>status</code> of your project is updated each time you make a change.</figcaption>
 </figure>
 <ul>
-<li>Now you're going to tell Git that you are confident about the changes that you have made. In the Terminal window, type the following 3 commands:</li>
+<li>Now you're going to tell Git that you are confident about the changes that you have made. In the Terminal window, <strong>type the following 3 commands</strong>:</li>
 </ul>
 <pre>git add -A
 git commit -m "Initial commit to the gh-pages branch"
@@ -370,23 +390,116 @@ git push origin gh-pages
 </pre>
 <figure>
 <img src="img/15_commit.png" alt="" />
-<figcaption>Figure 15. Pushing your changes to the remote GitHub repository</figcaption>
+<figcaption>Figure 17. Pushing your changes to the remote GitHub repository</figcaption>
 </figure>
-<p>That's it! Now you can visit your new web site is your browser. Just one last action: to type in the URL for your GitHub site. For me, it will be:</p>
+<p>That's it! Now you can visit your new web site. <strong>In your browser, type in the URL for your GitHub site</strong>. For me, it will be:</p>
 <a href="http://blackslate.github.io/nim/">http://blackslate.github.io/nim/</a>
 <p>For you, if you called your repository "nim", then all you have to do is replace my "blackslate" username with your own username.</p>
 <p>http://<strong>&lt;yourUserName&gt;</strong>.github.io/nim/</p>
 <figure>
 <img src="img/16_helloWorld.png" alt="" />
-<figcaption>Figure 16. A Hello that the world can see</figcaption>
+<figcaption>Figure 18. A Hello that the world can see</figcaption>
 </figure>
 <p class="aside next"></p>
+
+<div class="optional details">
+<input type="checkbox" id="details-branch"/>
+<label for="details-branch">Understanding Git Commands</label>
+<div>
+Here are the <code>git</code> commands that you have just used:
+<dl>
+  <dt><a href="https://git-scm.com/docs/git-clone"><code>git clone</code></a></dt>
+  <dd>The <code>clone</code> command copies <em>everything</em> from a given repository to the directory that your Terminal window is currently controlling. (In this case, there was in fact <em>nothing</em> to copy). Your command looked something like this:<br />
+  <code>git clone https://github.com/blackslate/nim.git gh-pages</code><br />The directory name <code>gh-pages</code> is optional. If you had not included it, the command would have created a directory called <code>nim</code>, using the same name as the remote repository. The <code>clone</code> command also creates a new branch in your local repository, but this branch doesn't have a name yet.</dd>
+  <dt><a href="https://git-scm.com/docs/git-checkout"><code>git checkout</code></a></dt>
+  <dd>Before you used the <code>git checkout</code> command, you told your Terminal window to focus its attention on your new <code>gh-pages</code> directory, by executing the command <code>cd gh-pages</code>.Your command looked like this:<br />
+  <code>git checkout --orphan gh-pages</code><br />
+  The <code>checkout</code> command said "Prepare all the files in this folder as the files that I am currently working on." The <code>--orphan</code> <span class="keyword">option</span> said "The files in this branch are to be treated completely separately from any files in any other branch". In other words, if you had a <span class="keyword">master</span> branch for your main development, the branch that you are now checking out would be totally unrelated to it. The <code>gh-pages</code> branch name at the end of the command tells Git what you want to call this new branch.  If you look at the page for your repository on GitHub, you'll find that it now has a <code>gh-pages</code> branch.
+  <figure>
+  <img src="" alt="A new branch in your GitHub repository" />
+  <figcaption>Figure 19. Using <code>checkout ... <span class="keyword">branch-name</span></code> creates a new branch in your project.</figcaption>
+  </figure>
+  </dd>
+  <dt><a href="https://git-scm.com/docs/git-status"><code>git status</code></a></dt>
+  <dd>The <code>git status</code> lists all the changes that you have made. There are 4 separate places where your work is tracked:
+  <ul>
+    <li>In the folder where you are currently making changes (your <span class="keyword">workspace</span></li>
+    <li>In an index of all the files whose changes you are tracking</li>
+    <li>In your local repository, on the computer you are working on now</li>
+    <li>In the remote repository, stored on the GitHub servers</li>
+  </ul>
+  <figure>
+  <img src="http://i.stack.imgur.com/XwVzT.png" alt="Git Data Transport Commands" />
+  <figcaption>Figure 20. How Git tracks the changes you make</figcaption>
+  <p class="aside kudos">Credit: <a href="http://blog.osteele.com/posts/2008/05/my-git-workflow/">Oliver Steele</a></p>
+  </figure>
+  
+  <p>The <code>status</code> command tells you the differences between the local repository and the index (on the one hand) and your workspace (on the other). The first time you used it, there were no differences, because you had made no changes. The second time, you had just added your <code>index.html</code> file, and you had not yet told Git about it, so it was <span class="keyword">untracked</span> at that time.</p>
+  </dd>
+  <dt><a href="https://git-scm.com/docs/git-add"><code>git add</code></a></dt>
+  <dd>The plain <code>git add</code> command tells Git that you want to track changes to the files listed by <code>git status</code>. You can choose to add only specific files, if you wish. Files that have been <code>add</code>ed to Git are said to be <span class="keyword">staged</span>. The <code>-A</code> option says "Add all files that have changed, and remove all files that have been deleted". If you do not use <code>-A</code> then deleted files will be ignored. In this case, there are no deleted files to remove from Git's staging area.</dd>
+  <dt><a href="https://git-scm.com/docs/git-commit"><code>git commit</code></a></dt>
+  <dd>The <code>commit</code> command moves changed items from the staging area to the local repository. You can move changed items directly to the repository without passing through the staging area by using <code>git commit -a</code>. In this case, you don't need to use the <code>git add</code> command.<br />The <code>-m</code> option allows you to include a message to explain what it is that you are committing. In my example, the message was <code>"Initial commit to the gh-pages branch"</code>. If you don't include <code>-m</code> then Git will open a text editor for you to enter the message. By default, this will be a command-line text editor, in the Terminal window itself. See the Tips and Tricks section below to learn how to set up Sublime Text as Git's preferred text editor... or simply use the <code>-m</code> option every time.</dd>
+  <dt><a href="https://git-scm.com/docs/git-push"><code>git push</code></a></dt>
+  <dd>Up until this point, all the changes have been made on your local computer. The <code>git push</code> command tells Git to send all the changed files to the remote repository on the GitHub server. When you did this, the <code>index.html</code> will have appeared in your GitHub page in your browser (you may need to refresh the page first.
+  <figure>
+  <img src="" alt="index.html becomes visible on GitHub" />
+  <figcaption>Figure 21. <code>git push</code> makes your files visible in the remote repository</figcaption>
+  </figure>
+  <p>By default, your local repository is called <code>origin</code>. You have just created and checked out a remote branch called <code>gh-pages</code>.Using plain <code>git push</code> will assume that you mean <code>git push origin gh-pages</code>, but it is best to be explicit each time, just to be sure that Git is not making different assumptions from you.</p>
+  </dd>
+</dl>
+</div>
+</div>
 
 <div class="optional tips">
 <input type="checkbox" id="tips-branch"/>
 <label for="tips-branch">Tips and Tricks</label>
 <div>
-<p class="aside tip">Showing invisible files</p>
+<h4>Showing invisible files</h4>
+<div class="aside tip">To show invisible files on Windows:
+<ul>
+<li>Open any window in Windows Explorer</li>
+<li>Open the Display menu</li>
+<li>Select options</li>
+<li>In the dialog window that opens, choose the Display tab</li>
+<li>Click on the Display tab</li>
+<li>Scroll down a little until you can see XXXX</li>
+<li>Select the radio button that says "Show hidden files, folders and drives"</li>
+<li>While you're here, you might also like to deselect the checkbox that says "Hide extensions for known file types." If you do this, your <code>index.html</code> file will appear as <code>index.html</code>. If you don't it will appear as <code>index</code> ... and so will any file called <code>index.php</code>, <code>index.doc</code> or <code>index.jpg</code>. Showing all file extensions makes it clear exactly which file you are looking at.</li>
+</ul></div>
+<div class="aside tip">To show hidden files on Macintosh:
+<ul>
+  <li>Step 1</li>
+</ul></div>
+<h4>Using Sublime Text to create <code>commit</code> messages</h4>
+<div class="aside tip">Windows:
+<p>If you used the default installation settings when you installed Sublime Text, you can use the following command in the Command Prompt window:</p>
+<ul>
+  <li>Sublime Text 3 <br /><code>git config --global core.editor "'c:/program files/sublime text 3/subl.exe' -w"</code></li>
+  <li>Sublime Text 2 <br /><code>git config --global core.editor "'c:/program files/sublime text 2/sublime_text.exe' -w"</code></li>
+</ul>
+<p class="aside kudos">Credit: <a href="http://stackoverflow.com/a/9408117">jrotello</a>
+</div><div class="aside tip">Macintosh:
+<ul>
+  <li></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="optional trouble">
+<input type="checkbox" id="trouble-github"/>
+<label for="trouble-github">Troubleshooting your first repo</label>
+<div>
+<p>Oops. Something went wrong. Here are some things that you can check.</p>
+<dl>
+  <dt>When you created your repository, did you click on any buttons, other than Create Repository?</dt>
+  <dd>If you added a ReadMe file, a .gitignore file or a license file to your repository, through the GitHub "new repository" page, then the remote repository on the GitHub site will already contain files. You won't be able to push any new files to the remote repository until you have downloaded them to your local repository. The simplest solution (at this early stage) is to delete your repository and start again, as described below.</dd>
+  <dt>Did you get a <code>fatal</code> error message in your Terminal?</dt>
+  <dd>This can happen if you mistype a command, but it can also happen if your version of Git is older that 1.7.9.5. To test this, type <code>git --version</code> in your terminal. If the output is less than 1.7.9.5, then you will need to <a href="https://git-scm.com/download/win">update Git</a> before you can continue. See the Installing and Updating Git section at the foot of the <a href="#git">Getting Git</a> page for more details.</dd>
+</dl>
+<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 </section>

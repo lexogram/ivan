@@ -412,7 +412,7 @@ background-color: #eee;
 .aside + div.optional {
 margin-top: 1em;
 }
-.details div{
+.details>div{
 background-color: #f8f8ff;
 border: 0px solid #eef;
 }
@@ -423,7 +423,7 @@ background-color: #eef;
 .details label::before{
 color: #336;
 }
-.tips div{
+.tips>div{
 background-color: #f8ffff;
 border: 0px solid #eff;
 }
@@ -434,7 +434,7 @@ background-color: #eff;
 .tips label::before{
 color: #366;
 }
-.trouble div{
+.trouble>div{
 background-color: #ffe;
 border: 0px solid #ffc;
 }
@@ -453,7 +453,7 @@ background-color: #ecc;
 background-color: #eec;
 }
 .tip code{
-background-color: #ecc;
+background-color: #cee
 }
 .git code{
 background-color: #ece;
@@ -467,7 +467,7 @@ background-color: #cfc;
 
 dt {
 font-weight: bold;
-margin-bottom: 0.25em;
+margin: 0.25em ;
 }
 dd p {
 margin: 0;
@@ -523,6 +523,15 @@ color: #960;
 pre.revised {
 font-weight: normal;
 color: #999;
+}
+strong {
+color: #633;
+}
+.under {
+text-decoration: underline;
+}
+.strike {
+text-decoration: line-through;
 }
 
 footer {
