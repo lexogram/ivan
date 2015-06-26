@@ -91,7 +91,8 @@
 <h3>Hello... Desktop</h3>
 <p>Actually, the world can't see your message yet. This file that you saved on your local hard drive is only visible in your browser. Your next step will be to put an HTML file onto this server, so that anyone in the world can see it.
 <p class="aside next">If you are eager to continue building your game, click on <a href="#git">3: Getting Git</a> in the menu on the left. Your Hello World message should be online when you have completed step 5. If you want to know more about what all the HTML code does, click on Understanding HTML Tags below and continue reading.</p>
-<div class="details">
+
+<div class="optional details">
 <input type="checkbox" id="details-html"/>
 <label for="details-html">Understanding HTML Tags</label>
 <div>
@@ -134,9 +135,9 @@
 </div>
 </div>
 
-<div class="nuggets">
-<input type="checkbox" id="nuggets-html"/>
-<label for="nuggets-html">Tips and Tricks</label>
+<div class="optional tips">
+<input type="checkbox" id="tips-html"/>
+<label for="tips-html">Tips and Tricks</label>
 <div>
 <figure class="aside tip"><p>If you are using Sublime Text, you can use a shortcut to open your HTML file in a browser.</p><img src="img/03_openInBrowser.png" alt="Sublime Text's right-click shortcut to open an HTML file in your browser" /><figcaption>Figure 3. Right-click on your document and choose Open In Browser</figcaption></figure>
 <p class="aside info">
@@ -146,9 +147,9 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 </div>
 </div>
 
-<div class="trouble">
-<input type="checkbox" id="details-trouble-html"/>
-<label for="details-trouble-html">Troubleshooting your HTML page</label>
+<div class="optional trouble">
+<input type="checkbox" id="trouble-html"/>
+<label for="trouble-html">Troubleshooting your HTML page</label>
 <div>
 <p>Ouch. Your HTML page is not appearing correctly in the browser. Perhaps one of these steps will help you:</p>
 <ul>
@@ -179,9 +180,9 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <p class="aside note">If your version of git is 1.7.9.5 or earlier, or if you see a message like <code>git is not a recognized command</code>, then you can find more details about what to do in the Installing and Updating Git section below.</p>
 <p class="aside next">If you simply want to keep moving forward, then click on <a href="#github">4: Your GitHub repo</a> in the menu on the left. If you want to learn more about <code>git</code> commands, then you can continue reading the Understanding Git Commands section.</p>
 
-<div class="trouble">
-<input type="checkbox" id="git-version-trouble"/>
-<label for="git-version-trouble">Installing and Updating Git</label>
+<div class="optional trouble">
+<input type="checkbox" id="trouble-git"/>
+<label for="trouble-git">Installing and Updating Git</label>
 <div>
 <h4>Installing Git: Windows</h4>
 <p>Git is not installed by default on the Windows operating system. The easiest way to install it is to <a href="https://git-scm.com/download/win">download an installer</a>. When you click on the link, the download should start automatically.</p>
@@ -211,18 +212,18 @@ git version 2.3.5
 </div>
 </div>
 
-<div class="details">
-<input type="checkbox" id="git-command-details"/>
-<label for="git-command-details">Understanding Git Commands</label>
+<div class="optional details">
+<input type="checkbox" id="details-git"/>
+<label for="details-git">Understanding Git Commands</label>
 <div>
 <p></p>
 <h4></h4>
 </div>
 </div>
 
-<div class="nuggets">
-<input type="checkbox" id="nuggets-html"/>
-<label for="nuggets-html">Tips and Tricks</label>
+<div class="optional tips">
+<input type="checkbox" id="tips-git"/>
+<label for="tips-git">Tips and Tricks</label>
 <div>
 <p>You can use the Git application to work with many different sites that provide version control hosting. Some examples are: <a href="https://bitbucket.org/">Bitbucket</a> and <a href="https://gitlab.com/">GitLab</a>. Other sites that help you to create applications in the cloud, such as <a href="https://www.heroku.com/">Heroku</a> and <a href="https://c9.io/">Cloud 9</a> offer integration with GitHub.</p>
 <p>You can find a list of hosted version control services on <a href="http://www.slant.co/topics/153/~what-is-the-best-hosted-version-control-service">slant.co</a></p>
@@ -265,9 +266,9 @@ git version 2.3.5
 <p>The most important thing to do now is to <strong>copy the URL for your new GitHub repository</strong>. You can do this by clicking on the Copy To Clipboard button, as shown in Figure 10 above. You'll need to paste this URL into a Terminal window in the next step.</p>
 <p class="aside next">Your immediate aim is to get your Hello World page online, so I propose to take an unconventional shortcut. If you want to know what the conventional path is, then you can read the Branches and Pages section below. If you want to move along quickly, just click on the item <a href="#branch">5: Creating a branch</a> in the menu on the left.</p>
 
-<div class="details">
-<input type="checkbox" id="master-branch-details"/>
-<label for="master-branch-details">Branches and Pages</label>
+<div class="optional details">
+<input type="checkbox" id="details-github"/>
+<label for="details-github">Branches and Pages</label>
 <div>
 <p>The repository that you have just created is empty. By default, Git calls it <span class="keyword">master</span>. You can think of it as the main trunk of a tree.</p>
 <p>Normally, you would save your work in the master <span class="keyword">branch</span> of your project. When you want to add something new to your project, the normal practice is to create a secondary branch, and to work on that.This means that the master branch remains strong and solid, and any mistakes you make while you are working will not affect it. When everything in the new branch is working well, you can <span class="keyword">merge</span> it back into the main branch, like one arm of a river follows a different course before flowing back into the main channel.</p>
@@ -285,9 +286,9 @@ git version 2.3.5
 </div>
 </div>
 
-<div class="trouble">
-<input type="checkbox" id="git-repo-trouble"/>
-<label for="git-version-trouble">Troubleshooting your first repo</label>
+<div class="optional trouble">
+<input type="checkbox" id="trouble-github"/>
+<label for="trouble-github">Troubleshooting your first repo</label>
 <div>
 <p>Oops. Something went wrong. Here are some things that you can check.</p>
 <dl>
@@ -379,10 +380,11 @@ git push origin gh-pages
 <img src="img/16_helloWorld.png" alt="" />
 <figcaption>Figure 16. A Hello that the world can see</figcaption>
 </figure>
+<p class="aside next"></p>
 
-<div class="nuggets">
-<input type="checkbox" id="nuggets-html"/>
-<label for="nuggets-html">Tips and Tricks</label>
+<div class="optional tips">
+<input type="checkbox" id="tips-branch"/>
+<label for="tips-branch">Tips and Tricks</label>
 <div>
 <p class="aside tip">Showing invisible files</p>
 </div>
@@ -510,11 +512,58 @@ git push origin gh-pages
 
 <!-- OVERVIEW : SECTION 0 -->
 <section id="top">
+<p class="aside mail top">If you have any difficulty anywhere in this tutorial, please <a href="https://github.com/lexogram/openbook/issues/new">tell us about it</a>, and we'll do our best to deal with it for you. Your questions and suggestions can help us make this tutorial better.
 <h2>Overview</h2>
 <p class="top">This tutorial shows you how to create a simple strategy game, where the computer will beat you every time, unless you know how to avoid the trap.</p>
 <p class="top">You will be learning to write HTML, CSS and JavaScript. You will also learn how to use GitHub to save and display your work, and how to write code that tests your code. You don't need any previous knowledge of programming, but an inquisitive mind is a bonus.</p>
 <p class="top aside info">You can see the completed game <a href="complete/">here</a>. You might like to try to beat the computer before you learn to write the code that will beat all other players.</p>
-<p class="aside next">When you're ready to begin, click on item <a href="#html">2: Your HTML Page</a> in the menu on the left.</p>
+<div class="top aside next">
+When you're ready to begin, click on item <a href="#html">2: Your HTML Page</a> in the menu on the left.
+<p>If you want to know more about HTML, CSS, JavaScript, Git and GitHub, you can read the optional If A Web Page Were A Meal section below.</p>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="details-top"/>
+<label for="details-top">If a web page were a meal then...</label>
+<div>
+<p>
+<h4>HTML</h4>
+<p>HTML would be the food on your plate. HTML provides the content and the structure of the information in your web page.</p>
+<p>A web page that just contains HTML can be informative, and can contain links to other pages.</p>
+<h4>CSS</h4>
+<p>CSS would be the way table is laid and the way the food is presented on your plate. CSS takes care of the colour, shape and position of the HTML elements. It's what gives the page its <span class="keyword">style</span></p>
+<p>A web page that just contains CSS is like a deserted restaurant: neat and decorative surroundings, all prepared for something to happen.</p>
+<h4>JavaScript</h4>
+<p>JavaScript would be the animation and conversation. JavaScript is what makes the web page come to life, with interactions, animations, cause and effect. JavaScript can connect you to other internauts in other places, making the web a social place to be.</p>
+<p>A web page that just contains JavaScript can create all the HTML and CSS that it needs.</p>
+<h4>Git</h4>
+<p>Git would be the event organizer, discreetly ensuring that everything is going to plan.</p>
+<p>A web page does not need Git to manage it. When you first start creating web pages they will be simple enough for you to keep all your ideas tidy in your head as you are working. But as your experience and your initiatives grow, you will be happy to have Git to keep track of everything for you. Working with Git right from the beginning, on your first small projects, will give you confidence that you are ready to tackle larger projects.</p>
+</div>
+</div>
+
+<div class="optional tips">
+<input type="checkbox" id="tips-top"/>
+<label for="tips-top">Tips and Tricks</label>
+<div>
+<p>Everyone is a beginner at something, and has expertise in other areas. This tutorial was written with the understanding that some pages might teach you nothing new, and others might present you with a challenge.</p>
+<p>In this tutorial, each page starts with the simplest instructions that you need to get to the next page. If these instructions work for you and you understand why they work, then there is no more to be said.</p>
+<p>At the end of this starter section, you'll see a green box something like this:</p>
+<p class="aside next">If you're ready to go on, click <span style="text-decoration: underline;">here</span>, to go to the next page. If you want to know more, you can read the optional sections below.</p>
+<p>If you can complete the entire tutorial without reading any of the optional sections below the green box, congratulations! We'd like to hear from you, so that we can feel good, too.</p>
+<p>On the other hand, if you read all the optional material carefully, and you are still unable to get the instructions to work for you, then please let us know. We'll do all we can to make the instructions and explanations better.</p>
+<p>It would be helpful if you can tell us:</p>
+<ul>
+<li>What operating system you are using (eg. Windows 8.1, Mac 10.8.5 Mountain Lion, Ubuntu Utopic Unicorn...)</li>
+<li>What browser you are testing your site with (Google Chrome, Mozilla Firefox, Internet Explorer 9...</li>
+<li>What text editor you are using to write your code. (If you are using <a href="http://www.sublimetext.com/2">Sublime Text</a>, we may be able to be more helpful)</li>
+<li>What version of Git you have running.</li>
+<li>Where we can find your GitHub repository, so that we can see what you've done so far.</li>
+<li>What's not working out for you...</li>
+</ul>
+<p class="aside mail">If you have any difficulty anywhere in this tutorial, please do <a href="https://github.com/lexogram/openbook/issues/new">create a new issue</a> for us, and we'll do our best to deal with it for you. Keep in touch. Your questions and suggestions can help us make this tutorial better.</p>
+</div>
+</div>
 <!--footer>
 <a href=#html><img src="../img/arrow.png" alt="next" /></a>
 </footer-->

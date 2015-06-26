@@ -18,7 +18,7 @@ background: #002;
 }
 body{
 max-width: 800px;
-min-width: 512px;
+min-width: 480px;
 margin: 0 auto;
 }
 
@@ -113,6 +113,14 @@ color: #030;
 .next a:hover,
 .next a:active  {
 color: #393;
+}
+.mail a:link,
+.mail a:visited {
+color: #ccc;
+}
+.mail a:hover,
+.mail a:active  {
+color: #eee;
 }
 #side nav li:hover {
 background-color: rgba(0,0,255,0.1);
@@ -242,6 +250,7 @@ display: block;
 .info,
 .next,
 .kudos,
+.mail,
 pre {
 display: block;
 padding: 0.5em;
@@ -292,11 +301,24 @@ border-color: #edf;
 border-right-color: #dce;
 border-bottom-color: #dce;
 }
+.mail {
+background: #336;
+border-color: #669;
+border-right-color: #003;
+border-bottom-color: #003;
+color: #fff;
+}
 pre {
 background: #eee;
 border-color: #ccc;
 border-right-color: #f4f4ff;
 border-bottom-color: #f4f4ff;
+}
+div.aside p:last-child {
+margin-bottom: 0;
+}
+.tips .aside {
+margin: 0.5em 3em;
 }
 .aside::before {
 font-family: asides;
@@ -326,6 +348,10 @@ color: #6c6;
 .kudos::before {
 content: "\e80d";
 color: #96c;
+}
+.mail::before {
+content: "\e80e";
+color: #fff;
 }
 .git::before {
 content: "\e80c";
@@ -383,7 +409,7 @@ code{
 background-color: #eee;
 }
 
-div.details {
+.aside + div.optional {
 margin-top: 1em;
 }
 .details div{
@@ -397,15 +423,15 @@ background-color: #eef;
 .details label::before{
 color: #336;
 }
-.nuggets div{
+.tips div{
 background-color: #f8ffff;
 border: 0px solid #eff;
 }
-.nuggets code{
+.tips code{
 background-color: #eff;
 }
-.nuggets label,
-.nuggets label::before{
+.tips label,
+.tips label::before{
 color: #366;
 }
 .trouble div{
