@@ -236,7 +236,6 @@ margin: 0.5em 0;
 section, section:target ~ :last-child{
 display: none;
 min-height: 100%;
-/*position:relative;*/
 }
 section:target,
 section:last-child {

@@ -20,6 +20,9 @@
 <li><a href="#git">Getting Git</a></li>
 <li><a href="#github">Your GitHub repo</a></li>
 <li><a href="#branch">Creating a branch</a></li>
+<li><a href="#game">Your game goes here</a></li>
+<li><a href="#revert">Reverting changes</a></li>
+<li><a href="#issue">Creating an issue</a></li>
 <li><a href="#image">Adding an image</a></li>
 <li><a href="#push">Saving to GitHub</a></li>
 <li><a href="#div">Rows of images</a></li>
@@ -69,7 +72,7 @@
 <!-- YOUR HTML PAGE -->
 <section id="html">
 <h2>Your first HTML page</h2>
-<p>I'm assuming that you have never created an HTML page before. HTML means "HyperText Markup Language". You will soon see what this means.</p><p>This is what a very simple HTML page looks like:</p>
+<p>I'm assuming that you have never created an HTML page before. HTML means "HyperText Markup Language". This is what a very simple HTML page looks like:</p>
 <pre>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
@@ -83,57 +86,15 @@
 <p>Here's how this HTML page looks in different browsers.</p>
 <figure><img src="img/01_page.png" alt="screenshot of simple HTML page in different browsers"/>
 <figcaption>Figure 1: How HTML &lt;title&gt; and &lt;body&gt; HTML elements appear in a browser</figcaption></figure>
+<p>You can discover what all these <code>&lt;tags&gt;</code> mean in the Understanding HTML Tags section at the foot of page <a href="#game">6: Your game goes here</a>. But in fact, your browser will automatically create most of these tags if they are missing, so you can start with something even simpler, for now.</p>
 <h3>Do It Yourself</h3>
-<p>In fact, your browser will display even simpler pages. In the programming community, it is a tradition that your first program in any new language should display the words <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program#History">"hello world"</a>. To honour that tradition, you can create your own Hello World page and open it in your browser.</p>
+<p>In the programming community, it is a tradition that your first program in any new language should display the words <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program#History">"hello world"</a>. To honour that tradition, you can create your own Hello World page and open it in <em>your</em> browser.</p>
 <p>If you haven't already got a text editor, <a href="http://www.sublimetext.com/2">download and install a trial copy of Sublime Text</a>. Open your text editor and create a new document. You can type <code>hello world</code></center> (or any other message you like), then save your file as <code>index.html</code>.</p>
 <p>Find the file that you have just created on your desktop, and double-click on it. It should open in your favourite browser.</p>
 <figure><img src="img/02_helloWorld.png" alt="A Hello World HTML page displayed in a browser" /><figcaption>Figure 2. A Hello World HTML page displayed in a Google Chrome</figcaption></figure>
 <h3>Hello... Desktop</h3>
-<p>Actually, the world can't see your message yet. This file that you saved on your local hard drive is only visible in your browser. Your next step will be to put an HTML file onto this server, so that anyone in the world can see it. To be precise, it will take you a total of 15 steps, including what you've just done. There will be clear instructions, explanations and screenshots to make sure that you find your way.</p>
-<p class="aside next">If you are eager to continue building your game, click on <a href="#git">3: Getting Git</a> in the menu on the left. Your Hello World message should be online when you have reach the end of page 5. If you want to know more about what all the HTML code does, click on Understanding HTML Tags below and continue reading.</p>
-
-<div class="optional details">
-<input type="checkbox" id="details-html"/>
-<label for="details-html">Understanding HTML Tags</label>
-<div>
-<p>You can recognize HTML code because of the <span class="keyword">tags</span> that it uses. Tags are instructions that are enclosed in <code>&lt;</code> and <code>&gt;</code> pointed <span class="keyword">angle brackets</span>, in this style: <code>&lt;style&gt;</code>.</p>
-<h4>Closing Tags</h4>
-<p>Most HTML tags come in matching pairs, with an <span class="keyword">opening</span> and a <span class="keyword">closing</span> tag. Closing tags contain a forward slash <code>/</code> character, followed by the first word of the matching opening tag. The expression to describe a pair of matching tags, plus all the data between them, is <span class="keyword">HTML element</span>. In the example above, you can see the following pairs of tags, creating five different HTML elements.</p>
-<dl>
-<dt><code>&lt;html&gt;...&lt;/html&gt;</code></dt><dd><p>This tells the browser to treat all the information between these tags as HTML code. There should always be an opening <code>&lt;html&gt;</code> tag at the beginning of an HTML document, and a closing <code>&lt;/html&gt;</code> tag at the end.</p><p>There should only be one <code>html</code> element in an HTML file.</p></dd>
-<dt><code>&lt;head&gt;...&lt;/head&gt;</code></dt><dd><p>The <code>head</code> element contains instructions to the browser that are not shown inside the browser window. In sections 7 and 8, you will add instructions to tell the browser where to find additional files to download. The <code>head</code> can also contain information for search engines that summarize the contents of the page.</p></dd>
-<dt><code>&lt;title&gt;...&lt;/title&gt;</code></dt><dd><p>As you can see from the screen shot in figure 1, the text inside the <code>title</code> element appears in the title bar of the browser window, or as a label in the tab for the current page.</p><p>Search engines like <a href="http://www.google.com">Google</a>, <a href="http://www.yandex.com">Yandex</a> and <a href="http://www.baidu.com">Baidu</a> use the text in the <code>title</code> element to understand the main purpose of the page.</p></dd>
-<dt><code>&lt;body&gt;...&lt;/body&gt;</code></dt><dd><p>The <code>body</code> element contains everything that will appear inside the browser window. There should only be one <code>body</code> element.</p></dd>
-<dt><code>&lt;p&gt;...&lt;/p&gt;</code></dt><dd>This indicates a paragraph of text.</dd>
-</dl>
-<h4>Self-closing Tags</h4>
-<p>Some tags, such as <code>&lt;!DOCTYPE html&gt;</code> are <span class="keyword">self-closing</span>. A self-closing tag stands on its own, with no matching tag to close it later. Self-closing tags are typically used for elements that cannot have text inside then. For example</p>
-<dl>
-<dt><code>&lt;!DOCTYPE html&gt;</code></dt>
-<dd>The very first line of an HTML file tells the browser what kind of file it is. Browsers can read many kinds of files: XML files, which contain arrays of data, SVG files which contain the formulae needed to draw smooth Scalable Vector Graphics, image files such as JPG and PNG, and many more.</dd>
-<dt><code>&lt;img&gt;</code></dt><dd>The <code>&lt;img&gt;</code> tag tells the browser where to find a file that displays an image. You will be working with the <code>&lt;img&gt;</code> tag in section <a href="#image">4: Adding an image.</a></dd>
-<dt><code>&lt;link&gt;</code></dt><dd>The <code>&lt;link&gt;</code> tag tells the browser where to find a file that gives rules on the appearance and layout of the web page. You will be using the <code>&lt;link&gt;</code> tag in section <a href="#css">7: Styling with CSS.</a></dd>
-<dt><code>&lt;input&gt;</code></dt><dd>The <code>&lt;input&gt;</code> tag lets you create elements such as buttons and editable fields that allow the visitor to interact with your page. You will be adding a checkbox <code>&lt;input&gt;</code> to your page in   section <a href="#toggle">21: Showing the rules.</a></dd>
-<dt><code>&lt;meta&gt;</code></dt><dd>The <code>&lt;meta&gt;</code> tag can be used to tell the browser and bots that visit your site what your page is about, what language it's in, how it should be categorized in search engines. You will be adding a <code>&lt;meta&gt;</code> in section <a href="#meta">22: Invisible data</a>.</dd>
-</dl>
-<p>By the time you gave finished this tutorial, you will also have used all the following tags (in order of appearance):</p>
-<ul>
-<li><a href="http://www.w3schools.com/tags/tag_hn.asp"><code>&lt;h1&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_img.asp"><code>&lt;img&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_div.asp"><code>&lt;div&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_link.asp"><code>&lt;link&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_script.asp"><code>&lt;script&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_button.asp"><code>&lt;button&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_main.asp"><code>&lt;main&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_ul.asp"><code>&lt;ul&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_li.asp"><code>&lt;li&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_input.asp"><code>&lt;input&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_label.asp"><code>&lt;label&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_meta.asp"><code>&lt;meta&gt;</code></a></li>
-</ul>
-<p>You can find a full list of the tags used to create HTML elements <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">here</a>.</p>
-</div>
-</div>
+<p>Actually, the world can't see your message yet. This file that you saved on your local hard drive is only visible in your browser. Your next step will be to put an HTML file onto this server, so that anyone in the world can see it. To be precise, it will take you a total of 15 steps, including the ones that you have just taken. There will be clear instructions, explanations and screenshots to make sure that you find your way.</p>
+<p class="aside next">If you are eager to continue building your game, click on <a href="#git">3: Getting Git</a> in the menu on the left. Your Hello message should be online for the world to see when you have reach the end of page 5. If you need help or want to know more, click on optional sections below.</p>
 
 <div class="optional tips">
 <input type="checkbox" id="tips-html"/>
@@ -144,8 +105,6 @@
 </div> 
 <p class="aside info">
 Why call your file <code>index.html</code>? In fact, you could call your html file anything you like. The fact that the first line is <code>&lt;!DOCTYPE html&gt;</code> tells your browser all it needs to know. When you visit a site, if your browser doesn't ask for any particular file, the server on the site will send you <code>index.html</code> by default, if a file with that name exists. Unless you have a very good reason for using a different name, it is good practice to use <code>index.html</code></p>
-<p class="aside note">As you saw in your Hello World test, if a file has an <code>.html</code> extension, most modern browsers will treat everything inside it as HTML, even if there is no <code>&lt;html&gt;</code> element, if there is more than one <code>&lt;html&gt;</code> element, or if there is text outside the <code>html</code> element. Modern browsers may also display content correctly even if the <code>body</code> is missing, or if there is more than one <code>body</code> element. Nonetheless, it is good practice to use these elements correctly. Other developers will notice if your code is badly written.</p>
-<p class="aside note">The browser will not display any text between an opening angle bracket <code>&lt;</code> character and a closing angle bracket <code>&gt;</code>. If you use a tag that the browser does not recognize, such as <code>&lt;unofficial_tag&gt;</code>, the browser will simply ignore it. Older browsers may ignore tags that were officially introduced after they were released.</p>
 </div>
 </div>
 
@@ -156,7 +115,7 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <p>Ouch. Your HTML page is not appearing correctly in the browser. Perhaps one of these steps will help you:</p>
 <ul>
 <li>If you are not using Sublime Text, perhaps your text editor is saving your files in a <code class="keyword">rich text</code> format, such as <code>.doc</code> or <code>.rtf</code>. Make sure that you are saving in a plain text format, using <code>.html</code> as the extension.</li>
-<li>There may be many files called <code>index.html</code> on your computer. Make sure that you are opening the right one. If you are using Sublime Text, you can use the right-click > Show in Browser shortcut, to be sure that you are opening the same document that you are working on.</li>
+<li>There may be many files called <code>index.html</code> on your computer. Make sure that you are opening the right one. If you are using Sublime Text, you can use the right-click &gt; Show in Browser shortcut, to be sure that you are opening the same document that you are working on.</li>
 </ul>
 <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
@@ -253,7 +212,7 @@ git version 2.3.5
 <p>Now you're ready to open a GitHub acccount. This wont't take long (although finding a username that you like and that isn't already taken can be time-consuming). I've used the name "blackslate" in my examples.</p>
 <p>Go to the <a href="https://github.com/join">Join GitHub</a> page, and fill in the form.</p>
 <p class="aside note">At the time of writing, Git requires you to use only the characters <code>A-Z</code>, <code>a-z</code> and <code>-</code> (hyphens) for your username and for the names of your projects. Names with other punctuation, special characters, accents or non-Roman letters, like <span class="gold">!android_</span> or <span class="gold">Andréa</span> or <span class="gold">Андрей</span>, are not permitted.</p>
-<p>The first page asks for a username and an email address that are not currently registered on GitHub.</p>
+<p>The first page asks for a username and an email address that are not currently registered on GitHub. It will also ask you to enter a password. At the beginning, at least, you will be typing this username and password often.</p>
 <figure>
 <img src="img/05_joinGitHub.png" alt="" />
 <figcaption>Figure 6. Create a personal account on GitHub</figcaption>
@@ -311,7 +270,6 @@ git version 2.3.5
 <p>Telling the world about your project is the best way to find people who are willing to help you. In future projects, you will know how to create a strong web presence, right from the beginning. In future projects, you will know to use the <span class="keyword">master</span> branch for your main development.</p>
 </div>
 </div>
-
 </section>
 
 <!-- CREATING A BRANCH -->
@@ -323,10 +281,12 @@ git version 2.3.5
 <p>You've just created an empty repository, like a dry river bed. And now I'm going to show you how to make a special <span class="keyword">branch</span> from this repository. This is much easier to do when the repository is still empty.</p>
 <p class="aside kudos">Many thanks to <a href="https://github.com/cmrberry">Rachel Berry</a> of GitHub for pointing out this technique to me.</p>
 
-<p>The next few instructions may seem a little like magic to you for now, but you will soon make sense of them. In the Understanding Cloning section below, you can read up about the <code>git</code> commands that you will be using. Here's what you need to do:</p>
+<p>The next few instructions may seem a little like magic to you for now, but you will soon make sense of them. In the Understanding Cloning section below, you can read up about the <code>git</code> commands that you will be using.</p>
+<p class="aside tip">One of the commands you will be using is <code>commit</code>. This requires you to include a note to describe what you have changed. I am guessing that you are not familiar with command line text editors, so I strongly recommend that you configure Git to use Sublime Text as its default text editor. You can find instructions for this in the Tips and Tricks section below. You will be thankful you did this when you reach section 7: Reverting changes.</p>
+<p>Here's what you need to do:</p>
 <ul>
 <li><strong>On your desktop, create an empty folder</strong> in the place where you would like to save your new project. I have called my folder <code>nim</code>. It might be easier for you if you do the same.</li>
-<li><strong><a href="html/terminal.html">Open a Terminal window</a></strong>. You're going to create a command that gives the Terminal control of your new <code>nim</code> folder. You'll create the command in three separate stages. The complete command might look something like this:<br />
+<li><strong><a href="html/terminal.html">Open a Terminal window</a></strong>. You're going to type 9 commands in all. First you are going to create a command that gives the Terminal control of your new <code>nim</code> folder. You'll create the command in three separate stages. The complete command might look something like this:<br />
 <code>cd /Users/james/nim</code></li>
 <ol>
 <li><strong>Type <code>cd&nbsp;</code></strong> (that's "cd " followed by a space). This means <span class="keyword">change directory</span>.</li>
@@ -420,7 +380,7 @@ git push origin gh-pages
   <li>Opened your brand new online web site in your browser</li>
 </ol>
 <p>Now you are ready to start working on your game project, knowing that Git is working with to keep your project on track.</p>
-<p>Before you continue, you might like to check through all the optional sections on this page and the previous pages, to make sure that you understand everything that you have done so far. When you are ready, you can click on the item <a href="#image">6: Adding an image</a> in the menu on the left.</p>
+<p>Before you continue, you might like to check through all the optional sections on this page and the previous pages, to make sure that you understand everything that you have done so far. When you are ready, you can click on the item <a href="#game">6: Your game goes here</a> in the menu on the left.</p>
 </div>
 
 <div class="optional details">
@@ -477,6 +437,20 @@ Here are the <code>git</code> commands that you have just used:
 <input type="checkbox" id="tips-branch"/>
 <label for="tips-branch">Tips and Tricks</label>
 <div>
+<h4>Using Sublime Text to create <code>commit</code> and <code>revert</code> messages</h4>
+<div class="aside tip">Windows:
+<p>If you used the default installation settings when you installed Sublime Text, you can use the following command in the Command Prompt window:</p>
+<ul>
+  <li>Sublime Text 3 <br /><code>git config --global core.editor "'c:/program files/sublime text 3/subl.exe' -w"</code></li>
+  <li>Sublime Text 2 <br /><code>git config --global core.editor "'c:/program files/sublime text 2/sublime_text.exe' -w"</code></li>
+</ul>
+<p>When you have done this, each time you execute a <code>commit</code> command without using the <code>-m</code> option, a new document will open in Sublime Text with the title COMMIT_EDITMSG. You can edit this message, save it and close it, and then Git will continue with the commit process. If you change your mind about your commit, you can close the message without saving it, or delete all its contents before you save and close it. If Git sees an empty message, it will cancel the commit process.</p>
+<p class="aside kudos">Credit: <a href="http://stackoverflow.com/a/9408117">jrotello</a>
+</div><div class="aside tip">Macintosh:
+<ul>
+  <li></li>
+</ul>
+</div>
 <h4>Showing invisible files</h4>
 <div class="aside tip">To show invisible files on Windows:
 <ul>
@@ -493,19 +467,6 @@ Here are the <code>git</code> commands that you have just used:
 <ul>
   <li>Step 1</li>
 </ul></div>
-<h4>Using Sublime Text to create <code>commit</code> messages</h4>
-<div class="aside tip">Windows:
-<p>If you used the default installation settings when you installed Sublime Text, you can use the following command in the Command Prompt window:</p>
-<ul>
-  <li>Sublime Text 3 <br /><code>git config --global core.editor "'c:/program files/sublime text 3/subl.exe' -w"</code></li>
-  <li>Sublime Text 2 <br /><code>git config --global core.editor "'c:/program files/sublime text 2/sublime_text.exe' -w"</code></li>
-</ul>
-<p class="aside kudos">Credit: <a href="http://stackoverflow.com/a/9408117">jrotello</a>
-</div><div class="aside tip">Macintosh:
-<ul>
-  <li></li>
-</ul>
-</div>
 </div>
 </div>
 
@@ -525,15 +486,246 @@ Here are the <code>git</code> commands that you have just used:
 </div>
 </section>
 
-<!-- ADDING AN IMAGE -->
-<section id="image">
-<h2>Adding an Image</h2>
-<p></p>
+<!-- YOUR GAME GOES HERE -->
+<section id="game">
+<h2>Your game goes here</h2>
+<p>Do you remember the very first HTML page that you saw on page 2?</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;This appears in the tab / title bar>&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;This appears inside the browser window&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>You can use this as a template for the web page that will be the home for your game. You can copy this text and paste it into your <code>index.html</code> file in the <code>nim/gh-pages</code> folder that you created in the last section. You can make a couple of changes to it, to make it more relevant:</p>
+<pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;<span class="new">Nim</span>&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;<span class="new">The game will go here</span>&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>Save the file, and open it in your browser. If you don't see what you expect to see, check the Troubleshooting section below. If all is well, you can use Git to push your well-formatted HTML page to the GitHub server.</p>
+<p>In your Terminal window:</p>
+<ul>
+<li>Ensure that the Terminal is focused on the folder that contains your <code>index.html</code> file. If you're not sure, type <code>cd&nbsp;</code> and then the path to the folder. Remember that you can drag the folder's icon onto the Terminal window, to paste its path automatically.</li>
+<li>As a sanity check, type <code>git status</code>. The terminal window should show that index.html has been modified.
+<figure>
+<img src="" alt="git status after modifying your index.html file" />
+<figcaption>Figure XX. <code>git status</code> after modifying your <code>index.html</code> file</figcaption>
+</figure>
+</li>
+<li>Type <code>git add -A</code> and press Enter</li>
+<li>Type <code>git commit -m "'Hello World' becomes 'The game will
+go here'"</code></li>
+<li>Type <code>git push origin gh-pages</code> and then enter your username and password
+<figure>
+<img src="" alt="Pushing your first modification to the GitHub server" />
+<figcaption>Figure XX. Pushing your first modification to the GitHub server</figcaption>
+</figure>
+</li>
+</ul>
+<p>Now you can visit your project site on the GitHub web site. Instead of "Hello World", you should see your new page.</p>
+<figure>
+<img src="" alt="the updated page on the GitHub site" />
+<figcaption>Figure XX. The updated page on the GitHub web site</figcaption>
+</figure>
+
+<div class="aside next">
+If you are ready to go on, click on item <a href="#revert">7: Reverting changes</a> in the menu on the left.
+<p>If you want to know more about the HTML tags you have been using, click on Understanding HTML Tags below.</p>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="details-html"/>
+<label for="details-html">Understanding HTML Tags</label>
+<div>
+<p>You can recognize HTML code because of the <span class="keyword">tags</span> that it uses. Tags are instructions that are enclosed in <code>&lt;</code> and <code>&gt;</code> pointed <span class="keyword">angle brackets</span>, in this style: <code>&lt;style&gt;</code>.</p>
+<h4>Closing Tags</h4>
+<p>Most HTML tags come in matching pairs, with an <span class="keyword">opening</span> and a <span class="keyword">closing</span> tag. Closing tags contain a forward slash <code>/</code> character, followed by the first word of the matching opening tag. The expression to describe a pair of matching tags, plus all the data between them, is <span class="keyword">HTML element</span>. In the example above, you can see the following pairs of tags, creating five different HTML elements.</p>
+<dl>
+<dt><code>&lt;html&gt;...&lt;/html&gt;</code></dt><dd><p>This tells the browser to treat all the information between these tags as HTML code. There should always be an opening <code>&lt;html&gt;</code> tag at the beginning of an HTML document, and a closing <code>&lt;/html&gt;</code> tag at the end.</p><p>There should only be one <code>html</code> element in an HTML file.</p></dd>
+<dt><code>&lt;head&gt;...&lt;/head&gt;</code></dt><dd><p>The <code>head</code> element contains instructions to the browser that are not shown inside the browser window. In sections <a href="css">11</a> and <a href="js"12</a>, you will add instructions to tell the browser where to find additional files to download. The <code>head</code> can also contain information for search engines that summarize the contents of the page.</p></dd>
+<dt><code>&lt;title&gt;...&lt;/title&gt;</code></dt><dd><p>As you can see from the screen shot in figure 1, the text inside the <code>title</code> element appears in the title bar of the browser window, or as a label in the tab for the current page.</p><p>Search engines like <a href="http://www.google.com">Google</a>, <a href="http://www.yandex.com">Yandex</a> and <a href="http://www.baidu.com">Baidu</a> use the text in the <code>title</code> element to understand the main purpose of the page.</p></dd>
+<dt><code>&lt;body&gt;...&lt;/body&gt;</code></dt><dd><p>The <code>body</code> element contains everything that will appear inside the browser window. There should only be one <code>body</code> element.</p></dd>
+<dt><code>&lt;p&gt;...&lt;/p&gt;</code></dt><dd>This indicates a paragraph of text.</dd>
+</dl>
+<h4>Self-closing Tags</h4>
+<p>Some tags, such as <code>&lt;!DOCTYPE html&gt;</code> are <span class="keyword">self-closing</span>. A self-closing tag stands on its own, with no matching tag to close it later. Self-closing tags are typically used for elements that cannot have text inside then. For example</p>
+<dl>
+<dt><code>&lt;!DOCTYPE html&gt;</code></dt>
+<dd>The very first line of an HTML file tells the browser what kind of file it is. Browsers can read many kinds of files: XML files, which contain arrays of data, SVG files which contain the formulae needed to draw smooth Scalable Vector Graphics, image files such as JPG and PNG, and many more.</dd>
+<dt><code>&lt;img&gt;</code></dt><dd>The <code>&lt;img&gt;</code> tag tells the browser where to find a file that displays an image. You will be working with the <code>&lt;img&gt;</code> tag in section <a href="#image">8: Adding an image.</a></dd>
+<dt><code>&lt;link&gt;</code></dt><dd>The <code>&lt;link&gt;</code> tag tells the browser where to find a file that gives rules on the appearance and layout of the web page. You will be using the <code>&lt;link&gt;</code> tag in section <a href="#css">11: Styling with CSS.</a></dd>
+<dt><code>&lt;input&gt;</code></dt><dd>The <code>&lt;input&gt;</code> tag lets you create elements such as buttons and editable fields that allow the visitor to interact with your page. You will be adding a checkbox <code>&lt;input&gt;</code> to your page in   section <a href="#toggle">21: Showing the rules.</a></dd>
+<dt><code>&lt;meta&gt;</code></dt><dd>The <code>&lt;meta&gt;</code> tag can be used to tell the browser and bots that visit your site what your page is about, what language it's in, how it should be categorized in search engines. You will be adding a <code>&lt;meta&gt;</code> in section <a href="#meta">26: Invisible data</a>.</dd>
+</dl>
+<p>By the time you gave finished this tutorial, you will also have used all the following tags (in order of appearance):</p>
+<ul>
+<li><a href="http://www.w3schools.com/tags/tag_hn.asp"><code>&lt;h1&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_img.asp"><code>&lt;img&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_div.asp"><code>&lt;div&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_link.asp"><code>&lt;link&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_script.asp"><code>&lt;script&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_button.asp"><code>&lt;button&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_main.asp"><code>&lt;main&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_ul.asp"><code>&lt;ul&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_li.asp"><code>&lt;li&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_input.asp"><code>&lt;input&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_label.asp"><code>&lt;label&gt;</code></a></li>
+<li><a href="http://www.w3schools.com/tags/tag_meta.asp"><code>&lt;meta&gt;</code></a></li>
+</ul>
+<p>You can find a full list of the tags used to create HTML elements <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">here</a>.</p>
+</div>
+</div>
+
+<div class="tips">
+<input type="checkbox" id="game-tips"/>
+<label for="game-tips">Tips and Tricks</label>
+<div>
+<p class="aside tip">As you saw in your Hello World test, if a file has an <code>.html</code> extension, most modern browsers will treat everything inside it as HTML, even if there is no <code>&lt;html&gt;</code> element, if there is more than one <code>&lt;html&gt;</code> element, or if there is text outside the <code>html</code> element. Modern browsers may also display content correctly even if the <code>body</code> is missing, or if there is more than one <code>body</code> element. Nonetheless, it is good practice to use these elements correctly. Other developers will notice if your code is badly written.</p>
+<p class="aside tip">The browser will not display any text between an opening angle bracket <code>&lt;</code> character and a closing angle bracket <code>&gt;</code>. If you use a tag that the browser does not recognize, such as <code>&lt;unofficial_tag&gt;</code>, the browser will simply ignore it. Older browsers may ignore tags that were officially introduced after they were released.</p>
+</div>
+</div>
+
+<div class="trouble">
+<input type="checkbox" id="game-trouble"/>
+<label for="game-trouble">Troubleshooting </label>
+<div>
+<p>When you open the file in your browser, you still see "Hello World".</p>
+<ul>
+<li>Perhaps you need to save your <code>index.html</code> file so that your browser can see the new version.</li>
+<li>Perhaps you opened a different <code>index.html</code> file than the one you saved. If you are using Sublime Text, you can right-click on your edited page and choose Open in Browser.</li>
+</ul>
+<p>In Sublime Text, when you right-click on your edited page and choose Open in Browser, nothing happens, or it opens in the wrong browser.</p>
+<ul>
+<li>Set your default browser to the browser that you want Sublime Text to open</li>
+<li>On your desktop, select your <code>index.html</code> file and make sure that the default application that will be used to open <code>.html</code> files is your default browser.
+<figure>
+<img src="" alt="Set the default application for .html files on Windows" />
+<figcaption>Figure XX. Windows - set the default application for <code>.html</code> files</figcaption>
+</figure>
+<figure>
+<img src="" alt="Set the default application for .html files on Macintosh" />
+<figcaption>Figure XX. Macintosh - set the default application for <code>.html</code> files</figcaption>
+</figure>
+</li>
+</ul>
+</div>
+</div>
 </section>
 
-<!-- SAVING TO GITHUB -->
-<section id="push">
-<h2>Saving Your Changes to GitHub</h2>
+<!-- REVERTING YOUR CHANGES -->
+<section id="revert">
+<h2>Reverting changes</h2>
+<p>In you <code>index.html</code> file, the words "Hello World!" have gone. The change that you have just made moves your project forward. But let's imagine for a moment that it creates a problem, and that you want to get back to your "Hello World" version of the file. How can you do that?</p>
+<p>Git provides 3 commands: <code>checkout</code>, <code>revert</code> and <code>reset</code>, of increasing power. You've already used <code>checkout</code> command to create the <code>gh-pages</code> branch in your repository. You can use a different flavour of it now to look at your project the way it was in the past, without disturbing its current state.</p>
+<h3>git log</h3>
+<p>In the Terminal window type the following command:</p>
+<pre>git log</pre>
+<figure>
+<img src="" alt="the git log command" />
+<figcaption>Figure XX. The <code>git log</code> command gives a unique name for each <code>commit</code></figcaption>
+</figure>
+<p>You will see the history of the <code>commit</code>s that you have made, starting with the most recent. Each <code>commit</code> has a unique 32-character name. You don't need to memorize this.</p>
+<h3>git checkout</h3>
+<p>To see what your project looked like at the moment of a particular <code>commit</code> you can type the command <code>git checkout xxxxxxx</code>, where xxxxxxx represents the first 7 characters in the commit name. In my case, to return to my Hello World state, I can type:</p>
+<pre>git checkout e6b50f7</pre>
+<figure>
+<img src="" alt="Using git checkout to view an earlier stage in the project" />
+<figcaption>Figure XX. Using <code>git checkout</code> to view an earlier stage in the project</figcaption>
+</figure>
+<p>Git restores my entire project (in this case, just the <code>index.html</code> file) to the state it was in after my first commit. If I open <code>index.html</code> in my text editor, and refresh it in my browser, I can see that I am back to Hello World.</p>
+<p>This change is only temporary. I can get back to where I was before by checking out the most recent <code>commit</code>:</p>
+<pre>git checkout b6d433d</pre>
+<figure>
+<img src="" alt="checking out the most recent <code>commit" />
+<figcaption>Figure XX. Checking out the most recent <code>commit</code></figcaption>
+</figure>
+<p>You can try this for yourself. It's safe to do it now, right at the beginning of your project. If the worst comes to the worst, you can always delete everything you've done, and you need only 15 steps to get back to where you are now.</p>
+<h3>git revert</h3>
+<p>The <code>git revert xxxxxxx</code> command is more powerful. It is not an "undo" command, but its effect is to undo all the changes made by the chosen commit, but . In fact, it creates a new <code>commit</code> that resets the state of your project to the way it was earlier. This action adds a new element to the history of your project. If you change your mind, you can then revert the previous <code>revert</code>. You can <code>revert</code> back to any point in the past, and all the intervening changes will still be safely stored, for you to revert to if you need to.</p>
+<p class="aside note">Before testing the <code>revert</code> command, I strongly recommend that you configure Git to use Sublime Text as its preferred text editor. You can find instructions for this in the Tips and Tricks section at the bottom of page <a href="#branch">5: Creating a branch</a>. If you don't do this, you might need to use the Troubleshooting section below to find out how to manage the command line text editor that Git uses by default.</p>
+<p>If you have set up Git to use Sublime Text as the default text editor, you might like to test this command now. </p>
+<ul>
+<li>Check the <code>git log</code> that you made earlier for the name of the most recent commit</li>
+<li>Run the command <code>git revert </code> + the first 7 characters in the name. For me, this would be:<br /> <code>git revert b6d433d</code>. The name that you use will be different.</li>
+<li>Git will now open a text editor for you to create a message explaining why you are reverting to a previous version. If you have configured Git to use Sublime Text as its preferred text editor, you should see something like Figure XX below.
+<figure>
+<img src="" alt="you must provide a commit message when you use the revert command" />
+<figcaption>Figure XX. You must provide a <code>commit</code>  message when you use the <code>revert</code> command</figcaption>
+</figure></li>
+<li>Type something like <code>Testing the revert command</code>, save the document and close it.</li>
+<li>In the Terminal window, run the <code>git log</code> command again. You will see that there is now a new commit.</li>
+</ul>
+<p>If you open your <code>index.html</code> file now, either in your text editor or in your browser, you will see that everything is back to its Hello World state. If you continued working now, and made a new commit, your "game will go here" version would be ignored. But it would not be forgotten. You would be able to <code>revert</code> to it at any time, if you wanted.</p>
+<h3>git reset</h3>
+<p>Actually, you want to restore your "game will go here" version, and continue working from that point. You can now do one of two things.</p>
+<ol>
+<li>You could revert your most recent <code>commit</code> action (which was just created by the <code>revert</code> command). If you do this, you will add another <code>commit</code> to your history. If there were other developers working on the project, this would be the best thing to do, so that a permanent trace of all your actions is recorded</li>
+<li>You can execute the dangerous <code>reset</code> command.</li>
+</ol>
+<p class="aside warn">The <code>reset</code> command can be dangerous, because it can destroy data without checking first. If you have made changes to your files, or created new files, these changes and these files will be erased permanently, without warning.</p>
+<p>In this case, all you will be deleting is the  most recent <code>commit</code> action, the one you just created by using <code>revert</code>, so you will be back exactly where you want to be.</p>
+<p>In the Terminal window, type <code>git reset --hard&nbsp;</code> and then the first characters of the commit that you made after the "game will go here" edit. In my case, this command looks like this:</p>
+<pre>git reset --hard b6d433d
+</pre>
+<p>Your command will have a different name at the end.</p>
+<p>If you now run <code>git log</code>, you will see that you have changed your history: there are now only 2 commits recorded. The third one has gone forever.</p>
+<figure>
+<img src="" alt="using reset to change your history" />
+<figcaption>Fig XX. The <code>reset</code> command erases history.</figcaption>
+</figure>
+<div class="aside next">
+Now you know Git's <code>add</code>, <code>commit</code> and <code>push</code> commands, to get your project moving forwards, and also the <code>checkout</code>, <code>revert</code> and <code>reset</code> commands, to undo what you have done. However, your game doesn't do anything at all yet. It's time to address this issue.
+<p>If you want to know more about undoing changes, you can find links in the Further Reading section below.</p>
+<p>
+When you're ready to continue, click on item <a href="#issue">Creating an issue</a> in the menu on the left.</p>
+</div>
+
+
+<div class="details">
+<input type="checkbox" id="-details"/>
+<label for="-details">Further Reading</label>
+<div>
+For a more detailed treatment of <code>checkout</code>, <code>revert</code> and <code>reset</code>, see <a href="https://fr.atlassian.com/git/tutorials/undoing-changes">Undoing Changes</a> on the Atlassian site, or <a href="https://git-scm.com/blog/2011/07/11/reset.html">Reset Demystified</a> by Scott Chacon and Ben Straub, authors of <a href="https://git-scm.com/book/en/v2">Pro Git</a>.
+</div>
+</div>
+
+<div class="trouble">
+<input type="checkbox" id="-trouble"/>
+<label for="-trouble">Troubleshooting </label>
+<div>
+<p>When you type a <code>git</code> command, you get an error like <code>fatal: Not a git repository (or any of the parent directories): .git</code></p>
+<ul>
+<li>Make sure that you have told your Terminal window which directory your project is in. You can use the <code>cd&nbsp;</code> command, followed by the path to your project directory.</li>
+<li>Remember that you can drag the icon of your project directory from the desktop onto your Terminal window, so that its path is added automatically.</li>
+</ul>
+<p>When you execute the <code>revert</code> command, you find that the Terminal window is acting in an unexpected way.</p>
+<ul>
+<li>Make sure that you have told your Terminal window which directory your project is in. You can use the <code>cd&nbsp;</code> command, followed by the path to your project directory.</li>
+<li>Remember that you can drag the icon of your project directory from the desktop onto your Terminal window, so that its path is added automatically.</li>
+</ul>
+
+</div>
+</div>
+</section>
+  
+<!-- CREATING AN ISSUE -->
+<section id="issue">
+<h2>Creating an issue</h2>
+<p></p>
+</section>
+  
+<!-- ADDING AN IMAGE -->
+<section id="image">
+<h2>Adding an image</h2>
 <p></p>
 </section>
 
