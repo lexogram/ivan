@@ -365,27 +365,24 @@ content: "\e80a";
 color: #666;
 }
 
-input[type="checkbox"][id~=nix] + label::before,
-input[type="checkbox"][id~=nix]:checked + label::before {
+input[id~=nix] + label::before,
+input[id~=nix]:checked + label::before {
 content: "\e807";
-/* color: #3e110c; */
 }
-input[type="checkbox"][id~=mac] + label::before,
-input[type="checkbox"][id~=mac]:checked + label::before {
+input[id~=mac] + label::before,
+input[id~=mac]:checked + label::before {
 content: "\e808";
-/* color: #598Bee; */
 }
-input[type="checkbox"][id~=win] + label::before,
-input[type="checkbox"][id~=win]:checked + label::before {
+input[id~=win] + label::before,
+input[id~=win]:checked + label::before {
 content: "\e809";
-/* color: #eecf83; */
 }
-input[type="checkbox"][id~=nix]:checked + label ,
-input[type="checkbox"][id~=nix]:checked + label::before,
-input[type="checkbox"][id~=mac]:checked + label ,
-input[type="checkbox"][id~=mac]:checked + label::before ,
-input[type="checkbox"][id~=win]:checked + label,
-input[type="checkbox"][id~=win]:checked + label::before {
+input[id~=nix]:checked + label ,
+input[id~=nix]:checked + label::before,
+input[id~=mac]:checked + label ,
+input[id~=mac]:checked + label::before ,
+input[id~=win]:checked + label,
+input[id~=win]:checked + label::before {
 color: #333;
 }
 
@@ -422,6 +419,9 @@ background-color: #eef;
 .details label::before{
 color: #336;
 }
+#terminal .details {
+margin: 2em 0;
+} 
 .tips>div{
 background-color: #f8ffff;
 border: 0px solid #eff;
@@ -473,18 +473,18 @@ margin: 0;
 margin-bottom: 0.25em;
 }
 
-input[type=checkbox] {
+input {
 position: absolute;
 clip: rect(0, 0, 0, 0);
 top: 0;
 }
-input[type=checkbox] + label{
+input + label{
 font-family: "Gill Sans",Helvetica, sans-serif;
 font-weight: bold;
 position: relative;
 z-index: 1;
 }
-input[type=checkbox] + label::before{
+input + label::before{
 font-family: asides;
 padding: 0 0.5em 0 0.3em;
 font-size: 2em;
@@ -492,17 +492,17 @@ content: "\e805";
 position: relative;
 top: 0.2em;
 }
-input[type=checkbox]:checked + label::before{
+input:checked + label::before{
 padding-right: 0.45em;
 content: "\e806";
 }
-input[type=checkbox] ~ div{
+input ~ div{
 height: 0;
 overflow: hidden;
 position: relative;
 top: -2.2em;
 }
-input[type=checkbox]:checked ~ div{
+input:checked ~ div{
 height: auto;
 padding: 0.5em;
 padding-top: 2em;

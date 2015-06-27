@@ -22,9 +22,8 @@
 <li><a href="#branch">Creating a branch</a></li>
 <li><a href="#game">Your game goes here</a></li>
 <li><a href="#revert">Reverting changes</a></li>
-<li><a href="#issue">Creating an issue</a></li>
+<li><a href="#issue">Creating issues</a></li>
 <li><a href="#image">Adding an image</a></li>
-<li><a href="#push">Saving to GitHub</a></li>
 <li><a href="#div">Rows of images</a></li>
 <li><a href="#css">Styling with CSS</a></li>
 <li><a href="#js">JavaScript</a></li>
@@ -686,7 +685,7 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 Now you know Git's <code>add</code>, <code>commit</code> and <code>push</code> commands, to get your project moving forwards, and also the <code>checkout</code>, <code>revert</code> and <code>reset</code> commands, to undo what you have done. However, your game doesn't do anything at all yet. It's time to address this issue.
 <p>If you want to know more about undoing changes, you can find links in the Further Reading section below.</p>
 <p>
-When you're ready to continue, click on item <a href="#issue">Creating an issue</a> in the menu on the left.</p>
+When you're ready to continue, click on item <a href="#issue">Creating issues</a> in the menu on the left.</p>
 </div>
 
 
@@ -709,7 +708,7 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 </ul>
 <p>When you execute the <code>revert</code> command, you find that the Terminal window is acting in an unexpected way.</p>
 <ul>
-<li>Make sure that you have told your Terminal window which directory your project is in. You can use the <code>cd&nbsp;</code> command, followed by the path to your project directory.</li>
+<li>Perhaps you have not configured Git to use an external text editor, and it has opened <span class="keyword">vim</span>, a command line text editor. The easiest solution might be to press <code>Esc</code> then <code>q</code> to quite the editor, and cancel the command. You can then follow the instructions in the Tips and Tricks section at the foot of page <a href="#branch">5: Creating a branch</a>, to use Sublime Text to create commit and revert messages.</li>
 <li>Remember that you can drag the icon of your project directory from the desktop onto your Terminal window, so that its path is added automatically.</li>
 </ul>
 
@@ -717,10 +716,25 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 </div>
 </section>
   
-<!-- CREATING AN ISSUE -->
+<!-- CREATING ISSUES -->
 <section id="issue">
-<h2>Creating an issue</h2>
-<p></p>
+<h2>Creating issues</h2>
+<p>You've been working at this for some time now, but your game is still... let's say <em>a little disappointing</em>. No images, no interaction, no artificial intelligence. You might like to take a look at <a href="complete/">the game you are getting ready to write</a>, and make a note of what needs to be done to get from where you are now to where you want to be. Here are some of the things that you might note:</p>
+<ol>
+<li>Add images of matches</li>
+<li>Arrange the images in rows</li>
+<li>Hide each image when you click on it</li>
+<li>Add a button so that the current player can say "Your turn"</li>
+<li>Show which player is currently playing</li>
+<li>Add buttons to restart the game</li>
+<li>Show the rules when the game first loads</li>
+<li>Create a computer player that is smart enough to win</li>
+<li>...</li>
+</ol>
+<p>In fact, there are plenty other things that you will need to do. You can never be sure that you have thought of everything before you start. You are likely to discover new issues as you go along. That's normal.</p>
+<h3>Issues</h3>
+<p>The GitHub site provides you with a system for tracking what still needs to be done. Their system is called "Issues". At the moment, all your issues are requests for <span class="keyword">features</span> that you want to develop. Later, you might also want to track <span class="keyword">bugs</span>. In either case, you want to have a clear description of what to do, and a way noting progress, and when it's all done.</p>
+<p>To create 
 </section>
   
 <!-- ADDING AN IMAGE -->
@@ -857,7 +871,7 @@ When you're ready to begin, click on item <a href="#html">2: Your HTML Page</a> 
 <p>HTML would be the food on your plate. HTML provides the content and the structure of the information in your web page.</p>
 <p>A web page that just contains HTML can be informative, and can contain links to other pages.</p>
 <h4>CSS</h4>
-<p>CSS would be the way table is laid and the way the food is presented on your plate. CSS takes care of the colour, shape and position of the HTML elements. It's what gives the page its <span class="keyword">style</span></p>
+<p>CSS would be the way table is laid and the way the food is presented on your plate. CSS takes care of the colour, shape and position of the HTML elements. It's what gives the page its <span class="keyword">style</span>.</p>
 <p>A web page that just contains CSS is like a deserted restaurant: neat and decorative surroundings, all prepared for something to happen.</p>
 <h4>JavaScript</h4>
 <p>JavaScript would be the animation and conversation. JavaScript is what makes the web page come to life, with interactions, animations, cause and effect. JavaScript can connect you to other internauts in other places, making the web a social place to be.</p>
