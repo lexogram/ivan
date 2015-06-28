@@ -365,26 +365,6 @@ content: "\e80a";
 color: #666;
 }
 
-input[id~=nix] + label::before,
-input[id~=nix]:checked + label::before {
-content: "\e807";
-}
-input[id~=mac] + label::before,
-input[id~=mac]:checked + label::before {
-content: "\e808";
-}
-input[id~=win] + label::before,
-input[id~=win]:checked + label::before {
-content: "\e809";
-}
-input[id~=nix]:checked + label ,
-input[id~=nix]:checked + label::before,
-input[id~=mac]:checked + label ,
-input[id~=mac]:checked + label::before ,
-input[id~=win]:checked + label,
-input[id~=win]:checked + label::before {
-color: #333;
-}
 
 figure{
 text-align: center;
@@ -492,8 +472,8 @@ content: "\e805";
 position: relative;
 top: 0.2em;
 }
-input:checked + label::before{
-padding-right: 0.45em;
+input[type=checkbox]:checked + label::before{
+padding-right: 0.48em; /*To account for change in content */
 content: "\e806";
 }
 input ~ div{
