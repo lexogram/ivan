@@ -234,7 +234,7 @@ article li{
 margin: 0.5em 0;
 }
 section, section:target ~ :last-child{
-display: none;
+display: none;*/
 min-height: 100%;
 }
 section:target,
@@ -242,6 +242,7 @@ section:last-child {
 display: block;
 }
 
+.preview,
 .warn,
 .note,
 .tip,
@@ -257,6 +258,10 @@ box-sizing: border-box;
 margin: 0.5em 0;
 border-width: 2px;
 border-style: solid;
+}
+.preview {
+border: 1px solid #eef;
+border-radius: 0.5em;
 }
 .warn {
 background: #fde7e4;
@@ -312,6 +317,18 @@ background: #eee;
 border-color: #ccc;
 border-right-color: #f4f4ff;
 border-bottom-color: #f4f4ff;
+}
+.git pre{
+background: #f4e0f4;
+border-color: #ede;
+border-right-color: #fef;
+border-bottom-color: #fef;
+}
+.details pre{
+background: #e0e0f4;
+border-color: #dde;
+border-right-color: #eef;
+border-bottom-color: #eef;
 }
 div.aside p:last-child {
 margin-bottom: 0;
@@ -386,7 +403,7 @@ background-color: #eee;
 }
 
 .aside + div.optional {
-margin-top: 1em;
+margin-top: 2em;
 }
 .details>div{
 background-color: #f8f8ff;
@@ -478,9 +495,9 @@ content: "\e806";
 }
 input ~ div{
 height: 0;
+top: -2.2em;
 overflow: hidden;
 position: relative;
-top: -2.2em;
 }
 input:checked ~ div{
 height: auto;

@@ -67,6 +67,7 @@
 </ul>
 </nav>
 </header>
+
 <article>
 <!-- YOUR HTML PAGE -->
 <section id="html">
@@ -85,7 +86,7 @@
 <p>Here's how this HTML page looks in different browsers.</p>
 <figure><img src="img/01_page.png" alt="screenshot of simple HTML page in different browsers"/>
 <figcaption>Figure 1: How HTML &lt;title&gt; and &lt;body&gt; HTML elements appear in a browser</figcaption></figure>
-<p>You can discover what all these <code>&lt;tags&gt;</code> mean in the Understanding HTML Tags section at the foot of page <a href="#game">6: Your game goes here</a>. But in fact, your browser will automatically create most of these tags if they are missing, so you can start with something even simpler, for now.</p>
+You can discover what all these <code>&lt;tags&gt;</code> mean in the Understanding HTML Tags section at the end of page <a href="#game">6: Your game goes here</a>. But in fact, your browser will automatically create most of these tags if they are missing, so you can start with something even simpler, for now.</p>
 <h3>Do It Yourself</h3>
 <p>In the programming community, it is a tradition that your first program in any new language should display the words <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program#History">"hello world"</a>. To honour that tradition, you can create your own Hello World page and open it in <em>your</em> browser.</p>
 <p>If you haven't already got a text editor, <a href="http://www.sublimetext.com/2">download and install a trial copy of Sublime Text</a>. Open your text editor and create a new document. You can type <code>hello world</code></center> (or any other message you like), then save your file as <code>index.html</code>.</p>
@@ -158,7 +159,7 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <p>A safer option is to install an up-to-date version of Git, and to use the newer version for all your work.</p>
 <p>You can <a href="https://git-scm.com/downloads">download the most recent version of Git</a> from git-scm.com, and run the installer. However, when you run <code>git --version</code> in the Terminal window, you will probably see that the old version continues to be used.</p>
 <p>To tell your Mac that you want to use the newer version, you need to execute some command line commands. Here are commands that I use on Mac OS 10.8.5 after running the Git installer for version 2.3.5:</p>
-<pre class="revised"><span class="new">git --version
+<pre class="revised"><span class="new">git --version</span>
 git version 1.7.4.4
 <span class="new">which git</span>
 /usr/bin/git</pre>
@@ -186,7 +187,7 @@ git version 2.3.5
 <p>The operating system itself takes care of some commands, like <code>cd&nbsp;</code>. Other commands need a special <span class="strike">chef</span>  CLT application to take care of them, so you need to refer to the name of the application first. For example, <code>git --version</code> tells the application <code>git</code> (which has no window that you can see on the screen) to send back information about which <code>version</code> it is.</p>
 <h4>Git commands</h4>
 <p>To see all the commands that <code>git</code> can understand, you can type <code>git --help</code>.</p>
-<p>For information on all these commands, you can refer to <a href="https://git-scm.com/docs">the official documentation</a>. However, this information can be overwhelming. Each time a <code>git</code> command is first used in this tutorial, you will find more information about how to use it in the optional sections at the foot of the page.</p>
+<p>For information on all these commands, you can refer to <a href="https://git-scm.com/docs">the official documentation</a>. However, this information can be overwhelming. Each time a <code>git</code> command is first used in this tutorial, you will find more information about how to use it in the optional sections at the foot of this page.</p>
 </div>
 </div>
 
@@ -221,7 +222,7 @@ git version 2.3.5
 <img src="img/06_choosePlan.png" alt="" />
 <figcaption>Figure 7. Choose a free plan</figcaption>
 </figure>
-<p>This is the very first time you are visiting GitHub as a registered user, so you see a special screen, suggesting that you take the official tour of what Git and GitHub can do for you. When you return to this page in the future, the top section will be different.
+<p>This is the very first time you are visiting GitHub as a registered user, so you see a special screen, suggesting that you take the official tour of what Git and GitHub can do for you. When you return to this page in the future, the top section will be different.</p>
 <figure>
 <img src="img/07_newRepository.png" alt="" />
 <figcaption>Figure 8. You're ready to create a repository</figcaption>
@@ -291,12 +292,14 @@ git version 2.3.5
 <li><strong>Type <code>cd&nbsp;</code></strong> (that's "cd " followed by a space). This means <span class="keyword">change directory</span>.</li>
 <li><strong>Drag the icon of your <code>nim</code> folder onto the Terminal window</strong>. This will automatically insert the path to your folder after the <code>cd&nbsp;</code> that you have just typed.</li>
 <li><strong>Press the Enter key</strong> to execute the command. The Terminal now has power over what happens in your <code>nim</code> folder.</li>
-</ul>
 </ol>
+</ul>
+
 <figure>
 <img src="img/10_cdCommand.png" alt="" />
 <figcaption>Figure 12. Using the <code>cd</code> command in a Terminal window</figcaption>
 </figure>
+
 <ul>
 <li>Still in the Terminal window:</li>
 <ol>
@@ -306,6 +309,7 @@ git version 2.3.5
 <li><strong>Press the Enter key</strong>.</li>
 </ol>
 </ul>
+
 <p class="aside note">On Windows, the standard Ctrl-V keyboard shortcut may not work in a Command Prompt window. You may need to right-click, then select Paste from the contextual menu.</p>
 <p>Inside your <code>nim</code> folder you should now see a folder named <code>gh-pages</code>. The clone command should have copied into it all the contents of your new repository on the GitHub server (in other words, nothing, since your new repository is still empty). The output in the Terminal should look something like this:</p>
 <figure>
@@ -351,7 +355,7 @@ git push origin gh-pages
 <img src="img/15_commit.png" alt="" />
 <figcaption>Figure 17. Pushing your changes to the remote GitHub repository</figcaption>
 </figure>
-<p>Git will ask you for the username and password that you registered when you created your Git account. When you type your password in the Terminal window, no characters will appear. Press Enter when you're done.
+<p>Git will ask you for the username and password that you registered when you created your Git account. When you type your password in the Terminal window, no characters will appear. Press Enter when you're done.</p>
 <p>That's it! Now you can visit your new web site. <strong>In your browser, type in the URL for your GitHub site</strong>. For me, it will be:</p>
 <a href="http://blackslate.github.io/nim/">http://blackslate.github.io/nim/</a>
 <p>For you, if you called your repository "nim", then all you have to do is replace my "blackslate" username with your own username.</p>
@@ -436,36 +440,41 @@ Here are the <code>git</code> commands that you have just used:
 <input type="checkbox" id="tips-branch"/>
 <label for="tips-branch">Tips and Tricks</label>
 <div>
-<h4>Using Sublime Text to create <code>commit</code> and <code>revert</code> messages</h4>
-<div class="aside tip">Windows:
-<p>If you used the default installation settings when you installed Sublime Text, you can use the following command in the Command Prompt window:</p>
-<ul>
-  <li>Sublime Text 3 <br /><code>git config --global core.editor "'c:/program files/sublime text 3/subl.exe' -w"</code></li>
-  <li>Sublime Text 2 <br /><code>git config --global core.editor "'c:/program files/sublime text 2/sublime_text.exe' -w"</code></li>
-</ul>
-<p>When you have done this, each time you execute a <code>commit</code> command without using the <code>-m</code> option, a new document will open in Sublime Text with the title COMMIT_EDITMSG. You can edit this message, save it and close it, and then Git will continue with the commit process. If you change your mind about your commit, you can close the message without saving it, or delete all its contents before you save and close it. If Git sees an empty message, it will cancel the commit process.</p>
-<p class="aside kudos">Credit: <a href="http://stackoverflow.com/a/9408117">jrotello</a>
-</div><div class="aside tip">Macintosh:
-<ul>
-  <li></li>
-</ul>
+  <h4>Using Sublime Text to create <code>commit</code> and <code>revert</code> messages</h4>
+  <div class="aside tip">Windows:
+  <p>If you used the default installation settings when you installed Sublime Text, you can use the following command in the Command Prompt window:</p>
+  <ul>
+    <li>Sublime Text 3 <br /><code>git config --global core.editor "'c:/program files/sublime text 3/subl.exe' -w"</code></li>
+    <li>Sublime Text 2 <br /><code>git config --global core.editor "'c:/program files/sublime text 2/sublime_text.exe' -w"</code></li>
+  </ul>
+  <p>When you have done this, each time you execute a <code>commit</code> command without using the <code>-m</code> option, a new document will open in Sublime Text with the title COMMIT_EDITMSG. You can edit this message, save it and close it, and then Git will continue with the commit process. If you change your mind about your commit, you can close the message without saving it, or delete all its contents before you save and close it. If Git sees an empty message, it will cancel the commit process.</p>
+  <p class="aside kudos">Credit: <a href="http://stackoverflow.com/a/9408117">jrotello</a></p>
+  </div>
+
+  <div class="aside tip">Macintosh:
+  <ul>
+    <li></li>
+  </ul>
+  </div>
+
+  <h4>Showing invisible files</h4>
+  <div class="aside tip">To show invisible files on Windows:
+    <ul>
+    <li>Open any window in Windows Explorer</li>
+    <li>Open the Display menu</li>
+    <li>Select options</li>
+    <li>In the dialog window that opens, choose the Display tab</li>
+    <li>Click on the Display tab</li>
+    <li>Scroll down a little until you can see XXXX</li>
+    <li>Select the radio button that says "Show hidden files, folders and drives"</li>
+    <li>While you're here, you might also like to deselect the checkbox that says "Hide extensions for known file types." If you do this, your <code>index.html</code> file will appear as <code>index.html</code>. If you don't it will appear as <code>index</code> ... and so will any file called <code>index.php</code>, <code>index.doc</code> or <code>index.jpg</code>. Showing all file extensions makes it clear exactly which file you are looking at.</li>
+    </ul>
+  </div>
 </div>
-<h4>Showing invisible files</h4>
-<div class="aside tip">To show invisible files on Windows:
-<ul>
-<li>Open any window in Windows Explorer</li>
-<li>Open the Display menu</li>
-<li>Select options</li>
-<li>In the dialog window that opens, choose the Display tab</li>
-<li>Click on the Display tab</li>
-<li>Scroll down a little until you can see XXXX</li>
-<li>Select the radio button that says "Show hidden files, folders and drives"</li>
-<li>While you're here, you might also like to deselect the checkbox that says "Hide extensions for known file types." If you do this, your <code>index.html</code> file will appear as <code>index.html</code>. If you don't it will appear as <code>index</code> ... and so will any file called <code>index.php</code>, <code>index.doc</code> or <code>index.jpg</code>. Showing all file extensions makes it clear exactly which file you are looking at.</li>
-</ul></div>
 <div class="aside tip">To show hidden files on Macintosh:
 <ul>
   <li>Step 1</li>
-</ul></div>
+</ul>
 </div>
 </div>
 
@@ -476,7 +485,7 @@ Here are the <code>git</code> commands that you have just used:
 <p>Oops. Something went wrong. Here are some things that you can check.</p>
 <dl>
   <dt>When you created your repository, did you click on any buttons, other than Create Repository?</dt>
-  <dd>If you added a ReadMe file, a .gitignore file or a license file to your repository, through the GitHub "new repository" page, then the remote repository on the GitHub site will already contain files. You won't be able to push any new files to the remote repository until you have downloaded them to your local repository. The simplest solution (at this early stage) is to delete your repository and start again, as described below.</dd>
+  <dd>If you added a ReadMe file, a .gitignore file or a licence file to your repository, through the GitHub "new repository" page, then the remote repository on the GitHub site will already contain files. You won't be able to push any new files to the remote repository until you have downloaded them to your local repository. The simplest solution (at this early stage) is to delete your repository and start again, as described below.</dd>
   <dt>Did you get a <code>fatal</code> error message in your Terminal?</dt>
   <dd>This can happen if you mistype a command, but it can also happen if your version of Git is older that 1.7.9.5. To test this, type <code>git --version</code> in your terminal. If the output is less than 1.7.9.5, then you will need to <a href="https://git-scm.com/download/win">update Git</a> before you can continue. See the Installing and Updating Git section at the foot of the <a href="#git">Getting Git</a> page for more details.</dd>
 </dl>
@@ -487,137 +496,150 @@ Here are the <code>git</code> commands that you have just used:
 
 <!-- YOUR GAME GOES HERE -->
 <section id="game">
-<h2>Your game goes here</h2>
-<p>Do you remember the very first HTML page that you saw on page 2?</p>
-<pre>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;title&gt;This appears in the tab / title bar>&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;p&gt;This appears inside the browser window&lt;/p&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-</pre>
-<p>You can use this as a template for the web page that will be the home for your game. You can copy this text and paste it into your <code>index.html</code> file in the <code>nim/gh-pages</code> folder that you created in the last section. You can make a couple of changes to it, to make it more relevant:</p>
-<pre class="revised">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;title&gt;<span class="new">Nim</span>&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;p&gt;<span class="new">The game will go here</span>&lt;/p&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-</pre>
-<p>Save the file, and open it in your browser. If you don't see what you expect to see, check the Troubleshooting section below. If all is well, you can use Git to push your well-formatted HTML page to the GitHub server.</p>
-<p>In your Terminal window:</p>
-<ul>
-<li>Ensure that the Terminal is focused on the folder that contains your <code>index.html</code> file. If you're not sure, type <code>cd&nbsp;</code> and then the path to the folder. Remember that you can drag the folder's icon onto the Terminal window, to paste its path automatically.</li>
-<li>As a sanity check, type <code>git status</code>. The terminal window should show that index.html has been modified.
-<figure>
-<img src="" alt="git status after modifying your index.html file" />
-<figcaption>Figure XX. <code>git status</code> after modifying your <code>index.html</code> file</figcaption>
-</figure>
-</li>
-<li>Type <code>git add -A</code> and press Enter</li>
-<li>Type <code>git commit -m "'Hello World' becomes 'The game will
-go here'"</code></li>
-<li>Type <code>git push origin gh-pages</code> and then enter your username and password
-<figure>
-<img src="" alt="Pushing your first modification to the GitHub server" />
-<figcaption>Figure XX. Pushing your first modification to the GitHub server</figcaption>
-</figure>
-</li>
-</ul>
-<p>Now you can visit your project site on the GitHub web site. Instead of "Hello World", you should see your new page.</p>
-<figure>
-<img src="" alt="the updated page on the GitHub site" />
-<figcaption>Figure XX. The updated page on the GitHub web site</figcaption>
-</figure>
+  <h2>Your game goes here</h2>
+  <p>Do you remember the very first HTML page that you saw on page 2?</p>
+  <pre>&lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;title&gt;This appears in the tab / title bar>&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      &lt;p&gt;This appears inside the browser window&lt;/p&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+  </pre>
+  <p>You can use this as a template for the web page that will be the home for your game. You can copy this text and paste it into your <code>index.html</code> file in the <code>nim/gh-pages</code> folder that you created in the last section. You can make a couple of changes to it, to make it more relevant:</p>
+  <pre class="revised">&lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;title&gt;<span class="new">Nim</span>&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      &lt;p&gt;<span class="new">The game will go here</span>&lt;/p&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+  </pre>
+  <p>Save the file, and open it in your browser. If you don't see what you expect to see, check the Troubleshooting section below. If all is well, you can use Git to push your well-formatted HTML page to the GitHub server.</p>
+  <p>In your Terminal window:</p>
+  <ul>
+    <li>Ensure that the Terminal is focused on the folder that contains your <code>index.html</code> file. If you're not sure, type <code>cd&nbsp;</code> and then the path to the folder. Remember that you can drag the folder's icon onto the Terminal window, to paste its path automatically.</li>
+    <li>As a sanity check, type <code>git status</code>. The terminal window should show that index.html has been modified.
+    <figure>
+    <img src="" alt="git status after modifying your index.html file" />
+    <figcaption>Figure XX. <code>git status</code> after modifying your <code>index.html</code> file</figcaption>
+    </figure>
+    </li>
+    <li>Type <code>git add -A</code> and press Enter</li>
+    <li>Type <code>git commit -m "'Hello World' becomes 'The game will
+    go here'"</code></li>
+    <li>Type <code>git push origin gh-pages</code> and then enter your username and password
+    <figure>
+    <img src="" alt="Pushing your first modification to the GitHub server" />
+    <figcaption>Figure XX. Pushing your first modification to the GitHub server</figcaption>
+    </figure>
+    </li>
+  </ul>
+  <p>Now you can visit your project site on the GitHub web site. Instead of "Hello World", you should see your new page.</p>
+  <figure>
+  <img src="" alt="the updated page on the GitHub site" />
+  <figcaption>Figure XX. The updated page on the GitHub web site</figcaption>
+  </figure>
 
-<div class="aside next">
-If you are ready to go on, click on item <a href="#revert">7: Reverting changes</a> in the menu on the left.
-<p>If you want to know more about the HTML tags you have been using, click on Understanding HTML Tags below.</p>
-</div>
+  <div class="aside next">
+    If you are ready to go on, click on item <a href="#revert">7: Reverting changes</a> in the menu on the left.
+    <p>If you want to know more about the HTML tags you have been using, click on Understanding HTML Tags below.</p>
+  </div>
 
-<div class="optional details">
-<input type="checkbox" id="details-html"/>
-<label for="details-html">Understanding HTML Tags</label>
-<div>
-<p>You can recognize HTML code because of the <span class="keyword">tags</span> that it uses. Tags are instructions that are enclosed in <code>&lt;</code> and <code>&gt;</code> pointed <span class="keyword">angle brackets</span>, in this style: <code>&lt;style&gt;</code>.</p>
-<h4>Closing Tags</h4>
-<p>Most HTML tags come in matching pairs, with an <span class="keyword">opening</span> and a <span class="keyword">closing</span> tag. Closing tags contain a forward slash <code>/</code> character, followed by the first word of the matching opening tag. The expression to describe a pair of matching tags, plus all the data between them, is <span class="keyword">HTML element</span>. In the example above, you can see the following pairs of tags, creating five different HTML elements.</p>
-<dl>
-<dt><code>&lt;html&gt;...&lt;/html&gt;</code></dt><dd><p>This tells the browser to treat all the information between these tags as HTML code. There should always be an opening <code>&lt;html&gt;</code> tag at the beginning of an HTML document, and a closing <code>&lt;/html&gt;</code> tag at the end.</p><p>There should only be one <code>html</code> element in an HTML file.</p></dd>
-<dt><code>&lt;head&gt;...&lt;/head&gt;</code></dt><dd><p>The <code>head</code> element contains instructions to the browser that are not shown inside the browser window. In sections <a href="css">11</a> and <a href="js"12</a>, you will add instructions to tell the browser where to find additional files to download. The <code>head</code> can also contain information for search engines that summarize the contents of the page.</p></dd>
-<dt><code>&lt;title&gt;...&lt;/title&gt;</code></dt><dd><p>As you can see from the screen shot in figure 1, the text inside the <code>title</code> element appears in the title bar of the browser window, or as a label in the tab for the current page.</p><p>Search engines like <a href="http://www.google.com">Google</a>, <a href="http://www.yandex.com">Yandex</a> and <a href="http://www.baidu.com">Baidu</a> use the text in the <code>title</code> element to understand the main purpose of the page.</p></dd>
-<dt><code>&lt;body&gt;...&lt;/body&gt;</code></dt><dd><p>The <code>body</code> element contains everything that will appear inside the browser window. There should only be one <code>body</code> element.</p></dd>
-<dt><code>&lt;p&gt;...&lt;/p&gt;</code></dt><dd>This indicates a paragraph of text.</dd>
-</dl>
-<h4>Self-closing Tags</h4>
-<p>Some tags, such as <code>&lt;!DOCTYPE html&gt;</code> are <span class="keyword">self-closing</span>. A self-closing tag stands on its own, with no matching tag to close it later. Self-closing tags are typically used for elements that cannot have text inside then. For example</p>
-<dl>
-<dt><code>&lt;!DOCTYPE html&gt;</code></dt>
-<dd>The very first line of an HTML file tells the browser what kind of file it is. Browsers can read many kinds of files: XML files, which contain arrays of data, SVG files which contain the formulae needed to draw smooth Scalable Vector Graphics, image files such as JPG and PNG, and many more.</dd>
-<dt><code>&lt;img&gt;</code></dt><dd>The <code>&lt;img&gt;</code> tag tells the browser where to find a file that displays an image. You will be working with the <code>&lt;img&gt;</code> tag in section <a href="#image">8: Adding an image.</a></dd>
-<dt><code>&lt;link&gt;</code></dt><dd>The <code>&lt;link&gt;</code> tag tells the browser where to find a file that gives rules on the appearance and layout of the web page. You will be using the <code>&lt;link&gt;</code> tag in section <a href="#css">11: Styling with CSS.</a></dd>
-<dt><code>&lt;input&gt;</code></dt><dd>The <code>&lt;input&gt;</code> tag lets you create elements such as buttons and editable fields that allow the visitor to interact with your page. You will be adding a checkbox <code>&lt;input&gt;</code> to your page in   section <a href="#toggle">21: Showing the rules.</a></dd>
-<dt><code>&lt;meta&gt;</code></dt><dd>The <code>&lt;meta&gt;</code> tag can be used to tell the browser and bots that visit your site what your page is about, what language it's in, how it should be categorized in search engines. You will be adding a <code>&lt;meta&gt;</code> in section <a href="#meta">26: Invisible data</a>.</dd>
-</dl>
-<p>By the time you gave finished this tutorial, you will also have used all the following tags (in order of appearance):</p>
-<ul>
-<li><a href="http://www.w3schools.com/tags/tag_hn.asp"><code>&lt;h1&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_img.asp"><code>&lt;img&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_div.asp"><code>&lt;div&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_link.asp"><code>&lt;link&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_script.asp"><code>&lt;script&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_button.asp"><code>&lt;button&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_main.asp"><code>&lt;main&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_ul.asp"><code>&lt;ul&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_li.asp"><code>&lt;li&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_input.asp"><code>&lt;input&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_label.asp"><code>&lt;label&gt;</code></a></li>
-<li><a href="http://www.w3schools.com/tags/tag_meta.asp"><code>&lt;meta&gt;</code></a></li>
-</ul>
-<p>You can find a full list of the tags used to create HTML elements <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">here</a>.</p>
-</div>
-</div>
+  <div class="optional details">
+    <input type="checkbox" id="details-html"/>
+    <label for="details-html">Understanding HTML Tags</label>
+    <div>
+      <p>You can recognize HTML code because of the <span class="keyword">tags</span> that it uses. Tags are instructions that are enclosed in <code>&lt;</code> and <code>&gt;</code> pointed <span class="keyword">angle brackets</span>, in this style: <code>&lt;style&gt;</code>.</p>
+      <h4>Closing Tags</h4>
+      <p>Most HTML tags come in matching pairs, with an <span class="keyword">opening</span> and a <span class="keyword">closing</span> tag. Closing tags contain a forward slash <code>/</code> character, followed by the first word of the matching opening tag. The expression to describe a pair of matching tags, plus all the data between them, is <span class="keyword">HTML element</span>. In the example above, you can see the following pairs of tags, creating five different HTML elements.</p>
+      <dl>
+        <dt><code>&lt;html&gt;...&lt;/html&gt;</code></dt>
+        <dd><p>This tells the browser to treat all the information between these tags as HTML code. There should always be an opening <code>&lt;html&gt;</code> tag at the beginning of an HTML document, and a closing <code>&lt;/html&gt;</code> tag at the end.</p>
+        <p>There should only be one <code>html</code> element in an HTML file.</p>
+        </dd>
+        <dt><code>&lt;head&gt;...&lt;/head&gt;</code></dt>
+        <dd><p>The <code>head</code> element contains instructions to the browser that are not shown inside the browser window. In sections <a href="css">11</a> and <a href="js">12</a>, you will add instructions to tell the browser where to find additional files to download. The <code>head</code> can also contain information for search engines that summarize the contents of the page.</p></dd>
+        <dt><code>&lt;title&gt;...&lt;/title&gt;</code></dt>
+        <dd><p>As you can see from the screen shot in figure 1, the text inside the <code>title</code> element appears in the title bar of the browser window, or as a label in the tab for the current page.</p>
+        <p>Search engines like <a href="http://www.google.com">Google</a>, <a href="http://www.yandex.com">Yandex</a> and <a href="http://www.baidu.com">Baidu</a> use the text in the <code>title</code> element to understand the main purpose of the page.</p></dd>
+        <dt><code>&lt;body&gt;...&lt;/body&gt;</code></dt>
+        <dd><p>The <code>body</code> element contains everything that will appear inside the browser window. There should only be one <code>body</code> element.</p></dd>
+        <dt><code>&lt;p&gt;...&lt;/p&gt;</code></dt>
+        <dd>This indicates a paragraph of text.</dd>
+      </dl>
+      <h4>Self-closing Tags</h4>
+      <p>Some tags, such as <code>&lt;!DOCTYPE html&gt;</code> are <span class="keyword">self-closing</span>. A self-closing tag stands on its own, with no matching tag to close it later. Self-closing tags are typically used for elements that cannot have text inside then. For example</p>
+      <dl>
+        <dt><code>&lt;!DOCTYPE html&gt;</code></dt>
+        <dd>The very first line of an HTML file tells the browser what kind of file it is. Browsers can read many kinds of files: XML files, which contain arrays of data, SVG files which contain the formulae needed to draw smooth Scalable Vector Graphics, image files such as JPG and PNG, and many more.</dd>
+        <dt><code>&lt;img&gt;</code></dt>
+        <dd>The <code>&lt;img&gt;</code> tag tells the browser where to find a file that displays an image. You will be working with the <code>&lt;img&gt;</code> tag in section <a href="#image">8: Adding an image.</a></dd>
+        <dt><code>&lt;link&gt;</code></dt>
+        <dd>The <code>&lt;link&gt;</code> tag tells the browser where to find a file that gives rules on the appearance and layout of the web page. You will be using the <code>&lt;link&gt;</code> tag in section <a href="#css">11: Styling with CSS.</a></dd>
+        <dt><code>&lt;input&gt;</code></dt>
+        <dd>The <code>&lt;input&gt;</code> tag lets you create elements such as buttons and editable fields that allow the visitor to interact with your page. You will be adding a checkbox <code>&lt;input&gt;</code> to your page in section <a href="#toggle">21: Showing the rules.</a></dd>
+        <dt><code>&lt;meta&gt;</code></dt>
+        <dd>The <code>&lt;meta&gt;</code> tag can be used to tell the browser and bots that visit your site what your page is about, what language it's in, how it should be categorized in search engines. You will be adding a <code>&lt;meta&gt;</code> in section <a href="#meta">26: Invisible data</a>.</dd>
+      </dl>
+      <p>By the time you gave finished this tutorial, you will also have used all the following tags (in order of appearance):</p>
+      <ul>
+        <li><a href="http://www.w3schools.com/tags/tag_hn.asp"><code>&lt;h1&gt;</code></a></li>
+        <li><a href="http://www.w3schools.com/tags/tag_img.asp"><code>&lt;img&gt;</code></a></li>
+        <li><a href="http://www.w3schools.com/tags/tag_div.asp"><code>&lt;div&gt;</code></a></li>
+        <li><a href="http://www.w3schools.com/tags/tag_link.asp"><code>&lt;link&gt;</code></a></li>
+        <li><a href="http://www.w3schools.com/tags/tag_script.asp"><code>&lt;script&gt;</code></a></li>
+        <li><a href="http://www.w3schools.com/tags/tag_button.asp"><code>&lt;button&gt;</code></a></li>
+        <li><a href="http://www.w3schools.com/tags/tag_main.asp"><code>&lt;main&gt;</code></a></li>
+        <li><a href="http://www.w3schools.com/tags/tag_ul.asp"><code>&lt;ul&gt;</code></a></li>
+        <li><a href="http://www.w3schools.com/tags/tag_li.asp"><code>&lt;li&gt;</code></a></li>
+        <li><a href="http://www.w3schools.com/tags/tag_input.asp"><code>&lt;input&gt;</code></a></li>
+        <li><a href="http://www.w3schools.com/tags/tag_label.asp"><code>&lt;label&gt;</code></a></li>
+        <li><a href="http://www.w3schools.com/tags/tag_meta.asp"><code>&lt;meta&gt;</code></a></li>
+      </ul>
+      <p>You can find a full list of the tags used to create HTML elements <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">here</a>.</p>
+    </div>
+  </div>
 
-<div class="tips">
-<input type="checkbox" id="game-tips"/>
-<label for="game-tips">Tips and Tricks</label>
-<div>
-<p class="aside tip">As you saw in your Hello World test, if a file has an <code>.html</code> extension, most modern browsers will treat everything inside it as HTML, even if there is no <code>&lt;html&gt;</code> element, if there is more than one <code>&lt;html&gt;</code> element, or if there is text outside the <code>html</code> element. Modern browsers may also display content correctly even if the <code>body</code> is missing, or if there is more than one <code>body</code> element. Nonetheless, it is good practice to use these elements correctly. Other developers will notice if your code is badly written.</p>
-<p class="aside tip">The browser will not display any text between an opening angle bracket <code>&lt;</code> character and a closing angle bracket <code>&gt;</code>. If you use a tag that the browser does not recognize, such as <code>&lt;unofficial_tag&gt;</code>, the browser will simply ignore it. Older browsers may ignore tags that were officially introduced after they were released.</p>
-</div>
-</div>
+  <div class="optional tips">
+    <input type="checkbox" id="game-tips"/>
+    <label for="game-tips">Tips and Tricks</label>
+    <div>
+      <p class="aside tip">As you saw in your Hello World test, if a file has an <code>.html</code> extension, most modern browsers will treat everything inside it as HTML, even if there is no <code>&lt;html&gt;</code> element, if there is more than one <code>&lt;html&gt;</code> element, or if there is text outside the <code>html</code> element. Modern browsers may also display content correctly even if the <code>body</code> is missing, or if there is more than one <code>body</code> element. Nonetheless, it is good practice to use these elements correctly. Other developers will notice if your code is badly written.</p>
+      <p class="aside tip">The browser will not display any text between an opening angle bracket <code>&lt;</code> character and a closing angle bracket <code>&gt;</code>. If you use a tag that the browser does not recognize, such as <code>&lt;unofficial_tag&gt;</code>, the browser will simply ignore it. Older browsers may ignore tags that were officially introduced after they were released.</p>
+    </div>
+  </div<
 
-<div class="trouble">
-<input type="checkbox" id="game-trouble"/>
-<label for="game-trouble">Troubleshooting </label>
-<div>
-<p>When you open the file in your browser, you still see "Hello World".</p>
-<ul>
-<li>Perhaps you need to save your <code>index.html</code> file so that your browser can see the new version.</li>
-<li>Perhaps you opened a different <code>index.html</code> file than the one you saved. If you are using Sublime Text, you can right-click on your edited page and choose Open in Browser.</li>
-</ul>
-<p>In Sublime Text, when you right-click on your edited page and choose Open in Browser, nothing happens, or it opens in the wrong browser.</p>
-<ul>
-<li>Set your default browser to the browser that you want Sublime Text to open</li>
-<li>On your desktop, select your <code>index.html</code> file and make sure that the default application that will be used to open <code>.html</code> files is your default browser.
-<figure>
-<img src="" alt="Set the default application for .html files on Windows" />
-<figcaption>Figure XX. Windows - set the default application for <code>.html</code> files</figcaption>
-</figure>
-<figure>
-<img src="" alt="Set the default application for .html files on Macintosh" />
-<figcaption>Figure XX. Macintosh - set the default application for <code>.html</code> files</figcaption>
-</figure>
-</li>
-</ul>
-</div>
-</div>
+  <div class="optional trouble">
+    <input type="checkbox" id="game-trouble"/>
+    <label for="game-trouble">Troubleshooting </label>
+    <div>
+      <p>When you open the file in your browser, you still see "Hello World".</p>
+      <ul>
+        <li>Perhaps you need to save your <code>index.html</code> file so that your browser can see the new version.</li>
+        <li>Perhaps you opened a different <code>index.html</code> file than the one you saved. If you are using Sublime Text, you can right-click on your edited page and choose Open in Browser.</li>
+      </ul>
+      <p>In Sublime Text, when you right-click on your edited page and choose Open in Browser, nothing happens, or it opens in the wrong browser.</p>
+      <ul>
+        <li>Set your default browser to the browser that you want Sublime Text to open</li>
+        <li>On your desktop, select your <code>index.html</code> file and make sure that the default application that will be used to open <code>.html</code> files is your default browser.
+          <figure>
+            <img src="" alt="Set the default application for .html files on Windows" />
+            <figcaption>Figure XX. Windows - set the default application for <code>.html</code> files</figcaption>
+          </figure>
+          <figure>
+            <img src="" alt="Set the default application for .html files on Macintosh" />
+            <figcaption>Figure XX. Macintosh - set the default application for <code>.html</code> files</figcaption>
+          </figure>
+        </li>
+      </ul>
+      <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+    </div>
+  </div>
 </section>
 
 <!-- REVERTING YOUR CHANGES -->
@@ -689,7 +711,7 @@ When you're ready to continue, click on item <a href="#issue">Creating issues</a
 </div>
 
 
-<div class="details">
+<div class="optional details">
 <input type="checkbox" id="-details"/>
 <label for="-details">Further Reading</label>
 <div>
@@ -697,7 +719,7 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 </div>
 </div>
 
-<div class="trouble">
+<div class="optional trouble">
 <input type="checkbox" id="-trouble"/>
 <label for="-trouble">Troubleshooting </label>
 <div>
@@ -711,48 +733,358 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 <li>Perhaps you have not configured Git to use an external text editor, and it has opened <span class="keyword">vim</span>, a command line text editor. The easiest solution might be to press <code>Esc</code> then <code>q</code> to quite the editor, and cancel the command. You can then follow the instructions in the Tips and Tricks section at the foot of page <a href="#branch">5: Creating a branch</a>, to use Sublime Text to create commit and revert messages.</li>
 <li>Remember that you can drag the icon of your project directory from the desktop onto your Terminal window, so that its path is added automatically.</li>
 </ul>
-
+<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 </section>
   
 <!-- CREATING ISSUES -->
 <section id="issue">
-<h2>Creating issues</h2>
-<p>You've been working at this for some time now, but your game is still... let's say <em>a little disappointing</em>. No images, no interaction, no artificial intelligence. You might like to take a look at <a href="complete/">the game you are getting ready to write</a>, and make a note of what needs to be done to get from where you are now to where you want to be. Here are some of the things that you might note:</p>
-<ol>
-<li>Add images of matches</li>
-<li>Arrange the images in rows</li>
-<li>Hide each image when you click on it</li>
-<li>Add a button so that the current player can say "Your turn"</li>
-<li>Show which player is currently playing</li>
-<li>Add buttons to restart the game</li>
-<li>Show the rules when the game first loads</li>
-<li>Create a computer player that is smart enough to win</li>
-<li>...</li>
-</ol>
-<p>In fact, there are plenty other things that you will need to do. You can never be sure that you have thought of everything before you start. You are likely to discover new issues as you go along. That's normal.</p>
-<h3>Issues</h3>
-<p>The GitHub site provides you with a system for tracking what still needs to be done. Their system is called "Issues". At the moment, all your issues are requests for <span class="keyword">features</span> that you want to develop. Later, you might also want to track <span class="keyword">bugs</span>. In either case, you want to have a clear description of what to do, and a way noting progress, and when it's all done.</p>
-<p>To create 
+  <h2>Creating issues</h2>
+  <p>You've been working at this for some time now, but your game is still... let's say <em>a little disappointing</em>. No images, no interaction, no artificial intelligence. You might like to take a look at <a href="complete/">the game you are getting ready to write</a>, and make a note of what needs to be done to get from where you are now to where you want to be. Here are some of the things that you might note:</p>
+  <ol>
+  <li>Add images of matches</li>
+  <li>Arrange the images in rows</li>
+  <li>Hide each image when you click on it</li>
+  <li>Add a button so that the current player can say "Your turn"</li>
+  <li>Show which player is currently playing</li>
+  <li>Add buttons to restart the game</li>
+  <li>Show the rules when the game first loads</li>
+  <li>Create a computer player that is smart enough to win</li>
+  <li>...</li>
+  </ol>
+  <p>In fact, there are plenty other things that you will need to do. You can never be sure that you have thought of everything before you start. You are likely to discover new issues as you go along. That's normal.</p>
+  <h3>Issues</h3>
+  <p>The GitHub site provides you with a system for tracking what still needs to be done. Their system is called "Issues". At the moment, all your issues are requests for <span class="keyword">features</span> that you want to develop. Later, you might also want to track <span class="keyword">bugs</span>. In either case, you want to have a clear description of what to do, and a way noting progress, and when it's all done.</p>
+  <p>To create ... TODO</p>
 </section>
   
 <!-- ADDING AN IMAGE -->
 <section id="image">
-<h2>Adding an image</h2>
-<p></p>
+  <h2>Adding an image</h2>
+  <p>Here's an image of a match, called <code>match.png</code> :</p>
+  <figure>
+  <img src="complete/img/match.png" alt="a match" />
+  <figcaption>Figure XX. The match.png image that you can use for your game</figcaption>
+  </figure>
+  <p class="aside info">
+  This image is available to use with a Creative Commons licence. You can find the original high-resolution source image <a href="">here.</a> You can read more about Creative Commons in the optional sections below.</p>
+  <h3>Save the image</h3>
+  <p>To use this image for your game, you first need to save it to your <code>nim</code> folder. It is good practice to keep different kinds of files separate. I recommend that you create a folder called <code>img</code> alongside your <code>index.html</code> file, and that you save the match image in this folder. (You'll see in a moment why I suggest that you name the folder <code>img</code>.)</p>
+  <p>To save the image:</p>
+  <ul>
+    <li>Right-click on the image in your browser</li>
+    <li>In the contextual menu that opens, choose "Save Image As..." (The wording may be slightly different in your browser).</li>
+  </ul>
+  <figure>
+  <img src="" alt="save the match.png image to the nim/img/ folder" />
+  <figcaption>Figure XX. Save the match.png image to the nim/img/ folder</figcaption>
+  </figure>
+  <h3>Show the image in your page</h3>
+  <p>To show the image in your HTML page, you can replace the line...</p>
+  <pre>  &lt;p&gt;<span class="new">The game will go here</span>&lt;/p&gt;</pre>
+  <p>... as shown below, then save your file.</p>
+  <pre class="revised">&lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;title&gt;Nim&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      <span class="new">&lt;img src="img/match.png" alt="match" /&gt;</span>
+    &lt;/body&gt;
+  &lt;/html&gt;
+  </pre>
+  <figure>
+  <img src="" alt="Displaying the match image in your browser" />
+  <figcaption>Figure XX. Displaying the match image in your browser</figcaption>
+  </figure>
+  <h3>Upload the changes to the GitHub server</h3>
+  <p>In the Terminal window:</p>
+  <ul>
+  <li>Ensure that the Terminal is focused on the folder that contains your <code>index.html</code> file. If you're not sure, type <code>cd&nbsp;</code> and then the path to the folder.</li>
+  <li>Run the command <code>git status</code> to check that Git knows that your <code>index.html</code> file has changed, that you have added a folder called <code>img</code> and that you have added an file called <code>match.png</code> to the <code>img/</code> folder.</li>
+  <li>Run the command <code>git add -A</code> to tell Git to record your changes in the index (staging area).</li>
+  <li>Run the command <code>git commit -m "Add img/match.png; modified index.html to show this image"</code>. Alternatively you can run just <code>git commit</code> type your commit message in the text editor that opens, then save the document and close it so that Git can continue.</li>
+  <li>Run the command <code>git push origin gh-pages</code> and enter your username and password details when asked. This will upload your new version of your project to the GitHub server.</li>
+  </ul>
+  <p>You (and everyone else in the world) should now be able to see your match image on your online web page.</p>
+  <figure>
+  <img src="" alt=" Updating your local Git repository and pushing the changes to the GitHub server" />
+  <figcaption>Figure XX. Updating your local Git repository and the pushing changes to the GitHub server</figcaption>
+  </figure>
+
+  <p class="aside next">If you want to know more about the <code>img</code> tag and its <code>src</code> and <code>alt</code> <span class="keyword">attributes</span>, please read the Understanding the img Tag section below. When you're ready to continue, click on item <a href="#div">10: Rows of images</a> in the menu on the left.
+  </p>
+
+  <div class="optional details">
+  <input type="checkbox" id="img-details"/>
+  <label for="img-details">Understanding the <code>img</code> Tag</label>
+  <div>
+  <h4>&lt;img /&gt;</h4>
+  <p>An <code>img</code> HTML tag is self closing. There is no closing <span class="red">&lt;/img&gt;</span> tag. You will often see it with a <code>/</code> character just before the closing <code>&gt;</code> angle bracket. This is not essential, but it helps remind you that no closing tag is needed.</p>
+  <p> No image will appear unless the tag contains a <code>src</code> (source) <span class="keyword">attribute</span>, inside the angle brackets. An <code>img</code> tag should normally also have an <code>alt</code> (alternative) attribute (see below). Other attributes such as <code>width</code> and <code>height</code> are also common.</p>
+  <h4>src</h4>
+  <p>The <code>src</code> (source) attribute tells the browser where to find the image. This can be an either:</p>
+  <ul>
+    <li>an <span class="keyword">absolute path</span> that uniquely identifies the file on the whole of the Internet, such as <code><a href="http://lexogram.github.io/openbook/nim/complete/img/match.png">http://lexogram.github.io/openbook/nim/complete/img/match.png</a></code></li>
+    <li>a <span class="keyword">relative path</span> indicating the how to find the image if you start in the folder that contains the HTML page itself. If the HTML page is in a folder called <code>nim/</code> and an image called <code>match.png</code> is in a folder called <code>nim/img/</code>, then the relative path will be <code>img/match.png</code>.</li>
+  </ul></p>
+  <h4>alt</h4>
+  <p>The <code>alt</code> attribute is important in two ways:</p>
+  <ul>
+    <li>It provides an on-screen text label, describing the image, if the image itself cannot be found</li>
+    <li>It provides screen readers (for people who have difficulty seeing) with a description that can be read aloud by a synthesized voice.</li>
+  </ul>
+  <p class="aside info">For a mini tutorial on the <code>img</code> tag, see <a href="">the w3schools site</a></p>
+  </div>
+  </div>
+
+  <div class="optional details">
+    <input type="checkbox" id="image-details"/>
+    <label for="image-details">Learn More About Creative Commons</label>
+    <div>
+      <h4></h4>
+      <p>By default, everything that you find on the Internet is subject to copyright. In very simple terms, this means that it is illegal to use most images (and any other works) that you find online in your own projects.</p>
+      <p>Members of the open source community encourages others to re-use, re-mix and modify images and other works that they have created. There are a number of legal licences, collectively known as Creative Commons, that you can apply to your work to say to others: "Please, feel free to build on what I have started".</p>
+      <p>This tutorial is covered by a Creative Commons licence. You can use the material you find on this site in any way you like, so long as you allow others to use your version of the material in any way that they like.</p>
+      <p class="aside info">Visit <a href="">the Creative Commons site</a> for full details.</p>
+    </div>
+  </div>
+
+  <div class="optional tips">
+  <input type="checkbox" id="image-tips"/>
+  <label for="image-tips">Tips and Tricks</label>
+  <div>
+  <h4>Using your own images</h4>
+  <p>I've used matches for the playing pieces, but the game can be played with any set of 16 items that you have available: coins, pebbles, chocolate chips... You can replace my match with your own image if you want, but to keep your HTML code identical to mine, you might like to call your image <code>match.jpg</code> (at least until you have completed writing the game).</p>
+  <h4>Showing all file extensions on your desktop</h4>
+  <p></p>
+  </div>
+  </div>
+
+  <div class="optional trouble">
+  <input type="checkbox" id="image-trouble"/>
+  <label for="image-trouble">Troubleshooting </label>
+  <div>
+  <p>Your <code>index.html</code> page still shows "The game goes here".</p>
+  <ul>
+  <li>Perhaps you haven't saved the changes to your file.</li>
+  <li>Perhaps you are opening a different <code>index.html</code> file in your browser.</li>
+  <li>If this is happening on your GitHub site, perhaps you did not follow all the steps required to push your changes to the GitHub <code>gh-pages</code> repository.</li>
+  </ul>
+  <p>Your image does not appear in your <code>index.html</code> page in the browser. A "broken image" icon appears instead.</p>
+  <ul>
+  <li>HTML links are Case Sensitive. This means that "link" is not the same as "LINK" or "Link". Check if you have used any UPPERCASE letters when you named the match image file or the folder it is in. The names of the folder and the file should use the same case as the <code>src</code> path that you have created. If your path is <code>src="img/match.png"</code> then the folder 
+  should be called "img" and the image itself should be called "match.png".</li>
+  <li>Perhaps you have not stored the image inside a folder called <code>img</code>, which is where you HTML page is looking for it.</li>
+  <li>Perhaps you are using a different image, and you have called it "match.jpg" or "match.gif". In that case, you make sure that the extension you use in your HTML file is the same as the extension for the file itself. You might like to follow the steps to show all file extensions, in the Tips and Tricks section above.</li>
+  </ul>
+  <p>Your image appears correctly when you open your <code>index.html</code> page locally, but it appears broken when you view the page on the GitHub server.</p>
+  <ul>
+    <li>See the first explanation above. The file system on your local computer may be case-insensitive, so your browser may be able to find it locally. Thin GitHub server uses a different file system, which is case sensitive, so the case of every letter must be identical.</li>
+  </ul>
+  <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+  </div>
+  </div>
 </section>
 
 <!-- ROWS OF IMAGES -->
 <section id="div">
 <h2>Creating Four Rows of Images</h2>
+<p>Showing 2 matches in your web page is as easy as showing one. You can simply copy and paste the line that you have just changed:</p>
+<pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Nim&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;img src="img/match.png" alt="match" /&gt;
+    <span class="new">&lt;img src="img/match.png" alt="match" /&gt;</span>
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>If you do this another 14 times, you will have a total of 16 matches, all in a line across the browser window.</p>
+<figure>
+<img src="" alt="16 img tags shows 16 matches in the browser" />
+<figcaption>Fig XX. 16 <code>img</code> tags shows 16 matches in the browser</figcaption>
+</figure>
+<p>By default, your browser will attempt to place all <code>img</code> elements side by side. Since your match image is very thin, it has no difficulty doing this. However, you want to display the matches in 4 separate rows, because that's the way the game works.</p>
+<p>You can use a different HTML tag - <code>&lt;div&gt;</code> - to <span class="keyword">div</span>ide the <code>img</code> elements into separate blocks. By default, your browser will place all <code>div</code> elements one below the other. Unlike <code>img</code> elements, <code>div</code> elements need both an opening <code>&lt;div&gt;</code> and a closing <code>&lt;/div&gt;</code> tag. Here's how you can arrange your HTML code to produce four rows of matches, with the right number of matches in each row:</p>
+
+<pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Nim&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    <span class="new">&lt;div&gt;</span>
+      &lt;img src="img/match.png" alt="match<span class="new"> 1 row 1</span>" /&gt;
+      <span class="new">&lt;img src="img/match.png" alt="match 2 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 3 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 4 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 5 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 6 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 7 row 1" /&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;img src="img/match.png" alt="match 1 row 2" /&gt;
+      &lt;img src="img/match.png" alt="match 2 row 2" /&gt;
+      &lt;img src="img/match.png" alt="match 3 row 2" /&gt;
+      &lt;img src="img/match.png" alt="match 4 row 2" /&gt;
+      &lt;img src="img/match.png" alt="match 5 row 2" /&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;img src="img/match.png" alt="match 1 row 3" /&gt;
+      &lt;img src="img/match.png" alt="match 2 row 3" /&gt;
+      &lt;img src="img/match.png" alt="match 3 row 3" /&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;img src="img/match.png" alt="match 1 row 4" /&gt;
+    &lt;/div&gt;</span>
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>You'll notice that I've edited the <code>alt</code> texts for each match, to indicate which position and row it lies in. This means that someone who is using a screen reader to play your game will be able to visualize the layout from the <code>alt</code> text alone.</p>
+<figure>
+<img src="" alt="16 matches arranged in 4 rows" />
+<figcaption>Figure XX. Using <code>div</code> elements to arrange the 16 match images in 4 rows</figcaption>
+</figure>
+<div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
+<pre>git status
+git add -A
+git commit -m "16 matches arranged in 4 rows, using &lt;div&gt;"
+git push origin gh-pages
+</pre>
+<p>Now, you should be able to see your 16 matches on your GitHub site.</p>
+</div>
+
+<div class="aside next">
+To learn more about the <code>div</code> element, you can read the Understanding the div Element section below.
+<p>When you're ready to learn how CSS can give style to your web page, click on item <a href="#css">11: Styling with CSS</a> in the menu on the left.</p>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="div-details"/>
+<label for="div-details">Understanding the <code>div</code> element</label>
+<div>
+<h4></h4>
 <p></p>
+</div>
+</div>
+
+<div class="optional trouble">
+<input type="checkbox" id="div-trouble"/>
+<label for="div-trouble">Troubleshooting </label>
+<div>
+<p>Ouch. Try :</p>
+<ul>
+<li> Restart your computer.</li>
+</ul>
+<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+</div>
+</div>
 </section>
 
 <!-- STYLING WITH CSS -->
 <section id="css">
-<h2>Using Cascading Style Sheets</h2>
-<p></p>
+  <h2>Using Cascading Style Sheets</h2>
+  <p>You now have the <span class="keyword">content</span> that you need to play the game of Nim, but it is not yet laid out neatly the way you want it. On this page and the next, you will learn about:</p>
+  <ul>
+    <li>Cascading Style Sheets</li>
+    <li>The <span class="keyword">class</span> attribute for HTML elements</li>
+    <li>The <code>style</code> attribute of HTML elements</li>
+  </ul>
+  <p>In particular, you will learn how to:</p>
+  <ul>
+    <li>Attach a style sheet to your HTML page</li>
+    <li>Select an element by its tag name and class</li>
+    <li>Set the font size of an element</li>
+    <li>Use <code>px</code> and <code>em</code> units</li>
+    <li>Set the alignment of text</li>
+    <li>Set the size of an element</li>
+    <li>Set a background colour</li>
+    <li>Create space around an element</li>
+    <li>Make an element transparent</li>
+    <li>Detect when the mouse is over an element</li>
+  </ul>
+  <h3>HTML and CSS</h3>
+  <p>&nbsp;</p>
+  <div class="aside next">
+  When you're ready, click on item <a href="#"></a> in the menu on the left.
+  <p>If you want to know more about  below.</p>
+  </div>
+
+  <div class="optional details">
+    <input type="checkbox" id="css-details"/>
+    <label for="css-details">Learn More About CSS</label>
+    <div>
+      <h4>What HTML does</h4>
+      <p>HTML defines the <span class="keyword">content</span> and the <span class="keyword">structure</span> of your web page. In particular, it defines:</p>
+      <ul>
+        <li>The text and the images that the visitor will see</li>
+        <li>How the content is divided into blocks</li>
+        <li>The role of each block.</li>
+      </ul>
+      <p>Here are some common roles for blocks of content, and the tags that indicate each role:</p>
+      <ul>
+        <li><code>&lt;h1&gt;</code>Header<code>&lt;/h1&gt;</code> </li>
+        <li><code>&lt;h2&gt;</code>Sub header<code>&lt;/h2&gt;</code> </li>
+        <li><code>&lt;p&gt;</code>Paragraph<code>&lt;/p&gt;</code> </li>
+        <li><code>&lt;ul&gt;</code>Unordered list (like this list)<code>&lt;/ul&gt;</code> </li>
+        <li><code>&lt;li&gt;</code>Item in a list (like this bullet item)<code>&lt;/li&gt;</code> </li>
+        <li><code>&lt;div&gt;</code>Generic division<code>&lt;/div&gt;</code> </li>
+        <li><code>&lt;button&gt;</code>Button<code>&lt;/button&gt;</code> </li>
+      </ul>
+      <h4>Parents, children and siblings</h4>
+      <p>HTML elements can be arranged in a hierarchy. The metaphor of a family is used to describe the hierarchy. A <code>parent</code> element can have one or more <code>child</code> elements, which may have children of their own. Each element, except the <code>&lt;html&gt;</code> element itself, will have exactly one parent. Elements that have the same parent are called <span class="keyword">siblings</span>. Child elements can inherit certain properties from their parents. In the current version of CSS (CSS3) child elements cannot affect their parents, and younger siblings (which appear lower down the HTML page) cannot affect their older siblings.</p>
+      <p>For example, the <code>img</code> elements in the snippet below are children of the <code>div</code> element. The "match 1 row 3" sibling element is the <code>first-child</code>, and the "match 3 row 3" element is the <code>last-child</code>.</p>
+      <pre>    &lt;div&gt;
+      &lt;img src="img/match.png" alt="match 1 row 3" /&gt;
+      &lt;img src="img/match.png" alt="match 2 row 3" /&gt;
+      &lt;img src="img/match.png" alt="match 3 row 3" /&gt;
+    &lt;/div&gt;</pre>
+      <h4><code>class</code>es and other attributes</h4>
+      <p>HTML elements may have <span class="keyword">attributes</span>, which are defined inside the opening tag. One important attribute that you can use with any element is <code>class</code>. An HTML element can have more than one class, and many elements can share the same class. You can use classes to tell the browser what CSS <span class="keyword">rules</span> to apply to each element.</p>
+      <p>Other common attributes include:</p>
+      <ul>
+        <li><code>background-color</code></li>
+        <li><code>color</code> (the colour of the text)</li>
+        <li><code>font-size</code></li>
+        <li><code>width</code></li>
+        <li><code>height</code></li>
+      </ul>
+      <h4>CSS rules</h4>
+      <p>CSS rules are defined like this:</p>
+      <p><span class="keyword">selector</span> { <span class="keyword">attribute</span>: <span class="keyword">value</span>; }</p>
+      <p>A <span class="keyword">selector</span> can be defined in many ways. Here are the ones you will be using first:</p>
+      <ul>
+        <li>An official tag name, such as <code>body</code></li>
+        <li>A class name, such as <code>.matches</code></li>
+        <li>A combination of tags and classes, such as <code>div.matches img</code>. The order of the selector items, and the gaps (or lack of gaps) between them defines a hierarchy of HTML elements. The browser reads the list from right to left. This example will select all <code>img</code> elements which have a <code>div</code> with the class <code>matches</code> as a parent.</li>
+        <li>A <span class="keyword">pseudo-element</span> such as <code>:hover</code>, which applies to an element only in certain circumstances (<code>:hover</code> is only applied if the mouse cursor is hovering over the element).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="optional tips">
+    <input type="checkbox" id="css-tips"/>
+    <label for="css-tips">Tips and Tricks</label>
+    <div>
+      <p></p>
+    </div>
+  </div>
+
+  <div class="optional trouble">
+    <input type="checkbox" id="css-trouble"/>
+    <label for="css-trouble">Troubleshooting </label>
+    <div>
+      <p>Ouch. Try :</p>
+      <ul>
+      <li> Restart your computer.</li>
+      </ul>
+      <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+    </div>
+  </div>
 </section>
 
 <!-- JAVASCRIPT -->
@@ -845,6 +1177,59 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 <p></p>
 </section>
 
+
+<!-- FURTHER IMPROVEMENTS -->
+
+
+<!-- LAYOUT FOR DEVICES -->
+<section id="mobile">
+<h2>Layout for devices</h2>
+<p></p>
+</section>
+
+<!-- CONFIRMATION DIALOG -->
+<section id="confirm">
+<h2>Confirmation dialog</h2>
+<p></p>
+</section>
+
+<!-- OTHER LANGUAGES -->
+<section id="L10N">
+<h2>Other languages</h2>
+<p></p>
+</section>
+
+<!-- UNDO ACTIONS -->
+<section id="undo">
+<h2>Undo actions</h2>
+<p></p>
+</section>
+
+<!-- DRAG TO SELECT -->
+<section id="drag">
+<h2>Drag to select</h2>
+<p></p>
+</section>
+
+<!-- AUTOMATING ACTIONS -->
+<section id="auto">
+<h2>Automating actions</h2>
+<p></p>
+</section>
+
+<!-- ENTER = [ DONE ] -->
+<section id="enter">
+<h2>ENTER = [ Done ]</h2>
+<p></p>
+</section>
+
+<!-- ACCESSIBILITY -->
+<section id="a11y">
+<h2>Accessibility</h2>
+<p></p>
+</section>
+
+<!-- TOPIC -->
 <section id="hash">
 <h2></h2>
 <p></p>
