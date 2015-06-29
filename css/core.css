@@ -260,8 +260,18 @@ border-width: 2px;
 border-style: solid;
 }
 .preview {
-border: 1px solid #eef;
+border: 1px solid #669;
 border-radius: 0.5em;
+padding-top: 1em;
+color: #669;
+font-weight: bold;
+}
+.preview ul,
+.preview li:last-child {
+margin-bottom: 0.25em;
+}
+.preview li {
+font-weight: normal;
 }
 .warn {
 background: #fde7e4;
@@ -340,6 +350,10 @@ margin: 0.5em 3em;
 font-family: asides;
 padding: 0 0.5em 0 0;
 font-size: 1.2em;
+}
+.preview:before {
+content: "\e80b";
+color: #669;
 }
 .warn::before {
 content: "\e803";

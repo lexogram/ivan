@@ -72,6 +72,12 @@
 <!-- YOUR HTML PAGE -->
 <section id="html">
 <h2>Your first HTML page</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>What an HTML page looks like</li>
+<li>How to open a very simple HTML page in your browser</li>
+</ul>
+</div>
 <p>I'm assuming that you have never created an HTML page before. HTML means "HyperText Markup Language". This is what a very simple HTML page looks like:</p>
 <pre>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -128,6 +134,12 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <!-- GETTING GIT -->
 <section id="git">
 <h2>Getting started with Git</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to use the Terminal</li>
+<li>How to install or update Git, if you need to</li>
+</ul>
+</div>
 <p>GitHub is a meeting place for the open source community, where ideas are shared, where everyone can benefit from the energy and initiatives of others. A budding programmer like you has everything to gain from joining a community like this.</p>
 <p>The Git application itself tracks the progress of your project. It creates a space for you make experiments, to make mistakes, to explore new possibilities without getting lost.</p>
 <h3>git --version</h3>
@@ -148,7 +160,7 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <div>
 <h4>Installing Git: Windows</h4>
 <p>Git is not installed by default on the Windows operating system. The easiest way to install it is to <a href="https://git-scm.com/download/win">download an installer</a>. When you click on the link, the download should start automatically.</p>
-<p class="aside warn">You can launch the installer application and simply click on the Next &gt; button, <strong>until you reach the screen Adjusting Your PATH Environment</strong>. (See image below). Here, it is best to select the Use Git From The Windows Command Prompt radio button. The Windows Command Prompt uses the Windows-standard <code>/</code> character in path names, which means that you can copy and paste path names from the Explorer windows, or drag files onto the Command Prompt window to paste their paths automatically into the window. Perhaps later, you will prefer to use the Git Bash application: selecting the second radio button, as shown in the image below, will allow you to choose the option you like best.</p>
+<p class="aside note">You can launch the installer application and simply click on the Next &gt; button, <strong>until you reach the screen Adjusting Your PATH Environment</strong>. (See image below). Here, it is best to select the Use Git From The Windows Command Prompt radio button. The Windows Command Prompt uses the Windows-standard <code>/</code> character in path names, which means that you can copy and paste path names from the Explorer windows, or drag files onto the Command Prompt window to paste their paths automatically into the window. Perhaps later, you will prefer to use the Git Bash application: selecting the second radio button, as shown in the image below, will allow you to choose the option you like best.</p>
 <figure>
 <img src="img/04_installGitWindows.png" alt="" />
 <figcaption>Figure 5. Choose - Use Git From The Windows Command Prompt</figcaption>
@@ -209,6 +221,12 @@ git version 2.3.5
 <!-- YOUR GITHUB REPO -->
 <section id="github">
 <h2>Your GitHub repository</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to create a free GitHub account</li>
+<li>How to create a Git repository on the GitHub server</li>
+</ul>
+</div>
 <p>Now you're ready to open a GitHub acccount. This wont't take long (although finding a username that you like and that isn't already taken can be time-consuming). I've used the name "blackslate" in my examples.</p>
 <p>Go to the <a href="https://github.com/join">Join GitHub</a> page, and fill in the form.</p>
 <p class="aside note">At the time of writing, Git requires you to use only the characters <code>A-Z</code>, <code>a-z</code> and <code>-</code> (hyphens) for your username and for the names of your projects. Names with other punctuation, special characters, accents or non-Roman letters, like <span class="gold">!android_</span> or <span class="gold">Andréa</span> or <span class="gold">Андрей</span>, are not permitted.</p>
@@ -275,6 +293,14 @@ git version 2.3.5
 <!-- CREATING A BRANCH -->
 <section id="branch">
 <h2>Creating a branch</h2>
+<div class="aside preview">On this page, you'll learn how to put your HTML page online. In particular:
+<ul>
+<li>How to set the Terminal window to talk to a given directory</li>
+<li>How to copy your Git repository from the GitHub server to your computer</li>
+<li>How to tell Git what changes you have made</li>
+<li>How to synchronize the repository on the remote GitHub server with the repository on your computer</li>
+</ul>
+</div>
 <blockquote>Any sufficiently advanced technology is indistinguishable from magic.
 <cite>Arthur C. Clarke</cite>
 </blockquote>
@@ -496,8 +522,14 @@ Here are the <code>git</code> commands that you have just used:
 
 <!-- YOUR GAME GOES HERE -->
 <section id="game">
-  <h2>Your game goes here</h2>
-  <p>Do you remember the very first HTML page that you saw on page 2?</p>
+<h2>Your game goes here</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to track changes with Git</li>
+<li>How to update your GitHub web site</li>
+</ul>
+</div>
+ <p>Do you remember the very first HTML page that you saw on page 2?</p>
   <pre>&lt;!DOCTYPE html&gt;
   &lt;html&gt;
     &lt;head&gt;
@@ -645,6 +677,14 @@ Here are the <code>git</code> commands that you have just used:
 <!-- REVERTING YOUR CHANGES -->
 <section id="revert">
 <h2>Reverting changes</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to see what changes you have made, using Git</li>
+<li>How to check what the project looked like at a previous stage</li>
+<li>How to revert changes you have made</li>
+<li>How to rewrite your history of changes</li>
+</ul>
+</div>
 <p>In you <code>index.html</code> file, the words "Hello World!" have gone. The change that you have just made moves your project forward. But let's imagine for a moment that it creates a problem, and that you want to get back to your "Hello World" version of the file. How can you do that?</p>
 <p>Git provides 3 commands: <code>checkout</code>, <code>revert</code> and <code>reset</code>, of increasing power. You've already used <code>checkout</code> command to create the <code>gh-pages</code> branch in your repository. You can use a different flavour of it now to look at your project the way it was in the past, without disturbing its current state.</p>
 <h3>git log</h3>
@@ -741,7 +781,13 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 <!-- CREATING ISSUES -->
 <section id="issue">
   <h2>Creating issues</h2>
-  <p>You've been working at this for some time now, but your game is still... let's say <em>a little disappointing</em>. No images, no interaction, no artificial intelligence. You might like to take a look at <a href="complete/">the game you are getting ready to write</a>, and make a note of what needs to be done to get from where you are now to where you want to be. Here are some of the things that you might note:</p>
+  <div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to plan your project</li>
+<li>How to see create an issue to track progress developing features and fixing bugs</li>
+</ul>
+</div>
+<p>You've been working at this for some time now, but your game is still... let's say <em>a little disappointing</em>. No images, no interaction, no artificial intelligence. You might like to take a look at <a href="complete/">the game you are getting ready to write</a>, and make a note of what needs to be done to get from where you are now to where you want to be. Here are some of the things that you might note:</p>
   <ol>
   <li>Add images of matches</li>
   <li>Arrange the images in rows</li>
@@ -762,6 +808,14 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 <!-- ADDING AN IMAGE -->
 <section id="image">
   <h2>Adding an image</h2>
+  <div class="aside preview">On this page, you'll learn:
+  <ul>
+  <li>How to save an image from the Internet</li>
+  <li>How to add an image to your HTML page with an <code>img</code> element</li>
+  <li>The role of the <code>src</code> and <code>alt</code> attributes for <code>img</code> elements</li>
+  <li>The advantages of working on an open source project, using material from Creative Commons</li>
+  </ul>
+  </div>
   <p>Here's an image of a match, called <code>match.png</code> :</p>
   <figure>
   <img src="complete/img/match.png" alt="a match" />
@@ -794,6 +848,7 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
     &lt;/body&gt;
   &lt;/html&gt;
   </pre>
+  <p>Refresh your <code>index.html</code> page in your browser, or reopen it, and check if the image appears. If not, you can check the Troubleshooting section below. If all has gone well, you can upload your changes to the GitHub server.</p>
   <figure>
   <img src="" alt="Displaying the match image in your browser" />
   <figcaption>Figure XX. Displaying the match image in your browser</figcaption>
@@ -813,14 +868,14 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
   <figcaption>Figure XX. Updating your local Git repository and the pushing changes to the GitHub server</figcaption>
   </figure>
 
-  <p class="aside next">If you want to know more about the <code>img</code> tag and its <code>src</code> and <code>alt</code> <span class="keyword">attributes</span>, please read the Understanding the img Tag section below. When you're ready to continue, click on item <a href="#div">10: Rows of images</a> in the menu on the left.
+  <p class="aside next">If you want to know more about the <code>img</code> tag and its <code>src</code>, <code>alt</code> and other <span class="keyword">attributes</span>, please read the Understanding Images section below. When you're ready to continue, click on item <a href="#div">10: Rows of images</a> in the menu on the left.
   </p>
 
   <div class="optional details">
   <input type="checkbox" id="img-details"/>
-  <label for="img-details">Understanding the <code>img</code> Tag</label>
+  <label for="img-details">Understanding Images</label>
   <div>
-  <h4>&lt;img /&gt;</h4>
+  <h4>The &lt;img /&gt; tag</h4>
   <p>An <code>img</code> HTML tag is self closing. There is no closing <span class="red">&lt;/img&gt;</span> tag. You will often see it with a <code>/</code> character just before the closing <code>&gt;</code> angle bracket. This is not essential, but it helps remind you that no closing tag is needed.</p>
   <p> No image will appear unless the tag contains a <code>src</code> (source) <span class="keyword">attribute</span>, inside the angle brackets. An <code>img</code> tag should normally also have an <code>alt</code> (alternative) attribute (see below). Other attributes such as <code>width</code> and <code>height</code> are also common.</p>
   <h4>src</h4>
@@ -836,6 +891,15 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
     <li>It provides screen readers (for people who have difficulty seeing) with a description that can be read aloud by a synthesized voice.</li>
   </ul>
   <p class="aside info">For a mini tutorial on the <code>img</code> tag, see <a href="">the w3schools site</a></p>
+  <h4>Fetching images</h4>
+  <p>When you visit a web site, your browser asks the remote server for an HTML file, such as the <code>index.html</code> page that you are working with now.. This file contains nothing but text. The HTML tags are text, the attributes of the tags are text, and the content inside the elements are text. There are no images.</p>
+  <p>The browser reads the HTML page from top to bottom. If it encounters an <code>img</code> tag with a <code>src</code> attribute, it will send a new request to the server for the image file. The server may reply: "404: I can't find the file you asked for", or it may send the image file back to your browser. Your browser can then show the image.</p>
+  <h4>Image <code>width</code> and <code>height</code></h4>
+  <p>A big image may take a long time to arrive. Until it does arrive, the browser will not know how big it is going to be, so it will not be able to create the appropriate amount of space for it.</p>
+  <p>It is good practice to include <code>width</code> and <code>height</code> attributes inside each <code>img</code> tag, so that the browser can prepare a place in the page for all images. If you don't do this, you may see the other content of the page shifting as new images arrive.</p>
+  <p>Ideally, the <code>img</code> tag for your match should look like this:</p>
+  <pre>  &lt;img src="img/match.png" alt="match" <span class="new">width="12" height="125"</span> /&gt;</pre>
+  <p>In this tutorial, for simplicity, I have left this out. The only image you are using is only 3 KB, and it should arrive fast enough for you to see no shift in the contents of the page.</p>
   </div>
   </div>
 
@@ -891,6 +955,12 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 <!-- ROWS OF IMAGES -->
 <section id="div">
 <h2>Creating Four Rows of Images</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to add multiple images to your page</li>
+<li>How to use the <code>div</code> element to arrange them in rows</li>
+</ul>
+</div>
 <p>Showing 2 matches in your web page is as easy as showing one. You can simply copy and paste the line that you have just changed:</p>
 <pre class="revised">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -972,6 +1042,15 @@ To learn more about the <code>div</code> element, you can read the Understanding
 </div>
 </div>
 
+<div class="optional details">
+<input type="checkbox" id="div-details"/>
+<label for="div-details">More about images</label>
+<div>
+<p>Your new HTML code asks the browser to show the same image 16 times. As the browser is reading the page from top to bottom, it will reach the first request for <code>match.png</code> and it will ask the server to send the image. Then, on the next line, it will see a second request. This time, it will realize that it has already asked the server for an image, and it won't ask again.</p>
+<p>In fact, since you already asked for the image in your previous version of this page, it is likely that your browser will say to itself: "Hey, I've already got this image. I don't have to ask the browser for it." Instead, it will find the image in its <span class="keyword">cache</span>, and show it immediately.</p>
+</div>
+</div>
+
 <div class="optional trouble">
 <input type="checkbox" id="div-trouble"/>
 <label for="div-trouble">Troubleshooting </label>
@@ -988,25 +1067,28 @@ To learn more about the <code>div</code> element, you can read the Understanding
 <!-- STYLING WITH CSS -->
 <section id="css">
   <h2>Using Cascading Style Sheets</h2>
+  <div class="aside preview">On this page, you'll learn about:
+    <ul>
+      <li>Cascading Style Sheets</li>
+      <li>The <span class="keyword">class</span> attribute for HTML elements</li>
+      <li>The <code>style</code> attribute of HTML elements</li>
+    </ul>
+    <p>In particular, you will learn how to:</p>
+    <ul>
+      <li>Attach a style sheet to your HTML page</li>
+      <li>Select an element by its tag name and class</li>
+      <li>Set the font size of an element</li>
+      <li>Use <code>px</code> and <code>em</code> units</li>
+      <li>Set the alignment of text</li>
+      <li>Set the size of an element</li>
+      <li>Set a background colour</li>
+      <li>Create space around an element</li>
+      <li>Make an element transparent</li>
+      <li>Detect when the mouse is over an element</li>
+    </ul>
+  </div>
   <p>You now have the <span class="keyword">content</span> that you need to play the game of Nim, but it is not yet laid out neatly the way you want it. On this page and the next, you will learn about:</p>
-  <ul>
-    <li>Cascading Style Sheets</li>
-    <li>The <span class="keyword">class</span> attribute for HTML elements</li>
-    <li>The <code>style</code> attribute of HTML elements</li>
-  </ul>
-  <p>In particular, you will learn how to:</p>
-  <ul>
-    <li>Attach a style sheet to your HTML page</li>
-    <li>Select an element by its tag name and class</li>
-    <li>Set the font size of an element</li>
-    <li>Use <code>px</code> and <code>em</code> units</li>
-    <li>Set the alignment of text</li>
-    <li>Set the size of an element</li>
-    <li>Set a background colour</li>
-    <li>Create space around an element</li>
-    <li>Make an element transparent</li>
-    <li>Detect when the mouse is over an element</li>
-  </ul>
+  
   <h3>HTML and CSS</h3>
   <p>&nbsp;</p>
   <div class="aside next">
