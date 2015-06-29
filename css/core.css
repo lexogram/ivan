@@ -340,6 +340,12 @@ border-color: #dde;
 border-right-color: #eef;
 border-bottom-color: #eef;
 }
+.note>pre{
+background: #f4f4e0;
+border-color: #eed;
+border-right-color: #ffe;
+border-bottom-color: #ffe;
+}
 div.aside p:last-child {
 margin-bottom: 0;
 }
@@ -513,6 +519,7 @@ top: -2.2em;
 overflow: hidden;
 position: relative;
 }
+.checked input ~ div, /* while authoring, to open all optional divs */
 input:checked ~ div{
 height: auto;
 padding: 0.5em;
