@@ -26,8 +26,11 @@
 <li><a href="#image">Adding an image</a></li>
 <li><a href="#div">Rows of images</a></li>
 <li><a href="#css">Styling with CSS</a></li>
-<li><a href="#select">CSS selectors</a></li>
-<li><a href="#units">CSS units</a></li>
+<li><a href="#select">Selectors and classes</a></li>
+<li><a href="#mouse">Reacting to the mouse</a></li>
+<li><a href="#units">CSS units and space</a></li>
+<li><a href="#box">The box model</a></li>
+<li><a href="#colors">CSS colors</a></li>
 <li><a href="#hover">CSS interactions</a></li>
 <li><a href="#js">JavaScript</a></li>
 <li><a href="#button">The Reset button</a></li>
@@ -84,12 +87,12 @@
 <p>I'm assuming that you have never created an HTML page before. HTML means "HyperText Markup Language". This is what a very simple HTML page looks like:</p>
 <pre>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;<span class="new">This appears in the tab / title bar</span>&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;p&gt;<span class="new">This appears inside the browser window</span>&lt;/p&gt;
-&lt;/body&gt;
+  &lt;head&gt;
+   &lt;title&gt;<span class="new">This appears in the tab / title bar</span>&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;<span class="new">This appears inside the browser window</span>&lt;/p&gt;
+  &lt;/body&gt;
 &lt;/html&gt;
 </pre>
 <p>Here's how this HTML page looks in different browsers.</p>
@@ -429,7 +432,7 @@ Here are the <code>git</code> commands that you have just used:
 <code>git checkout --orphan gh-pages</code><br />
 The <code>checkout</code> command said "Prepare all the files in this folder as the files that I am currently working on." The <code>--orphan</code> <span class="keyword">option</span> said "The files in this branch are to be treated completely separately from any files in any other branch". In other words, if you had a <span class="keyword">master</span> branch for your main development, the branch that you are now checking out would be totally unrelated to it. The <code>gh-pages</code> branch name at the end of the command tells Git what you want to call this new branch.  If you look at the page for your repository on GitHub, you'll find that it now has a <code>gh-pages</code> branch.
 <figure>
-<img src="" alt="A new branch in your GitHub repository" />
+<img src="gh-pagesBranch" alt="A new branch in your GitHub repository" />
 <figcaption>Figure 19. Using <code>checkout ... <span class="keyword">branch-name</span></code> creates a new branch in your project.</figcaption>
 </figure>
 </dd>
@@ -456,7 +459,7 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <dt><a href="https://git-scm.com/docs/git-push"><code>git push</code></a></dt>
 <dd>Up until this point, all the changes have been made on your local computer. The <code>git push</code> command tells Git to send all the changed files to the remote repository on the GitHub server. When you did this, the <code>index.html</code> will have appeared in your GitHub page in your browser (you may need to refresh the page first.
 <figure>
-<img src="" alt="index.html becomes visible on GitHub" />
+<img src="index-html" alt="index.html becomes visible on GitHub" />
 <figcaption>Figure 21. <code>git push</code> makes your files visible in the remote repository</figcaption>
 </figure>
 <p>By default, your local repository is called <code>origin</code>. You have just created and checked out a remote branch called <code>gh-pages</code>.Using plain <code>git push</code> will assume that you mean <code>git push origin gh-pages</code>, but it is best to be explicit each time, just to be sure that Git is not making different assumptions from you.</p>
@@ -535,23 +538,23 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <p>Do you remember the very first HTML page that you saw on page 2?</p>
 <pre>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;This appears in the tab / title bar>&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;p&gt;This appears inside the browser window&lt;/p&gt;
-&lt;/body&gt;
+  &lt;head&gt;
+   &lt;title&gt;This appears in the tab / title bar>&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;This appears inside the browser window&lt;/p&gt;
+  &lt;/body&gt;
 &lt;/html&gt;
 </pre>
 <p>You can use this as a template for the web page that will be the home for your game. You can copy this text and paste it into your <code>index.html</code> file in the <code>nim/gh-pages</code> folder that you created in the last section. You can make a couple of changes to it, to make it more relevant:</p>
 <pre class="revised">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;<span class="new">Nim</span>&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;p&gt;<span class="new">The game will go here</span>&lt;/p&gt;
-&lt;/body&gt;
+  &lt;head&gt;
+    &lt;title&gt;<span class="new">Nim</span>&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;<span class="new">The game will go here</span>&lt;/p&gt;
+  &lt;/body&gt;
 &lt;/html&gt;
 </pre>
 <p>Save the file, and open it in your browser. If you don't see what you expect to see, check the Troubleshooting section below. If all is well, you can use Git to push your well-formatted HTML page to the GitHub server.</p>
@@ -560,7 +563,7 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <li>Ensure that the Terminal is focused on the folder that contains your <code>index.html</code> file. If you're not sure, type <code>cd&nbsp;</code> and then the path to the folder. Remember that you can drag the folder's icon onto the Terminal window, to paste its path automatically.</li>
 <li>As a sanity check, type <code>git status</code>. The terminal window should show that index.html has been modified.
 <figure>
-<img src="" alt="git status after modifying your index.html file" />
+<img src="git-status" alt="git status after modifying your index.html file" />
 <figcaption>Figure XX. <code>git status</code> after modifying your <code>index.html</code> file</figcaption>
 </figure>
 </li>
@@ -569,14 +572,14 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 go here'"</code></li>
 <li>Type <code>git push origin gh-pages</code> and then enter your username and password
 <figure>
-<img src="" alt="Pushing your first modification to the GitHub server" />
+<img src="git-commit" alt="Pushing your first modification to the GitHub server" />
 <figcaption>Figure XX. Pushing your first modification to the GitHub server</figcaption>
 </figure>
 </li>
 </ul>
 <p>Now you can visit your project site on the GitHub web site. Instead of "Hello World", you should see your new page.</p>
 <figure>
-<img src="" alt="the updated page on the GitHub site" />
+<img src="gameGoesHere" alt="the updated page on the GitHub site" />
 <figcaption>Figure XX. The updated page on the GitHub web site</figcaption>
 </figure>
 
@@ -663,11 +666,11 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 <li>Set your default browser to the browser that you want Sublime Text to open</li>
 <li>On your desktop, select your <code>index.html</code> file and make sure that the default application that will be used to open <code>.html</code> files is your default browser.
 <figure>
-<img src="" alt="Set the default application for .html files on Windows" />
+<img src="openWith" alt="Set the default application for .html files on Windows" />
 <figcaption>Figure XX. Windows - set the default application for <code>.html</code> files</figcaption>
 </figure>
 <figure>
-<img src="" alt="Set the default application for .html files on Macintosh" />
+<img src="MISSING MAC" alt="Set the default application for .html files on Macintosh" />
 <figcaption>Figure XX. Macintosh - set the default application for <code>.html</code> files</figcaption>
 </figure>
 </li>
@@ -694,7 +697,7 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 <p>In the Terminal window type the following command:</p>
 <pre>git log</pre>
 <figure>
-<img src="" alt="the git log command" />
+<img src="git-log" alt="the git log command" />
 <figcaption>Figure XX. The <code>git log</code> command gives a unique name for each <code>commit</code></figcaption>
 </figure>
 <p>You will see the history of the <code>commit</code>s that you have made, starting with the most recent. Each <code>commit</code> has a unique 32-character name. You don't need to memorize this.</p>
@@ -702,14 +705,14 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 <p>To see what your project looked like at the moment of a particular <code>commit</code> you can type the command <code>git checkout xxxxxxx</code>, where xxxxxxx represents the first 7 characters in the commit name. In my case, to return to my Hello World state, I can type:</p>
 <pre>git checkout e6b50f7</pre>
 <figure>
-<img src="" alt="Using git checkout to view an earlier stage in the project" />
+<img src="checkoutHello" alt="Using git checkout to view an earlier stage in the project" />
 <figcaption>Figure XX. Using <code>git checkout</code> to view an earlier stage in the project</figcaption>
 </figure>
 <p>Git restores my entire project (in this case, just the <code>index.html</code> file) to the state it was in after my first commit. If I open <code>index.html</code> in my text editor, and refresh it in my browser, I can see that I am back to Hello World.</p>
 <p>This change is only temporary. I can get back to where I was before by checking out the most recent <code>commit</code>:</p>
 <pre>git checkout b6d433d</pre>
 <figure>
-<img src="" alt="checking out the most recent <code>commit" />
+<img src="checkOutGameHere" alt="checking out the most recent <code>commit" />
 <figcaption>Figure XX. Checking out the most recent <code>commit</code></figcaption>
 </figure>
 <p>You can try this for yourself. It's safe to do it now, right at the beginning of your project. If the worst comes to the worst, you can always delete everything you've done, and you need only 15 steps to get back to where you are now.</p>
@@ -722,7 +725,7 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 <li>Run the command <code>git revert </code> + the first 7 characters in the name. For me, this would be:<br /> <code>git revert b6d433d</code>. The name that you use will be different.</li>
 <li>Git will now open a text editor for you to create a message explaining why you are reverting to a previous version. If you have configured Git to use Sublime Text as its preferred text editor, you should see something like Figure XX below.
 <figure>
-<img src="" alt="you must provide a commit message when you use the revert command" />
+<img src="revert-commit-message.png" alt="you must provide a commit message when you use the revert command" />
 <figcaption>Figure XX. You must provide a <code>commit</code>  message when you use the <code>revert</code> command</figcaption>
 </figure></li>
 <li>Type something like <code>Testing the revert command</code>, save the document and close it.</li>
@@ -743,7 +746,7 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 <p>Your command will have a different name at the end.</p>
 <p>If you now run <code>git log</code>, you will see that you have changed your history: there are now only 2 commits recorded. The third one has gone forever.</p>
 <figure>
-<img src="" alt="using reset to change your history" />
+<img src="reset.png" alt="using reset to change your history" />
 <figcaption>Fig XX. The <code>reset</code> command erases history.</figcaption>
 </figure>
 <div class="aside next">
@@ -834,7 +837,7 @@ This image is available to use with a Creative Commons licence. You can find the
 <li>In the contextual menu that opens, choose "Save Image As..." (The wording may be slightly different in your browser).</li>
 </ul>
 <figure>
-<img src="" alt="save the match.png image to the nim/img/ folder" />
+<img src="save-match-1+2.png" alt="save the match.png image to the nim/img/ folder" />
 <figcaption>Figure XX. Save the match.png image to the nim/img/ folder</figcaption>
 </figure>
 <h3>Show the image in your page</h3>
@@ -843,17 +846,17 @@ This image is available to use with a Creative Commons licence. You can find the
 <p>... as shown below, then save your file.</p>
 <pre class="revised">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;Nim&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-<span class="new">&lt;img src="img/match.png" alt="match" /&gt;</span>
-&lt;/body&gt;
+  &lt;head&gt;
+    &lt;title&gt;Nim&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    <span class="new">&lt;img src="img/match.png" alt="match" /&gt;</span>
+  &lt;/body&gt;
 &lt;/html&gt;
 </pre>
 <p>Refresh your <code>index.html</code> page in your browser, or reopen it, and check if the image appears. If not, you can check the Troubleshooting section below. If all has gone well, you can upload your changes to the GitHub server.</p>
 <figure>
-<img src="" alt="Displaying the match image in your browser" />
+<img src="match-in-browser.png" alt="Displaying the match image in your browser" />
 <figcaption>Figure XX. Displaying the match image in your browser</figcaption>
 </figure>
 <h3>Upload the changes to the GitHub server</h3>
@@ -867,8 +870,8 @@ This image is available to use with a Creative Commons licence. You can find the
 </ul>
 <p>You (and everyone else in the world) should now be able to see your match image on your online web page.</p>
 <figure>
-<img src="" alt=" Updating your local Git repository and pushing the changes to the GitHub server" />
-<figcaption>Figure XX. Updating your local Git repository and the pushing changes to the GitHub server</figcaption>
+<img src="MISSING" alt=" Updating your local Git repository and pushing the changes to the GitHub server" />
+<figcaption>Figure XX. Updating your local Git repository and pushing the changes to the GitHub server</figcaption>
 </figure>
 
 <p class="aside next">If you want to know more about the <code>img</code> tag and its <code>src</code>, <code>alt</code> and other <span class="keyword">attributes</span>, please read the Understanding Images section below. When you're ready to continue, click on item <a href="#div">10: Rows of images</a> in the menu on the left.
@@ -967,18 +970,18 @@ should be called "img" and the image itself should be called "match.png".</li>
 <p>Showing 2 matches in your web page is as easy as showing one. You can simply copy and paste the line that you have just changed:</p>
 <pre class="revised">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;Nim&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;img src="img/match.png" alt="match" /&gt;
-<span class="new">&lt;img src="img/match.png" alt="match" /&gt;</span>
-&lt;/body&gt;
+  &lt;head&gt;
+    &lt;title&gt;Nim&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;img src="img/match.png" alt="match" /&gt;
+    <span class="new">&lt;img src="img/match.png" alt="match" /&gt;</span>
+  &lt;/body&gt;
 &lt;/html&gt;
 </pre>
 <p>If you do this another 14 times, you will have a total of 16 matches, all in a line across the browser window.</p>
 <figure>
-<img src="" alt="16 img tags shows 16 matches in the browser" />
+<img src="16-matches.png" alt="16 img tags shows 16 matches in the browser" />
 <figcaption>Fig XX. 16 <code>img</code> tags shows 16 matches in the browser</figcaption>
 </figure>
 <p>By default, your browser will attempt to place all <code>img</code> elements side by side. Since your match image is very thin, it has no difficulty doing this. However, you want to display the matches in 4 separate rows, because that's the way the game works.</p>
@@ -986,40 +989,40 @@ should be called "img" and the image itself should be called "match.png".</li>
 
 <pre class="revised">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;Nim&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-<span class="new">&lt;div&gt;</span>
-&lt;img src="img/match.png" alt="match<span class="new"> 1 row 1</span>" /&gt;
-<span class="new">&lt;img src="img/match.png" alt="match 2 row 1" /&gt;
-&lt;img src="img/match.png" alt="match 3 row 1" /&gt;
-&lt;img src="img/match.png" alt="match 4 row 1" /&gt;
-&lt;img src="img/match.png" alt="match 5 row 1" /&gt;
-&lt;img src="img/match.png" alt="match 6 row 1" /&gt;
-&lt;img src="img/match.png" alt="match 7 row 1" /&gt;
-&lt;/div&gt;
-&lt;div&gt;
-&lt;img src="img/match.png" alt="match 1 row 2" /&gt;
-&lt;img src="img/match.png" alt="match 2 row 2" /&gt;
-&lt;img src="img/match.png" alt="match 3 row 2" /&gt;
-&lt;img src="img/match.png" alt="match 4 row 2" /&gt;
-&lt;img src="img/match.png" alt="match 5 row 2" /&gt;
-&lt;/div&gt;
-&lt;div&gt;
-&lt;img src="img/match.png" alt="match 1 row 3" /&gt;
-&lt;img src="img/match.png" alt="match 2 row 3" /&gt;
-&lt;img src="img/match.png" alt="match 3 row 3" /&gt;
-&lt;/div&gt;
-&lt;div&gt;
-&lt;img src="img/match.png" alt="match 1 row 4" /&gt;
-&lt;/div&gt;</span>
-&lt;/body&gt;
+  &lt;head&gt;
+    &lt;title&gt;Nim&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    <span class="new">&lt;div&gt;</span>
+      &lt;img src="img/match.png" alt="match<span class="new"> 1 row 1</span>" /&gt;
+      <span class="new">&lt;img src="img/match.png" alt="match 2 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 3 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 4 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 5 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 6 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 7 row 1" /&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;img src="img/match.png" alt="match 1 row 2" /&gt;
+      &lt;img src="img/match.png" alt="match 2 row 2" /&gt;
+      &lt;img src="img/match.png" alt="match 3 row 2" /&gt;
+      &lt;img src="img/match.png" alt="match 4 row 2" /&gt;
+      &lt;img src="img/match.png" alt="match 5 row 2" /&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;img src="img/match.png" alt="match 1 row 3" /&gt;
+      &lt;img src="img/match.png" alt="match 2 row 3" /&gt;
+      &lt;img src="img/match.png" alt="match 3 row 3" /&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;img src="img/match.png" alt="match 1 row 4" /&gt;
+    &lt;/div&gt;</span>
+  &lt;/body&gt;
 &lt;/html&gt;
 </pre>
 <p>You'll notice that I've edited the <code>alt</code> texts for each match, to indicate which position and row it lies in. This means that someone who is using a screen reader to play your game will be able to visualize the layout from the <code>alt</code> text alone.</p>
 <figure>
-<img src="" alt="16 matches arranged in 4 rows" />
+<img src="16-matches-in-rows.png" alt="16 matches arranged in 4 rows" />
 <figcaption>Figure XX. Using <code>div</code> elements to arrange the 16 match images in 4 rows</figcaption>
 </figure>
 <div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
@@ -1079,7 +1082,7 @@ To learn more about the <code>div</code> element, you can read the Understanding
 <p>You now have the <span class="keyword">content</span> that you need to play the game of Nim, but the matches are not yet laid out neatly in a symmetrical V shape. The easiest way to get the images to appear in a V shape is to treat them like text (yes, text) and use <code>center</code> alignment for them. But first, you need to create a separate file to contain the layout instructions.</p>
 <p>In your text editor, create a new, empty file called <code>style.css</code>, and save it an a folder called <code>css</code> in same folder as your <code>index.html</code> file. Your folder structure should now look like this:</p>
 <figure>
-<img src="" alt="Your nim folder with index.html and folders for img/match.png and css/style.css" />
+<img src="style-css.png" alt="Your nim folder with index.html and folders for img/match.png and css/style.css" />
 <figcaption>Figure XX. "Your <code>nim</code> folder with <code>index.html</code> and folders for <code>img/match.png</code> and <code>css/style.css</code></figcaption>
 </figure>
 <h3>Linking the CSS file to your HTML file</h3>
@@ -1090,22 +1093,22 @@ To learn more about the <code>div</code> element, you can read the Understanding
 </ul>
 <p>At the beginning of your <code>index.html</code> file, inside the <code>&lt;head&gt;</code> tag, add the line that appears in bold below:</p>
 <pre>&lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;Nim&lt;/title&gt;
-<span class="new">&lt;link rel="stylesheet" href="css/style.css" /&gt;</span>
-&lt;/head&gt;
-&lt;body&gt;
+  &lt;head&gt;
+    &lt;title&gt;Nim&lt;/title&gt;
+    <span class="new">&lt;link rel="stylesheet" href="css/style.css" /&gt;</span>
+  &lt;/head&gt;
+  &lt;body&gt;
 ...
 </pre>
 <p>This tells the browser: "Ask the server for the file <code>style.css</code>, which is in the folder named <code>css/</code>, which is in the same folder as this <code>index.html</code> file that I'm reading now."</p>
 <h3>Applying a CSS rule</h3>
 <p>In the <code>style.css</code> file, add the following text:</p>
 <pre>body {
-text-align: center;
+  text-align: center;
 }</pre>
 <p>This tells the browser: "For the <code>body</code> element and all its children, make text appear centred on the page."</p>
 <figure>
-<img src="" alt="Centring the matches with text-align: center" />
+<img src="align-center.png" alt="Centring the matches with text-align: center" />
 <figcaption>Figure XX. Centring the matches with <code>body { text-align: center; }</code></figcaption>
 </figure>
 
@@ -1148,10 +1151,10 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <p>HTML elements can be arranged in a hierarchy. The metaphor of a family is used to describe the hierarchy. A <code>parent</code> element can have one or more <code>child</code> elements, which may have children of their own. Each element, except the <code>&lt;html&gt;</code> element itself, will have exactly one parent. Elements that have the same parent are called <span class="keyword">siblings</span>. Child elements can inherit certain properties from their parents.</p>
 <p>For example, the <code>img</code> elements in the snippet below are children of the <code>div</code> element. The "match 1 row 3" sibling element is the <code>first-child</code>, and the "match 3 row 3" element is the <code>last-child</code>.</p>
 <pre>    &lt;div&gt;
-&lt;img src="img/match.png" alt="match 1 row 3" /&gt;
-&lt;img src="img/match.png" alt="match 2 row 3" /&gt;
-&lt;img src="img/match.png" alt="match 3 row 3" /&gt;
-&lt;/div&gt;</pre>
+      &lt;img src="img/match.png" alt="match 1 row 3" /&gt;
+      &lt;img src="img/match.png" alt="match 2 row 3" /&gt;
+      &lt;img src="img/match.png" alt="match 3 row 3" /&gt;
+    &lt;/div&gt;</pre>
 <p class="aside note">In the current version of CSS (CSS3) child elements cannot affect their parents, and younger siblings (which appear lower down the HTML page) cannot affect their older siblings.</p>
 <h4><code>class</code>es and other attributes</h4>
 <p>HTML elements may have <span class="keyword">attributes</span>, which are defined inside the opening tag. One important attribute that you can use with any element is <code>class</code>. An HTML element can have more than one class, and many elements can share the same class. You can use classes to tell the browser what CSS <span class="keyword">rules</span> to apply to each element.</p>
@@ -1209,16 +1212,163 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 
 <!-- CSS SELECTORS -->
 <section id="select">
-<h2>CSS selectors</h2>
+<h2>CSS selectors and classes</h2>
 <div class="aside preview">On this page, you'll learn about the <span class="keyword">class</span> attribute for HTML elements:
 <p>In particular, you will learn how to:</p>
 <ul>
-<li>Select an element by its tag name and class</li>
-<li>Set the background colour of an element</li>
-<li>Set the text color for an element and its children</li>
+<li>Select an element by its tag name</li>
+<li>Giving elements a class attribute to distinguish them</li>
+<li>Select an element by its class</li>
+</ul>
+</div>
+<p>As it happens, you won't want to centre all the text in your game. For example, later, you will want the text for the rules to be aligned to the left. Using a CSS <span class="keyword">selector</span>, you can choose to apply <code>text-align: center</code> only to the <code>&lt;div&gt;</code> elements that show the matches.</p>
+<p>In your <code>styles.css</code> file, rename the selector from <code>body</code> to <code>div</code>, as shown below:</p>
+<pre class="revised"><span class="new">div</span> {
+  text-align: center;
+}</pre>
+<p>If you save your file and refresh it in the browser, you should see no change. To check that something has changed, you can add a header to your <code>index.html</code> page:</p>
+<pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Nim&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    <span class="new">&lt;h1&gt;Nim&lt;/h1&gt;
+    &lt;h2&gt;The game that will beat you&lt;/h2&gt;</span>
+    &lt;div&gt;
+      &lt;img src="img/match.png" alt="match 1 row 1" /&gt;
+...</pre>
+<p>As you can see in the screenshot below, only the matches inside the <code>div</code> elements are centred. The text is aligned to the left.</p>
+<figure>
+<img src="div-centered.png" alt="Applying the text-align rule to all div elements" />
+<figcaption>Figure XX. Applying the <code>text-align</code> rule to all <code>div</code> elements</figcaption>
+</figure>
+<h3>Classes</h3>
+<p>But later, you will be creating more <code>div</code> elements, and they will not contain matches. How can you select just some elements and not others? The answer is to use a <span class="keyword">class</span>.</p>
+<p>For the first <code>div</code> element, the one containing 7 matches, add a class attribute called <code>matches</code>, as shown below:</p>
+<pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+   &lt;title&gt;Nim&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Nim&lt;/h1&gt;
+    &lt;h2&gt;The game that will beat you&lt;/h2&gt;
+    &lt;div <span class="new">class="matches"&gt;</span>
+      &lt;img src="img/match.png" alt="match 1 row 1" /&gt;
+...</pre>
+<p>In your <code>styles.css</code> file, make the rule more specific:</p>
+<pre class="revised"><span class="new">div.matches</span> {
+  text-align: center;
+}</pre>
+<p>The rule now applies only to the <code>div</code> that has a class containing the word "matches". The other <code>div</code>s are not affected.</p>
+<figure>
+<img src="align-matches.png" alt="Using div.matches as a selector limits the selection" />
+<figcaption>Figure XX. Using <code>div.matches</code> as a selector limits the selection</figcaption>
+</figure>
+<p>To ensure that all the matches appear centred, you can add <code>class="matches"</code> to all 4 <code>div</code>s, save your <code>index.html</code> page, and refresh your browser to check.</p>
+<h3>Simplifying the selector</h3>
+<p>In this particular case, the only HTML elements which will have a <code>matches</code> class will be these 4 <code>div</code>s. The browser reads CSS rules from right to left, so <code>.matches</code> is sufficient as a selector.</p>
+<pre class="revised"><span class="new">.matches</span> {
+  text-align: center;
+}</pre>
+<div class="aside info">A dot <code>.</code> before a selector item indicates a <span class="keyword">class name</span>. A selector item without a dot designates a <span class="keyword">tag name</span>.
+<p>You will also see selector items that start with a hash <code>#</code> character. These are <code>id</code>s. The browser will only recognize one element with a given <code>id</code> on a given page. You can use <code>id="<span class="keyword">unique-id-name"</span> </code> to identify unique elements, such as a checkbox or radio button. You will be doing this on page <a href="#rules">29: Showing the rules</a>.</p></div>
+<div class="aside git">Remember to use the Terminal to push these changes to the GitHub server. Here's a shorter version, without the <code>git status</code> command. The <code>-a</code> option for <code>commit</code> will automatically apply the <code>add</code> command for all changed files. Since you only have one repository, and one branch checked out, Git will automatically know that you are referring to the <code>origin</code> local repository and the <code>gh-pages</code> branch, so you can omit this information, too.
+<pre>git commit -am "Add .matches class to designate the divs to be centered"
+git push
+</pre>
+<p>What does your game look like on the GitHub server now?</p>
+</div>
+
+<div class="aside next">
+If you are comfortable with the concepts of classes and selectors, you can click on the item <a href="#mouse">13: Reacting to the mouse</a> in the menu on the left.
+</div>
+</section>
+
+<!-- REACTING TO THE MOUSE -->
+<section id="mouse">
+<h2>Reacting to the mouse</h2>
+<p>Your next objective is to make your game react to movements of the mouse. Here's the CSS that does this:</p>
+<pre class="revised"><span class="new">body {
+  font-size: 10px;
+}</span>
+
+.matches {
+  text-align: center;
+}
+<span class="new">.matches img{
+  padding: 0 1em;
+  width: 1em;
+  height: 10em;
+}
+.matches img:hover{
+  background: lightgray;
+}</span></pre>
+<p>And this is what happens when you roll the mouse over a match:</p>
+<figure>
+<img src="rollover" alt="Changing the background-color on hover" />
+<figcaption>Figure XX. Changing the <code>background-color</code> of an image on hover</figcaption>
+</figure>
+<p>If you copy and paste this into your <code>style.css</code> file, save it and refresh your <code>index.html</code> file in your browser, you should see the effect for yourself.</p> 
+<div class="aside next">
+If you're happy to know that this works, without needing to explore any deeper, you can skip the next 4 sections. Click on item <a href="#js">18: JavaScript</a> in the menu on the left, to learn how to make the matches disappear.
+<p>If you want to understand how all this works, you can work through the pages on <a href="units">units and space</a>, <a href="box">the box model</a>, <a href="colors"></a>colours and <a href="hover">interactions</a>.</p>
+</div>
+</section>
+
+<!-- CSS UNITS AND SPACE -->
+<section id="units">
+<h2>CSS units and space</h2>
+<div class="aside preview">On this page, you'll learn how to:
+<ul>
+<li>Set the font size of an element</li>
+<li>Inspect the CSS of the elements in your web page</li>
+<li>Use <code>px</code> and <code>em</code> units</li>
+<li>Set the size of an element</li>
+<li>Create space around an element</li>
 </ul>
 </div>
 
+<p>You can do this in 3 ways:</p>
+<ol>
+<li>Change the appearance of the cursor when the mouse is over something interactive</li>
+<li>Change the appearance of an interactive element when the mouse is over it</li>
+<li>React to mouse clicks.</li>
+</ol>
+<p>CSS can do all of this, but its reaction to mouse clicks is fairly limited. (You'll see in section <a href="#rules">29: Showing the rules</a> how you can alter the appearance of element when the visitor changes the state of a checkbox or radio button.) You will need to use JavaScript to manage the game-play itself. Over the next 3 pages, you'll discover how to:</p>
+<ul>
+<li>Create space around your matches</li>
+<li>Change the colour of that space</li>
+<li>Use the movement of the mouse to trigger the colour change</li>
+</ul>
+<p>So the first step towards interacting with the mouse is to discover how to create space</p>
+<h3>px: the pixel unit</h3>
+<p>The text that says "Nim" at the top of your page is very big. Here's a way to make it smaller. In your <code>style.css</code> file, add the following rule:</p>
+<pre class="revised"><span class="new">body {
+  font-size: 10px;
+}</span>
+
+.matches {
+  text-align: center;
+}</pre>
+<p><code>px</code> stands for "pixel". A pixel is a "<strong>pi</strong>cture <strong>el</strong>ement": the size of the smallest dot that your computer screen can show.</p>
+<p>Save your changes and refresh your <code>index.html</code> page in your browser. You should see that the characters are smaller. But they are not as small as 10 pixels. You can ask your browser to explain why:</p>
+<ul>
+<li>Right-click on the word "Nim"</li>
+<li>Choose Inspect Element from the contextual menu that opens</li>
+</ul>
+<p class="aside note">If you don't see an Inspect Element in the contextual menu, see the Troubleshooting section below.</p>
+<figure>
+<img src="inspect-element" alt="Using the element inspector" />
+<figcaption>Figure XX. Using the Element Inspector</figcaption>
+</figure>
+<p>In the Styles pane on the right of the Element Inspector, you should see that the <span class="keyword">user agent stylesheet</span> has a rule for <code>h1</code> elements that gives them a font-size of <code>2em</code>. What's an <span class="keyword">em</span>?</p>
+<h3>em: the font ratio unit</h3>
+<p>In the Element Inspector, if you click on the Computed tab of the right-hand pane, and scroll down if necessary, you will see that the computed font-size is 20px. The font-size for the body is 10px, the font-size for the <code>h1</code> element is 2em, and its computed font-size is 20px = 10px x 2. If you were to guess that <span class="keyword">em</span> is a number to multiply font-sizes by, you'd be right.</p>
+<p>In the world of print, an <span class="keyword">em</span> is the width of the letter M in a given font face. It is used as unit of spacing. In the world of the web, an <span class="keyword">em</span> is a similar unit of spacing, but it refers to the <em>height</em> of the font.</p>
+<h3>User agent stylesheet</h3>
+<p>If you provide no CSS information about your web page, the browser will use default values.</p>
 <div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
 <pre>git status
 git add -A
@@ -1228,23 +1378,55 @@ git push origin gh-pages
 <p>Now, .</p>
 </div>
 
-<div class="aside next">
-When you're ready, click on item <a href="#"></a> in the menu on the left.
-<p>If you want to know more about  below.</p>
+<div class="optional details">
+<input type="checkbox" id="-details"/>
+<label for="-details">Learn More About </label>
+<div>
+<h4></h4>
+<p></p>
+</div>
+</div>
+
+<div class="optional tips">
+<input type="checkbox" id="-tips"/>
+<label for="-tips">Tips and Tricks</label>
+<div>
+<p></p>
+</div>
+</div>
+
+<div class="optional trouble">
+<input type="checkbox" id="units-trouble"/>
+<label for="units-trouble">Troubleshooting </label>
+<div>
+<p>When you right-click on an element in the browser, the contextual menu that opens does not contain an <code>Inspect Element</code> item.</p>
+<ul>
+<li>It's likely that you are using Apple Safari as your browser. You will need to activate the <span class="keyword">development tools</span> before the <code>Inspect Element</code> item will appear.</li>
+<li>Click on the Safari menu</li>
+<li>Choose Preferences</li>
+<li>In the dialogue window that opens, select the Advanced tab</li>
+<li>At the bottom of the window select the Show Develop Menu in Menu Bar checkbox</li>
+<li>When you right-click now, the Inspect Element item should appear in the contextual menu</li>
+</ul>
+<figure>
+<img src="../img/devToolsSafari.png" alt="Enabling developer menu on Safari" />
+<figcaption>Figure XX. Enabling the Developer menu on Apple Safari</figcaption>
+</figure>
+<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+</div>
 </div>
 </section>
 
-<!-- CSS UNITS -->
-<section id="units">
-<h2>CSS units</h2>
+<!-- CSS COLORS -->
+<section id="colors">
+<h2>CSS colors</h2>
 <div class="aside preview">On this page, you'll learn how to:</p>
 <ul>
-<li>Set the font size of an element</li>
-<li>Use <code>px</code> and <code>em</code> units</li>
-<li>Set the size of an element</li>
-<li>Create space around an element</li>
+<li>Set the background colour of an element</li>
+<li>Set the text color for an element and its children</li>
 </ul>
 </div>
+<p></p>
 
 <div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
 <pre>git status
@@ -1268,7 +1450,7 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <p>In particular, you will learn how to:</p>
 <ul>
 <li>Detect when the mouse is over an element</li>
-<li>Set a background colour</li>
+<li>Use the browser console</li>
 <li>Make an element transparent</li>
 </ul>
 </div>
