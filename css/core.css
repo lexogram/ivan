@@ -226,6 +226,7 @@ flex-grow: 1;
 overflow: auto;
 padding: 0.5em;
 position:relative;
+height: 100%;
 }
 article .top{
 font-size: 1.25em;
@@ -421,7 +422,10 @@ font-style:oblique;
 code{
 background-color: #eee;
 }
-
+section.optional {
+background-color: #f8f8ff;
+height: 100%;
+}
 .aside + div.optional {
 margin-top: 2em;
 }
@@ -513,13 +517,14 @@ input[type=checkbox]:checked + label::before{
 padding-right: 0.48em; /*To account for change in content */
 content: "\e806";
 }
+.inverted input:checked ~ div, /* while authoring, to close optional divs */
 input ~ div{
 height: 0;
 top: -2.2em;
 overflow: hidden;
 position: relative;
 }
-.checked input ~ div, /* while authoring, to open all optional divs */
+.inverted input ~ div, /* while authoring, to open all optional divs */
 input:checked ~ div{
 height: auto;
 padding: 0.5em;

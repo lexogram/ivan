@@ -74,7 +74,7 @@
 </nav>
 </header>
 
-<article class="checked">
+<article class="inverted">
 <!-- YOUR HTML PAGE -->
 <section id="html">
 <h2>Your first HTML page</h2>
@@ -1289,9 +1289,11 @@ If you are comfortable with the concepts of classes and selectors, you can click
 <!-- REACTING TO THE MOUSE -->
 <section id="mouse">
 <h2>Reacting to the mouse</h2>
-<p>Your next objective is to make your game react to movements of the mouse. Here's the CSS that does this:</p>
+<p>Your next objective is to make your game react to movements of the mouse. Here's the CSS that you can create to do this:</p>
 <pre class="revised"><span class="new">body {
   font-size: 10px;
+  background-color: black;
+  color: rgb(255,255,255);
 }</span>
 
 .matches {
@@ -1301,24 +1303,25 @@ If you are comfortable with the concepts of classes and selectors, you can click
   padding: 0 1em;
   width: 1em;
   height: 10em;
+  border-radius: 1.5em;
 }
 .matches img:hover{
-  background: lightgray;
+  background: #222;
 }</span></pre>
 <p>And this is what happens when you roll the mouse over a match:</p>
 <figure>
 <img src="rollover" alt="Changing the background-color on hover" />
 <figcaption>Figure XX. Changing the <code>background-color</code> of an image on hover</figcaption>
 </figure>
-<p>If you copy and paste this into your <code>style.css</code> file, save it and refresh your <code>index.html</code> file in your browser, you should see the effect for yourself.</p> 
+<p>If you copy and paste the CSS rules above into your <code>style.css</code> file, save it and refresh your <code>index.html</code> file in your browser, you should see the effect for yourself.</p> 
 <div class="aside next">
 If you're happy to know that this works, without needing to explore any deeper, you can skip the next 4 sections. Click on item <a href="#js">18: JavaScript</a> in the menu on the left, to learn how to make the matches disappear.
-<p>If you want to understand how all this works, you can work through the pages on <a href="units">units and space</a>, <a href="box">the box model</a>, <a href="colors"></a>colours and <a href="hover">interactions</a>.</p>
+<p>If you want to understand how all this works, you can work through the pages on <a href="#units">units and space</a>, <a href="#box">the box model</a>, <a href="#colors">colours</a> and <a href="#hover">interactions</a>.</p>
 </div>
 </section>
 
 <!-- CSS UNITS AND SPACE -->
-<section id="units">
+<section id="units" class="optional">
 <h2>CSS units and space</h2>
 <div class="aside preview">On this page, you'll learn how to:
 <ul>
@@ -1326,23 +1329,10 @@ If you're happy to know that this works, without needing to explore any deeper, 
 <li>Inspect the CSS of the elements in your web page</li>
 <li>Use <code>px</code> and <code>em</code> units</li>
 <li>Set the size of an element</li>
-<li>Create space around an element</li>
 </ul>
 </div>
-
-<p>You can do this in 3 ways:</p>
-<ol>
-<li>Change the appearance of the cursor when the mouse is over something interactive</li>
-<li>Change the appearance of an interactive element when the mouse is over it</li>
-<li>React to mouse clicks.</li>
-</ol>
-<p>CSS can do all of this, but its reaction to mouse clicks is fairly limited. (You'll see in section <a href="#rules">29: Showing the rules</a> how you can alter the appearance of element when the visitor changes the state of a checkbox or radio button.) You will need to use JavaScript to manage the game-play itself. Over the next 3 pages, you'll discover how to:</p>
-<ul>
-<li>Create space around your matches</li>
-<li>Change the colour of that space</li>
-<li>Use the movement of the mouse to trigger the colour change</li>
-</ul>
-<p>So the first step towards interacting with the mouse is to discover how to create space</p>
+<p>One important question is: "How big should the game be?" And one good answer is: "I don't know yet. Let's deal with the proportions first and work out the size later." So that's the way I propose that you should work.</p>
+<p class="aside tip">For purely practical reasons, since this is a tutorial, it will be good to make the game tall and thin. You'll discover the JavaScript development environment shortly, and you will want to give plenty of space to it, and still keep your game visible. This is easy to do if the game fills only a thin slice of your screen.</p>
 <h3>px: the pixel unit</h3>
 <p>The text that says "Nim" at the top of your page is very big. Here's a way to make it smaller. In your <code>style.css</code> file, add the following rule:</p>
 <pre class="revised"><span class="new">body {
@@ -1352,7 +1342,7 @@ If you're happy to know that this works, without needing to explore any deeper, 
 .matches {
   text-align: center;
 }</pre>
-<p><code>px</code> stands for "pixel". A pixel is a "<strong>pi</strong>cture <strong>el</strong>ement": the size of the smallest dot that your computer screen can show.</p>
+<p>
 <p>Save your changes and refresh your <code>index.html</code> page in your browser. You should see that the characters are smaller. But they are not as small as 10 pixels. You can ask your browser to explain why:</p>
 <ul>
 <li>Right-click on the word "Nim"</li>
@@ -1380,10 +1370,37 @@ git push origin gh-pages
 
 <div class="optional details">
 <input type="checkbox" id="-details"/>
-<label for="-details">Learn More About </label>
+<label for="-details">Learn More About Units</label>
 <div>
-<h4></h4>
-<p></p>
+<p>There are 7 different ways of measuring size in CSS. In this game you are going to use the first 2 of them. Here is the complete list:</p>
+<dl>
+<dt><code>px</code> </dt>
+<dd><code>px</code> stands for "pixel". A pixel is a single "<strong>pi</strong>cture <strong>el</strong>ement": the size of the smallest dot that your computer screen can show.</p></dd>
+<dt><code>em</code></dt>
+<dd>One <code>em</code> is identical to the font-size of the current element. It can therefore have different values in different elements. For example, if the default font-size for the body is 10px and an <code>&lt;h1&gt;</code> header has a font-size of 2em, the header font will have a size of 2 x 10px = 20px. Padding of 2em around the header text will be 40px thick: 2 x 2 x 10px.
+<figure>
+<img src="em.png" alt="The value of an em unit depends on the font size of the base element" />
+<figcaption>Figure XX. The value of an <code>em</code> unit depends on the font size of the base element</figcaption>
+</figure>
+</dd>
+<dt><code>%</code></dt>
+<dd>A percentage width or height is calculated with respect to the width or height of the parent element. If the parent is 100px by 100px and the element has a width of 200% and a height of 50%, it will be 200px by 50px.
+<p class="aside note">There is one exception: padding is always calculated with respect to the <em>width</em> of the parent. This means that you can create an element with a fixed aspect ratio by setting its <code>width</code> to 100% of its parent width, its <code>height</code> to 0 and its <code>padding-top</code> to a percentage of its parent width:</p>
+<figure>
+<img src="percent" alt="Expressing dimensions as a percentage of the parent's dimensions" />
+<figcaption>Figure XX. Expressing dimensions as a percentage of the parent's dimensions</figcaption>
+</figure>
+</dd>
+<dt><code>vw</code></dt>
+<dd>One <code>vw</code> unit is 1% of the <strong>v</strong>iewport <strong>w</strong>idth: 100 <code>vw</code> units fill the width of the window.</dd>
+<dt><code>vw</code></dt>
+<dd>One <code>vh</code> unit is 1% of the <strong>v</strong>iewport <strong>h</strong>eight: 100 <code>vw</code> units fill the height of the window.</dd>
+<dt><code>vmin</code></dt>
+<dd>One <code>vmin</code> unit is the smaller of the <code>vw</code> and the <code>vh</code> units</dd>
+<dt><code>vmax</code></dt>
+<dd>One <code>vmax</code> unit is the larger of the <code>vw</code> and the <code>vh</code> units</dd> 
+</dl>
+<p>Elements with sizes measured in <code>px</code> will have a fixed size. Elements with sizes measured in <code>vw</code>, <code>vh</code>, <code>vmin</code> or <code>vmax</code> will change in size when the user resizes the window. Elements with sizes measured in <code>%</code> will have a size relative to their parent: if the size of the parent is measured with respect to the window (as a <code>%</code>, or as a <code>v...</code>), then the size of the element will change with the size of the window. Elements with sizes measured in <code>em</code> will all change in size together if you use JavaScript to change the font-size of their base elements</p>
 </div>
 </div>
 
@@ -1417,8 +1434,34 @@ git push origin gh-pages
 </div>
 </section>
 
+<!-- THE BOX MODEL -->
+<section id="box" class="optional">
+<h2>The box model</h2>
+<div class="aside preview">On this page, you'll learn how to:</p>
+<ul>
+<li>Create space and lines around your elements</li>
+<li>Create elements with rounded corners</li>
+</ul>
+</div>
+<p></p>
+
+<div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
+<pre>git status
+git add -A
+git commit -m ""
+git push origin gh-pages
+</pre>
+<p>Now, .</p>
+</div>
+
+<div class="aside next">
+When you're ready, click on item <a href="#"></a> in the menu on the left.
+<p>If you want to know more about  below.</p>
+</div>
+</section>
+
 <!-- CSS COLORS -->
-<section id="colors">
+<section id="colors" class="optional">
 <h2>CSS colors</h2>
 <div class="aside preview">On this page, you'll learn how to:</p>
 <ul>
@@ -1444,7 +1487,7 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 </section>
 
 <!-- CSS INTERACTIONS -->
-<section id="hover">
+<section id="hover" class="optional">
 <h2>CSS interactions</h2>
 <div class="aside preview">On this page, you'll learn how to:
 <p>In particular, you will learn how to:</p>
@@ -1657,13 +1700,13 @@ When you're ready to begin, click on item <a href="#html">2: Your HTML Page</a> 
 <p>Everyone is a beginner at something, and has expertise in other areas. This tutorial was written with the understanding that some pages might teach you nothing new, and others might present you with a challenge.</p>
 <p>In this tutorial, each page starts with the simplest instructions that you need to get to the next page. If these instructions work for you and you understand why they work, then there is no more to be said.</p>
 <p>At the end of this starter section, you'll see a green box something like this:</p>
-<p class="aside next">If you're ready to go on, click <span style="text-decoration: underline;">here</span>, to go to the next page. If you want to know more, you can read the optional sections below.</p>
+<p class="aside next">If you're ready to go on, click <span style="text-decoration: underline;">here</span> to go to the next page. If you want to know more, you can read the optional sections below.</p>
 <p>If you can complete the entire tutorial without reading any of the optional sections below the green box, congratulations! We'd like to hear from you, so that we can feel good, too.</p>
 <p>On the other hand, if you read all the optional material carefully, and you are still unable to get the instructions to work for you, then please let us know. We'll do all we can to make the instructions and explanations better.</p>
 <p>It would be helpful if you can tell us:</p>
 <ul>
 <li>What operating system you are using (eg. Windows 8.1, Mac 10.8.5 Mountain Lion, Ubuntu Utopic Unicorn...)</li>
-<li>What browser you are testing your site with (Google Chrome, Mozilla Firefox, Internet Explorer 9...</li>
+<li>What browser you are testing your site with (Google Chrome, Mozilla Firefox, Internet Explorer 9...)</li>
 <li>What text editor you are using to write your code. (If you are using <a href="http://www.sublimetext.com/2">Sublime Text</a>, we may be able to be more helpful)</li>
 <li>What version of Git you have running.</li>
 <li>Where we can find your GitHub repository, so that we can see what you've done so far.</li>
