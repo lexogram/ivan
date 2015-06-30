@@ -7,9 +7,7 @@
 </head>
 
 <body>
-<div id="container">
-<div id="side">
-<div class="column">
+<div class="sidebar">
 <div class="logo">
 <a href="../"><img src="../img/logo.png" alt="openbook home" /></a>
 </div>
@@ -61,20 +59,20 @@
 </ul>
 </nav>
 </div>
-</div>
 
 <main>
 <header>
-<div class="filler"></div>
 <h1>Nim : artificial intelligence</h1>
-<nav id="arrows" class="filler">
-<ul>
-<li><img src="../img/arrow.png" alt="back" /></li><li><img src="../img/arrow.png" alt="next" /></li>
+<ul class="nav">
+<li>
+<a href="#back"><img src="../img/arrow.png" alt="back" /></a>
+</li><li>
+<a href="#next"><img src="../img/arrow.png" alt="next" /></a>
+</li>
 </ul>
-</nav>
 </header>
 
-<article class="inverted">
+<article class="inver_ted">
 <!-- YOUR HTML PAGE -->
 <section id="html">
 <h2>Your first HTML page</h2>
@@ -132,9 +130,15 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
-<!--footer>
-<a href=#html><img src="../img/arrow.png" alt="next" /></a>
-</footer-->
+<footer>
+<ul class="nav">
+<li>
+<a href="#git">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- GETTING GIT -->
@@ -219,9 +223,15 @@ git version 2.3.5
 <p class="aside tip">The standard keyboard shortcuts like <code>Ctrl-C</code> and <code>Ctrl-Z</code> were introduced by Apple in 1984 and were adopted in Windows applications only much later. The Windows Command Prompt uses an older keyboard shortcut system. In the Windows Command Prompt, you will need to use <code>Alt-Spacebar</code> to show a contextual menu, and then press the letter that appears underlined in the menu item that you want to use.<br /><br />For example, to select text, you can press <code>Alt-Spacebar</code> then E (for <code><span class="under">E</span>dit</code>), then M (for <code><span class="under">M</span>ark</code>). You can now use the arrow keys to move the selection around and extend it. Pressing Enter will copy the highlighted text to your clipboard. Use <code>Alt-Spacebar <span class="under">E</span>dit</code>, <code><span class="under">P</span>aste</code> to paste your text.</p>
 </div>
 </div>
-<!--footer>
-<a href=#html><img src="../img/arrow.png" alt="next" /></a>
-</footer-->
+<footer>
+<ul class="nav">
+<li>
+<a href="#github">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- YOUR GITHUB REPO -->
@@ -294,6 +304,15 @@ git version 2.3.5
 <p>Telling the world about your project is the best way to find people who are willing to help you. In future projects, you will know how to create a strong web presence, right from the beginning. In future projects, you will know to use the <span class="keyword">master</span> branch for your main development.</p>
 </div>
 </div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#branch">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- CREATING A BRANCH -->
@@ -524,6 +543,15 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#game">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- YOUR GAME GOES HERE -->
@@ -564,7 +592,7 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <li>As a sanity check, type <code>git status</code>. The terminal window should show that index.html has been modified.
 <figure>
 <img src="git-status" alt="git status after modifying your index.html file" />
-<figcaption>Figure XX. <code>git status</code> after modifying your <code>index.html</code> file</figcaption>
+<figcaption>Figure 22. <code>git status</code> after modifying your <code>index.html</code> file</figcaption>
 </figure>
 </li>
 <li>Type <code>git add -A</code> and press Enter</li>
@@ -573,14 +601,14 @@ go here'"</code></li>
 <li>Type <code>git push origin gh-pages</code> and then enter your username and password
 <figure>
 <img src="git-commit" alt="Pushing your first modification to the GitHub server" />
-<figcaption>Figure XX. Pushing your first modification to the GitHub server</figcaption>
+<figcaption>Figure 23. Pushing your first modification to the GitHub server</figcaption>
 </figure>
 </li>
 </ul>
 <p>Now you can visit your project site on the GitHub web site. Instead of "Hello World", you should see your new page.</p>
 <figure>
 <img src="gameGoesHere" alt="the updated page on the GitHub site" />
-<figcaption>Figure XX. The updated page on the GitHub web site</figcaption>
+<figcaption>Figure 24. The updated page on the GitHub web site</figcaption>
 </figure>
 
 <div class="aside next">
@@ -667,17 +695,26 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 <li>On your desktop, select your <code>index.html</code> file and make sure that the default application that will be used to open <code>.html</code> files is your default browser.
 <figure>
 <img src="openWith" alt="Set the default application for .html files on Windows" />
-<figcaption>Figure XX. Windows - set the default application for <code>.html</code> files</figcaption>
+<figcaption>Figure 25. Windows - set the default application for <code>.html</code> files</figcaption>
 </figure>
 <figure>
 <img src="MISSING MAC" alt="Set the default application for .html files on Macintosh" />
-<figcaption>Figure XX. Macintosh - set the default application for <code>.html</code> files</figcaption>
+<figcaption>Figure 26. Macintosh - set the default application for <code>.html</code> files</figcaption>
 </figure>
 </li>
 </ul>
 <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#revert">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- REVERTING YOUR CHANGES -->
@@ -698,7 +735,7 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 <pre>git log</pre>
 <figure>
 <img src="git-log" alt="the git log command" />
-<figcaption>Figure XX. The <code>git log</code> command gives a unique name for each <code>commit</code></figcaption>
+<figcaption>Figure 27. The <code>git log</code> command gives a unique name for each <code>commit</code></figcaption>
 </figure>
 <p>You will see the history of the <code>commit</code>s that you have made, starting with the most recent. Each <code>commit</code> has a unique 32-character name. You don't need to memorize this.</p>
 <h3>git checkout</h3>
@@ -706,14 +743,14 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 <pre>git checkout e6b50f7</pre>
 <figure>
 <img src="checkoutHello" alt="Using git checkout to view an earlier stage in the project" />
-<figcaption>Figure XX. Using <code>git checkout</code> to view an earlier stage in the project</figcaption>
+<figcaption>Figure 28. Using <code>git checkout</code> to view an earlier stage in the project</figcaption>
 </figure>
 <p>Git restores my entire project (in this case, just the <code>index.html</code> file) to the state it was in after my first commit. If I open <code>index.html</code> in my text editor, and refresh it in my browser, I can see that I am back to Hello World.</p>
 <p>This change is only temporary. I can get back to where I was before by checking out the most recent <code>commit</code>:</p>
 <pre>git checkout b6d433d</pre>
 <figure>
 <img src="checkOutGameHere" alt="checking out the most recent <code>commit" />
-<figcaption>Figure XX. Checking out the most recent <code>commit</code></figcaption>
+<figcaption>Figure 29. Checking out the most recent <code>commit</code></figcaption>
 </figure>
 <p>You can try this for yourself. It's safe to do it now, right at the beginning of your project. If the worst comes to the worst, you can always delete everything you've done, and you need only 15 steps to get back to where you are now.</p>
 <h3>git revert</h3>
@@ -726,7 +763,7 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 <li>Git will now open a text editor for you to create a message explaining why you are reverting to a previous version. If you have configured Git to use Sublime Text as its preferred text editor, you should see something like Figure XX below.
 <figure>
 <img src="revert-commit-message.png" alt="you must provide a commit message when you use the revert command" />
-<figcaption>Figure XX. You must provide a <code>commit</code>  message when you use the <code>revert</code> command</figcaption>
+<figcaption>Figure 30. You must provide a <code>commit</code>  message when you use the <code>revert</code> command</figcaption>
 </figure></li>
 <li>Type something like <code>Testing the revert command</code>, save the document and close it.</li>
 <li>In the Terminal window, run the <code>git log</code> command again. You will see that there is now a new commit.</li>
@@ -782,6 +819,15 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#issue">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- CREATING ISSUES -->
@@ -809,6 +855,15 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 <h3>Issues</h3>
 <p>The GitHub site provides you with a system for tracking what still needs to be done. Their system is called "Issues". At the moment, all your issues are requests for <span class="keyword">features</span> that you want to develop. Later, you might also want to track <span class="keyword">bugs</span>. In either case, you want to have a clear description of what to do, and a way noting progress, and when it's all done.</p>
 <p>To create ... TODO</p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#image">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- ADDING AN IMAGE -->
@@ -825,7 +880,7 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 <p>Here's an image of a match, called <code>match.png</code> :</p>
 <figure>
 <img src="complete/img/match.png" alt="a match" />
-<figcaption>Figure XX. The match.png image that you can use for your game</figcaption>
+<figcaption>Figure 31. The match.png image that you can use for your game</figcaption>
 </figure>
 <p class="aside info">
 This image is available to use with a Creative Commons licence. You can find the original high-resolution source image <a href="">here.</a> You can read more about Creative Commons in the optional sections below.</p>
@@ -838,7 +893,7 @@ This image is available to use with a Creative Commons licence. You can find the
 </ul>
 <figure>
 <img src="save-match-1+2.png" alt="save the match.png image to the nim/img/ folder" />
-<figcaption>Figure XX. Save the match.png image to the nim/img/ folder</figcaption>
+<figcaption>Figure 32. Save the match.png image to the nim/img/ folder</figcaption>
 </figure>
 <h3>Show the image in your page</h3>
 <p>To show the image in your HTML page, you can replace the line...</p>
@@ -857,7 +912,7 @@ This image is available to use with a Creative Commons licence. You can find the
 <p>Refresh your <code>index.html</code> page in your browser, or reopen it, and check if the image appears. If not, you can check the Troubleshooting section below. If all has gone well, you can upload your changes to the GitHub server.</p>
 <figure>
 <img src="match-in-browser.png" alt="Displaying the match image in your browser" />
-<figcaption>Figure XX. Displaying the match image in your browser</figcaption>
+<figcaption>Figure 33. Displaying the match image in your browser</figcaption>
 </figure>
 <h3>Upload the changes to the GitHub server</h3>
 <p>In the Terminal window:</p>
@@ -871,7 +926,7 @@ This image is available to use with a Creative Commons licence. You can find the
 <p>You (and everyone else in the world) should now be able to see your match image on your online web page.</p>
 <figure>
 <img src="MISSING" alt=" Updating your local Git repository and pushing the changes to the GitHub server" />
-<figcaption>Figure XX. Updating your local Git repository and pushing the changes to the GitHub server</figcaption>
+<figcaption>Figure 34. Updating your local Git repository and pushing the changes to the GitHub server</figcaption>
 </figure>
 
 <p class="aside next">If you want to know more about the <code>img</code> tag and its <code>src</code>, <code>alt</code> and other <span class="keyword">attributes</span>, please read the Understanding Images section below. When you're ready to continue, click on item <a href="#div">10: Rows of images</a> in the menu on the left.
@@ -956,6 +1011,15 @@ should be called "img" and the image itself should be called "match.png".</li>
 <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#div">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- ROWS OF IMAGES -->
@@ -1023,7 +1087,7 @@ should be called "img" and the image itself should be called "match.png".</li>
 <p>You'll notice that I've edited the <code>alt</code> texts for each match, to indicate which position and row it lies in. This means that someone who is using a screen reader to play your game will be able to visualize the layout from the <code>alt</code> text alone.</p>
 <figure>
 <img src="16-matches-in-rows.png" alt="16 matches arranged in 4 rows" />
-<figcaption>Figure XX. Using <code>div</code> elements to arrange the 16 match images in 4 rows</figcaption>
+<figcaption>Figure 35. Using <code>div</code> elements to arrange the 16 match images in 4 rows</figcaption>
 </figure>
 <div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
 <pre>git status
@@ -1068,6 +1132,15 @@ To learn more about the <code>div</code> element, you can read the Understanding
 <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#css">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- STYLING WITH CSS -->
@@ -1083,7 +1156,7 @@ To learn more about the <code>div</code> element, you can read the Understanding
 <p>In your text editor, create a new, empty file called <code>style.css</code>, and save it an a folder called <code>css</code> in same folder as your <code>index.html</code> file. Your folder structure should now look like this:</p>
 <figure>
 <img src="style-css.png" alt="Your nim folder with index.html and folders for img/match.png and css/style.css" />
-<figcaption>Figure XX. "Your <code>nim</code> folder with <code>index.html</code> and folders for <code>img/match.png</code> and <code>css/style.css</code></figcaption>
+<figcaption>Figure 36. "Your <code>nim</code> folder with <code>index.html</code> and folders for <code>img/match.png</code> and <code>css/style.css</code></figcaption>
 </figure>
 <h3>Linking the CSS file to your HTML file</h3>
 <p>You now need to do two things:</p>
@@ -1109,7 +1182,7 @@ To learn more about the <code>div</code> element, you can read the Understanding
 <p>This tells the browser: "For the <code>body</code> element and all its children, make text appear centred on the page."</p>
 <figure>
 <img src="align-center.png" alt="Centring the matches with text-align: center" />
-<figcaption>Figure XX. Centring the matches with <code>body { text-align: center; }</code></figcaption>
+<figcaption>Figure 37. Centring the matches with <code>body { text-align: center; }</code></figcaption>
 </figure>
 
 <div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
@@ -1208,6 +1281,15 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#select">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- CSS SELECTORS -->
@@ -1241,7 +1323,7 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <p>As you can see in the screenshot below, only the matches inside the <code>div</code> elements are centred. The text is aligned to the left.</p>
 <figure>
 <img src="div-centered.png" alt="Applying the text-align rule to all div elements" />
-<figcaption>Figure XX. Applying the <code>text-align</code> rule to all <code>div</code> elements</figcaption>
+<figcaption>Figure 38. Applying the <code>text-align</code> rule to all <code>div</code> elements</figcaption>
 </figure>
 <h3>Classes</h3>
 <p>But later, you will be creating more <code>div</code> elements, and they will not contain matches. How can you select just some elements and not others? The answer is to use a <span class="keyword">class</span>.</p>
@@ -1264,7 +1346,7 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <p>The rule now applies only to the <code>div</code> that has a class containing the word "matches". The other <code>div</code>s are not affected.</p>
 <figure>
 <img src="align-matches.png" alt="Using div.matches as a selector limits the selection" />
-<figcaption>Figure XX. Using <code>div.matches</code> as a selector limits the selection</figcaption>
+<figcaption>Figure 39. Using <code>div.matches</code> as a selector limits the selection</figcaption>
 </figure>
 <p>To ensure that all the matches appear centred, you can add <code>class="matches"</code> to all 4 <code>div</code>s, save your <code>index.html</code> page, and refresh your browser to check.</p>
 <h3>Simplifying the selector</h3>
@@ -1284,6 +1366,15 @@ git push
 <div class="aside next">
 If you are comfortable with the concepts of classes and selectors, you can click on the item <a href="#mouse">13: Reacting to the mouse</a> in the menu on the left.
 </div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#mouse">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- REACTING TO THE MOUSE -->
@@ -1311,13 +1402,22 @@ If you are comfortable with the concepts of classes and selectors, you can click
 <p>And this is what happens when you roll the mouse over a match:</p>
 <figure>
 <img src="rollover" alt="Changing the background-color on hover" />
-<figcaption>Figure XX. Changing the <code>background-color</code> of an image on hover</figcaption>
+<figcaption>Figure 40. Changing the <code>background-color</code> of an image on hover</figcaption>
 </figure>
 <p>If you copy and paste the CSS rules above into your <code>style.css</code> file, save it and refresh your <code>index.html</code> file in your browser, you should see the effect for yourself.</p> 
 <div class="aside next">
 If you're happy to know that this works, without needing to explore any deeper, you can skip the next 4 sections. Click on item <a href="#js">18: JavaScript</a> in the menu on the left, to learn how to make the matches disappear.
 <p>If you want to understand how all this works, you can work through the pages on <a href="#units">units and space</a>, <a href="#box">the box model</a>, <a href="#colors">colours</a> and <a href="#hover">interactions</a>.</p>
 </div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#units">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- CSS UNITS AND SPACE -->
@@ -1351,7 +1451,7 @@ If you're happy to know that this works, without needing to explore any deeper, 
 <p class="aside note">If you don't see an Inspect Element in the contextual menu, see the Troubleshooting section below.</p>
 <figure>
 <img src="inspect-element" alt="Using the element inspector" />
-<figcaption>Figure XX. Using the Element Inspector</figcaption>
+<figcaption>Figure 41. Using the Element Inspector</figcaption>
 </figure>
 <p>In the Styles pane on the right of the Element Inspector, you should see that the <span class="keyword">user agent stylesheet</span> has a rule for <code>h1</code> elements that gives them a font-size of <code>2em</code>. What's an <span class="keyword">em</span>?</p>
 <h3>em: the font ratio unit</h3>
@@ -1380,7 +1480,7 @@ git push origin gh-pages
 <dd>One <code>em</code> is identical to the font-size of the current element. It can therefore have different values in different elements. For example, if the default font-size for the body is 10px and an <code>&lt;h1&gt;</code> header has a font-size of 2em, the header font will have a size of 2 x 10px = 20px. Padding of 2em around the header text will be 40px thick: 2 x 2 x 10px.
 <figure>
 <img src="em.png" alt="The value of an em unit depends on the font size of the base element" />
-<figcaption>Figure XX. The value of an <code>em</code> unit depends on the font size of the base element</figcaption>
+<figcaption>Figure 42. The value of an <code>em</code> unit depends on the font size of the base element</figcaption>
 </figure>
 </dd>
 <dt><code>%</code></dt>
@@ -1388,7 +1488,7 @@ git push origin gh-pages
 <p class="aside note">There is one exception: padding is always calculated with respect to the <em>width</em> of the parent. This means that you can create an element with a fixed aspect ratio by setting its <code>width</code> to 100% of its parent width, its <code>height</code> to 0 and its <code>padding-top</code> to a percentage of its parent width:</p>
 <figure>
 <img src="percent" alt="Expressing dimensions as a percentage of the parent's dimensions" />
-<figcaption>Figure XX. Expressing dimensions as a percentage of the parent's dimensions</figcaption>
+<figcaption>Figure 43. Expressing dimensions as a percentage of the parent's dimensions</figcaption>
 </figure>
 </dd>
 <dt><code>vw</code></dt>
@@ -1427,11 +1527,20 @@ git push origin gh-pages
 </ul>
 <figure>
 <img src="../img/devToolsSafari.png" alt="Enabling developer menu on Safari" />
-<figcaption>Figure XX. Enabling the Developer menu on Apple Safari</figcaption>
+<figcaption>Figure 44. Enabling the Developer menu on Apple Safari</figcaption>
 </figure>
 <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#box">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- THE BOX MODEL -->
@@ -1458,6 +1567,15 @@ git push origin gh-pages
 When you're ready, click on item <a href="#"></a> in the menu on the left.
 <p>If you want to know more about  below.</p>
 </div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#colors">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- CSS COLORS -->
@@ -1484,6 +1602,15 @@ git push origin gh-pages
 When you're ready, click on item <a href="#"></a> in the menu on the left.
 <p>If you want to know more about  below.</p>
 </div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#hover">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- CSS INTERACTIONS -->
@@ -1511,96 +1638,240 @@ git push origin gh-pages
 When you're ready, click on item <a href="#"></a> in the menu on the left.
 <p>If you want to know more about  below.</p>
 </div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#js">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- JAVASCRIPT -->
 <section id="js">
 <h2>Hiding Images with JavaScript</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#button">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- THE RESET BUTTON -->
 <section id="button">
 <h2>Creating a Reset Button</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#reset">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- RESETTING THE GAME -->
 <section id="reset">
 <h2>Resetting the Game</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#layout">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- THE GAME LAYOUT -->
 <section id="layout">
 <h2>The Game Layout</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#turns">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- WHOSE TURN IS IT? -->
 <section id="turns">
 <h2>Whose Turn Is It?</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#rules">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- ENFORCING RULES -->
 <section id="rules">
 <h2>Enforcing the Rules</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#rows">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- ONE ROW AT A TIME -->
 <section id="rows">
 <h2>One Row at a Time</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#winner">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- WHO WON? -->
 <section id="winner">
 <h2>Who Won?</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#overlay">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- USING AN OVERLAY -->
 <section id="overlay">
 <h2>Using an Overlay</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#player">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- COMPUTER PLAYER -->
 <section id="player">
 <h2>Creating a Computer Player</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#random">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- RANDOM MOVES -->
 <section id="random">
 <h2>Making Random Moves</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#ai">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- INTELLIGENT MOVES -->
 <section id="ai">
 <h2>Making Intelligent Moves</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#final">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- FINAL DETAILS -->
 <section id="final">
 <h2>Taking Care of the Final Details</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#toggle">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- SHOWING THE RULES -->
 <section id="toggle">
 <h2>Showing the Rules</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#meta">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- INVISIBLE DATA -->
 <section id="meta">
 <h2>Invisible data</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#BROKEN-ON-PURPOSE">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 
@@ -1611,54 +1882,135 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <section id="mobile">
 <h2>Layout for devices</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#confirm">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- CONFIRMATION DIALOG -->
 <section id="confirm">
 <h2>Confirmation dialog</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#L10N">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- OTHER LANGUAGES -->
 <section id="L10N">
 <h2>Other languages</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#undo">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- UNDO ACTIONS -->
 <section id="undo">
 <h2>Undo actions</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#drag">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- DRAG TO SELECT -->
 <section id="drag">
 <h2>Drag to select</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#auto">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- AUTOMATING ACTIONS -->
 <section id="auto">
 <h2>Automating actions</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#enter">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- ENTER = [ DONE ] -->
 <section id="enter">
 <h2>ENTER = [ Done ]</h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#a11y">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- ACCESSIBILITY -->
 <section id="a11y">
 <h2>Accessibility</h2>
 <p></p>
+<footer>
+<!--ul class="nav">
+<li>
+<a href="#">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer-->
 </section>
 
 <!-- TOPIC -->
 <section id="hash">
 <h2></h2>
 <p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 
 <!-- OVERVIEW : SECTION 0 -->
@@ -1715,9 +2067,15 @@ When you're ready to begin, click on item <a href="#html">2: Your HTML Page</a> 
 <p class="aside mail">If you have any difficulty anywhere in this tutorial, please do <a href="https://github.com/lexogram/openbook/issues/new">create a new issue</a> for us, and we'll do our best to deal with it for you. Keep in touch. Your questions and suggestions can help us make this tutorial better.</p>
 </div>
 </div>
-<!--footer>
-<a href=#html><img src="../img/arrow.png" alt="next" /></a>
-</footer-->
+<footer>
+<ul class="nav">
+<li>
+<a href="#html">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
 </section>
 </article>
 </main>
