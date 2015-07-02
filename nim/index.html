@@ -33,6 +33,7 @@
 <li><a href="#hover">CSS interactions</a></li>
 <li><a href="#merge">Merging 2 Git branches</a></li>
 <li><a href="#js">JavaScript</a></li>
+<li><a href="#hide">Hiding an image</a></li>
 <li><a href="#button">The Reset button</a></li>
 <li><a href="#reset">Resetting the game</a></li>
 <li><a href="#layout">The game layout</a></li>
@@ -64,6 +65,7 @@
 
 <main>
 <header>
+<a href="https://github.com/lexogram/openbook/blob/master/LICENSE" class="cc">&#59409;</a>
 <h1>Nim : artificial intelligence</h1>
 <ul class="nav">
 <li>
@@ -110,8 +112,8 @@ You can discover what all these <code>&lt;tags&gt;</code> mean in the Understand
 <p class="aside next">If you are eager to continue building your game, click on the Next arrow below, or on item <a href="#git">3: Getting Git</a> in the menu on the left. Your Hello message should be online for the world to see when you have reach the end of page 5. If you need help or want to know more, click on optional sections below.</p>
 
 <div class="optional tips">
-<input type="checkbox" id="tips-html"/>
-<label for="tips-html">Tips and Tricks</label>
+<input type="checkbox" id=""/>
+<label for="html-tips">Tips and Tricks</label>
 <div> 
 <div class="aside tip">
 On almost every page, you will find a button that allows you to Download The Source Files for that page. You might like to download these files into a separate project folder, and use them as a preview of what you will have achieved by the end of the section.
@@ -125,15 +127,15 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 </div>
 
 <div class="optional trouble">
-<input type="checkbox" id="trouble-html"/>
-<label for="trouble-html">Troubleshooting your HTML page</label>
+<input type="checkbox" id="html-trouble"/>
+<label for="html-trouble">Troubleshooting your HTML page</label>
 <div>
-<p>Your HTML page is not appearing correctly in the browser. Perhaps one of these steps will help you:</p>
+<p class="symptom">Your HTML page is not appearing correctly in the browser. Perhaps one of these steps will help you:</p>
 <ul>
 <li>If you are not using Sublime Text, perhaps your text editor is saving your files in a <code class="keyword">rich text</code> format, such as <code>.doc</code> or <code>.rtf</code>. Make sure that you are saving in a plain text format, using <code>.html</code> as the extension.</li>
 <li>There may be many files called <code>index.html</code> on your computer. Make sure that you are opening the right one. If you are using Sublime Text, you can use the right-click &gt; Show in Browser shortcut, to be sure that you are opening the same document that you are working on.</li>
 </ul>
-<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+<p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 <footer>
@@ -172,8 +174,8 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <p class="aside next">If you simply want to keep moving forward, then click on the Next arrow below, or on item <a href="#github">4: Your GitHub repo</a> in the menu on the left. If you want to learn more about Terminal commands, then you can continue reading the Understanding Terminal Commands section.</p>
 
 <div class="optional trouble">
-<input type="checkbox" id="trouble-git"/>
-<label for="trouble-git">Installing and Updating Git</label>
+<input type="checkbox" id="git-trouble"/>
+<label for="git-trouble">Installing and Updating Git</label>
 <div>
 <h4>Installing Git: Windows</h4>
 <p>Git is not installed by default on the Windows operating system. The easiest way to install it is to <a href="https://git-scm.com/download/win">download an installer</a>. When you click on the link, the download should start automatically.</p>
@@ -200,13 +202,13 @@ git version 1.7.4.4
 <span class="new">git --version</span>
 git version 2.3.5
 </pre>
-<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+<p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 
 <div class="optional details">
-<input type="checkbox" id="details-git"/>
-<label for="details-git">Understanding Terminal Commands</label>
+<input type="checkbox" id="s"/>
+<label for="git-detail">Understanding Terminal Commands</label>
 <div>
 <h4>Command Line Tools</h4>
 <p>You probably have plenty of experience using a mouse in a point-and-click <span class="keyword">graphic user interface</span> (GUI). You are used to double-clicking on files to open them, and dragging them from one folder to another, to move them. You are used to opening an application when you want to send an email, edit a photo or listen to music. There is always visual feedback on the screen to tell you, a human, what is happening. Even if it's only an endless progress bar.</p>
@@ -221,8 +223,8 @@ git version 2.3.5
 </div>
 
 <div class="optional tips">
-<input type="checkbox" id="tips-git"/>
-<label for="tips-git">Tips and Tricks</label>
+<input type="checkbox" id="git-tips"/>
+<label for="git-tips">Tips and Tricks</label>
 <div>
 <h4>Using Git in other ways</h4>
 <p class="aside tip">You can use the Git application to work with many different sites that provide version control hosting. Some examples are: <a href="https://bitbucket.org/">Bitbucket</a>, <a href="https://gitlab.com/">GitLab</a> and <a href="https://launchpad.net/">Launchpad</a>. Other sites that help you to create applications in the cloud, such as <a href="https://www.heroku.com/">Heroku</a> and <a href="https://c9.io/">Cloud 9</a> offer integration with GitHub.<br /><br />You can find a list of hosted version control services on <a href="http://www.slant.co/topics/153/~what-is-the-best-hosted-version-control-service">slant.co</a></p>
@@ -284,8 +286,8 @@ git version 2.3.5
 <p class="aside next">Your immediate aim is to get your Hello World page online, so I propose to take an unconventional shortcut. If you want to know what the conventional path is, then you can read the Branches and Pages section below. If you want to move along quickly, just click on the Next arrow below, or on item <a href="#branch">5: Creating a branch</a> in the menu on the left.</p>
 
 <div class="optional details">
-<input type="checkbox" id="details-github"/>
-<label for="details-github">Branches and Pages</label>
+<input type="checkbox" id=""/>
+<label for="github-details">Branches and Pages</label>
 <div>
 <p>In this tutorial, you will be following a path that has already been prepared for you, taking predictable steps to recreate something that already exists. This is reassuring, but it is not how you will be working in the future.</p>
 <p>When you start working on your first real project, you will be creating something that is different from anything anyone else has ever made before. There will be no clear path; there will be many possible paths that you can follow. You will not know in advance which ones will bring you to a dead end, and which ones will lead you to where you plan to go. You may not even be entirely sure where your journey will lead you. The original creators of iTunes were probably focused on playing music; they did not imagine that their project would develop into a shopping mall.</p>
@@ -447,8 +449,8 @@ git push origin gh-pages
 </div>
 
 <div class="optional details">
-<input type="checkbox" id="details-branch"/>
-<label for="details-branch">Understanding Git Commands</label>
+<input type="checkbox" id=""/>
+<label for="branch-details">Understanding Git Commands</label>
 <div>
 Here are the <code>git</code> commands that you have just used:
 <dl>
@@ -497,8 +499,8 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 </div>
 
 <div class="optional tips">
-<input type="checkbox" id="tips-branch"/>
-<label for="tips-branch">Tips and Tricks</label>
+<input type="checkbox" id="s"/>
+<label for="branch-tip">Tips and Tricks</label>
 <div>
 <h4>Using Sublime Text to create <code>commit</code> and <code>revert</code> messages</h4>
 <div class="aside tip">Windows:
@@ -539,19 +541,19 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 </div>
 
 <div class="optional trouble">
-<input type="checkbox" id="trouble-github"/>
-<label for="trouble-github">Troubleshooting your first repo</label>
+<input type="checkbox" id="github-trouble"/>
+<label for="github-trouble">Troubleshooting your first repo</label>
 <div>
-<p>Git tells you that it can't execute your commands</p>
+<p class="symptom">Git tells you that it can't execute your commands</p>
 <ul>
 <li>When you created your repository, did you click on any buttons, other than Create Repository?</li>
 <li>If you added a ReadMe file, a .gitignore file or a licence file to your repository, through the GitHub "new repository" page, then the remote repository on the GitHub site will already contain files. You won't be able to push any new files to the remote repository until you have downloaded them to your local repository. The simplest solution (at this early stage) is to delete your repository and start again, as described below.</li>
 </ul>
-<p>You get a <code>fatal</code> error message in your Terminal</p>
+<p class="symptom">You get a <code>fatal</code> error message in your Terminal</p>
 <ul>
 <li>This can happen if you mistype a command, but it can also happen if your version of Git is older that 1.7.9.5. To test this, type <code>git --version</code> in your terminal. If the output is less than 1.7.9.5, then you will need to <a href="https://git-scm.com/download/win">update Git</a> before you can continue. See the Installing and Updating Git section at the foot of the <a href="#git">Getting Git</a> page for more details.</li>
 </ul>
-<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+<p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 <footer>
@@ -629,8 +631,8 @@ If you are ready to go on, click on the Next arrow below, or on item <a href="#r
 </div>
 
 <div class="optional details">
-<input type="checkbox" id="details-html"/>
-<label for="details-html">Understanding HTML Tags</label>
+<input type="checkbox" id=""/>
+<label for="html-details">Understanding HTML Tags</label>
 <div>
 <p>You can recognize HTML code because of the <span class="keyword">tags</span> that it uses. Tags are instructions that are enclosed in <code>&lt;</code> and <code>&gt;</code> pointed <span class="keyword">angle brackets</span>, in this style: <code>&lt;style&gt;</code>.</p>
 <h4>Closing Tags</h4>
@@ -696,12 +698,12 @@ If you are ready to go on, click on the Next arrow below, or on item <a href="#r
 <input type="checkbox" id="game-trouble"/>
 <label for="game-trouble">Troubleshooting </label>
 <div>
-<p>When you open the file in your browser, you still see "Hello World".</p>
+<p class="symptom">When you open the file in your browser, you still see "Hello World".</p>
 <ul>
 <li>Perhaps you need to save your <code>index.html</code> file so that your browser can see the new version.</li>
 <li>Perhaps you opened a different <code>index.html</code> file than the one you saved. If you are using Sublime Text, you can right-click on your edited page and choose Open in Browser.</li>
 </ul>
-<p>In Sublime Text, when you right-click on your edited page and choose Open in Browser, nothing happens, or it opens in the wrong browser.</p>
+<p class="symptom">In Sublime Text, when you right-click on your edited page and choose Open in Browser, nothing happens, or it opens in the wrong browser.</p>
 <ul>
 <li>Set your default browser to the browser that you want Sublime Text to open</li>
 <li>On your desktop, select your <code>index.html</code> file and make sure that the default application that will be used to open <code>.html</code> files is your default browser.
@@ -715,7 +717,7 @@ If you are ready to go on, click on the Next arrow below, or on item <a href="#r
 </figure>
 </li>
 </ul>
-<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+<p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 <footer>
@@ -816,20 +818,20 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 </div>
 
 <div class="optional trouble">
-<input type="checkbox" id="-trouble"/>
-<label for="-trouble">Troubleshooting </label>
+<input type="checkbox" id="revert-trouble"/>
+<label for="revert-trouble">Troubleshooting </label>
 <div>
-<p>When you type a <code>git</code> command, you get an error like <code>fatal: Not a git repository (or any of the parent directories): .git</code></p>
+<p class="symptom">When you type a <code>git</code> command, you get an error like <code>fatal: Not a git repository (or any of the parent directories): .git</code></p>
 <ul>
 <li>Make sure that you have told your Terminal window which directory your project is in. You can use the <code>cd&nbsp;</code> command, followed by the path to your project directory.</li>
 <li>Remember that you can drag the icon of your project directory from the desktop onto your Terminal window, so that its path is added automatically.</li>
 </ul>
-<p>When you execute the <code>revert</code> command, you find that the Terminal window is acting in an unexpected way.</p>
+<p class="symptom">When you execute the <code>revert</code> command, you find that the Terminal window is acting in an unexpected way.</p>
 <ul>
 <li>Perhaps you have not configured Git to use an external text editor, and it has opened <span class="keyword">vim</span>, a command line text editor. The easiest solution might be to press <code>Esc</code> then <code>q</code> to quite the editor, and cancel the command. You can then follow the instructions in the Tips and Tricks section at the foot of page <a href="#branch">5: Creating a branch</a>, to use Sublime Text to create commit and revert messages.</li>
 <li>Remember that you can drag the icon of your project directory from the desktop onto your Terminal window, so that its path is added automatically.</li>
 </ul>
-<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+<p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 <footer>
@@ -899,7 +901,7 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 <figcaption>Figure 31. The match.png image that you can use for your game</figcaption>
 </figure>
 <p class="aside info">
-This image is available to use with a Creative Commons licence. You can find the original high-resolution source image <a href="">here.</a> You can read more about Creative Commons in the optional sections below.</p>
+This image is available to use with a Creative Commons licence. You can find the original high-resolution source image <a href="https://commons.wikimedia.org/wiki/File:Match-1.jpg">here.</a> You can read more about Creative Commons in the optional sections below.</p>
 <h3>Save the image</h3>
 <p>To use this image for your game, you first need to save it to your <code>nim</code> folder. It is good practice to keep different kinds of files separate. I recommend that you create a folder called <code>img</code> alongside your <code>index.html</code> file, and that you save the match image in this folder. (You'll see in a moment why I suggest that you name the folder <code>img</code>.)</p>
 <p>To save the image:</p>
@@ -984,8 +986,8 @@ This image is available to use with a Creative Commons licence. You can find the
 </div>
 
 <div class="optional details">
-<input type="checkbox" id="image-details"/>
-<label for="image-details">Learn More About Creative Commons</label>
+<input type="checkbox" id="cc-details"/>
+<label for="cc-details">Learn More About Creative Commons</label>
 <div>
 <h4></h4>
 <p>By default, everything that you find on the Internet is subject to copyright. In very simple terms, this means that it is illegal to use most images (and any other works) that you find online in your own projects.</p>
@@ -1010,24 +1012,24 @@ This image is available to use with a Creative Commons licence. You can find the
 <input type="checkbox" id="image-trouble"/>
 <label for="image-trouble">Troubleshooting </label>
 <div>
-<p>Your <code>index.html</code> page still shows "The game goes here".</p>
-<ul>
-<li>Perhaps you haven't saved the changes to your file.</li>
-<li>Perhaps you are opening a different <code>index.html</code> file in your browser.</li>
-<li>If this is happening on your GitHub site, perhaps you did not follow all the steps required to push your changes to the GitHub <code>gh-pages</code> repository.</li>
-</ul>
-<p>Your image does not appear in your <code>index.html</code> page in the browser. A "broken image" icon appears instead.</p>
+<p class="symptom">Your image does not appear in your <code>index.html</code> page in the browser. A "broken image" icon appears instead.</p>
 <ul>
 <li>HTML links are Case Sensitive. This means that "link" is not the same as "LINK" or "Link". Check if you have used any UPPERCASE letters when you named the match image file or the folder it is in. The names of the folder and the file should use the same case as the <code>src</code> path that you have created. If your path is <code>src="img/match.png"</code> then the folder 
 should be called "img" and the image itself should be called "match.png".</li>
 <li>Perhaps you have not stored the image inside a folder called <code>img</code>, which is where you HTML page is looking for it.</li>
 <li>Perhaps you are using a different image, and you have called it "match.jpg" or "match.gif". In that case, you make sure that the extension you use in your HTML file is the same as the extension for the file itself. You might like to follow the steps to show all file extensions, in the Tips and Tricks section above.</li>
 </ul>
-<p>Your image appears correctly when you open your <code>index.html</code> page locally, but it appears broken when you view the page on the GitHub server.</p>
+<p class="symptom">Your image appears correctly when you open your <code>index.html</code> page locally, but it appears broken when you view the page on the GitHub server.</p>
 <ul>
 <li>See the first explanation above. The file system on your local computer may be case-insensitive, so your browser may be able to find it locally. Thin GitHub server uses a different file system, which is case sensitive, so the case of every letter must be identical.</li>
 </ul>
-<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+<p class="symptom">Your <code>index.html</code> page still shows "The game goes here".</p>
+<ul>
+<li>Perhaps you haven't saved the changes to your file.</li>
+<li>Perhaps you are opening a different <code>index.html</code> file in your browser.</li>
+<li>If this is happening on your GitHub site, perhaps you did not follow all the steps required to push your changes to the GitHub <code>gh-pages</code> repository.</li>
+</ul>
+<p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 <footer>
@@ -1138,8 +1140,8 @@ To learn more about the <code>div</code> element, you can read the Understanding
 </div>
 
 <div class="optional details">
-<input type="checkbox" id="div-details"/>
-<label for="div-details">More about images</label>
+<input type="checkbox" id="image-details"/>
+<label for="image-details">More about images</label>
 <div>
 <p>Your new HTML code asks the browser to show the same image 16 times. As the browser is reading the page from top to bottom, it will reach the first request for <code>match.png</code> and it will ask the server to send the image. Then, on the next line, it will see a second request. This time, it will realize that it has already asked the server for an image, and it won't ask again.</p>
 <p>In fact, since you already asked for the image in your previous version of this page, it is likely that your browser will say to itself: "Hey, I've already got this image. I don't have to ask the browser for it." Instead, it will find the image in its <span class="keyword">cache</span>, and show it immediately.</p>
@@ -1147,14 +1149,14 @@ To learn more about the <code>div</code> element, you can read the Understanding
 </div>
 
 <div class="optional trouble">
-<input type="checkbox" id="div-trouble"/>
+<input type="checkbox" id="div-trouble" />
 <label for="div-trouble">Troubleshooting </label>
 <div>
-<p>Ouch. Try :</p>
+<p  class="symptom">Ouch. Try :</p>
 <ul>
 <li> Restart your computer.</li>
 </ul>
-<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+<p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 <footer>
@@ -1288,8 +1290,8 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 </div>
 
 <div class="optional tips">
-<input type="checkbox" id="-tips"/>
-<label for="-tips">Tips and Tricks</label>
+<input type="checkbox" id="div-tips"/>
+<label for="div-tips">Tips and Tricks</label>
 <div>
 <p class="aside tip">HTML, CSS and JavaScript are written in USAmerican English. This means that you will find words like <span class="keyword">center</span> and <span class="keyword">color</span>. Even if you prefer a different spelling of English, you will simply have to use the official spelling. If you don't, the browser will not understand you.</p>
 </div>
@@ -1299,12 +1301,12 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 <input type="checkbox" id="css-trouble"/>
 <label for="css-trouble">Troubleshooting </label>
 <div>
-<p>Your matches remain bunched together on the left of the page:</p>
+<p class="symptom">Your matches remain bunched together on the left of the page:</p>
 <ul>
 <li>In your <code>index.html</code> file, check that the relative path to your <code>styles.css</code> is correct</li>
 <li>In your <code>styles.css</code> file, check that you have all the right symbols: curly brackets <code>{}</code> around the rule to apply, a colon <code>:</code> after the attribute name, and a semi-colon <code>;</code> after the value.</li>
 </ul>
-<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+<p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 <footer>
@@ -1615,11 +1617,11 @@ body { font-size: <span class="red">10 px</span> }</pre></dd>
 <input type="checkbox" id="units-trouble"/>
 <label for="units-trouble">Troubleshooting </label>
 <div>
-<p>When you run the <code>revert</code> command, the Terminal starts behaving strangely.</p>
+<p class="symptom">When you run the <code>revert</code> command, the Terminal starts behaving strangely.</p>
 <ul>
 <li>Press <code>:q</code> to quit the command line text editor and cancel your revert action, then configure Git to use Sublime Text as its default text editor, then try again.</li>
 </ul>
-<p>When you right-click on an element in the browser, the contextual menu that opens does not contain an <code>Inspect Element</code> item.</p>
+<p class="symptom">When you right-click on an element in the browser, the contextual menu that opens does not contain an <code>Inspect Element</code> item.</p>
 <ul>
 <li>It's likely that you are using Apple Safari as your browser. You will need to activate the <span class="keyword">development tools</span> before the <code>Inspect Element</code> item will appear.</li>
 <li>Click on the Safari menu</li>
@@ -1632,7 +1634,7 @@ body { font-size: <span class="red">10 px</span> }</pre></dd>
 <img src="../img/devToolsSafari.png" alt="Enabling developer menu on Safari" />
 <figcaption>Figure 47. Enabling the Developer menu on Apple Safari</figcaption>
 </figure>
-<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+<p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 <footer>
@@ -2022,14 +2024,14 @@ Well done! Up until now, to see the effect of the changes you have made, you hav
 </div>
 
 <div class="optional trouble">
-<input type="checkbox" id="-trouble"/>
-<label for="-trouble">Troubleshooting </label>
+<input type="checkbox" id="color-trouble"/>
+<label for="color-trouble">Troubleshooting </label>
 <div>
-<p>When you type JavaScript code in the Console you get an error message, or nothing happens</p>
+<p class="symptom">When you type JavaScript code in the Console you get an error message, or nothing happens</p>
 <ul>
 <li>JavaScript is case-Sensitive. This means that the words "case", "Case" and "CASE" (for example) have different meanings. You must be careful to use the write case for every letter that you type.</li>
 </ul>
-<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+<p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 </div>
@@ -2168,12 +2170,12 @@ You've taken the longer way round to understand all the details of the CSS rules
 <input type="checkbox" id="hover-trouble"/>
 <label for="hover-trouble">Troubleshooting </label>
 <div>
-<p>The <code>background-color</code> around all the matches doesn't go away.</p>
+<p class="symptom">The <code>background-color</code> around all the matches doesn't go away.</p>
 <ul>
 <li>Perhaps you didn't remove the line <code>background-color: gray;</code> from the <code>.matches img{ }</code> rule.</li>
 <li>Perhaps your browser has decided to keep using an outdated version of your <code>style.css</code> stylesheet. You can follow <a href="html/clearcache.html">this link</a> to learn how to clear the cache for your browser.</li>
 </ul>
-<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+<p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 
@@ -2370,7 +2372,7 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 <p>In this second case, any code you put inside the tag will be ignored, so you might as well leave the tag empty.</p>
 <p></p>
 <h4>Fetching the JavaScript file</h4>
-<p>Browsers read an HTML page from top to bottom. Normally, you want the browser to know about all the content (text and images) before you ask JavaScript to do something with this content. The simplest way to do this is to put your JavaScript declarations at the end of the page, just before the closing &lt;/body&gt; tag.</p>
+<p>When the browser reads the <code>&lt;script&gt;</code> tag, it doesn't know anything about the code in the external file yet. The JavaScript file is stored on a remote server, and the browser needs to send a request to the server to retrieve the file. When the contents of the file have arrived across the Internet, then the browser can start executing your JavaScript code.</p>
 </div>
 </div>
 </div>
@@ -2406,11 +2408,15 @@ alert ("JavaScript says Hello!")
 <input type="checkbox" id="js-trouble"/>
 <label for="js-trouble">Troubleshooting </label>
 <div>
-<p>No Hello World alert appears.</p>
+<p class="symptom">No Hello World alert appears when you refresh your <code>index.html</code> page.</p>
 <ul>
-<li> Restart your computer.</li>
+<li>Can you open your <code>nim.js</code> file directly in your browser? You should see the text that is in the file, but no dialog will appear. If this works, then you can be sure that your <code>nim.js</code> file exists.</li>
+<li>From the browser address bar, copy the address of your <code>nim.js</code> file. It should be something like: <code>file:///path/to/nim/gh-pages/js/nim.js</code></li>
+<li>Copy the address for your <code>index.html</code> file from your browser's address bar. It should be something like: <code>file:///path/to/nim/gh-pages/index.html</code></li>
+<li>Compare these two addresses, and delete from the first address everything on the left that is identical in both cases. In the example I give, this would leave you with <code>js/nim.js</code></li>
+<li>Make sure that this is what you give as the value for the <code>src</code> attribute of the <code>script</code> element.</li>
 </ul>
-<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+<p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
 <footer>
@@ -2425,15 +2431,15 @@ alert ("JavaScript says Hello!")
 </section>
 
 <!-- HIDING AN IMAGE -->
-<section id="button">
+<section id="hide">
 <h2>Hiding an image</h2>
 <div class="aside preview">On this page, you'll learn to:
 <ul>
 <li>Use JavaScript to detect a mouse click</li>
 <li>Use the browser's JavaScript debugger</li>
-<li>Check what element the user clicked</li>
+<li>Detect which element the user clicked</li>
 <li>Use JavaScript to add a class to an element</li>
-<li></li>
+<li>Use CSS to hide all elements with a given class</li>
 </ul>
 <a href="">Download the source files</a>
 </div>
@@ -2931,7 +2937,7 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 
 <!-- OVERVIEW : SECTION 0 -->
 <section id="top">
-<p class="aside mail top">If you have any difficulty anywhere in this tutorial, please <a href="https://github.com/lexogram/openbook/issues/new">tell us about it</a>, and we'll do our best to deal with it for you. Your questions and suggestions can help us make this tutorial better.
+<p class="aside support top">If you have any difficulty anywhere in this tutorial, please <a href="https://github.com/lexogram/openbook/issues/new">tell us about it</a>, and we'll do our best to deal with it for you. Your questions and suggestions can help us make this tutorial better.
 <h2>Overview</h2>
 <p class="top">This tutorial shows you how to create a simple strategy game, where the computer will beat you every time, unless you know how to avoid the trap.</p>
 <p class="top">You will be learning to write HTML, CSS and JavaScript. You will also learn how to use GitHub to save and display your work, and how to write code that tests your code. You don't need any previous knowledge of programming, but an inquisitive mind is a bonus.</p>
@@ -2942,8 +2948,8 @@ When you're ready to begin, click on the Next arrow below, or on item <a href="#
 </div>
 
 <div class="optional details">
-<input type="checkbox" id="details-top"/>
-<label for="details-top">If a web page were a meal then...</label>
+<input type="checkbox" id="top-details"/>
+<label for="top-details">If a web page were a meal then...</label>
 <div>
 <p>
 <h4>HTML</h4>
@@ -2962,8 +2968,8 @@ When you're ready to begin, click on the Next arrow below, or on item <a href="#
 </div>
 
 <div class="optional tips">
-<input type="checkbox" id="tips-top"/>
-<label for="tips-top">Tips and Tricks</label>
+<input type="checkbox" id="top-tips"/>
+<label for="top-tips">Tips and Tricks</label>
 <div>
 <p>Everyone is a beginner at something, and has expertise in other areas. This tutorial was written with the understanding that some pages might teach you nothing new, and others might present you with a challenge.</p>
 <p>In this tutorial, each page starts with the simplest instructions that you need to get to the next page. If these instructions work for you and you understand why they work, then there is no more to be said.</p>
@@ -2980,7 +2986,7 @@ When you're ready to begin, click on the Next arrow below, or on item <a href="#
 <li>Where we can find your GitHub repository, so that we can see what you've done so far.</li>
 <li>What's not working out for you...</li>
 </ul>
-<p class="aside mail">If you have any difficulty anywhere in this tutorial, please do <a href="https://github.com/lexogram/openbook/issues/new">create a new issue</a> for us, and we'll do our best to deal with it for you. Keep in touch. Your questions and suggestions can help us make this tutorial better.</p>
+<p class="aside support">If you have any difficulty anywhere in this tutorial, please do <a href="https://github.com/lexogram/openbook/issues/new">create a new issue</a> for us, and we'll do our best to deal with it for you. Keep in touch. Your questions and suggestions can help us make this tutorial better.</p>
 </div>
 </div>
 <footer>

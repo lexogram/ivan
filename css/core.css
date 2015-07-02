@@ -85,12 +85,12 @@ color: #030;
 .next a:active  {
 color: #393;
 }
-.mail a:link,
-.mail a:visited {
+.support a:link,
+.support a:visited {
 color: #ccc;
 }
-.mail a:hover,
-.mail a:active  {
+.support a:hover,
+.support a:active  {
 color: #eee;
 }
 nav li:hover {
@@ -244,7 +244,7 @@ display: block;
 .info,
 .next,
 .kudos,
-.mail,
+.support,
 pre {
 display: block;
 padding: 0.5em;
@@ -325,7 +325,7 @@ background: #e0d0ff;
 border-right-color: #dce;
 border-bottom-color: #dce;*/
 }
-.mail {
+.support {
 background: #336;
 /*border-color: #669;
 border-right-color: #003;
@@ -363,65 +363,86 @@ margin-bottom: 0;
 .tips .aside {
 margin: 0.5em 3em;
 }
+a.cc {
+font-family: asides;
+padding: 0 0.5em 0 0;
+font-size: 1.2em;
+text-decoration: none;
+position: absolute;
+left: 0;
+top: 0.5em;
+}
+.trouble p::before,
 .aside::before {
 font-family: asides;
 padding: 0 0.5em 0 0;
 font-size: 1.2em;
 }
-.preview:before {
-content: "\e80b";
-color: #669;
-}
-.warn::before {
-content: "\e803";
-color: #c66;
-}
-.note::before {
+.note::before
+p.note::before {
 content: "\e800";
 color: #cc6;
-}
-.tip::before {
-content: "\e804";
-color: #6cc;
 }
 .info::before {
 content: "\e801";
 color: #66c;
 }
+.hub::before {
+content: "\e802";
+color: #666;
+}
+.warn::before {
+content: "\e803";
+color: #c66;
+}
+.tip::before {
+content: "\e804";
+color: #6cc;
+}
+/* \e805 >
+   \e806 v
+   \e807 nix
+   \e808 mac
+   \e809 win
+ */
+p.support::before {
+content: "\e80a";
+color: #fff;
+}
+.preview:before {
+content: "\e80b";
+color: #669;
+}
 .next::before {
 content: "\e80b";
 color: #6c6;
 }
-.kudos::before {
-content: "\e80d";
-color: #96c;
-}
-.trouble p:before{
-content: "Symptom: ";
-}
-p.mail::before {
-content: "\e80e";
-color: #fff;
-}
+
 .git::before {
 content: "\e80c";
 color: #769;
 }
 .git .note::before {
-content: "\e800";
 color: #c99;
 }
+.kudos::before {
+content: "\e80d";
+color: #96c;
+}
+/* */
 .issue::before {
-content: "ISSUE:";
+content: "\e80f";
 color: #967;
 }
-.hub::before {
-content: "\e802";
-color: #666;
+.symptom::before{
+content: "\e810";
 }
-.cc::before {
-content: "\e80a";
-color: #666;
+/* bug \e810
+   cc \e811
+*/
+
+.symptom {
+font-weight: bold;
 }
 
 figure{
@@ -484,9 +505,6 @@ background-color: #eed;
 .trouble label,
 .trouble label::before{
 color: #633;
-}
-.trouble p{
-font-weight: bold;
 }
 
 .warn code{
