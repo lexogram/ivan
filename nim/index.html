@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>HTML5 game tutorial</title>
 <link rel="stylesheet" href="../css/core.css" />
+<link rel="stylesheet" href="css/boxmodel.css" />
 </head>
 
 <body>
@@ -26,10 +27,11 @@
 <li><a href="#css">Styling with CSS</a></li>
 <li><a href="#select">Selectors and classes</a></li>
 <li><a href="#mouse">Reacting to the mouse</a></li>
-<li><a href="#units">CSS units and space</a></li>
-<li><a href="#box">The box model</a></li>
+<li><a href="#units">CSS units</a></li>
+<li><a href="#box">The CSS box model</a></li>
 <li><a href="#colors">CSS colors</a></li>
 <li><a href="#hover">CSS interactions</a></li>
+<li><a href="#merge">Merging 2 Git branches</a></li>
 <li><a href="#js">JavaScript</a></li>
 <li><a href="#button">The Reset button</a></li>
 <li><a href="#reset">Resetting the game</a></li>
@@ -72,7 +74,7 @@
 </ul>
 </header>
 
-<article class="inver_ted">
+<article class="inverted">
 <!-- YOUR HTML PAGE -->
 <section id="html">
 <h2>Your first HTML page</h2>
@@ -81,6 +83,7 @@
 <li>What an HTML page looks like</li>
 <li>How to open a very simple HTML page in your browser</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
 <p>I'm assuming that you have never created an HTML page before. HTML means "HyperText Markup Language". This is what a very simple HTML page looks like:</p>
 <pre>&lt;!DOCTYPE html&gt;
@@ -104,17 +107,20 @@ You can discover what all these <code>&lt;tags&gt;</code> mean in the Understand
 <figure><img src="img/02_helloWorld.png" alt="A Hello World HTML page displayed in a browser" /><figcaption>Figure 2. A Hello World HTML page displayed in a Google Chrome</figcaption></figure>
 <h3>Hello... Desktop</h3>
 <p>Actually, the world can't see your message yet. This file that you saved on your local hard drive is only visible in your browser. Your next step will be to put an HTML file onto this server, so that anyone in the world can see it. To be precise, it will take you a total of 15 steps, including the ones that you have just taken. There will be clear instructions, explanations and screenshots to make sure that you find your way.</p>
-<p class="aside next">If you are eager to continue building your game, click on <a href="#git">3: Getting Git</a> in the menu on the left. Your Hello message should be online for the world to see when you have reach the end of page 5. If you need help or want to know more, click on optional sections below.</p>
+<p class="aside next">If you are eager to continue building your game, click on the Next arrow below, or on item <a href="#git">3: Getting Git</a> in the menu on the left. Your Hello message should be online for the world to see when you have reach the end of page 5. If you need help or want to know more, click on optional sections below.</p>
 
 <div class="optional tips">
 <input type="checkbox" id="tips-html"/>
 <label for="tips-html">Tips and Tricks</label>
-<div>
+<div> 
+<div class="aside tip">
+On almost every page, you will find a button that allows you to Download The Source Files for that page. You might like to download these files into a separate project folder, and use them as a preview of what you will have achieved by the end of the section.
+<p>If you get really stuck at any point, you can download my original files and use them to replace your own files, so that you can continue from a stable code base.</p></div>
 <div class="aside tip">If you are using Sublime Text, you can use a shortcut to open your HTML file in a browser
 <figure><img src="img/03_openInBrowser.png" alt="Sublime Text's right-click shortcut to open an HTML file in your browser" /><figcaption>Figure 3. Right-click on your document and choose Open In Browser</figcaption></figure>
-</div> 
-<p class="aside info">
-Why call your file <code>index.html</code>? In fact, you could call your html file anything you like. The fact that the first line is <code>&lt;!DOCTYPE html&gt;</code> tells your browser all it needs to know. When you visit a site, if your browser doesn't ask for any particular file, the server on the site will send you <code>index.html</code> by default, if a file with that name exists. Unless you have a very good reason for using a different name, it is good practice to use <code>index.html</code></p>
+</div>
+<div class="aside info">
+Why call your file <code>index.html</code>? In fact, you could call your html file anything you like. The fact that the first line is <code>&lt;!DOCTYPE html&gt;</code> tells your browser all it needs to know.<p>When you visit a site, if your browser doesn't ask for any particular file, the server on the site will send you <code>index.html</code> by default, if a file with that name exists. Unless you have a very good reason for using a different name, it is good practice to use <code>index.html</code></p></div>
 </div>
 </div>
 
@@ -122,7 +128,7 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <input type="checkbox" id="trouble-html"/>
 <label for="trouble-html">Troubleshooting your HTML page</label>
 <div>
-<p>Ouch. Your HTML page is not appearing correctly in the browser. Perhaps one of these steps will help you:</p>
+<p>Your HTML page is not appearing correctly in the browser. Perhaps one of these steps will help you:</p>
 <ul>
 <li>If you are not using Sublime Text, perhaps your text editor is saving your files in a <code class="keyword">rich text</code> format, such as <code>.doc</code> or <code>.rtf</code>. Make sure that you are saving in a plain text format, using <code>.html</code> as the extension.</li>
 <li>There may be many files called <code>index.html</code> on your computer. Make sure that you are opening the right one. If you are using Sublime Text, you can use the right-click &gt; Show in Browser shortcut, to be sure that you are opening the same document that you are working on.</li>
@@ -149,6 +155,7 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <li>How to use the Terminal</li>
 <li>How to install or update Git, if you need to</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
 <p>GitHub is a meeting place for the open source community, where ideas are shared, where everyone can benefit from the energy and initiatives of others. A budding programmer like you has everything to gain from joining a community like this.</p>
 <p>The Git application itself tracks the progress of your project. It creates a space for you make experiments, to make mistakes, to explore new possibilities without getting lost.</p>
@@ -162,7 +169,7 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <figcaption>Figure 4. Running <code>git --version</code> on different operating systems</figcaption>
 </figure>
 <p class="aside note">If your version of git is 1.7.9.5 or earlier, or if you see a message like <code>git is not a recognized command</code>, then you can find more details about what to do in the Installing and Updating Git section below.</p>
-<p class="aside next">If you simply want to keep moving forward, then click on <a href="#github">4: Your GitHub repo</a> in the menu on the left. If you want to learn more about Terminal commands, then you can continue reading the Understanding Terminal Commands section.</p>
+<p class="aside next">If you simply want to keep moving forward, then click on the Next arrow below, or on item <a href="#github">4: Your GitHub repo</a> in the menu on the left. If you want to learn more about Terminal commands, then you can continue reading the Understanding Terminal Commands section.</p>
 
 <div class="optional trouble">
 <input type="checkbox" id="trouble-git"/>
@@ -242,6 +249,7 @@ git version 2.3.5
 <li>How to create a free GitHub account</li>
 <li>How to create a Git repository on the GitHub server</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
 <p>Now you're ready to open a GitHub acccount. This wont't take long (although finding a username that you like and that isn't already taken can be time-consuming). I've used the name "blackslate" in my examples.</p>
 <p>Go to the <a href="https://github.com/join">Join GitHub</a> page, and fill in the form.</p>
@@ -273,7 +281,7 @@ git version 2.3.5
 <figcaption>Figure 10. Copy the URL for your new repository</figcaption>
 </figure>
 <p>The most important thing to do now is to <strong>copy the URL for your new GitHub repository</strong>. You can do this by clicking on the Copy To Clipboard button, as shown in Figure 10 above. You'll need to paste this URL into a Terminal window in the next step.</p>
-<p class="aside next">Your immediate aim is to get your Hello World page online, so I propose to take an unconventional shortcut. If you want to know what the conventional path is, then you can read the Branches and Pages section below. If you want to move along quickly, just click on the item <a href="#branch">5: Creating a branch</a> in the menu on the left.</p>
+<p class="aside next">Your immediate aim is to get your Hello World page online, so I propose to take an unconventional shortcut. If you want to know what the conventional path is, then you can read the Branches and Pages section below. If you want to move along quickly, just click on the Next arrow below, or on item <a href="#branch">5: Creating a branch</a> in the menu on the left.</p>
 
 <div class="optional details">
 <input type="checkbox" id="details-github"/>
@@ -325,6 +333,7 @@ git version 2.3.5
 <li>How to tell Git what changes you have made</li>
 <li>How to synchronize the repository on the remote GitHub server with the repository on your computer</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
 <blockquote>Any sufficiently advanced technology is indistinguishable from magic.
 <cite>Arthur C. Clarke</cite>
@@ -434,7 +443,7 @@ git push origin gh-pages
 <li>Opened your brand new online web site in your browser</li>
 </ol>
 <p>Now you are ready to start working on your game project, knowing that Git is working with to keep your project on track.</p>
-<p>Before you continue, you might like to check through all the optional sections on this page and the previous pages, to make sure that you understand everything that you have done so far. When you are ready, you can click on the item <a href="#game">6: Your game goes here</a> in the menu on the left.</p>
+<p>Before you continue, you might like to check through all the optional sections on this page and the previous pages, to make sure that you understand everything that you have done so far. When you are ready, you can click on the Next arrow below, or on item <a href="#game">6: Your game goes here</a> in the menu on the left.</p>
 </div>
 
 <div class="optional details">
@@ -533,13 +542,15 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <input type="checkbox" id="trouble-github"/>
 <label for="trouble-github">Troubleshooting your first repo</label>
 <div>
-<p>Oops. Something went wrong. Here are some things that you can check.</p>
-<dl>
-<dt>When you created your repository, did you click on any buttons, other than Create Repository?</dt>
-<dd>If you added a ReadMe file, a .gitignore file or a licence file to your repository, through the GitHub "new repository" page, then the remote repository on the GitHub site will already contain files. You won't be able to push any new files to the remote repository until you have downloaded them to your local repository. The simplest solution (at this early stage) is to delete your repository and start again, as described below.</dd>
-<dt>Did you get a <code>fatal</code> error message in your Terminal?</dt>
-<dd>This can happen if you mistype a command, but it can also happen if your version of Git is older that 1.7.9.5. To test this, type <code>git --version</code> in your terminal. If the output is less than 1.7.9.5, then you will need to <a href="https://git-scm.com/download/win">update Git</a> before you can continue. See the Installing and Updating Git section at the foot of the <a href="#git">Getting Git</a> page for more details.</dd>
-</dl>
+<p>Git tells you that it can't execute your commands</p>
+<ul>
+<li>When you created your repository, did you click on any buttons, other than Create Repository?</li>
+<li>If you added a ReadMe file, a .gitignore file or a licence file to your repository, through the GitHub "new repository" page, then the remote repository on the GitHub site will already contain files. You won't be able to push any new files to the remote repository until you have downloaded them to your local repository. The simplest solution (at this early stage) is to delete your repository and start again, as described below.</li>
+</ul>
+<p>You get a <code>fatal</code> error message in your Terminal</p>
+<ul>
+<li>This can happen if you mistype a command, but it can also happen if your version of Git is older that 1.7.9.5. To test this, type <code>git --version</code> in your terminal. If the output is less than 1.7.9.5, then you will need to <a href="https://git-scm.com/download/win">update Git</a> before you can continue. See the Installing and Updating Git section at the foot of the <a href="#git">Getting Git</a> page for more details.</li>
+</ul>
 <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
@@ -562,6 +573,7 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <li>How to track changes with Git</li>
 <li>How to update your GitHub web site</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
 <p>Do you remember the very first HTML page that you saw on page 2?</p>
 <pre>&lt;!DOCTYPE html&gt;
@@ -612,7 +624,7 @@ go here'"</code></li>
 </figure>
 
 <div class="aside next">
-If you are ready to go on, click on item <a href="#revert">7: Reverting changes</a> in the menu on the left.
+If you are ready to go on, click on the Next arrow below, or on item <a href="#revert">7: Reverting changes</a> in the menu on the left.
 <p>If you want to know more about the HTML tags you have been using, click on Understanding HTML Tags below.</p>
 </div>
 
@@ -678,7 +690,7 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 <p class="aside tip">As you saw in your Hello World test, if a file has an <code>.html</code> extension, most modern browsers will treat everything inside it as HTML, even if there is no <code>&lt;html&gt;</code> element, if there is more than one <code>&lt;html&gt;</code> element, or if there is text outside the <code>html</code> element. Modern browsers may also display content correctly even if the <code>body</code> is missing, or if there is more than one <code>body</code> element. Nonetheless, it is good practice to use these elements correctly. Other developers will notice if your code is badly written.</p>
 <p class="aside tip">The browser will not display any text between an opening angle bracket <code>&lt;</code> character and a closing angle bracket <code>&gt;</code>. If you use a tag that the browser does not recognize, such as <code>&lt;unofficial_tag&gt;</code>, the browser will simply ignore it. Older browsers may ignore tags that were officially introduced after they were released.</p>
 </div>
-</div<
+</div>
 
 <div class="optional trouble">
 <input type="checkbox" id="game-trouble"/>
@@ -698,7 +710,7 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 <figcaption>Figure 25. Windows - set the default application for <code>.html</code> files</figcaption>
 </figure>
 <figure>
-<img src="MISSING MAC" alt="Set the default application for .html files on Macintosh" />
+<img src="TODO MAC" alt="Set the default application for .html files on Macintosh" />
 <figcaption>Figure 26. Macintosh - set the default application for <code>.html</code> files</figcaption>
 </figure>
 </li>
@@ -727,6 +739,7 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 <li>How to revert changes you have made</li>
 <li>How to rewrite your history of changes</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
 <p>In you <code>index.html</code> file, the words "Hello World!" have gone. The change that you have just made moves your project forward. But let's imagine for a moment that it creates a problem, and that you want to get back to your "Hello World" version of the file. How can you do that?</p>
 <p>Git provides 3 commands: <code>checkout</code>, <code>revert</code> and <code>reset</code>, of increasing power. You've already used <code>checkout</code> command to create the <code>gh-pages</code> branch in your repository. You can use a different flavour of it now to look at your project the way it was in the past, without disturbing its current state.</p>
@@ -790,13 +803,13 @@ If you are ready to go on, click on item <a href="#revert">7: Reverting changes<
 Now you know Git's <code>add</code>, <code>commit</code> and <code>push</code> commands, to get your project moving forwards, and also the <code>checkout</code>, <code>revert</code> and <code>reset</code> commands, to undo what you have done. However, your game doesn't do anything at all yet. It's time to address this issue.
 <p>If you want to know more about undoing changes, you can find links in the Further Reading section below.</p>
 <p>
-When you're ready to continue, click on item <a href="#issue">Creating issues</a> in the menu on the left.</p>
+When you're ready to continue, click on the Next arrow below, or on item <a href="#issue">Creating issues</a> in the menu on the left.</p>
 </div>
 
 
 <div class="optional details">
-<input type="checkbox" id="-details"/>
-<label for="-details">Further Reading</label>
+<input type="checkbox" id="revert-details"/>
+<label for="revert-details">Further Reading</label>
 <div>
 For a more detailed treatment of <code>checkout</code>, <code>revert</code> and <code>reset</code>, see <a href="https://fr.atlassian.com/git/tutorials/undoing-changes">Undoing Changes</a> on the Atlassian site, or <a href="https://git-scm.com/blog/2011/07/11/reset.html">Reset Demystified</a> by Scott Chacon and Ben Straub, authors of <a href="https://git-scm.com/book/en/v2">Pro Git</a>.
 </div>
@@ -838,11 +851,13 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 <li>How to plan your project</li>
 <li>How to see create an issue to track progress developing features and fixing bugs</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
 <p>You've been working at this for some time now, but your game is still... let's say <em>a little disappointing</em>. No images, no interaction, no artificial intelligence. You might like to take a look at <a href="complete/">the game you are getting ready to write</a>, and make a note of what needs to be done to get from where you are now to where you want to be. Here are some of the things that you might note:</p>
 <ol>
 <li>Add images of matches</li>
 <li>Arrange the images in rows</li>
+<li>Show the player that the images are interactive</li>
 <li>Hide each image when you click on it</li>
 <li>Add a button so that the current player can say "Your turn"</li>
 <li>Show which player is currently playing</li>
@@ -876,6 +891,7 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 <li>The role of the <code>src</code> and <code>alt</code> attributes for <code>img</code> elements</li>
 <li>The advantages of working on an open source project, using material from Creative Commons</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
 <p>Here's an image of a match, called <code>match.png</code> :</p>
 <figure>
@@ -918,18 +934,21 @@ This image is available to use with a Creative Commons licence. You can find the
 <p>In the Terminal window:</p>
 <ul>
 <li>Ensure that the Terminal is focused on the folder that contains your <code>index.html</code> file. If you're not sure, type <code>cd&nbsp;</code> and then the path to the folder.</li>
-<li>Run the command <code>git status</code> to check that Git knows that your <code>index.html</code> file has changed, that you have added a folder called <code>img</code> and that you have added an file called <code>match.png</code> to the <code>img/</code> folder.</li>
+<li>Run the command <code>git status</code> to check that Git knows that your <code>index.html</code> file has changed, that you have added a folder called <code>img</code> and that you have added a file called <code>match.png</code> to the <code>img/</code> folder.</li>
 <li>Run the command <code>git add -A</code> to tell Git to record your changes in the index (staging area).</li>
 <li>Run the command <code>git commit -m "Add img/match.png; modified index.html to show this image"</code>. Alternatively you can run just <code>git commit</code> type your commit message in the text editor that opens, then save the document and close it so that Git can continue.</li>
 <li>Run the command <code>git push origin gh-pages</code> and enter your username and password details when asked. This will upload your new version of your project to the GitHub server.</li>
 </ul>
 <p>You (and everyone else in the world) should now be able to see your match image on your online web page.</p>
 <figure>
-<img src="MISSING" alt=" Updating your local Git repository and pushing the changes to the GitHub server" />
+<img src="NEEDS EDITING" alt=" Updating your local Git repository and pushing the changes to the GitHub server" />
 <figcaption>Figure 34. Updating your local Git repository and pushing the changes to the GitHub server</figcaption>
 </figure>
+<div class="aside issue">You have now successfully treated your first issue: <em>Add images of matches</em>.
+<p>On your GitHub page...</p>
+</div>
 
-<p class="aside next">If you want to know more about the <code>img</code> tag and its <code>src</code>, <code>alt</code> and other <span class="keyword">attributes</span>, please read the Understanding Images section below. When you're ready to continue, click on item <a href="#div">10: Rows of images</a> in the menu on the left.
+<p class="aside next">If you want to know more about the <code>img</code> tag and its <code>src</code>, <code>alt</code> and other <span class="keyword">attributes</span>, please read the Understanding Images section below. When you're ready to continue, click on the Next arrow below, or on item <a href="#div">10: Rows of images</a> in the menu on the left.
 </p>
 
 <div class="optional details">
@@ -1030,6 +1049,7 @@ should be called "img" and the image itself should be called "match.png".</li>
 <li>How to add multiple images to your page</li>
 <li>How to use the <code>div</code> element to arrange them in rows</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
 <p>Showing 2 matches in your web page is as easy as showing one. You can simply copy and paste the line that you have just changed:</p>
 <pre class="revised">&lt;!DOCTYPE html&gt;
@@ -1098,9 +1118,14 @@ git push origin gh-pages
 <p>Now, you should be able to see your 16 matches on your GitHub site.</p>
 </div>
 
+<div class="aside issue">You can now close your second issue: <em>Arrange the images in rows</em>.
+<p>On your GitHub site...</p>
+<p>But now you can see that there is a new issue to deal with: the match images are not laid out neatly. You can ...</p>
+</div>
+
 <div class="aside next">
 To learn more about the <code>div</code> element, you can read the Understanding the div Element section below.
-<p>When you're ready to learn how CSS can give style to your web page, click on item <a href="#css">11: Styling with CSS</a> in the menu on the left.</p>
+<p>When you're ready to learn how CSS can give style to your web page, click on the Next arrow below, or on item <a href="#css">11: Styling with CSS</a> in the menu on the left.</p>
 </div>
 
 <div class="optional details">
@@ -1151,6 +1176,7 @@ To learn more about the <code>div</code> element, you can read the Understanding
 <li>Cascading Style Sheets</li>
 <li>How to set the alignment of text</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
 <p>You now have the <span class="keyword">content</span> that you need to play the game of Nim, but the matches are not yet laid out neatly in a symmetrical V shape. The easiest way to get the images to appear in a V shape is to treat them like text (yes, text) and use <code>center</code> alignment for them. But first, you need to create a separate file to contain the layout instructions.</p>
 <p>In your text editor, create a new, empty file called <code>style.css</code>, and save it an a folder called <code>css</code> in same folder as your <code>index.html</code> file. Your folder structure should now look like this:</p>
@@ -1195,7 +1221,7 @@ git push origin gh-pages
 </div>
 
 <div class="aside next">
-When you're ready, click on item <a href="#"></a> in the menu on the left.
+When you're ready, click on the Next arrow below, or on item <a href="#"></a> in the menu on the left.
 <p>If you want to know more about  below.</p>
 </div>
 
@@ -1302,6 +1328,7 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <li>Giving elements a class attribute to distinguish them</li>
 <li>Select an element by its class</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
 <p>As it happens, you won't want to centre all the text in your game. For example, later, you will want the text for the rules to be aligned to the left. Using a CSS <span class="keyword">selector</span>, you can choose to apply <code>text-align: center</code> only to the <code>&lt;div&gt;</code> elements that show the matches.</p>
 <p>In your <code>styles.css</code> file, rename the selector from <code>body</code> to <code>div</code>, as shown below:</p>
@@ -1364,7 +1391,7 @@ git push
 </div>
 
 <div class="aside next">
-If you are comfortable with the concepts of classes and selectors, you can click on the item <a href="#mouse">13: Reacting to the mouse</a> in the menu on the left.
+If you are comfortable with the concepts of classes and selectors, you can click on the Next arrow below, or on item <a href="#mouse">13: Reacting to the mouse</a> in the menu on the left.
 </div>
 <footer>
 <ul class="nav">
@@ -1380,7 +1407,14 @@ If you are comfortable with the concepts of classes and selectors, you can click
 <!-- REACTING TO THE MOUSE -->
 <section id="mouse">
 <h2>Reacting to the mouse</h2>
-<p>Your next objective is to make your game react to movements of the mouse. Here's the CSS that you can create to do this:</p>
+<div class="aside preview">Your next objective is to make your game react to movements of the mouse, to encourage the player to interact with the matches. Specifically, you can: 
+<ul>
+<li>Change the cursor when it moves over a match</li>
+<li>Create a highlight around the match under the cursor</li>
+</ul>
+<a href="#" target="source">Download the source files</a>
+</div>
+<p>Here's some CSS that will do this (and some extra things too):</p>
 <pre class="revised"><span class="new">body {
   font-size: 10px;
   background-color: black;
@@ -1391,13 +1425,14 @@ If you are comfortable with the concepts of classes and selectors, you can click
   text-align: center;
 }
 <span class="new">.matches img{
-  padding: 0 1em;
   width: 1em;
   height: 10em;
+  padding: 1em;
   border-radius: 1.5em;
+  cursor: pointer;
 }
 .matches img:hover{
-  background: #222;
+  background: #321;
 }</span></pre>
 <p>And this is what happens when you roll the mouse over a match:</p>
 <figure>
@@ -1406,8 +1441,8 @@ If you are comfortable with the concepts of classes and selectors, you can click
 </figure>
 <p>If you copy and paste the CSS rules above into your <code>style.css</code> file, save it and refresh your <code>index.html</code> file in your browser, you should see the effect for yourself.</p> 
 <div class="aside next">
-If you're happy to know that this works, without needing to explore any deeper, you can skip the next 4 sections. Click on item <a href="#js">18: JavaScript</a> in the menu on the left, to learn how to make the matches disappear.
-<p>If you want to understand how all this works, you can work through the pages on <a href="#units">units and space</a>, <a href="#box">the box model</a>, <a href="#colors">colours</a> and <a href="#hover">interactions</a>.</p>
+If you're happy to know that this works, without needing to explore any deeper, you can skip the next 5 sections. Click on item <a href="#js">19: JavaScript</a> in the menu on the left, to learn how to make the matches disappear.
+<p>If you want to understand how you can achieve this yourself, you can work through the pages on <a href="#units">CSS units</a>, <a href="#box">the box model</a>, <a href="#colors">colours</a> and <a href="#hover">interactions</a>. Click on the Next arrow below, or on <a href="#units">14: CSS units</a> to keep reading.</p>
 </div>
 <footer>
 <ul class="nav">
@@ -1420,9 +1455,9 @@ If you're happy to know that this works, without needing to explore any deeper, 
 </footer>
 </section>
 
-<!-- CSS UNITS AND SPACE -->
+<!-- CSS UNITS -->
 <section id="units" class="optional">
-<h2>CSS units and space</h2>
+<h2>CSS units</h2>
 <div class="aside preview">On this page, you'll learn how to:
 <ul>
 <li>Set the font size of an element</li>
@@ -1430,11 +1465,45 @@ If you're happy to know that this works, without needing to explore any deeper, 
 <li>Use <code>px</code> and <code>em</code> units</li>
 <li>Set the size of an element</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
 <p>One important question is: "How big should the game be?" And one good answer is: "I don't know yet. Let's deal with the proportions first and work out the size later." So that's the way I propose that you should work.</p>
-<p class="aside tip">For purely practical reasons, since this is a tutorial, it will be good to make the game tall and thin. You'll discover the JavaScript development environment shortly, and you will want to give plenty of space to it, and still keep your game visible. This is easy to do if the game fills only a thin slice of your screen.</p>
-<h3>px: the pixel unit</h3>
-<p>The text that says "Nim" at the top of your page is very big. Here's a way to make it smaller. In your <code>style.css</code> file, add the following rule:</p>
+<p class="aside tip">For purely practical reasons, since this is a tutorial, it will be good to make the game tall and thin. You'll discover the JavaScript development environment shortly, and you will want to give plenty of space to it, and still keep your game visible. This is easy to do if the game fills only a narrow vertical slice of your screen.</p>
+<div class="aside git">If you edited your <code>style.css</code> file on the previous page, you might like to commit your changes to your Git repository before you continue.
+<pre>git add -A
+git commit -m "Preview of rollover effect"</pre>
+<p>Now you are going to make some experiments. This would be a good time to create a <span class="keyword">branch</span> of your project, and make the changes to that branch, leaving your latest commit intact. If your experiments go wrong, you can come back to the point where you are now, and continue from there. Using the <code>-b</code> option with <code>git checkout</code> creates a new branch in your repository with the name that you give as the next word.</p>
+<pre class="revised"><span class="new">git checkout -b rollover</span>
+Switched to a new branch 'rollover'</pre>
+<p class="aside note">Note that if you push changes to the remote repository on GitHub now, you will not see your changes on your GitHub web site, because your site is linked to the <code>gh-pages</code> branch. The <code>rollover</code> branch is intended only for testing locally.</p>
+<p>Now you have a new branch: for now it is identical to your <code>gh-pages</code> branch, complete with the changes that you have just committed. However, you want to take a step back to the previous state, and then work forward from there. You can do this with the <code>git revert &lt;commit-name&gt;</code> command. First you need to know the name of your last commit. You can find this using <code>git log</code>. If you use the <code>--oneline</code> option. Here's the command plus the output that I get when I use it:</p>
+<pre class="revised"><span class="new">git log --oneline</span>
+8439f0a Preview of rollover effect
+ad5e390 Add .matches class to designate the divs to be centered
+656e9b6 Add css/styles.css to centre the matches
+7c1cdc9 16 matches arranged in 4 rows, using &lt;div&gt;
+4d68023 Add img/match.png; modified index.html to show this image
+b6d433d 'Hello World' becomes 'The game will go here'
+e6b50f7 Initial commit to the gh-pages branch</pre>
+<p>In my case, the name is <code>8439f0a</code>. For you it will be different.</p>
+<pre class="revised"><span class="new">git revert </span><span class="red">8439f0a</span> # <= use the name of your own last commit here</pre>
+<p>You will need to enter a commit message, in the text editor, then Git will set your workspace back the way it was before your last commit. (See the Troubleshooting section below if you have any problems.)</p>
+<figure>
+<img src="revert-to-pre-rollover-preview" alt="Check out a new branch and take one step backwards" />
+<figcaption>Figure 40. Checking out a new branch and using it to take one step backwards</figcaption>
+</figure>
+<p>You can now use the commands <code>git checkout gh-pages</code> and <code>git checkout rollover</code> to switch between your two branches. If you refresh your browser after each <code>checkout</code> command, you will see the different states. The text in your <code>style.css</code> file should update too, inside your text editor.</p>
+<figure>
+<img src="checkout-gh-pages-rollover-NeedsEditing" alt="Using checkout to toggle between branches" />
+<figcaption>Figure 41. Using <code>git checkout &lt;branch-name&gt;</code> to toggle between branches</figcaption>
+</figure>
+<p>Isn't that cool?</p>
+</div>
+
+<h3>px, em and %: three units of measurement</h3>
+<p>There are 7 different units of measurement in CSS. The three that are most often used are <code>px</code>, <code>em</code> and <code>%</code>. (The other four units are percentages of the size of the browser window. You can achieve neat effects with them, but you won't use them in this tutorial. See the Learn More about CSS units below to discover how they work.)</p>
+<p><code>px</code> stands for "pixel" (or <em>pict</em>ure <em>el</em>ement). I'm guessing that you know that a pixel is the smallest dot that can be shown on your computer monitor. I imagine that you are familiar with setting the size of a font, or checking the dimensions of an image or a computer screen using pixels.When you use <code>px</code> to measure an element in CSS, it will always be the fixed size that you set.</p>
+<p>You can use it now to make the text in your <code>index.html</code> page smaller. In your <code>style.css</code> file, add the following rule:</p>
 <pre class="revised"><span class="new">body {
   font-size: 10px;
 }</span>
@@ -1442,73 +1511,103 @@ If you're happy to know that this works, without needing to explore any deeper, 
 .matches {
   text-align: center;
 }</pre>
-<p>
-<p>Save your changes and refresh your <code>index.html</code> page in your browser. You should see that the characters are smaller. But they are not as small as 10 pixels. You can ask your browser to explain why:</p>
+<p>Save your changes and refresh your <code>index.html</code> page in your browser. You should see that the characters have become smaller. But they are not as small as 10 pixels. You can ask your browser to explain why:</p>
 <ul>
 <li>Right-click on the word "Nim"</li>
 <li>Choose Inspect Element from the contextual menu that opens</li>
 </ul>
 <p class="aside note">If you don't see an Inspect Element in the contextual menu, see the Troubleshooting section below.</p>
 <figure>
-<img src="inspect-element" alt="Using the element inspector" />
-<figcaption>Figure 41. Using the Element Inspector</figcaption>
+<img src="inspect-element" alt="Using the elements inspector" />
+<figcaption>Figure 42. Using the Elements Inspector</figcaption>
 </figure>
-<p>In the Styles pane on the right of the Element Inspector, you should see that the <span class="keyword">user agent stylesheet</span> has a rule for <code>h1</code> elements that gives them a font-size of <code>2em</code>. What's an <span class="keyword">em</span>?</p>
+<p>In the Styles pane on the right of the Elements Inspector, you should see that the <span class="keyword">user agent stylesheet</span> has a rule for <code>h1</code> elements that gives them a font-size of <code>2em</code>.</p>
+ <div class="aside info">The user agent stylesheet
+<p>If you provide no CSS information about your web page, the browser will use default values. Different browsers have different default values. In Google Chrome, the default value for font-size is 16px. <span class="keyword">User agent</span> is a technical word for "browser".</p>
+</div>
+<p>But what's an <span class="keyword">em</span>?</p>
 <h3>em: the font ratio unit</h3>
-<p>In the Element Inspector, if you click on the Computed tab of the right-hand pane, and scroll down if necessary, you will see that the computed font-size is 20px. The font-size for the body is 10px, the font-size for the <code>h1</code> element is 2em, and its computed font-size is 20px = 10px x 2. If you were to guess that <span class="keyword">em</span> is a number to multiply font-sizes by, you'd be right.</p>
-<p>In the world of print, an <span class="keyword">em</span> is the width of the letter M in a given font face. It is used as unit of spacing. In the world of the web, an <span class="keyword">em</span> is a similar unit of spacing, but it refers to the <em>height</em> of the font.</p>
-<h3>User agent stylesheet</h3>
-<p>If you provide no CSS information about your web page, the browser will use default values.</p>
-<div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
+<p>In the Elements Inspector, if you click on the Computed tab of the right-hand pane, and scroll down if necessary, you will see that the computed font-size is 20px. The font-size for the body is 10px, the font-size for the <code>h1</code> element is 2em, and its computed font-size is 20px = 2 x 10px. If you were to guess that <span class="keyword">em</span> is a number to multiply font-sizes by, you'd be right.</p>
+<p>In the world of print, an <span class="keyword">em</span> is the width of the letter M in a given font face. It is used as a unit of spacing. In the world of the web, an <span class="keyword">em</span> is a similar unit of spacing, but it refers to the <em>height</em> of the font, from the top of the tallest character to the bottom of the lowest character.</p>
+<p>The <code>font-size</code> attribute is inherited. This means that when you (or the user agent) sets it for the <code>body</code> element, all the other elements in your page will inherit the same value, even your images. The <code>match.png</code> image is exactly 10 times as tall as it is wide. If you set its width to <code>1em</code> and its height to <code>10em</code> then it will appear 10px wide and 100px tall. If you now change the <code>font-size</code> of the body element to <code>16px</code>, it will become 16px wide and 160px tall. In other words: you can use the <code>font-size</code> to scale your images.</p>
+<p>Try it. In your <code>style.css</code> file, make the following changes:</p>
+<pre class="revised">
+body {
+  font-size: 10px;
+}
+
+.matches {
+  text-align: center;
+}
+<span class="new">.matches img{
+  width: 1em;
+  height: 10em;
+}</span></pre><
+<p>Save your <code>style.css</code> file and refresh your <code>index.html</code> file in the browser. You should see the matches become smaller.</p>
+<div class="aside note">Note that the selector <code>.matches img</code> means "all <code>img</code> elements which have a parent with the class <code>match</code>. The space between <code>.matches</code> and <code>img</code> means "anywhere in the hierarchy": the element with the <code>match</code> class does not have to be the immediate parent of the <code>img</code> element.
+<p>In this case, the selector <code>.matches &gt; img</code> would also work. The <code>&gt;</code> means that the two elements must be in a direct parent-child relationship.</p></div>   
+<h3>Using the Elements Inspector to experiment with CSS</h3>
+<p>Instead of changing the value of <code>font-size</code> in your <code>style.css</code> file, saving it, and refreshing your browser, you can use a much faster technique for experimenting with CSS, using the browser's Elements Inspector. Right-click on a match and select Inspect Element from the contextual menu that opens. By default, the Styles pane on the right should be open, and you should see a list of the rules that apply to the element that you clicked on.</p>
+<p>The third rule in the list as the one that you applied to the <code>body</code> element, to define the font size. If you click on the value (<code>10px</code>) the value should pop out of the pane and the text should be selected. You can now type any value you like (even invalid ones). Alternatively, you can use the Up and Down arrow keys to alter the value by 1 unit. You can hold down the Shift key to alter the value by 10 each time, or the Alt key to alter the value by 0.1.</p>
+<figure>
+<img src="edit-css-in-element-inspector.png" alt="You can edit CSS in the Elements Inspector" />
+<figcaption>Figure 43. You can edit CSS in the Elements Inspector</figcaption>
+</figure>
+<div class="aside tip">You can edit the CSS of any page quite radically using this technique. You can add new attribute/value pairs, and you can disable existing settings. When you are satisfied with the results, you can copy all or part of a rule and paste it into your CSS file, for later use. <p>Note that when you refresh the page, all these temporary changes to the CSS will be lost.</p></div>
+
+<h3>A % of the parent</h3>
+<p>The <code>%</code> unit sets the size of an element as a percentage of the size of its parent. You'll be using this on page <a href="#TODO">XX: Whatever</a>, when you will be arranging the game controls. If you want to know more now, you can read the Learn More About Units section below.</p>
+
+<div class="aside git">You might like to use the following commands in your Terminal to save these changes to your local Git repository. If you are working on the <span class="keyword">rollover</span> branch, you don't have to push the changes to the GitHub server unless you want to access them from a different computer.
 <pre>git status
 git add -A
-git commit -m ""
-git push origin gh-pages
+git commit -m "Set body font-size in px and match dimensions in em"
 </pre>
-<p>Now, .</p>
 </div>
 
+<p class="aside next">
+Now that you know how to set dimensions using CSS, you are ready to create some space around the matches. Click on the Next arrow below, or on item <a href="#box">15: The CSS box model</a> in the menu on the left, or continue reading the optional sections below.</p>
+
 <div class="optional details">
-<input type="checkbox" id="-details"/>
-<label for="-details">Learn More About Units</label>
+<input type="checkbox" id="units-details"/>
+<label for="units-details">Learn More About Units</label>
 <div>
 <p>There are 7 different ways of measuring size in CSS. In this game you are going to use the first 2 of them. Here is the complete list:</p>
 <dl>
 <dt><code>px</code> </dt>
-<dd><code>px</code> stands for "pixel". A pixel is a single "<strong>pi</strong>cture <strong>el</strong>ement": the size of the smallest dot that your computer screen can show.</p></dd>
+<dd><code>px</code> stands for "pixel". As with all CSS units, there must be no space between the digits and the units. For example, the browser will ignore a rule that is written like this:<pre>
+body { font-size: <span class="red">10 px</span> }</pre></dd>
 <dt><code>em</code></dt>
 <dd>One <code>em</code> is identical to the font-size of the current element. It can therefore have different values in different elements. For example, if the default font-size for the body is 10px and an <code>&lt;h1&gt;</code> header has a font-size of 2em, the header font will have a size of 2 x 10px = 20px. Padding of 2em around the header text will be 40px thick: 2 x 2 x 10px.
 <figure>
 <img src="em.png" alt="The value of an em unit depends on the font size of the base element" />
-<figcaption>Figure 42. The value of an <code>em</code> unit depends on the font size of the base element</figcaption>
+<figcaption>Figure 44. The value of an <code>em</code> unit depends on the font size of the base element</figcaption>
 </figure>
 </dd>
 <dt><code>%</code></dt>
 <dd>A percentage width or height is calculated with respect to the width or height of the parent element. If the parent is 100px by 100px and the element has a width of 200% and a height of 50%, it will be 200px by 50px.
-<p class="aside note">There is one exception: padding is always calculated with respect to the <em>width</em> of the parent. This means that you can create an element with a fixed aspect ratio by setting its <code>width</code> to 100% of its parent width, its <code>height</code> to 0 and its <code>padding-top</code> to a percentage of its parent width:</p>
+<p class="aside note">There is one exception: padding and margin are always calculated with respect to the <em>width</em> of the parent. This means that you can create an element with a fixed aspect ratio by setting its <code>width</code> to 100% of its parent width, its <code>height</code> to 0 and its <code>padding-top</code> to a percentage of its parent width:</p>
 <figure>
 <img src="percent" alt="Expressing dimensions as a percentage of the parent's dimensions" />
-<figcaption>Figure 43. Expressing dimensions as a percentage of the parent's dimensions</figcaption>
+<figcaption>Figure 45. Expressing dimensions as a percentage of the parent's dimensions</figcaption>
 </figure>
 </dd>
 <dt><code>vw</code></dt>
 <dd>One <code>vw</code> unit is 1% of the <strong>v</strong>iewport <strong>w</strong>idth: 100 <code>vw</code> units fill the width of the window.</dd>
-<dt><code>vw</code></dt>
+<dt><code>vh</code></dt>
 <dd>One <code>vh</code> unit is 1% of the <strong>v</strong>iewport <strong>h</strong>eight: 100 <code>vw</code> units fill the height of the window.</dd>
 <dt><code>vmin</code></dt>
 <dd>One <code>vmin</code> unit is the smaller of the <code>vw</code> and the <code>vh</code> units</dd>
 <dt><code>vmax</code></dt>
 <dd>One <code>vmax</code> unit is the larger of the <code>vw</code> and the <code>vh</code> units</dd> 
 </dl>
-<p>Elements with sizes measured in <code>px</code> will have a fixed size. Elements with sizes measured in <code>vw</code>, <code>vh</code>, <code>vmin</code> or <code>vmax</code> will change in size when the user resizes the window. Elements with sizes measured in <code>%</code> will have a size relative to their parent: if the size of the parent is measured with respect to the window (as a <code>%</code>, or as a <code>v...</code>), then the size of the element will change with the size of the window. Elements with sizes measured in <code>em</code> will all change in size together if you use JavaScript to change the font-size of their base elements</p>
+<p>Elements with sizes measured in <code>px</code> will have a fixed size. Elements with sizes measured in <code>vw</code>, <code>vh</code>, <code>vmin</code> or <code>vmax</code> will change in size when the user resizes the window. Elements with sizes measured in <code>%</code> will have a size relative to their parent: if the size of the parent is measured with respect to the window (as a <code>%</code>, or as a <code>v...</code>), then the size of the element will change with the size of the window. Elements with sizes measured in <code>em</code> will all change in size together if you change the font-size of their base elements.</p>
+<div class="aside info">The <code>em</code>, <code>%</code>, <code>vw</code>, <code>vh</code>, <code>vmin</code> and <code>vmax</code> units are for your convenience. In practice, the browser converts these to pixel dimensions before applying them to the elements in your page. If you look at the values shown in the Computed pane of the Elements Inspector, or at the callouts in the main browser window, you will see that the units that are displayed are always <code>px</code>.
+<figure>
+<img src="computed-in-px" alt="The browser always converts to px units before applying dimensions" />
+<figcaption>Figure 46. The browser always converts to <code>px</code> units before applying dimensions</figcaption>
+</figure>
 </div>
-</div>
-
-<div class="optional tips">
-<input type="checkbox" id="-tips"/>
-<label for="-tips">Tips and Tricks</label>
-<div>
-<p></p>
 </div>
 </div>
 
@@ -1516,6 +1615,10 @@ git push origin gh-pages
 <input type="checkbox" id="units-trouble"/>
 <label for="units-trouble">Troubleshooting </label>
 <div>
+<p>When you run the <code>revert</code> command, the Terminal starts behaving strangely.</p>
+<ul>
+<li>Press <code>:q</code> to quit the command line text editor and cancel your revert action, then configure Git to use Sublime Text as its default text editor, then try again.</li>
+</ul>
 <p>When you right-click on an element in the browser, the contextual menu that opens does not contain an <code>Inspect Element</code> item.</p>
 <ul>
 <li>It's likely that you are using Apple Safari as your browser. You will need to activate the <span class="keyword">development tools</span> before the <code>Inspect Element</code> item will appear.</li>
@@ -1527,7 +1630,7 @@ git push origin gh-pages
 </ul>
 <figure>
 <img src="../img/devToolsSafari.png" alt="Enabling developer menu on Safari" />
-<figcaption>Figure 44. Enabling the Developer menu on Apple Safari</figcaption>
+<figcaption>Figure 47. Enabling the Developer menu on Apple Safari</figcaption>
 </figure>
 <p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
@@ -1543,30 +1646,180 @@ git push origin gh-pages
 </footer>
 </section>
 
-<!-- THE BOX MODEL -->
+<!-- THE CSS BOX MODEL -->
 <section id="box" class="optional">
-<h2>The box model</h2>
+<h2>The CSS box model</h2>
 <div class="aside preview">On this page, you'll learn how to:</p>
 <ul>
 <li>Create space and lines around your elements</li>
 <li>Create elements with rounded corners</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
-<p></p>
+<p>In the Elements Inspector, you may have already noticed a diagram that looks like this:</p>
+<figure>
+<img src="box-model" alt="The box model diagram" />
+<figcaption>Figure 48. </figcaption>
+</figure>
+<p>You may also have noticed that as you move your cursor over the HTML representation of the page elements in the Elements Inspector, coloured highlighting appears in the main browser window, along with a callout of the element type and its dimensions.</p>
+<figure>
+<img src="box-model-highlight" alt="Box model highlighting" />
+<figcaption>Figure 49. Using the Elements Inspector to highlight the dimensions of an element in the browser page</figcaption>
+</figure>
+<p>This is a representation of the <span class="keyword">box model</span>. Every visible HTML element is drawn in a rectangular box, with layers like a rectangular onion. The innermost layer is the HTML content itself, such as a piece of text or an image. Around that are three additional layers, which are often invisible:</p>
+<dl>
+  <dt><code>padding</code></dt>
+  <dd>Padding extends the clickable area of an element. If the element has a <code>background-color</code> this color will extend to the edge of the padding. You can have different amounts of padding one each of the four sides of the element, if you want.</dd>
+  <dt><code>border</code></dt>
+  <dd>The border also extends the clickable area of an element, by drawing a line around the padding area. The line can be a solid line, or dashed or dotted, a groove or a ridge, inset or outset, or hidden. It can be a different width, style and color on each of the 4 sides, if that is what you choose. You can also give the border (and thus the padding area) rounded corners, and each corner can have a different radius.</dd>
+  <dt><code>margin</code></dt>
+  <dd>The margin of an element defines the minimum amount of blank between the outside of its border/padding and the next element.</dd>
+</dl>
+<p>Here's a demonstration. Right click on one of the shapes in the sandbox below and select Inspect Element, then edit the values for the different attributes in the Styles pane.</p>
+<div class="box-model parent">
+  <div class="box-model red">red</div>
+  <div class="box-model green">green</div>
+  <div class="box-model blue">blue</div>
+</div>
+<figure>
+<img src="box-model-test.png" alt="Playing with the box model attributes" />
+<figcaption>Figure 50. Playing with the box model attributes</figcaption>
+</figure>
+<h3>Edges and shortcuts</h3>
+<p>If you look at the CSS for the red element, you will see that it includes the following rules:</p>
+<pre>  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 40px;
+  padding-left: 50px;</pre>
+<p>However, for the green element, the padding is defined in one line:</p>
+<pre>  padding: 6em 7em 4em 3em;</pre>
+<p>The rule for green uses a shortcut, with 4 values given at once. The values are defined clockwise, starting at the top (at 12 o'clock). The one-line rule for green is the equivalent of:</p>
+<pre>  padding-top: 6em;
+  padding-right: 7em;
+  padding-bottom: 4em;
+  padding-left: 3em;</pre>
+<p>When you use the one-line shortcut, you do not need to define all the edges. Here are 3 different one-line shortcuts, and their equivalent in the verbose format:</p>
+<pre>  padding: 6em <span class="blue">7em</span> 4em;
+  /* This is the same as: */
+  padding-top: 6em;
+  padding<span class="blue">-right: 7em</span>;
+  padding-bottom: 4em;
+  padding<span class="blue">-left: 7em</span>;</pre>
+<pre>  padding: <span class="red">6em</span> <span class="blue">7em</span>;
+  /* This is the same as: */
+  padding<span class="red">-top: 6em;</span>
+  padding<span class="blue">-right: 7em</span>;
+  padding<span class="red">-bottom: 6em</span>;
+  padding<span class="blue">-left: 7em</span>;</pre>
+<pre>  padding: <span class="red">6em</span>;
+  /* This is the same as: */
+  padding<span class="red">-top: 6em</span>;
+  padding<span class="red">-right: 6em</span>;
+  padding<span class="red">-bottom: 6em</span>;
+  padding<span class="red">-left: 6em</span>;</pre>
+<p>In these examples, I've used the same unit for every edge, but you can use different units for each edge, if that makes sense in your project. For example, this is perfectly valid:</p>
+<pre>margin: 0 1px 2em 3%</pre>
+<p>When you set a value to <code>0</code>, there is no need to include any unit. The value will be zero regardless of the unit you use.</p>
+<div class="aside note">If you use <code>%</code> as the unit for <code>padding</code> or <code>margin</code> then this always refers to the <em>width</em> of the parent, never the height, even when you use it with the <code>-top</code> or <code>-bottom</code> attributes.<p>You cannot use <code>%</code> as the unit for <code>border-width</code>.</p></div>
+<h3>The various <code>border</code> attributes</h3>
+<p>If you look at the CSS rule for the blue element, you will see that it includes this definition for the border:</p>
+<pre>  border-style: solid;
+  border-width: 15px 5px;
+  border-color: lightblue;
+  border-radius: 16px;</pre>
+<p>However the <code>border</code> rule for the green is a one-line shortcut:</p>
+<pre>  border: dotted 10px palegreen;</pre>
+<p>This is equivalent to:</p>
+<pre>  border-style: dotted;
+  border-width: 10px;
+  border-color: palegreen;</pre>
+<p>Because all the attributes have different ranges (units, line style names, colors), you can write them in any order you want. This would give exactly the same result:</p>
+<pre>  border: 10px dotted palegreen;</pre>
+<p>You can leave out the <code>-color</code> and <code>-style</code> attributes. Your browser will provide default values (black and 3.333px, in Google Chrome). You must give a valid value for <code>-style</code>. If you don't the browser will ignore your rule.</p>
+<div class="aside note">CSS applies rules in the order in which they appear. For the green element, the colour <code>palegreen</code> is applied to all the edges, thanks to the first rule:<code>border: dotted 10px palegreen;</code>. The next two lines override this choice of <code>border-color</code> for the top and the bottom:
+<pre>  border-top-color: darkgreen;
+  border-bottom-color: rgba(192, 255, 192, 0.5);</pre>
+<p>You can see different ways of defining color on page <a href="#color">16: CSS colors</a>.</p></div>
+<h3><code>border-radius</code></h3>
+<p>The <code>border-radius</code> attribute is not included in the one-line shortcut. If you want to give rounded corners to your element, you must provide a rule for <code>border-radius</code> separately.</p>
+<p>As with the <code>padding</code>, <code>border-width</code> and <code>margin</code> attributes, you can provide a different value for each corner, in a single line. This rule for the blue element...</p>
+<pre>  border-radius: 16px 0 2em;</pre>
+<p>... is equivalent to:</p>
+<pre>  border-top-left-radius: 16px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 2em;
+  border-bottom-left-radius: 0px;</pre>
+<p class="aside note">If you make the <code>border-radius</code> bigger than the dimensions of the element, it will automatically be reduced to the largest meaningful value. The green element initially has a <code>border-radius</code> of 100em, or 2000px, but the radius that is actually applied is only 110px.</p>
+<p class="aside tip">Explore what happens when you change the <code>font-size</code> attribute of the <code>parent</code> element. You'll see how the values with <code>em</code> units change size while the values with <code>px</code> </p>
+<h3>Using what you have learnt</h3>
+<p>When you have done enough experimenting to feel comfortable with the different layers of the box model, you can apply your new understanding to your own project. In your <code>style.css</code> file, make the following change:</p>
+<pre class="revised">body {
+  font-size: 10px;
+}
 
-<div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
-<pre>git status
-git add -A
-git commit -m ""
-git push origin gh-pages
+.matches {
+  text-align: center;
+}
+.matches img{
+  width: 1em;
+  height: 10em;
+  <span class="new">padding: 1em;
+  background-color: gray;
+  border-radius: 1.5em;</span>
+}</pre>
+<p>Save your file and refresh the page in your browser window. You should see something similar to this:</p>
+<figure>
+<img src="padding-background" alt="Creating padding with a background-color" />
+<figcaption>Figure 51. Creating <code>padding</code> with a <code>background-color</code> around the match images</figcaption>
+</figure>
+<p>The matches have been pushed apart by the padding that you have created around them.</p>
+<div class="aside note">Now you can see that there is a gap between each match. This is a space <code> </code> character. By default, HTML displays any series of <span class="keyword">whitespace</span> characters as a single space <code>&nbsp;</code>. Whitespace characters include:
+<ul>
+<li>spaces</li>
+<li>tabulation characters (tabs) <code></code> </li>
+<li>carriage returns (used to separate paragraphs on Macintosh computers)</li>
+<li>line feed characters (used to separate paragraphs on Unix-like computers)</li>
+<li>the combination of a carriage return and a line feed character  (used to separate paragraphs on Windows computers)</li>
+</ul>
+<p>If you wanted to get rid of the spaces between the matches, you could edit your HTML so that there is no whitespace between the end of one <code>&lt;img&gt;</code> tag and the beginning of the next:</p>
+<pre class="revised">...
+  &lt;body&gt;
+    &lt;div&gt;
+      &lt;img src="img/match.png" alt="match 1 row 1"
+    <span class="new">/&gt;&lt;</span>img src="img/match.png" alt="match 2 row 1"
+    <span class="new">/&gt;&lt;</span>img src="img/match.png" alt="match 3 row 1"
+    <span class="new">/&gt;&lt;</span>img src="img/match.png" alt="match 4 row 1"
+    <span class="new">/&gt;&lt;</span>img src="img/match.png" alt="match 5 row 1"
+    <span class="new">/&gt;&lt;</span>img src="img/match.png" alt="match 6 row 1"
+    <span class="new">/&gt;&lt;</span>img src="img/match.png" alt="match 7 row 1" /&gt;
+    &lt;/div&gt;
+...
 </pre>
-<p>Now, .</p>
+<p>You'll notice that the browser doesn't care what whitespace characters you use inside a tag, or how many you use. If you like to write each attribute on a different line, arranged neatly in columns, the browser will be just as happy:</p>
+<pre>    &lt;img src="img/match.png"
+         alt="match 1 row 1"
+    /&gt;</pre>
+</div>
+<div class="aside git">You might like to update your local repository after making your latests changes:
+<pre>git commit -am "Add padding, border-radius and background-color"
+</pre>
 </div>
 
 <div class="aside next">
-When you're ready, click on item <a href="#"></a> in the menu on the left.
-<p>If you want to know more about  below.</p>
+You've already had a glimpse about how to apply <code>background-color</code> to an element. Now you can look at how CSS treats colour in more detail. Click on the Next arrow below, or on item <a href="#colors">16: CSS colors</a> in the menu on the left.</p>
 </div>
+
+<div class="optional details">
+<input type="checkbox" id="box-details"/>
+<label for="box-details">Learn More About the Box Model</label>
+<div>
+<p>Here are some external links where you can learn more about the CSS box model:</p>
+<ul>
+<li><a href="">TODO</a></li>
+</ul>
+</div>
+</div>
+
 <footer>
 <ul class="nav">
 <li>
@@ -1583,24 +1836,202 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <h2>CSS colors</h2>
 <div class="aside preview">On this page, you'll learn how to:</p>
 <ul>
+<li>Define a color in 7 different ways</li>
+<li>Experiment with JavaScript</li>
 <li>Set the background colour of an element</li>
 <li>Set the text color for an element and its children</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
-<p></p>
+<p>When you were experimenting with the <code>padding</code>, <code>border</code> and <code>margin</code> settings on page <a href="box">15: The CSS box model</a>, you may have noticed the colour swatches. You may even have clicked on one of them and seen the colorpicker open. This allows you to change the <code>color</code> that you apply to an element. If you Shift-click on a colour swatch, you will see that the same <code>color</code> can be defined in different ways.</p>
+<figure>
+<img src="color-picker" alt="A colour swatch in Google Chrome" />
+<figcaption>Figure 52. A colour swatch in Google Chrome</figcaption>
+</figure>
+<h3>Color formats</h3>
+<dl>
+  <dt>Color names</dt>
+  <dd><p>The w3c organization that creates the standards that browsers (are supposed to) follow, defines 256 <code>color</code> names for 256 distinct colours. These include both familiar and obvious names like <code>white</code>, <code>black</code> and <code>red</code>, through compound names like <code>palegreen</code> and <code>lightgreen</code> (which represent the same colour) to more obscure names like <code>teal</code> and <code>burlywood</code>, which might not evoke any particular colour to you, especially if English is not your first language.</p>
+  <p>You can use your own preferred English spellings: both <code>grey</code> and <code>gray</code> refer to the same colo(u)r.</p>
+  <figure>
+  <img src="color-names" alt="Named colours" />
+  <figcaption>Figure 53. Defining colours by their official names</figcaption>
+  </figure>
+  </dd>
+  <dt><code>rgb</code>: Red, Green, Blue</dt>
+  <dd><p>Most humans have three types of light detector cells in their eyes. These react most strongly to the <span class="keyword">primary colours</span> that we call red, green and blue.</p><p>To create colours that look realistic to us humans, a computer screen generate dots that emit varying levels of red, green or blue light.</p>
+  <p>Computers count in 0s and 1s. With one <span class="keyword">bit</span> or <em>bi</em>nary dig<em>it</em>, you can create 2 values: 0 or 1. As a result, computers work fastest with numbers that are powers of 2, like 2, 4, 8, 16, ... 256. 256 is a nice number because it is can be represented by 8 bits, and 8 is a power of 2. With 8 bits, you can represent numbers from 0 (<code>00000000</code>) to 255 (<code>11111111</code> or 1x128 + 1x64 + 1x32 + 1x16 + 1x16 + 1x8 + 1x4 + 1x2 + 1x1).</p>
+  <p>In good light, the human eye can distinguish millions of distinct colours. Computer screens can generate millions of distinct colours by varying the amount of red, green and blue light over 256 different values: from 0 to 255. A <code>color</code> that is made of 255 units of red plus 127 units of green and 0 units of blue will appear <span class="orange">orange</span>. Using the same amount of all three primary colours will give various shades of grey, from "black" (0 of all three colours) to "white" (255 for all three colours). In fact, you do not get pure black: you get the dark grey colour of your unlit screen. You do not get pure white either: you get a pale grey that doesn't hurt your eyes too much.</p>
+  <p>When you want to tell a computer which colour to display, you can use the format <code>rgb(<span class="keyword">red-value</span>, <span class="keyword">green-value</span>, <span class="keyword">blue-value</span>)</code>. For example: this colour of <span class="orange">orange</span> can be expressed as <code>rgb(255, 127, 0)</code>.</p>
+  <figure>
+  <img src="color-rgb" alt="RGB colours are represented as a mix of red, green and blue" />
+  <figcaption>Figure 54. RGB <code>color</code>s are represented as a mix of red, green and blue</figcaption>
+  </figure>
+  </dd>
+  <dt><code>rgba</code>: Red, Green, Blue and Alpha</dt>
+  <dd><p>Colours defined in the <code>rgb()</code> format are solid, opaque colours. To make a colour appear transparent, so that it is affected by other colours behind it, you can add a 4th variable: <span class="keyword">alpha</span> opacity. For CSS, this is expressed as a number between <code>0.0</code> and <code>1.0</code>, where <code>0.0</code> means "no opacity at all" (or "completely transparent"), and <code>1.0</code> means "totally opaque".</p>
+  <p>Here are two elements that overlap. The one on the left has a rule <code>background-color: rgb(255,0,0)</code> (opaque red). The one on the right <code>background-color: rgb<strong>a</strong>(0,255,0,<strong>0.5</strong>)</code> (semi-transparent blue). Where they overlap, the <code>color</code> becomes <code>rgb(127, 0, 127)</code>: half of each original <code>color</code>.</p>
+  <div class="rgb red"></div><div class="rgb blue"></div>
+  <figure>
+  <img src="color-rgba" alt="Using alpha to measure opacity" />
+  <figcaption>Figure 55. RGBA <code>color</code>s use an alpha channel to measure opacity</figcaption>
+  </figure>
+  </dd>
+  <dt>Hexadecimal</dt>
+  <dd>The computer doesn't really understand colours and decimal numbers. It prefers binary, but binary numbers are long to write. Here's the number 42 in binary: <code>00101010</code>. A compromise is to use a hexadecimal system, where you count in powers of 16. The number 42 can be written as 2x16 + 10x1, or <code>2A</code>, where <code>A</code> stands for 10.</p>
+  <p>In a number system that counts in 16s, you need a separate symbol for every value from 0 - 15. Our decimal system has numbers from 0 - 9; for the numbers 11 - 15, the letters A - F are used.</p>
+  <p>To make it clear that the string <code>#FF7F00</code> is a number, a <code>#</code> hash sign is placed at the beginning. Here's how you can understand this number:</p>
+  <br /><span class="red">FF</span><span class="green">7F</span><span class="blue">00</span>
+  <br /><span class="red">Fx16 + Fx1 red</span>, <span class="green">7x16 + Fx1 green</span>, <span class="blue">0x16 + 0x1 blue</span>
+  <br /><span class="red">15x16 + 15x1 = 255 red</span>, <span class="green">7x16 + 15x1 = 127 green</span>, <span class="blue">0x16 + 0x1 = 0 blue</span>
+  <br />rgb(<span class="red">255</span>, <span class="green">127</span>, <span class="blue">0</span>)
+  <br />You've seen this colour before. It's <span class="orange">orange</span>.
+  <p>From now on, any time you see a string of 6 characters chosen from the set <code>0123456789ABCDEF</code>, you'll know that this can be used to represent a colour, in the way that computers like best.</p>
+  </p>
+  <figure>
+  <img src="color-#000000" alt="Colours can be expressed as a hexadecimal number" />
+  <figcaption>Figure 56. Colours can be expressed as a hexadecimal number</figcaption>
+  </figure>
+  </dd>
+  <dt>Short hexadecimal: multiples of 17</dt>
+  <dd><p></p>In the early days of the Internet, connections were slow, and every bit was a burden. That's why you see element names like <code>p</code> and <code>img</code>, and units like <code>px</code>, instead of whole words.</p>
+  <p>It's possible to express 4,096 distinct colours using only 4 characters instead of 7. For CSS, the number <code>#F70</code> is a short form for <code>#FF7700</code>. This is not exactly the same orange as <code>#FF7F00</code>, but it is so close you are unlikely to notice the difference.</p>
+  <figure>
+  <img src="color-#000" alt="To save space, you can use just three hex digits to express 4096 different colours" />
+  <figcaption>Figure 57. To save space, you can use just three hex digits to express 4096 different colours</figcaption>
+  </figure>
+  </dd>
+  <dt><code>hsl</code>: Hue, Saturation, Luminosity</dt>
+  <dd><p>Humans don't think of colours as numbers. It's difficult to compare several colour numbers and know whether they will make a matching set.</p>
+  <p>Humans (at least English-speaking ones) tend to think of three aspects of colour. The technical terms for these are <span class="keyword">hue</span>, <span class="keyword">saturation</span> and <span class="keyword">luminosity</span>, but you might prefer to think of <span class="keyword">colour</span>, <span class="keyword">clarity</span> and <span class="keyword">darkness</span>.</p>
+  <p><span class="keyword">Hue</span> refers to the basic colours of the rainbow, cycling through <span class="red">red</span>, <span class="orange">orange</span>, <span class="yellow">yellow</span>, <span class="green">green</span>, <span class="cyan">cyan</span>, <span class="blue">blue</span>, <span class="magenta">magenta</span> and back to <span class="red">red</span> again.</p>
+  <p><span class="keyword">Saturation</span> means how much white has been added. The more white you add to a colour, the more "washed out" it looks. Saturated colours grab your attention. Unsaturated colours are restful pastel shades.</p>
+  <p><span class="keyword">Luminosity</span> refers to how much light you can see. As you add more black to a colour, so its luminosity decreases.</p>
+  <p>You can think of colour space as being cylindrical. Imagine a  or disc with all the bright, saturated colours around the edge. There are 360° in a circle. You can think of <span class="red">red</span>as being at 0°, <span class="green">green</span> at 120° and <span class="blue">blue</span> at 240°. The colour <span class="magenta">,magenta</span>, halfway between blue and red will be at 300°.</p>
+  <p>You can imagine that as you move towards the centre of the disc, at the point where all the colours add together to become white light. And you can imagine many discs piled on top of each other, with top one being full of light and the bottom one being in total darkness. Every point on the disc at the bottom will be black.</p>
+  <figure>
+  <img src="color-wheel" alt="A colour wheel with saturated colours on the circumference and white in the middle." />
+  <figcaption>Figure 59. A colour wheel with saturated colours on the circumference and white in the middle.</figcaption>
+  </figure>
+  <p>The <span class="keyword">hsl</span> format describes colours in terms of:</p>
+  <ul>
+  <li>Hue: a rotation around the circle, from 0° up to (but not including) 360°</li>
+  <li>Saturation: a value of clarity from 0% (a shade of grey) to 100% (a pure colour)</li>
+  <li>Luminosity: a value of brightness from 0% (totally black) to 100% (bright)</li>
+  </ul>
+  <p>The Google Chrome colorpicker shows the colour space as a series of knife cuts through a cylindrical cake: white at the top left, at the point where the knife will start cutting from the centre of the cake; saturated colours at the top right, at the outside edge of the cake; and black at the bottom. The vertical strip on the right represents a ribbon around the circumference of the cake, showing the colours at the top circular edge.</p>
+  <figure>
+  <img src="color-hsl" alt="The colorpicker displays colours in terms of hue, saturation and luminosty" />
+  <figcaption>Figure 59. The colorpicker displays colours in terms of hue, saturation and luminosty</figcaption>
+  </figure>
+  </dd>
+  <dt><code>hsla</code>: Hue, Saturation, Luminosity and Alpha</dt>
+  <dd>As with the RGB format, you can add an alpha value between <code>0.0</code> and <code>1.0</code> to set the opacity of a colour defined with hue, saturation and luminosity.
+  <figure>
+  <img src="color-" alt="Use the alpha slider to set the opacity of the colour." />
+  <figcaption>Figure 60. Use the alpha slider to set the opacity of the colour.</figcaption>
+  </figure>
+  </dd>
+</dl>
 
-<div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
-<pre>git status
-git add -A
-git commit -m ""
-git push origin gh-pages
-</pre>
+<p class="aside note">Luminosity changes diagonally, from the bottom right to the top left. At the top and the right edge of the colour slice, saturation is considered to be 100%. At the top right hand corner, saturation is at 50%: there is neither extra darkness nor extra light.</p>
+<div class="aside tip">You might find the Hue, Saturation Luminosity method of describing colours the easiest to visualize.
+<ul>
+<li>To create a page with co-ordinated colours, you can pick one value for hue, and vary the values for saturation and luminosity.</li><li>To create a page with bright, vibrant colours, you can set saturation to 100 and luminosity to 50, and vary the hue.</li>
+<li>To create a page in pastel colours, choose a fairly low value for saturation (such as 25) and a fairly high value for luminosity (such as 75), and vary the hue.</li>
+</ul>
+</div>
+<p class="aside tip">You can use the colorpicker in the Elements Inspector to pick a colour, and then copy its definition and paste it into your <code>CSS</code> file.</p>
+<h3>Opacity</h3>
+<p>You can use the alpha value in the <code>rgba</code> and <code>hsla</code> colour formats to change the opacity of an area of colour. You can also use the <code>opacity</code> attribute to change the opacity of an entire element, such as an image.</p>
+<p>To give you a taste of the JavaScript that you will be writing soon, try this in the Developer Tools window:</p>
+<ul>
+<li>Select the Console tab at the bottom of the  Developer Tools window and open it up to give yourself room.</li>
+<li>You'll see a <code>&gt;</code> <span class="keyword">prompt</span> symbol at the top of the Console pane. Click just to the right of it and enter the following JavaScript code:
+<pre>document.getElementsByTagName("img")</pre>
+<p class="aside note">In JavaScript, it's important to get the case of every letter right, so you might prefer to copy and paste the code above.</p></li>
+<li>Press the Enter key.</li>
+<li>You should see an <span class="keyword">array</span> of all the <code>img</code> elements in your <code>index.html</code> page.</li>
+<li>The <code>&gt;</code> <span class="keyword">prompt</span> symbol will now appear beneath the output.</li>
+<li>Press the Up arrow, to make the last command that you typed reappar after the prompt.</li>
+<li>Add the following text at the end of the command:<pre class="revised">document.getElementsByTagName("img")<span class="new">[0].style.opacity = 0.25</span></pre></li>
+<li>Press the Enter key</li>
+<li>Look at the main browser window for your <code>index.html</code> page. The first match, and the padding around it, should have become semi-transparent.</li>
+</ul>
+<figure>
+<img src="opacity" alt="Using the Console to run JavaScript commands" />
+<figcaption>Figure 61. Using the Console to run JavaScript commands</figcaption>
+</figure>
+<p class="aside info">This is just a preview of what JavaScript can do. You will find explanations for this on page <a href="#js">19: JavaScript.</a></p>
+<h3>Setting the <code>background-color</code> for your page</h3>
+<p>Now that you know how to define colors, perhaps you'd like to change the background colour of your page. You can choose whatever colour and use whichever format you prefer to define it. For my version of the game, I have used the simplest way to say "black":</p>
+<p>Make the following change to your <code>style.css</code> file, save your changes, then refresh your browser.</p>
+<pre class="revised">body {
+  font-size: 10px;
+  <span class="new">background-color: black;</span>
+}
+
+.matches {
+  text-align: center;
+}
+.matches img{
+  width: 1em;
+  height: 10em;
+  padding: 1em;
+  background-color: gray;
+  border-radius: 1.5em;
+}</pre>
+<figure>
+<img src="background-black" alt="Setting the background color" />
+<figcaption>Figure 62. Setting the <code>background-color</code> of the page</figcaption>
+</figure>
+<h3>Text <code>color</code></h3>
+<p>Oops. Black text on a black background is just a little bit too Ninja to be readable. You can set the <code>color</code> of all the text in your web page by making the change shown below. You can, of course, use whatever colour you want</p>
+<pre class="revised">body {
+  font-size: 10px;
+  background-color: black;
+  <span class="new">color: rgb(255,255,255);</span>
+}
+
+.matches {
+  text-align: center;
+}
+.matches img{
+  width: 1em;
+  height: 10em;
+  padding: 1em;
+  background-color: gray;
+  border-radius: 1.5em;
+}</pre>
+<figure>
+<img src="background-black" alt="Setting the color for all text" />
+<figcaption>Figure 63. Setting the <code>color</code> for all text on the page</figcaption>
+</figure>
+<p>There are 2 things to notice here.</p>
+<ol>
+<li>All other <code>-color</code> attributes begin with the name of the part whose colour you want to change: <code>background-color</code>, <code>border-color</code>, <code>border-top-color</code> and so on. For text, there is no <code><span class="red">text-color</span></code> attribute. The attribute name is just plain <code>color</code>.</li>
+<li>You are not changing the <code>color</code> of the text in the <code>h1</code> and <code>h2</code> elements directly. You are changing the <code>color</code> of the <code>body</code>, which is the ultimate parent of every other element on the page. The <code>h1</code> and <code>h2</code> elements (and all other elements) <span class="keyword">inherit</span> the value of <code>color</code>, unless you set it directly for a specific element and its children.</li>
+</ol>
+<div class="aside git">It's time to commit your latest changes to your local repository:
+<pre>git commit -am "Set background-color and color for the entire page"</pre>
 <p>Now, .</p>
 </div>
 
 <div class="aside next">
-When you're ready, click on item <a href="#"></a> in the menu on the left.
-<p>If you want to know more about  below.</p>
+Well done! Up until now, to see the effect of the changes you have made, you have had to refresh your <code>index.html</code> page in your browser. From the next page on, you will be adding interactivity to your game. Moving the mouse will change what you see on the screen in real time. If you're ready for this, click on the Next arrow below, or on item <a href="#hover">17: CSS interactions</a> in the menu on the left.
+</div>
+
+<div class="optional trouble">
+<input type="checkbox" id="-trouble"/>
+<label for="-trouble">Troubleshooting </label>
+<div>
+<p>When you type JavaScript code in the Console you get an error message, or nothing happens</p>
+<ul>
+<li>JavaScript is case-Sensitive. This means that the words "case", "Case" and "CASE" (for example) have different meanings. You must be careful to use the write case for every letter that you type.</li>
+</ul>
+<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+</div>
+</div>
 </div>
 <footer>
 <ul class="nav">
@@ -1617,27 +2048,135 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <section id="hover" class="optional">
 <h2>CSS interactions</h2>
 <div class="aside preview">On this page, you'll learn how to:
-<p>In particular, you will learn how to:</p>
 <ul>
-<li>Detect when the mouse is over an element</li>
-<li>Use the browser console</li>
-<li>Make an element transparent</li>
+<li>Change the appearance of the cursor</li>
+<li>Change the value of an attribute when the mouse is over an element</li>
 </ul>
+<a href="#" target="source">Download the source files</a>
 </div>
+<p>When you move your cursor over a link on a web page, the cursor changes to a pointing finger, and often the link changes colour. You can make this happen when the cursor moves over a match image, too. Changing the cursor image is easy. You can do it with one line of CSS:</p>
+<pre class="revised">body {
+  font-size: 10px;
+  background-color: black;
+  color: rgb(255,255,255);
+}
 
-<div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
-<pre>git status
-git add -A
-git commit -m ""
-git push origin gh-pages
+.matches {
+  text-align: center;
+}
+.matches img{
+  width: 1em;
+  height: 10em;
+  padding: 1em;
+  border-radius: 1.5em;
+  background-color: gray;
+  <span class="new">cursor: pointer;</span>
+}</pre>
+<figure>
+<img src="cursor-pointer" alt="The cursor image changes to a pointer over the match images" />
+<figcaption>Figure 64. The cursor image changes to a pointer over the match images</figcaption>
+</figure>
+<p>Changing the <code>background-color</code> is as easy as creating a new rule, and moving one line of code. I've also taken the opportunity to choose a new value for the <code>background-color</code>. You can, of course, choose whichever colour you prefer. Remember to delete the line <code>background-color: gray;</code> from the existing <code>.matches img { }</code> rule.</p>
+
+<pre class="revised">body {
+  font-size: 10px;
+  background-color: black;
+  color: rgb(255,255,255);
+}
+
+.matches {
+  text-align: center;
+}
+.matches img{
+  width: 1em;
+  height: 10em;
+  padding: 1em;
+  border-radius: 1.5em;
+  <span class="strike">background-color: gray;</span>
+  cursor: pointer;
+}
+<span class="new">.matches img:hover{
+  background-color: #321;
+}</span>
 </pre>
-<p>Now, .</p>
+<figure>
+<img src="cursor-rollover" alt="Using the :hover pseudo element as a selector" />
+<figcaption>Figure 65. Using the :hover pseudo element as a selector</figcaption>
+</figure>
+<p>The new rule may be short, but the concept is powerful. I recommend that you read the explanation on pseudo elements in the Learn More About... section below.</p>
+
+<div class="aside git">Remember to commit your changes to your local Git repository. If you need a reminder of the commands to use in the Terminal, hover your mouse over the space below:
+<pre class="hover">git status
+git add -A
+git commit -m "Add cursor: pointer and an img:hover rule"
+</pre>
+<p>(This gimmick uses the technique that you have just learnt.)</p>
 </div>
 
 <div class="aside next">
-When you're ready, click on item <a href="#"></a> in the menu on the left.
-<p>If you want to know more about  below.</p>
+You've taken the longer way round to understand all the details of the CSS rules that you are using. That's commendable. You are now back at the point that you saw as a preview on the page <a href="mouse">13: Reacting to the mouse</a>. However, there's a good chance that your CSS will be slightly different from the version that I wrote, and that you stored in the <code>gh-pages</code> branch of your Git repository. That's good. It will give you the chance to practise another important technique with Git.
+<p>If you want have a deeper understanding of the techniques you discovered on this page, you can read the optional Learn More About ... sections below. When you're ready, click on the Next arrow below, or on item <a href="#merge">Merging 2 Git branches</a> in the menu on the left.</p>
 </div>
+
+<div class="optional details">
+<input type="checkbox" id="hover-details"/>
+<label for="hover-details">Learn More About Mouse Actions</label>
+<div>
+<h4>The <code>cursor</code> attribute</h4>
+<p>You can find more about the <code>cursor</code> attribute, the values it can take, and which browser support which values on these sites</p>
+<ul>
+<li><a href=""></a>w3Schools</li>
+<li><a href=""></a>Mozilla</li>
+</ul>
+<h4>The <code>:hover</code> selector</h4>
+<p>The <code>:hover</code> selector is known as a <span class="keyword">pseudo element</span>. The rule that follows it will only be activated if the mouse is over an element that matches the rest of the selector. Here, you have a CSS rule that creates an interaction with the mouse, without using an programming language.</p>
+
+<div class="aside info">You'll see the use of a semi-colon <code>:</code> as part of a selector two more times in this tutorial:
+<ul>
+<li>With the <code>:not( )</code> logical operator, to stop changing the <code>background-color</code> for a match that has been removed</li>
+<li>With the <code>:checked</code> status for a checkbox, when you are ready to show and hide the rules.</li>
+</ul>
+</div>
+<p>For more information, see:</p>
+<ul>
+<li><a href=""></a>w3Schools</li>
+<li><a href=""></a>Mozilla</li>
+</ul>
+</div>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="pseudo-details"/>
+<label for="pseudo-details">Learn More About Pseudo Elements</label>
+<div>
+<h4><code>:</code>pseudo elements</h4>
+<p></p>
+<h4><code>::</code>pseudo classes</h4>
+<p></p>
+</div>
+</div>
+
+<div class="optional tips">
+<input type="checkbox" id="hover-tips"/>
+<label for="hover-tips">Tips and Tricks</label>
+<div>
+<p></p>
+</div>
+</div>
+
+<div class="optional trouble">
+<input type="checkbox" id="hover-trouble"/>
+<label for="hover-trouble">Troubleshooting </label>
+<div>
+<p>The <code>background-color</code> around all the matches doesn't go away.</p>
+<ul>
+<li>Perhaps you didn't remove the line <code>background-color: gray;</code> from the <code>.matches img{ }</code> rule.</li>
+<li>Perhaps your browser has decided to keep using an outdated version of your <code>style.css</code> stylesheet. You can follow <a href="html/clearcache.html">this link</a> to learn how to clear the cache for your browser.</li>
+</ul>
+<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+</div>
+</div>
+
 <footer>
 <ul class="nav">
 <li>
@@ -1649,10 +2188,117 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 </footer>
 </section>
 
-<!-- JAVASCRIPT -->
-<section id="js">
-<h2>Hiding Images with JavaScript</h2>
-<p></p>
+<!-- MERGING 2 GIT BRANCHES -->
+<section id="merge">
+<h2>Merging two branches with Git</h2>
+<div class="aside preview">On this page, you'll practise using the following Git commands:
+<ul>
+<li><code>git diff <em>other-branch</em></code></li>
+<li><code>git merge <em>other-branch</em></code></li>
+</ul>
+</div>
+<p>On page <a href="#mouse">13: Reacting to the mouse</a>, you tested a CSS file before you had had the chance to understand how it worked. Since then, you have:</p>
+<ul>
+<li>Created a separate <em>rollover</em> branch in your repository</li>
+<li>Reverted to an earlier version of the project</li>
+<li>Added new CSS rules that make your project behave the same way that the preview version did.</li>
+</ul>
+<p>How close is your current version to the one you tested earlier? To find out, you can run the <code>git diff</code> command in the Terminal.</p>
+<div class="aside tip">You might like to start by ensuring that your Terminal is pointing at the <code>nim</code> folder where your project files are stored. Your command might look something like this...
+<pre>cd <span class="red">C:\Users\james</span>\nim\gh-pages</pre>
+<p>... but your own path will be different from the red section above, and it will use forward slashes <code>/</code> if you are not working on Windows.</p>
+</div>
+<h2>git diff</h2>
+<p>In the Terminal window, run the following command:</p>
+<pre>git diff gh-pages</pre>
+<p>This will show you all the differences between your current branch (rollever) and the gh-pages branch. If there are no differences, congratulations! You have followed my instructions to the letter! (Or you have skipped most of the last 5 pages, or you haven't been inspired to choose colours of your own).</p>
+<p>The chances are, though, that you might see something like this:</p>
+<pre>git diff rollover gh-pages
+diff --git a/css/style.css b/css/style.css
+index 6881fbd..b64f124 100644
+-- a/css/style.css
+++ b/css/style.css
+@@ -8,12 +8,12 @@ body {
+   text-align: center;
+ }
+ .matches img{
+<span class="green">+  padding: 1em;</span>
+   width: 1em;
+   height: 10em;
+<span class="red">-  padding: 1em;</span>
+   cursor: pointer;
+ }
+ .matches img:hover{
+<span class="red">-  background-color: #321;
+<span class="green">+  background-color: hls(60, 90, 30);</span>
+ }
+\ No newline at end of file</pre>
+<p>The output above says:</p>
+<ul>
+<li>Two lines were removed, two lines were added</li>
+<li>The line <code>  padding: 1em;</code> was moved from one place to another</li>
+<li>The line <code>  background-color: #321;</code> was changed to<code>  background-color hls(60, 90, 30);</code> </li>
+</ul>
+<p>Look at your output carefully. If everything you see is meaningful, and what you would expect, you can proceed to merge the two files.</p>
+<h3>Merging your changes into your main branch</h3>
+<p>First, you want to get back onto your main gh-pages branch, then you want to merge the gh-pages branch with your rollover branch. Here's what you can do:</p>
+<pre class="revised"><span class="new">git checkout gh-pages</span>
+Switched to branch 'gh-pages'
+
+<span class="new">git merge rollover</span>
+Updating 8439f0a..32f3995
+Fast-forward
+ css/style.css | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+<span class="new">git diff rollover</span>
+</pre>
+<p>In my case, the last command produced no output. This is because the rollover branch and the gh-pages branch are now identical.</p>
+<h3>Checking your history</h3>
+<p>You can also check that the history in the gh-pages branch now includes all the changes you made in the rollover branch, using the <code>git log --oneline</code> command. Here's my output, with the commits made in the rollover branch shown in bold:</p>
+<pre>git log --oneline
+<span class="new">32f3995 Add cursor: pointer and an img:hover rule
+4f37955 Set background-color and color for the entire page
+e2b3e69 Add padding, border-radius and background-color
+7217eb8 Set body font-size in px and match dimensions in em
+3e9c2b9 Revert "Preview of rollover effect"</span>
+8439f0a Preview of rollover effect
+ad5e390 Add .matches class to designate the divs to be centered
+656e9b6 Add css/styles.css to centre the matches
+7c1cdc9 16 matches arranged in 4 rows, using &lt;div&gt;
+4d68023 Add img/match.png; modified index.html to show this image
+b6d433d 'Hello World' becomes 'The game will go here'
+e6b50f7 Initial commit to the gh-pages branch
+</pre>
+<p>Reload your local <code>index.html</code> file in your browser. Roll your mouse over the images. Check that it's all still working.</p>
+<h3>Deleting a branch</h3>
+<p>Now that your gh-pages branch is up-to-date, you no longer need the rollover branch. You can delete it. In your Terminal window, type the following command:</p>
+<pre class="revised"><span class="new">git branch</span>
+* <span class="green">gh-pages</span>
+  rollover</pre>
+<p>In the output, the asterisk shows which branch is currently checked out. You can also use the <code>-v</code> (verbose) option to show the name and message from the most recent <code>commit</code> on each branch, to check that both branches are at the same point:</p>
+<pre class="revised"><span class="new">git branch -v</span>
+* <span class="green">gh-pages </span><span class="new">32f3995 Add cursor: pointer and an img:hover rule</span>
+  rollover 32f3995 Add cursor: pointer and an img:hover rule</pre>
+<p>The name of the commit will be different for you.</p>
+<p>To delete the rollover branch, you can use the <code>-d</code> (delete) option, followed by the branch name:</p>
+<pre class="revised"><span class="new">git branch -d rollover</span>
+Deleted branch rollover (was 32f3995).</pre>
+<p>If your run the simple <code>branch</code> command again, you should see that your repository tree has been trimmed:</p>
+<pre class="revised"><span class="new">git branch</span>
+* <span class="green">gh-pages</span></pre>
+<h3>Making the most of branches</h3>
+<p>You have now seen the whole life cycle of a branch: how to create a new branch, how to use it to make changes without changing the anything in the stable main branch, how to merge it back into the main branch, and how to delete it when you no longer need it.</p>
+<p>You can feel comfortable now about using branches. You can create a new branch whenever you start a new episode in your development process. You can create a new branch whenever you want to try out a new idea.</p>
+
+<div class="aside issue">You have now successfully treated another issue from your list: <em>Show the player that the images are interactive...</em>
+  
+</div>
+
+<div class="aside next">
+If your web page behaves the way it did when it was the tracked by the rollover branch, then you are ready to move on.
+<p>Click on the Next arrow below, or on item <a href="#js">19: JavaScript</a> in the menu on the left.</p>
+</div>
 <footer>
 <ul class="nav">
 <li>
@@ -1664,9 +2310,188 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 </footer>
 </section>
 
+<!-- JAVASCRIPT -->
+<section id="js">
+<h2>Hiding Images with JavaScript</h2>
+<div class="aside preview">On this page, you'll learn how to:
+<ul>
+<li>Add JavaScript to your HTML page</li>
+<li>Show an alert when the page is loaded</li>
+</ul>
+<a href="#" target="source">Download the source files</a>
+</div>
+<p>JavaScript adds magic to your game... or at least the illusion of magic. Each of the ideas that you are about to learn is simple enough in itself. The power of what you are learning comes from the way you can combine these new ideas.</p>
+<div class="aside tip">Each time you learn something new, you can create a new branch in your repository and use it to experiment with the new idea. You can imagine a simple activity of your own, and test how far you can take it.
+<p>As your skills and knowledge increase, you can return to branches that you worked on earlier, and move them forward again. Perhaps some of your branches can become the starting point for a whole new project.</p></div>
+<p>To keep your project tidy, you should store all your JavaScript in a separate folder. In your text editor, create a new document, and save at as <code>nim.js</code> in a folder called <code>js</code>, alongside your <code>index.html</code> file. Your project folder should now look like this:</p>
+<figure>
+<img src="project-folder" alt="The img, css and js folders in the same folder as your index.html file" />
+<figcaption>Figure 66. The img, css and js folders in the same folder as your index.html file</figcaption>
+</figure>
+<h3>Hello World in JavaScript</h3>
+<p>In your <code>nim.js</code> file, add the following code:</p>
+<pre>alert("Hello World")</pre>
+<p>This is just to test that JavaScript is working for you.</p>
+<p>Now you need to tell your <code>index.html</code> file that your new JavaScript file exists. At the end of your <code>index.html</code> file, make the following change:</p>
+<pre class="revised">...
+    &lt;div class="matches"&gt;
+      &lt;img src="img/match.png" alt="match 1 row 4" /&gt;
+    &lt;/div&gt;
+
+    <span class="new">&lt;script src="js/nim.js"&gt;&lt;/script&gt;</span>
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+<p>Save both files and refresh the <code>index.html</code> page in your browser. If all goes well, you should see something like this:</p>
+<figure>
+<img src="js-hello-world" alt="A Hello World JavaScript alert" />
+<figcaption>Figure 67. A Hello World JavaScript alert</figcaption>
+</figure>
+<p>If you don't see this alert dialog, then check the Troubleshooting section below.</p>
+<div class="aside next">
+When you're ready, click on the Next arrow below, or on item <a href="#"></a> in the menu on the left.
+<p>If you want to know more about  below.</p>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="js-details"/>
+<label for="js-details">Understanding the script element</label>
+<div>
+<h4>Why the script element is placed at the bottom of the body</h4>
+<p>Browsers read an HTML page from top to bottom. Normally, you want the browser to know about all the content (text and images) before you ask JavaScript to do something with this content. The simplest way to do this is to put your JavaScript declarations at the end of the page, just before the closing &lt;/body&gt; tag.</p>
+<h4>Why the script element is empty</h4>
+<p>You can use a <code>&lt;script&gt;&lt;/script&gt;</code> element in two different ways:</p>
+<ul>
+<li>To place JavaScript code inside your HTML page itself, like this:
+<pre>&lt;script&gt;alert ("I'm code in the HTML page")&lt;/script&gt;</pre>
+</li>
+<li>To link to an external file which contains code, like this:
+<pre>&lt;script src="http://example.com/test.js" &gt;&lt;/script&gt;</pre></li>
+</ul>
+<p>In this second case, any code you put inside the tag will be ignored, so you might as well leave the tag empty.</p>
+<p></p>
+<h4>Fetching the JavaScript file</h4>
+<p>Browsers read an HTML page from top to bottom. Normally, you want the browser to know about all the content (text and images) before you ask JavaScript to do something with this content. The simplest way to do this is to put your JavaScript declarations at the end of the page, just before the closing &lt;/body&gt; tag.</p>
+</div>
+</div>
+</div>
+
+<div class="optional tips">
+<input type="checkbox" id="js-tips"/>
+<label for="js-tips">Tips and Tricks</label>
+<div>
+<div class="aside info">Semi-colons? Really?
+<p>The official way to indicate the end of a command in JavaScript is to use a semi-colon, like this:</p>
+<pre>alert ("Hello World!");</pre>
+<p>In CSS, semi-colons are essential. If you don't include a semi-colon between rules, your CSS will break.</p>
+<p>Fortunately, all modern JavaScript engines have an <span class="keyword">automatic semi-colon insertion system</span>, which works, and which means that you can forget to put semi-colons at the end of your commands... except in certain very specific places.</p>
+<p>Semi-colons in JavaScript generate powerful emotions in some developers. For some, they are a sign of purity; for others, a sign of wastefulness.</p>
+<p>In this tutorial, I have deliberately chosen not to use semi-colons except where they are absolutely necessary. And when they are absolutely necessary, I put them at the <em>beginning</em> of a line, or in the middle of a line. I have done this for two reasons:</p>
+<ul>
+<li>So that you can discover where semi-colons are absolutely necessary (and that's important)</li>
+<li>So that you can see at a glance which code is JavaScript and which code is CSS (and that's just convenient)</li>
+</ul>
+<p>When you are working on a project with others, the fact that you use or don't use semi-colons can be one way to distinguish your code immediately from the code of others, with all the shame and glory that that can bring.</p>
+</div>
+<div class="aside tip">A script-only HTML page
+<p>Since your browser will automatically add any missing &lt;html&gt; and &lt;/body&gt; tags to your page, you can create a very simple HTML page just to test some JavaScript code. You might like to copy the HTML below and paste it into a new text document, save the document as <code>test.html</code>, then open it in your browser.</p>
+<pre>&lt;script&gt;
+alert ("JavaScript says Hello!")
+&lt;/script&gt;</pre>
+<p>Be sure to give the file a <code>.html</code> extension, to trick the browser into treating it as a valid HTML file. If you use a different extension, you will simply see the text displayed in the browser window.</p>
+</div>
+</div>
+</div>
+
+<div class="optional trouble">
+<input type="checkbox" id="js-trouble"/>
+<label for="js-trouble">Troubleshooting </label>
+<div>
+<p>No Hello World alert appears.</p>
+<ul>
+<li> Restart your computer.</li>
+</ul>
+<p class="aside mail">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+</div>
+</div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#button">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
+<!-- HIDING AN IMAGE -->
+<section id="button">
+<h2>Hiding an image</h2>
+<div class="aside preview">On this page, you'll learn to:
+<ul>
+<li>Use JavaScript to detect a mouse click</li>
+<li>Use the browser's JavaScript debugger</li>
+<li>Check what element the user clicked</li>
+<li>Use JavaScript to add a class to an element</li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
+<p></p>
+
+<div class="aside next">
+When you're ready, click on the Next arrow below, or on item <a href="#"></a> in the menu on the left.
+<p>If you want to know more about  below.</p>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="function-details"/>
+<label for="function-details">Learn More About Functions</label>
+<div>
+<h4></h4>
+<p></p>
+</div>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="event-details"/>
+<label for="event-details">Learn More About Objects</label>
+<div>
+<h4></h4>
+<p></p>
+</div>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="event-details"/>
+<label for="event-details">Learn More About Events</label>
+<div>
+<h4></h4>
+<p></p>
+</div>
+</div>
+
+<footer>
+<ul class="nav">
+<li>
+<a href="#reset">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
 <!-- THE RESET BUTTON -->
 <section id="button">
 <h2>Creating a Reset Button</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -1682,6 +2507,13 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <!-- RESETTING THE GAME -->
 <section id="reset">
 <h2>Resetting the Game</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -1697,6 +2529,13 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <!-- THE GAME LAYOUT -->
 <section id="layout">
 <h2>The Game Layout</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -1712,6 +2551,13 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <!-- WHOSE TURN IS IT? -->
 <section id="turns">
 <h2>Whose Turn Is It?</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -1727,6 +2573,13 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <!-- ENFORCING RULES -->
 <section id="rules">
 <h2>Enforcing the Rules</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -1742,6 +2595,13 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <!-- ONE ROW AT A TIME -->
 <section id="rows">
 <h2>One Row at a Time</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -1757,6 +2617,13 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <!-- WHO WON? -->
 <section id="winner">
 <h2>Who Won?</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -1772,6 +2639,13 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <!-- USING AN OVERLAY -->
 <section id="overlay">
 <h2>Using an Overlay</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -1787,6 +2661,13 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <!-- COMPUTER PLAYER -->
 <section id="player">
 <h2>Creating a Computer Player</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -1802,6 +2683,13 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <!-- RANDOM MOVES -->
 <section id="random">
 <h2>Making Random Moves</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -1817,6 +2705,13 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <!-- INTELLIGENT MOVES -->
 <section id="ai">
 <h2>Making Intelligent Moves</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -1832,6 +2727,13 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <!-- FINAL DETAILS -->
 <section id="final">
 <h2>Taking Care of the Final Details</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -1847,6 +2749,13 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <!-- SHOWING THE RULES -->
 <section id="toggle">
 <h2>Showing the Rules</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -1862,6 +2771,13 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <!-- INVISIBLE DATA -->
 <section id="meta">
 <h2>Invisible data</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="">Download the source files</a>
+</div>
 <p></p>
 <footer>
 <ul class="nav">
@@ -2021,7 +2937,7 @@ When you're ready, click on item <a href="#"></a> in the menu on the left.
 <p class="top">You will be learning to write HTML, CSS and JavaScript. You will also learn how to use GitHub to save and display your work, and how to write code that tests your code. You don't need any previous knowledge of programming, but an inquisitive mind is a bonus.</p>
 <p class="top aside info">You can see the completed game <a href="complete/">here</a>. You might like to try to beat the computer before you learn to write the code that will beat all other players.</p>
 <div class="top aside next">
-When you're ready to begin, click on item <a href="#html">2: Your HTML Page</a> in the menu on the left.
+When you're ready to begin, click on the Next arrow below, or on item <a href="#html">2: Your HTML Page</a> in the menu on the left.
 <p>If you want to know more about HTML, CSS, JavaScript, Git and GitHub, you can read the optional If A Web Page Were A Meal section below.</p>
 </div>
 
@@ -2052,7 +2968,7 @@ When you're ready to begin, click on item <a href="#html">2: Your HTML Page</a> 
 <p>Everyone is a beginner at something, and has expertise in other areas. This tutorial was written with the understanding that some pages might teach you nothing new, and others might present you with a challenge.</p>
 <p>In this tutorial, each page starts with the simplest instructions that you need to get to the next page. If these instructions work for you and you understand why they work, then there is no more to be said.</p>
 <p>At the end of this starter section, you'll see a green box something like this:</p>
-<p class="aside next">If you're ready to go on, click <span style="text-decoration: underline;">here</span> to go to the next page. If you want to know more, you can read the optional sections below.</p>
+<p class="aside next">If you're ready to go on, click <span style="text-decoration: underline;">here</span> or on the Next arrow below, to go to the next page. If you want to know more, you can read the optional sections below.</p>
 <p>If you can complete the entire tutorial without reading any of the optional sections below the green box, congratulations! We'd like to hear from you, so that we can feel good, too.</p>
 <p>On the other hand, if you read all the optional material carefully, and you are still unable to get the instructions to work for you, then please let us know. We'll do all we can to make the instructions and explanations better.</p>
 <p>It would be helpful if you can tell us:</p>

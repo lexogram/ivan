@@ -175,6 +175,19 @@ filter: FlipH;
 -ms-filter: "FlipH";
 }
 
+.preview a {
+  margin: 0.5em 25px;
+  border: 1px outset #bdc4fb;
+  border-radius: 0.25em;
+  padding: 0.5em 1em;
+  background-color: #bdc4fb;
+  display: inline-block;
+}
+
+.preview a:active {
+  border-style: inset;
+ }
+
 h1, h2, h3 {
 margin: 1em 0 0;
 font-family: "Gill Sans",Helvetica, sans-serif;
@@ -227,6 +240,7 @@ display: block;
 .note,
 .tip,
 .git,
+.issue,
 .info,
 .next,
 .kudos,
@@ -236,8 +250,12 @@ display: block;
 padding: 0.5em;
 box-sizing: border-box;
 margin: 0.5em 0;
-border-width: 2px;
-border-style: solid;
+border-width: 1px;
+border-style: outset;
+border-radius: 0.25em;
+}
+pre {
+border-style: inset;
 }
 .preview {
 border: 1px solid #669;
@@ -255,77 +273,90 @@ font-weight: normal;
 }
 .warn {
 background: #fde7e4;
-border-color: #fee;
+/*border-color: #fee;
 border-right-color: #edd;
-border-bottom-color: #edd;
+border-bottom-color: #edd;*/
 }
 .note {
 background: #fdfde4;
-border-color: #ffd;
+/*border-color: #ffd;
 border-right-color: #eed;
-border-bottom-color: #eed;
+border-bottom-color: #eed;*/
 }
 .tip {
 background: #e4fdfd;
-border-color: #eff;
-border-right-color: #dee;
-border-bottom-color: #dee;
+border-color: #e4fdfd;
+/*border-right-color: #dee;
+border-bottom-color: #dee;*/
 }
 .git {
-background: #fde7fd;
-border-color: #fef;
-border-right-color: #ede;
-border-bottom-color: #ede;
+background: #eee7ff;
+/*border-color: #f8f0ff;
+border-right-color: #dce;
+border-bottom-color: #dce;*/
+}
+.git .note {
+background: #ede;
+/*border-color: #edf;
+border-right-color: #dce;
+border-bottom-color: #dce;*/
+}
+.issue {
+background: #ffe7ee;
+border-color: #ffe7ee;
+/*border-right-color: #dce;
+border-bottom-color: #dce;*/
 }
 .info {
 background: #e4e7fd;
-border-color: #eef;
-border-right-color: #dde;
-border-bottom-color: #dde;
+border-color: #e4e7fd;
+/*border-right-color: #dde;
+border-bottom-color: #dde;*/
 }
 .next {
 background: #e4fde4;
-border-color: #efe;
+/*border-color: #efe;
 border-right-color: #ded;
-border-bottom-color: #ded;
+border-bottom-color: #ded;*/
 }
 .kudos {
 background: #e0d0ff;
-border-color: #edf;
+/*border-color: #edf;
 border-right-color: #dce;
-border-bottom-color: #dce;
+border-bottom-color: #dce;*/
 }
 .mail {
 background: #336;
-border-color: #669;
+/*border-color: #669;
 border-right-color: #003;
-border-bottom-color: #003;
+border-bottom-color: #003;*/
 color: #fff;
 }
 pre {
 background: #eee;
-border-color: #ccc;
+/*border-color: #ccc;
 border-right-color: #f4f4ff;
-border-bottom-color: #f4f4ff;
+border-bottom-color: #f4f4ff;*/
 }
 .git pre{
-background: #f4e0f4;
-border-color: #ede;
+background: #ece0f8;
+/*border-color: #ede;
 border-right-color: #fef;
-border-bottom-color: #fef;
+border-bottom-color: #fef;*/
 }
 .details pre{
 background: #e0e0f4;
-border-color: #dde;
+/*border-color: #dde;
 border-right-color: #eef;
-border-bottom-color: #eef;
+border-bottom-color: #eef;*/
 }
 .note>pre{
 background: #f4f4e0;
-border-color: #eed;
+/*border-color: #eed;
 border-right-color: #ffe;
-border-bottom-color: #ffe;
+border-bottom-color: #ffe;*/
 }
+div.aside ul:last-child,
 div.aside p:last-child {
 margin-bottom: 0;
 }
@@ -365,13 +396,24 @@ color: #6c6;
 content: "\e80d";
 color: #96c;
 }
-.mail::before {
+.trouble p:before{
+content: "Symptom: ";
+}
+p.mail::before {
 content: "\e80e";
 color: #fff;
 }
 .git::before {
 content: "\e80c";
-color: #666;
+color: #769;
+}
+.git .note::before {
+content: "\e800";
+color: #c99;
+}
+.issue::before {
+content: "ISSUE:";
+color: #967;
 }
 .hub::before {
 content: "\e802";
@@ -382,13 +424,12 @@ content: "\e80a";
 color: #666;
 }
 
-
 figure{
 text-align: center;
 margin:0;
 }
 figcaption{
-font-size: 0.9em;
+font-size: 0.85em;
 font-weight: bold;
 }
 figure p {
@@ -418,9 +459,9 @@ background-color: #eef;
 .details label::before{
 color: #336;
 }
-#terminal .details {
+/*#terminal .details {
 margin: 2em 0;
-} 
+}*/ 
 .tips>div{
 background-color: #f8ffff;
 border: 0px solid #eff;
@@ -444,18 +485,33 @@ background-color: #eed;
 .trouble label::before{
 color: #633;
 }
+.trouble p{
+font-weight: bold;
+}
+
 .warn code{
 background-color: #ecc;
 }
 .note code{
 background-color: #eec;
 }
+.git .note code{
+background-color: #dcd;
+}
+.tips pre {
+background-color: #eef8f8
+}
+.tip pre,
 .tip code{
 background-color: #cee
 }
 .git code{
-background-color: #ece;
+background-color: #e8d8ff;
 }
+.info pre{
+background-color: #ddddf8;
+}
+
 .info code{
 background-color: #ccf;
 }
@@ -513,25 +569,40 @@ span.new {
 font-weight: bold;
 color: #000;
 }
-span.red {
+.red {
 font-weight: bold;
 color: #900;
 }
-span.gold {
+.green {
+font-weight: bold;
+color: #090;
+}
+.blue {
+font-weight: bold;
+color: #009;
+}
+.gold {
 color: #960;
 }
 pre.revised {
 font-weight: normal;
 color: #999;
 }
-strong {
-color: #633;
-}
+/*strong {
+color: #900;
+}*/
 .under {
 text-decoration: underline;
 }
 .strike {
 text-decoration: line-through;
+color: #669;
+}
+.hover {
+opacity: 0;
+}
+.hover:hover {
+opacity: 1;
 }
 
 blockquote {
