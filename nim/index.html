@@ -34,6 +34,7 @@
 <li><a href="#merge">Merging 2 Git branches</a></li>
 <li><a href="#js">JavaScript</a></li>
 <li><a href="#hide">Hiding an image</a></li>
+<li><a href="#click">Detecting a click</a></li>
 <li><a href="#button">The Reset button</a></li>
 <li><a href="#reset">Resetting the game</a></li>
 <li><a href="#layout">The game layout</a></li>
@@ -445,7 +446,7 @@ git push origin gh-pages
 </div>
 
 <div class="optional details">
-<input type="checkbox" id=""/>
+<input type="checkbox" id="branch-details"/>
 <label for="branch-details">Understanding Git Commands</label>
 <div>
 Here are the <code>git</code> commands that you have just used:
@@ -495,8 +496,8 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 </div>
 
 <div class="optional tips">
-<input type="checkbox" id="s"/>
-<label for="branch-tip">Tips and Tricks</label>
+<input type="checkbox" id="branch-tips"/>
+<label for="branch-tips">Tips and Tricks</label>
 <div>
 <h4>Using Sublime Text to create <code>commit</code> and <code>revert</code> messages</h4>
 <div class="aside tip">Windows:
@@ -1066,7 +1067,7 @@ should be called "img" and the image itself should be called "match.png".</li>
 <li>How to add multiple images to your page</li>
 <li>How to use the <code>div</code> element to arrange them in rows</li>
 </ul>
-<a href="#" target="source">Download the source files</a>
+<a href="" target="source">Download the source files</a>
 </div>
 <p>Showing 2 matches in your web page is as easy as showing one. You can simply copy and paste the line that you have just changed:</p>
 <pre class="revised">&lt;!DOCTYPE html&gt;
@@ -1195,7 +1196,7 @@ To learn more about the <code>div</code> element, you can read the Understanding
 <li>Cascading Style Sheets</li>
 <li>How to set the alignment of text</li>
 </ul>
-<a href="#" target="source">Download the source files</a>
+<a href="" target="source">Download the source files</a>
 </div>
 <p>You now have the <span class="keyword">content</span> that you need to play the game of Nim, but the matches are not yet laid out neatly in a symmetrical V shape. The easiest way to get the images to appear in a V shape is to treat them like text (yes, text) and use <code>center</code> alignment for them. But first, you need to create a separate file to contain the layout instructions.</p>
 <p>In your text editor, create a new, empty file called <code>style.css</code>, and save it an a folder called <code>css</code> in same folder as your <code>index.html</code> file. Your folder structure should now look like this:</p>
@@ -1347,7 +1348,7 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 <li>Giving elements a class attribute to distinguish them</li>
 <li>Select an element by its class</li>
 </ul>
-<a href="#" target="source">Download the source files</a>
+<a href="" target="source">Download the source files</a>
 </div>
 <p>As it happens, you won't want to centre all the text in your game. For example, later, you will want the text for the rules to be aligned to the left. Using a CSS <span class="keyword">selector</span>, you can choose to apply <code>text-align: center</code> only to the <code>&lt;div&gt;</code> elements that show the matches.</p>
 <p>In your <code>styles.css</code> file, rename the selector from <code>body</code> to <code>div</code>, as shown below:</p>
@@ -1434,7 +1435,7 @@ If you are comfortable with the concepts of classes and selectors, you can click
 <li>Change the cursor when it moves over a match</li>
 <li>Create a highlight around the match under the cursor</li>
 </ul>
-<a href="#" target="source">Download the source files</a>
+<a href="" target="source">Download the source files</a>
 </div>
 <p>Here's some CSS that will do this (and some extra things too):</p>
 <pre class="revised"><span class="new">body {
@@ -1487,7 +1488,7 @@ If you're happy to know that this works, without needing to explore any deeper, 
 <li>Use <code>px</code> and <code>em</code> units</li>
 <li>Set the size of an element</li>
 </ul>
-<a href="#" target="source">Download the source files</a>
+<a href="" target="source">Download the source files</a>
 </div>
 <p>One important question is: "How big should the game be?" And one good answer is: "I don't know yet. Let's deal with the proportions first and work out the size later." So that's the way I propose that you should work.</p>
 <p class="aside tip">For purely practical reasons, since this is a tutorial, it will be good to make the game tall and thin. You'll discover the JavaScript development environment shortly, and you will want to give plenty of space to it, and still keep your game visible. This is easy to do if the game fills only a narrow vertical slice of your screen.</p>
@@ -1676,7 +1677,7 @@ body { font-size: <span class="red">10 px</span> }</pre></dd>
 <li>Create space and lines around your elements</li>
 <li>Create elements with rounded corners</li>
 </ul>
-<a href="#" target="source">Download the source files</a>
+<a href="" target="source">Download the source files</a>
 </div>
 <p>In the Elements Inspector, you may have already noticed a diagram that looks like this:</p>
 <figure>
@@ -1863,7 +1864,7 @@ You've already had a glimpse about how to apply <code>background-color</code> to
 <li>Set the background colour of an element</li>
 <li>Set the text color for an element and its children</li>
 </ul>
-<a href="#" target="source">Download the source files</a>
+<a href="" target="source">Download the source files</a>
 </div>
 <p>When you were experimenting with the <code>padding</code>, <code>border</code> and <code>margin</code> settings on page <a href="box">15: The CSS box model</a>, you may have noticed the colour swatches. You may even have clicked on one of them and seen the colorpicker open. This allows you to change the <code>color</code> that you apply to an element. If you Shift-click on a colour swatch, you will see that the same <code>color</code> can be defined in different ways.</p>
 <figure>
@@ -2074,7 +2075,7 @@ Well done! Up until now, to see the effect of the changes you have made, you hav
 <li>Change the appearance of the cursor</li>
 <li>Change the value of an attribute when the mouse is over an element</li>
 </ul>
-<a href="#" target="source">Download the source files</a>
+<a href="" target="source">Download the source files</a>
 </div>
 <p>When you move your cursor over a link on a web page, the cursor changes to a pointing finger, and often the link changes colour. You can make this happen when the cursor moves over a match image, too. Changing the cursor image is easy. You can do it with one line of CSS:</p>
 <pre class="revised">body {
@@ -2341,7 +2342,7 @@ If your web page behaves the way it did when it was the tracked by the rollover 
 <li>Add JavaScript to your HTML page</li>
 <li>Show an alert when the page is loaded</li>
 </ul>
-<a href="#" target="source">Download the source files</a>
+<a href="" target="source">Download the source files</a>
 </div>
 <p>JavaScript adds magic to your game... or at least the illusion of magic. Each of the ideas that you are about to learn is simple enough in itself. The power of what you are learning comes from the way you can combine these new ideas.</p>
 <div class="aside tip">Each time you learn something new, you can create a new branch in your repository and use it to experiment with the new idea. You can imagine a simple activity of your own, and test how far you can take it.
@@ -2456,20 +2457,166 @@ alert ("JavaScript says Hello!")
 <h2>Hiding an image</h2>
 <div class="aside preview">On this page, you'll learn to:
 <ul>
+<li>Create a CSS rule that makes a class of elements transparent</li>
+<li>Use your browser Console to change the class of an element</li>
+</ul>
+<a href="">Download the source files</a>
+</div>
+<p>If you have read page <a href="#units">14: CSS units</a> you already know at least two ways to make a match <code>img</code> element disappear. Think about it for a minute or two, and then roll your mouse over the space below to see a possible answer.</p>
+<ol>
+<li class="hover">Set the <code>width</code> of the element to <code>0</code></li>
+<li class="hover">Set the <code>height</code> of the element to <code>0</code></li>
+</ol>
+<p>The second answer is the better, because it won't move the other matches. If you have been following closely, perhaps you will have thought of two more answers, one of which might be even better:</p>
+<ol start="3">
+<li class="hover">Set the <code>font-size</code> of the element to <code>0</code>, because its <code>height</code> and <code>width</code> are defined in <code>em</code> units, and they will both become <code>0</code></li>
+<li class="hover">Set the <code>opacity</code> of the element to <code>0</code>, as you may have seen on page <a href="#colors">16: CSS colors</a>.</li>
+</ol>
+<p>Perhaps you thought of right-clicking on the hidden answers, and looking in the Elements Inspector, to see how I had hidden them. If you did, congratulations! You have a smart and inquisitive mind. You explore how others achieve the effects that you want to achieve.</p>
+<p>If you look closely at the display in the Elements Inspector, can you see what I did to set the opacity of the answers to <code>0</code>.</p>
+<figure>
+<img src="class-hover" alt="Using a class and a CSS rule to set the opacity of an element" />
+<figcaption>Figure XX. Using a class a CSS rule to set the <code>opacity</code> of an element</figcaption>
+</figure>
+<p>Oops! Did I just give away the answer? OK, so here are three new questions:</p>
+<ul>
+<li>Can you edit your <code>index.html</code> file so that the last match <code>img</code> elements has a class called "removed"?</li>
+<li>Can you edit your <code>style.css</code> file, so that it now contains a rule that gives all elements of the "removed" class an <code>opacity</code> of <code>0</code>?</li>
+<li>What selector will you need to use for this CSS rule?</li>
+</ul>
+<p>Here's a clue for the HTML file:</p>
+<pre class="hover">
+    &lt;div&gt;
+      &lt;img src="img/match.png" alt="match 1 row 4" <span class="new">class="removed"</span> /&gt;
+    &lt;/div&gt;</pre>
+
+<p>Here's a clue for the CSS file:</p>
+<pre class="hover"><span class="new">img.removed {
+opacity: 0;
+}</span></pre>
+<p>And here's a screenshot to show the changes that I made to my version. (I haven't made my match totally transparent, so that you can still see where it used to be).</p>
+<figure>
+<img src="hidden-match" alt="Hard-coded changes to hide the last match" />
+<figcaption>Figure XX. Hard-coded changes to hide the last match</figcaption>
+</figure>
+<p>Make sure that you make the following change to your <code>style.css</code> file before you continue. (Perhaps your colours will be different. That's fine.)</p>
+<pre class="revised">body {
+  font-size: 10px;
+  background-color: black;
+  color: rgb(255,255,255);
+}
+
+.matches {
+  text-align: center;
+}
+.matches img{
+  width: 1em;
+  height: 10em;
+  padding: 1em;
+  border-radius: 1.5em;
+  cursor: pointer;
+}
+.matches img:hover{
+  background-color: #321;
+}<span class="new">
+.matches img.removed {
+opacity: 0.1;
+}</span></pre>
+<h3>Adding a class to an element</h3>
+<p>Your goal now is to make a match disappear when the user clicks on it. To do this, you will need to:</p>
+<ul>
+<li>Discover which match element the user clicked on</li>
+<li>Add the "removed" class to that element</li>
+</ul>
+<p>I'll show you how to deal with this second issue first.</p>
+<ul>
+<li>Right-click on the second match in your browser window and select Inspect Element in the contextual menu.</li>
+<li>Make sure that the Console panel at the bottom of the window is visible</li>
+<li>Click just to the right of the <code>&gt;</code> prompt character and type (or paste) this command: <pre>document.getElementsByTagName("img")[1].classList.add("removed")</pre></li>
+<li>Press Enter</li>
+<li>Check that the second match has disappeared, and check the rules that have been applied to it, as shown in the screenshot below</li>
+</ul>
+<figure>
+<img src="classList" alt="Adding a class name to an element" />
+<figcaption>Figure XX. Using <code>classList.add()</code> to add a class name to an element</figcaption>
+</figure>
+
+<div class="aside next">
+That's just one line of code, but it's doing many things that may be new for you. To understand all that is going on, you might like to read the optional sections below.<p>When you're ready to continue, click on the Next arrow below, or on item <a href="#click">21: Detecting a click</a> in the menu on the left.</p></div>
+
+<div class="optional details">
+<input type="checkbox" id="DOM-details"/>
+<label for="DOM-details">Discover the Document Object Model</label>
+<div>
+<h4></h4>
+<p></p>
+</div>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="array-details"/>
+<label for="array-details">Discover JavaScript arrays</label>
+<div>
+<h4></h4>
+<p></p>
+</div>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="method-details"/>
+<label for="method-details">Discover object methods</label>
+<div>
+<h4></h4>
+<p></p>
+</div>
+</div>
+
+<footer>
+<ul class="nav">
+<li>
+<a href="#button">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
+<!-- DETECTING A CLICK -->
+<section id="click">
+<h2>Detecting a click on an HTML element</h2>
+<div class="aside preview">On this page, you'll learn how to:
+<ul>
 <li>Use JavaScript to detect a mouse click</li>
-<li>Use the browser's JavaScript debugger</li>
-<li>Detect which element the user clicked</li>
-<li>Use JavaScript to add a class to an element</li>
-<li>Use CSS to hide all elements with a given class</li>
+<li>Discover which element the player clicked</li>
+<li>Use JavaScript to add a class to the chosen element</li>
+</ul>
+<a href="">Download the source files</a>
+</div>
+<p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#reset">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
+<!-- THE RESET BUTTON -->
+<section id="button">
+<h2>Creating a Reset Button</h2>
+<div class="aside preview">On this page, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
 </ul>
 <a href="">Download the source files</a>
 </div>
 <p></p>
 
-<div class="aside next">
-When you're ready, click on the Next arrow below, or on item <a href="#"></a> in the menu on the left.
-<p>If you want to know more about  below.</p>
-</div>
 
 <div class="optional details">
 <input type="checkbox" id="function-details"/>
@@ -2498,28 +2645,6 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 </div>
 </div>
 
-<footer>
-<ul class="nav">
-<li>
-<a href="#button">
-<img src="../img/arrow.png" alt="next"/>
-</a>
-</li>
-</ul>
-</footer>
-</section>
-
-<!-- THE RESET BUTTON -->
-<section id="button">
-<h2>Creating a Reset Button</h2>
-<div class="aside preview">On this page, you'll learn:
-<ul>
-<li>How to </li>
-<li></li>
-</ul>
-<a href="">Download the source files</a>
-</div>
-<p></p>
 <footer>
 <ul class="nav">
 <li>
@@ -2933,7 +3058,7 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 <footer>
 <!--ul class="nav">
 <li>
-<a href="#">
+<a href="">
 <img src="../img/arrow.png" alt="next"/>
 </a>
 </li>
@@ -2948,7 +3073,7 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 <footer>
 <ul class="nav">
 <li>
-<a href="#">
+<a href="">
 <img src="../img/arrow.png" alt="next"/>
 </a>
 </li>

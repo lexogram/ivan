@@ -184,12 +184,12 @@ filter: FlipH;
   display: inline-block;
 }
 
-.preview a[href='#'],
-.preview a[href='#']:hover,
-.preview a[href='#']:active,
-.preview a[href='#']:visited {
+.preview a[href=''],
+.preview a[href='']:hover,
+.preview a[href='']:active,
+.preview a[href='']:visited {
   background-color: #eee;
-  border-color: #eee;
+  border: 1px solid #eee;
   text-decoration: none;
   cursor: default;
   color: #ccc;
@@ -389,7 +389,7 @@ font-family: asides;
 padding: 0 0.5em 0 0;
 font-size: 1.2em;
 }
-.note::before
+.note::before,
 p.note::before {
 content: "\e800";
 color: #cc6;
