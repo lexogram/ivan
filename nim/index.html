@@ -77,7 +77,7 @@
 </ul>
 </header>
 
-<article>
+<article class="inverted">
 <!-- YOUR HTML PAGE -->
 <section id="html">
 <h2>Your first HTML page</h2>
@@ -459,7 +459,7 @@ Here are the <code>git</code> commands that you have just used:
 <code>git checkout --orphan gh-pages</code><br />
 The <code>checkout</code> command said "Prepare all the files in this folder as the files that I am currently working on." The <code>--orphan</code> <span class="keyword">option</span> said "The files in this branch are to be treated completely separately from any files in any other branch". In other words, if you had a <span class="keyword">master</span> branch for your main development, the branch that you are now checking out would be totally unrelated to it. The <code>gh-pages</code> branch name at the end of the command tells Git what you want to call this new branch.  If you look at the page for your repository on GitHub, you'll find that it now has a <code>gh-pages</code> branch.
 <figure>
-<img src="gh-pagesBranch" alt="A new branch in your GitHub repository" />
+<img src="img/gh-pagesBranch.png" alt="A new branch in your GitHub repository" />
 <figcaption>Figure 19. Using <code>checkout ... <span class="keyword">branch-name</span></code> creates a new branch in your project.</figcaption>
 </figure>
 </dd>
@@ -486,7 +486,7 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <dt><a href="https://git-scm.com/docs/git-push"><code>git push</code></a></dt>
 <dd>Up until this point, all the changes have been made on your local computer. The <code>git push</code> command tells Git to send all the changed files to the remote repository on the GitHub server. When you did this, the <code>index.html</code> will have appeared in your GitHub page in your browser (you may need to refresh the page first.
 <figure>
-<img src="index-html" alt="index.html becomes visible on GitHub" />
+<img src="img/index-html.png" alt="index.html becomes visible on GitHub" />
 <figcaption>Figure 21. <code>git push</code> makes your files visible in the remote repository</figcaption>
 </figure>
 <p>By default, your local repository is called <code>origin</code>. You have just created and checked out a remote branch called <code>gh-pages</code>.Using plain <code>git push</code> will assume that you mean <code>git push origin gh-pages</code>, but it is best to be explicit each time, just to be sure that Git is not making different assumptions from you.</p>
@@ -569,7 +569,7 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <h2>Your game goes here</h2>
 <div class="aside preview">On this page, you'll learn:
 <ul>
-<li>How to track changes with Git</li>
+<li>How to track changes with Git<f/li>
 <li>How to update your GitHub web site</li>
 </ul>
 <a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_01/index.html" target="source">Download the source files</a>
@@ -602,7 +602,7 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <li>Ensure that the Terminal is focused on the folder that contains your <code>index.html</code> file. If you're not sure, type <code>cd&nbsp;</code> and then the path to the folder. Remember that you can drag the folder's icon onto the Terminal window, to paste its path automatically.</li>
 <li>As a sanity check, type <code>git status</code>. The terminal window should show that index.html has been modified.
 <figure>
-<img src="git-status" alt="git status after modifying your index.html file" />
+<img src="img/git-status.png" alt="git status after modifying your index.html file" width="536" />
 <figcaption>Figure 22. <code>git status</code> after modifying your <code>index.html</code> file</figcaption>
 </figure>
 </li>
@@ -611,14 +611,14 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 go here'"</code></li>
 <li>Type <code>git push origin gh-pages</code> and then enter your username and password
 <figure>
-<img src="git-commit" alt="Pushing your first modification to the GitHub server" />
+<img src="img/git-commit.png" alt="Pushing your first modification to the GitHub server" width="536" />
 <figcaption>Figure 23. Pushing your first modification to the GitHub server</figcaption>
 </figure>
 </li>
 </ul>
 <p>Now you can visit your project site on the GitHub web site. Instead of "Hello World", you should see your new page.</p>
 <figure>
-<img src="gameGoesHere" alt="the updated page on the GitHub site" />
+<img src="img/gameGoesHere.png" alt="the updated page on the GitHub site" />
 <figcaption>Figure 24. The updated page on the GitHub web site</figcaption>
 </figure>
 
@@ -705,7 +705,7 @@ If you are ready to go on, click on the Next arrow below, or on item <a href="#r
 <li>Set your default browser to the browser that you want Sublime Text to open</li>
 <li>On your desktop, select your <code>index.html</code> file and make sure that the default application that will be used to open <code>.html</code> files is your default browser.
 <figure>
-<img src="openWith" alt="Set the default application for .html files on Windows" />
+<img src="img/openWith.png" alt="Set the default application for .html files on Windows" />
 <figcaption>Figure 25. Windows - set the default application for <code>.html</code> files</figcaption>
 </figure>
 <figure>
@@ -745,7 +745,7 @@ If you are ready to go on, click on the Next arrow below, or on item <a href="#r
 <p>In the Terminal window type the following command:</p>
 <pre>git log</pre>
 <figure>
-<img src="git-log" alt="the git log command" />
+<img src="img/git-log.png" alt="the git log command" />
 <figcaption>Figure 27. The <code>git log</code> command gives a unique name for each <code>commit</code></figcaption>
 </figure>
 <p>You will see the history of the <code>commit</code>s that you have made, starting with the most recent. Each <code>commit</code> has a unique 32-character name. You don't need to memorize this.</p>
@@ -753,14 +753,14 @@ If you are ready to go on, click on the Next arrow below, or on item <a href="#r
 <p>To see what your project looked like at the moment of a particular <code>commit</code> you can type the command <code>git checkout xxxxxxx</code>, where xxxxxxx represents the first 7 characters in the commit name. In my case, to return to my Hello World state, I can type:</p>
 <pre>git checkout e6b50f7</pre>
 <figure>
-<img src="checkoutHello" alt="Using git checkout to view an earlier stage in the project" />
+<img src="img/checkoutHello.png" alt="Using git checkout to view an earlier stage in the project" />
 <figcaption>Figure 28. Using <code>git checkout</code> to view an earlier stage in the project</figcaption>
 </figure>
 <p>Git restores my entire project (in this case, just the <code>index.html</code> file) to the state it was in after my first commit. If I open <code>index.html</code> in my text editor, and refresh it in my browser, I can see that I am back to Hello World.</p>
 <p>This change is only temporary. I can get back to where I was before by checking out the most recent <code>commit</code>:</p>
 <pre>git checkout b6d433d</pre>
 <figure>
-<img src="checkOutGameHere" alt="checking out the most recent <code>commit" />
+<img src="img/checkOutGameHere.png" alt="checking out the most recent <code>commit" />
 <figcaption>Figure 29. Checking out the most recent <code>commit</code></figcaption>
 </figure>
 <p>You can try this for yourself. It's safe to do it now, right at the beginning of your project. If the worst comes to the worst, you can always delete everything you've done, and you need only 15 steps to get back to where you are now.</p>
@@ -773,7 +773,7 @@ If you are ready to go on, click on the Next arrow below, or on item <a href="#r
 <li>Run the command <code>git revert </code> + the first 7 characters in the name. For me, this would be:<br /> <code>git revert b6d433d</code>. The name that you use will be different.</li>
 <li>Git will now open a text editor for you to create a message explaining why you are reverting to a previous version. If you have configured Git to use Sublime Text as its preferred text editor, you should see something like Figure XX below.
 <figure>
-<img src="revert-commit-message.png" alt="you must provide a commit message when you use the revert command" />
+<img src="img/revert-commit-message.png" alt="you must provide a commit message when you use the revert command" width="536" />
 <figcaption>Figure 30. You must provide a <code>commit</code>  message when you use the <code>revert</code> command</figcaption>
 </figure></li>
 <li>Type something like <code>Testing the revert command</code>, save the document and close it.</li>
@@ -794,7 +794,7 @@ If you are ready to go on, click on the Next arrow below, or on item <a href="#r
 <p>Your command will have a different name at the end.</p>
 <p>If you now run <code>git log</code>, you will see that you have changed your history: there are now only 2 commits recorded. The third one has gone forever.</p>
 <figure>
-<img src="reset.png" alt="using reset to change your history" />
+<img src="img/reset.png" alt="using reset to change your history" />
 <figcaption>Fig XX. The <code>reset</code> command erases history.</figcaption>
 </figure>
 <div class="aside next">
@@ -879,7 +879,7 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 </ul>
 
 <figure>
-<img src="new-issue" alt="Creating a new issue on GitHub" />
+<img src="img/newIssue.png" alt="Creating a new issue on GitHub" />
 <figcaption>Figure XX. Creating a new issue on GitHub</figcaption>
 </figure>
 
@@ -926,7 +926,7 @@ This image is available to use with a Creative Commons licence. You can find the
 <li>In the contextual menu that opens, choose "Save Image As..." (The wording may be slightly different in your browser).</li>
 </ul>
 <figure>
-<img src="save-match-1+2.png" alt="save the match.png image to the nim/img/ folder" />
+<img src="img/save-match.png" alt="save the match.png image to the nim/img/ folder" />
 <figcaption>Figure 32. Save the match.png image to the nim/img/ folder</figcaption>
 </figure>
 <h3>Show the image in your page</h3>
@@ -945,7 +945,7 @@ This image is available to use with a Creative Commons licence. You can find the
 </pre>
 <p>Refresh your <code>index.html</code> page in your browser, or reopen it, and check if the image appears. If not, you can check the Troubleshooting section below. If all has gone well, you can upload your changes to the GitHub server.</p>
 <figure>
-<img src="match-in-browser.png" alt="Displaying the match image in your browser" />
+<img src="img/match-in-browser.png" alt="Displaying the match image in your browser" />
 <figcaption>Figure 33. Displaying the match image in your browser</figcaption>
 </figure>
 <h3>Upload the changes to the GitHub server</h3>
@@ -959,7 +959,7 @@ This image is available to use with a Creative Commons licence. You can find the
 </ul>
 <p>You (and everyone else in the world) should now be able to see your match image on your online web page.</p>
 <figure>
-<img src="NEEDS EDITING" alt=" Updating your local Git repository and pushing the changes to the GitHub server" />
+<img src="img/git-commit.png" alt=" Updating your local Git repository and pushing the changes to the GitHub server" />
 <figcaption>Figure 34. Updating your local Git repository and pushing the changes to the GitHub server</figcaption>
 </figure>
 <div class="aside issue">You have now successfully treated your first issue: <em>Add images of matches</em>.
@@ -1083,7 +1083,7 @@ should be called "img" and the image itself should be called "match.png".</li>
 </pre>
 <p>If you do this another 14 times, you will have a total of 16 matches, all in a line across the browser window.</p>
 <figure>
-<img src="16-matches.png" alt="16 img tags shows 16 matches in the browser" />
+<img src="img/16-matches.png" alt="16 img tags shows 16 matches in the browser" />
 <figcaption>Fig XX. 16 <code>img</code> tags shows 16 matches in the browser</figcaption>
 </figure>
 <p>By default, your browser will attempt to place all <code>img</code> elements side by side. Since your match image is very thin, it has no difficulty doing this. However, you want to display the matches in 4 separate rows, because that's the way the game works.</p>
@@ -1124,7 +1124,7 @@ should be called "img" and the image itself should be called "match.png".</li>
 </pre>
 <p>You'll notice that I've edited the <code>alt</code> texts for each match, to indicate which position and row it lies in. This means that someone who is using a screen reader to play your game will be able to visualize the layout from the <code>alt</code> text alone.</p>
 <figure>
-<img src="16-matches-in-rows.png" alt="16 matches arranged in 4 rows" />
+<img src="img/matches-in-rows.png" alt="16 matches arranged in 4 rows" />
 <figcaption>Figure 35. Using <code>div</code> elements to arrange the 16 match images in 4 rows</figcaption>
 </figure>
 <div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
@@ -1201,7 +1201,7 @@ To learn more about the <code>div</code> element, you can read the Understanding
 <p>You now have the <span class="keyword">content</span> that you need to play the game of Nim, but the matches are not yet laid out neatly in a symmetrical V shape. The easiest way to get the images to appear in a V shape is to treat them like text (yes, text) and use <code>center</code> alignment for them. But first, you need to create a separate file to contain the layout instructions.</p>
 <p>In your text editor, create a new, empty file called <code>style.css</code>, and save it an a folder called <code>css</code> in same folder as your <code>index.html</code> file. Your folder structure should now look like this:</p>
 <figure>
-<img src="style-css.png" alt="Your nim folder with index.html and folders for img/match.png and css/style.css" />
+<img src="img/style-css.png" alt="Your nim folder with index.html and folders for img/match.png and css/style.css" />
 <figcaption>Figure 36. "Your <code>nim</code> folder with <code>index.html</code> and folders for <code>img/match.png</code> and <code>css/style.css</code></figcaption>
 </figure>
 <h3>Linking the CSS file to your HTML file</h3>
@@ -1227,7 +1227,7 @@ To learn more about the <code>div</code> element, you can read the Understanding
 }</pre>
 <p>This tells the browser: "For the <code>body</code> element and all its children, make text appear centred on the page."</p>
 <figure>
-<img src="align-center.png" alt="Centring the matches with text-align: center" />
+<img src="img/align-center.png" alt="Centring the matches with text-align: center" />
 <figcaption>Figure 37. Centring the matches with <code>body { text-align: center; }</code></figcaption>
 </figure>
 
@@ -1369,7 +1369,7 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 ...</pre>
 <p>As you can see in the screenshot below, only the matches inside the <code>div</code> elements are centred. The text is aligned to the left.</p>
 <figure>
-<img src="div-centered.png" alt="Applying the text-align rule to all div elements" />
+<img src="img/div-centered.png" alt="Applying the text-align rule to all div elements" />
 <figcaption>Figure 38. Applying the <code>text-align</code> rule to all <code>div</code> elements</figcaption>
 </figure>
 <h3>Classes</h3>
@@ -1392,7 +1392,7 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 }</pre>
 <p>The rule now applies only to the <code>div</code> that has a class containing the word "matches". The other <code>div</code>s are not affected.</p>
 <figure>
-<img src="align-matches.png" alt="Using div.matches as a selector limits the selection" />
+<img src="img/align-matches.png" alt="Using div.matches as a selector limits the selection" />
 <figcaption>Figure 39. Using <code>div.matches</code> as a selector limits the selection</figcaption>
 </figure>
 <p>To ensure that all the matches appear centred, you can add <code>class="matches"</code> to all 4 <code>div</code>s, save your <code>index.html</code> page, and refresh your browser to check.</p>
@@ -1459,7 +1459,7 @@ If you are comfortable with the concepts of classes and selectors, you can click
 }</span></pre>
 <p>And this is what happens when you roll the mouse over a match:</p>
 <figure>
-<img src="rollover" alt="Changing the background-color on hover" />
+<img src="img/rollover.png" alt="Changing the background-color on hover" />
 <figcaption>Figure 40. Changing the <code>background-color</code> of an image on hover</figcaption>
 </figure>
 <p>If you copy and paste the CSS rules above into your <code>style.css</code> file, save it and refresh your <code>index.html</code> file in your browser, you should see the effect for yourself.</p> 
@@ -1512,12 +1512,12 @@ e6b50f7 Initial commit to the gh-pages branch</pre>
 <pre class="revised"><span class="new">git revert </span><span class="red">8439f0a</span> # <= use the name of your own last commit here</pre>
 <p>You will need to enter a commit message, in the text editor, then Git will set your workspace back the way it was before your last commit. (See the Troubleshooting section below if you have any problems.)</p>
 <figure>
-<img src="revert-to-pre-rollover-preview" alt="Check out a new branch and take one step backwards" />
+<img src="img/revertPreview.png" alt="Check out a new branch and take one step backwards" />
 <figcaption>Figure 40. Checking out a new branch and using it to take one step backwards</figcaption>
 </figure>
 <p>You can now use the commands <code>git checkout gh-pages</code> and <code>git checkout rollover</code> to switch between your two branches. If you refresh your browser after each <code>checkout</code> command, you will see the different states. The text in your <code>style.css</code> file should update too, inside your text editor.</p>
 <figure>
-<img src="checkout-gh-pages-rollover-NeedsEditing" alt="Using checkout to toggle between branches" />
+<img src="img/checkoutRollover.png" alt="Using checkout to toggle between branches" />
 <figcaption>Figure 41. Using <code>git checkout &lt;branch-name&gt;</code> to toggle between branches</figcaption>
 </figure>
 <p>Isn't that cool?</p>
@@ -1541,7 +1541,7 @@ e6b50f7 Initial commit to the gh-pages branch</pre>
 </ul>
 <p class="aside note">If you don't see an Inspect Element in the contextual menu, see the Troubleshooting section below.</p>
 <figure>
-<img src="inspect-element" alt="Using the elements inspector" />
+<img src="img/inspect-element.png" alt="Using the elements inspector" />
 <figcaption>Figure 42. Using the Elements Inspector</figcaption>
 </figure>
 <p>In the Styles pane on the right of the Elements Inspector, you should see that the <span class="keyword">user agent stylesheet</span> has a rule for <code>h1</code> elements that gives them a font-size of <code>2em</code>.</p>
@@ -1573,7 +1573,7 @@ body {
 <p>Instead of changing the value of <code>font-size</code> in your <code>style.css</code> file, saving it, and refreshing your browser, you can use a much faster technique for experimenting with CSS, using the browser's Elements Inspector. Right-click on a match and select Inspect Element from the contextual menu that opens. By default, the Styles pane on the right should be open, and you should see a list of the rules that apply to the element that you clicked on.</p>
 <p>The third rule in the list as the one that you applied to the <code>body</code> element, to define the font size. If you click on the value (<code>10px</code>) the value should pop out of the pane and the text should be selected. You can now type any value you like (even invalid ones). Alternatively, you can use the Up and Down arrow keys to alter the value by 1 unit. You can hold down the Shift key to alter the value by 10 each time, or the Alt key to alter the value by 0.1.</p>
 <figure>
-<img src="edit-css-in-element-inspector.png" alt="You can edit CSS in the Elements Inspector" />
+<img src="img/editCSS.png" alt="You can edit CSS in the Elements Inspector" />
 <figcaption>Figure 43. You can edit CSS in the Elements Inspector</figcaption>
 </figure>
 <div class="aside tip">You can edit the CSS of any page quite radically using this technique. You can add new attribute/value pairs, and you can disable existing settings. When you are satisfied with the results, you can copy all or part of a rule and paste it into your CSS file, for later use. <p>Note that when you refresh the page, all these temporary changes to the CSS will be lost.</p></div>
@@ -1603,7 +1603,7 @@ body { font-size: <span class="red">10 px</span> }</pre></dd>
 <dt><code>em</code></dt>
 <dd>One <code>em</code> is identical to the font-size of the current element. It can therefore have different values in different elements. For example, if the default font-size for the body is 10px and an <code>&lt;h1&gt;</code> header has a font-size of 2em, the header font will have a size of 2 x 10px = 20px. Padding of 2em around the header text will be 40px thick: 2 x 2 x 10px.
 <figure>
-<img src="em.png" alt="The value of an em unit depends on the font size of the base element" />
+<img src="img/em.png" alt="The value of an em unit depends on the font size of the base element" />
 <figcaption>Figure 44. The value of an <code>em</code> unit depends on the font size of the base element</figcaption>
 </figure>
 </dd>
@@ -1611,7 +1611,7 @@ body { font-size: <span class="red">10 px</span> }</pre></dd>
 <dd>A percentage width or height is calculated with respect to the width or height of the parent element. If the parent is 100px by 100px and the element has a width of 200% and a height of 50%, it will be 200px by 50px.
 <p class="aside note">There is one exception: padding and margin are always calculated with respect to the <em>width</em> of the parent. This means that you can create an element with a fixed aspect ratio by setting its <code>width</code> to 100% of its parent width, its <code>height</code> to 0 and its <code>padding-top</code> to a percentage of its parent width:</p>
 <figure>
-<img src="percent" alt="Expressing dimensions as a percentage of the parent's dimensions" />
+<img src="img/percent.png" alt="Expressing dimensions as a percentage of the parent's dimensions" />
 <figcaption>Figure 45. Expressing dimensions as a percentage of the parent's dimensions</figcaption>
 </figure>
 </dd>
@@ -1627,7 +1627,7 @@ body { font-size: <span class="red">10 px</span> }</pre></dd>
 <p>Elements with sizes measured in <code>px</code> will have a fixed size. Elements with sizes measured in <code>vw</code>, <code>vh</code>, <code>vmin</code> or <code>vmax</code> will change in size when the user resizes the window. Elements with sizes measured in <code>%</code> will have a size relative to their parent: if the size of the parent is measured with respect to the window (as a <code>%</code>, or as a <code>v...</code>), then the size of the element will change with the size of the window. Elements with sizes measured in <code>em</code> will all change in size together if you change the font-size of their base elements.</p>
 <div class="aside info">The <code>em</code>, <code>%</code>, <code>vw</code>, <code>vh</code>, <code>vmin</code> and <code>vmax</code> units are for your convenience. In practice, the browser converts these to pixel dimensions before applying them to the elements in your page. If you look at the values shown in the Computed pane of the Elements Inspector, or at the callouts in the main browser window, you will see that the units that are displayed are always <code>px</code>.
 <figure>
-<img src="computed-in-px" alt="The browser always converts to px units before applying dimensions" />
+<img src="img/computedPX.png" alt="The browser always converts to px units before applying dimensions" />
 <figcaption>Figure 46. The browser always converts to <code>px</code> units before applying dimensions</figcaption>
 </figure>
 </div>
@@ -1681,12 +1681,12 @@ body { font-size: <span class="red">10 px</span> }</pre></dd>
 </div>
 <p>In the Elements Inspector, you may have already noticed a diagram that looks like this:</p>
 <figure>
-<img src="box-model" alt="The box model diagram" />
+<img src="img/box-model.png" alt="The box model diagram" />
 <figcaption>Figure 48. </figcaption>
 </figure>
 <p>You may also have noticed that as you move your cursor over the HTML representation of the page elements in the Elements Inspector, coloured highlighting appears in the main browser window, along with a callout of the element type and its dimensions.</p>
 <figure>
-<img src="box-model-highlight" alt="Box model highlighting" />
+<img src="img/box-model-highlight.png" alt="Box model highlighting" />
 <figcaption>Figure 49. Using the Elements Inspector to highlight the dimensions of an element in the browser page</figcaption>
 </figure>
 <p>This is a representation of the <span class="keyword">box model</span>. Every visible HTML element is drawn in a rectangular box, with layers like a rectangular onion. The innermost layer is the HTML content itself, such as a piece of text or an image. Around that are three additional layers, which are often invisible:</p>
@@ -1705,7 +1705,7 @@ body { font-size: <span class="red">10 px</span> }</pre></dd>
   <div class="box-model blue">blue</div>
 </div>
 <figure>
-<img src="box-model-test.png" alt="Playing with the box model attributes" />
+<img src="img/box-model-test.png" alt="Playing with the box model attributes" />
 <figcaption>Figure 50. Playing with the box model attributes</figcaption>
 </figure>
 <h3>Edges and shortcuts</h3>
@@ -1792,7 +1792,7 @@ body { font-size: <span class="red">10 px</span> }</pre></dd>
 }</pre>
 <p>Save your file and refresh the page in your browser window. You should see something similar to this:</p>
 <figure>
-<img src="padding-background" alt="Creating padding with a background-color" />
+<img src="img/paddingBackground.png" alt="Creating padding with a background-color" />
 <figcaption>Figure 51. Creating <code>padding</code> with a <code>background-color</code> around the match images</figcaption>
 </figure>
 <p>The matches have been pushed apart by the padding that you have created around them.</p>
@@ -1868,7 +1868,7 @@ You've already had a glimpse about how to apply <code>background-color</code> to
 </div>
 <p>When you were experimenting with the <code>padding</code>, <code>border</code> and <code>margin</code> settings on page <a href="box">15: The CSS box model</a>, you may have noticed the colour swatches. You may even have clicked on one of them and seen the colorpicker open. This allows you to change the <code>color</code> that you apply to an element. If you Shift-click on a colour swatch, you will see that the same <code>color</code> can be defined in different ways.</p>
 <figure>
-<img src="color-picker" alt="A colour swatch in Google Chrome" />
+<img src="img/colorpicker.png" alt="A colour swatch in Google Chrome" />
 <figcaption>Figure 52. A colour swatch in Google Chrome</figcaption>
 </figure>
 <h3>Color formats</h3>
@@ -1877,7 +1877,7 @@ You've already had a glimpse about how to apply <code>background-color</code> to
   <dd><p>The w3c organization that creates the standards that browsers (are supposed to) follow, defines 256 <code>color</code> names for 256 distinct colours. These include both familiar and obvious names like <code>white</code>, <code>black</code> and <code>red</code>, through compound names like <code>palegreen</code> and <code>lightgreen</code> (which represent the same colour) to more obscure names like <code>teal</code> and <code>burlywood</code>, which might not evoke any particular colour to you, especially if English is not your first language.</p>
   <p>You can use your own preferred English spellings: both <code>grey</code> and <code>gray</code> refer to the same colo(u)r.</p>
   <figure>
-  <img src="color-names" alt="Named colours" />
+  <img src="img/color-name.jpg" alt="Named colours" />
   <figcaption>Figure 53. Defining colours by their official names</figcaption>
   </figure>
   </dd>
@@ -1887,7 +1887,7 @@ You've already had a glimpse about how to apply <code>background-color</code> to
   <p>In good light, the human eye can distinguish millions of distinct colours. Computer screens can generate millions of distinct colours by varying the amount of red, green and blue light over 256 different values: from 0 to 255. A <code>color</code> that is made of 255 units of red plus 127 units of green and 0 units of blue will appear <span class="orange">orange</span>. Using the same amount of all three primary colours will give various shades of grey, from "black" (0 of all three colours) to "white" (255 for all three colours). In fact, you do not get pure black: you get the dark grey colour of your unlit screen. You do not get pure white either: you get a pale grey that doesn't hurt your eyes too much.</p>
   <p>When you want to tell a computer which colour to display, you can use the format <code>rgb(<span class="keyword">red-value</span>, <span class="keyword">green-value</span>, <span class="keyword">blue-value</span>)</code>. For example: this colour of <span class="orange">orange</span> can be expressed as <code>rgb(255, 127, 0)</code>.</p>
   <figure>
-  <img src="color-rgb" alt="RGB colours are represented as a mix of red, green and blue" />
+  <img src="img/color-rgb.jpg" alt="RGB colours are represented as a mix of red, green and blue" />
   <figcaption>Figure 54. RGB <code>color</code>s are represented as a mix of red, green and blue</figcaption>
   </figure>
   </dd>
@@ -1896,7 +1896,7 @@ You've already had a glimpse about how to apply <code>background-color</code> to
   <p>Here are two elements that overlap. The one on the left has a rule <code>background-color: rgb(255,0,0)</code> (opaque red). The one on the right <code>background-color: rgb<strong>a</strong>(0,255,0,<strong>0.5</strong>)</code> (semi-transparent blue). Where they overlap, the <code>color</code> becomes <code>rgb(127, 0, 127)</code>: half of each original <code>color</code>.</p>
   <div class="rgb red"></div><div class="rgb blue"></div>
   <figure>
-  <img src="color-rgba" alt="Using alpha to measure opacity" />
+  <img src="img/color-rgba.jpg" alt="Using alpha to measure opacity" />
   <figcaption>Figure 55. RGBA <code>color</code>s use an alpha channel to measure opacity</figcaption>
   </figure>
   </dd>
@@ -1912,7 +1912,7 @@ You've already had a glimpse about how to apply <code>background-color</code> to
   <p>From now on, any time you see a string of 6 characters chosen from the set <code>0123456789ABCDEF</code>, you'll know that this can be used to represent a colour, in the way that computers like best.</p>
   </p>
   <figure>
-  <img src="color-#000000" alt="Colours can be expressed as a hexadecimal number" />
+  <img src="img/color-008040.png" alt="Colours can be expressed as a hexadecimal number" />
   <figcaption>Figure 56. Colours can be expressed as a hexadecimal number</figcaption>
   </figure>
   </dd>
@@ -1920,7 +1920,7 @@ You've already had a glimpse about how to apply <code>background-color</code> to
   <dd><p></p>In the early days of the Internet, connections were slow, and every bit was a burden. That's why you see element names like <code>p</code> and <code>img</code>, and units like <code>px</code>, instead of whole words.</p>
   <p>It's possible to express 4,096 distinct colours using only 4 characters instead of 7. For CSS, the number <code>#F70</code> is a short form for <code>#FF7700</code>. This is not exactly the same orange as <code>#FF7F00</code>, but it is so close you are unlikely to notice the difference.</p>
   <figure>
-  <img src="color-#000" alt="To save space, you can use just three hex digits to express 4096 different colours" />
+  <img src="img/color-093.png" alt="To save space, you can use just three hex digits to express 4096 different colours" />
   <figcaption>Figure 57. To save space, you can use just three hex digits to express 4096 different colours</figcaption>
   </figure>
   </dd>
@@ -1933,7 +1933,7 @@ You've already had a glimpse about how to apply <code>background-color</code> to
   <p>You can think of colour space as being cylindrical. Imagine a  or disc with all the bright, saturated colours around the edge. There are 360° in a circle. You can think of <span class="red">red</span>as being at 0°, <span class="green">green</span> at 120° and <span class="blue">blue</span> at 240°. The colour <span class="magenta">,magenta</span>, halfway between blue and red will be at 300°.</p>
   <p>You can imagine that as you move towards the centre of the disc, at the point where all the colours add together to become white light. And you can imagine many discs piled on top of each other, with top one being full of light and the bottom one being in total darkness. Every point on the disc at the bottom will be black.</p>
   <figure>
-  <img src="color-wheel" alt="A colour wheel with saturated colours on the circumference and white in the middle." />
+  <img src="img/color-wheel.jpg" alt="A colour wheel with saturated colours on the circumference and white in the middle." />
   <figcaption>Figure 59. A colour wheel with saturated colours on the circumference and white in the middle.</figcaption>
   </figure>
   <p>The <span class="keyword">hsl</span> format describes colours in terms of:</p>
@@ -1944,14 +1944,14 @@ You've already had a glimpse about how to apply <code>background-color</code> to
   </ul>
   <p>The Google Chrome colorpicker shows the colour space as a series of knife cuts through a cylindrical cake: white at the top left, at the point where the knife will start cutting from the centre of the cake; saturated colours at the top right, at the outside edge of the cake; and black at the bottom. The vertical strip on the right represents a ribbon around the circumference of the cake, showing the colours at the top circular edge.</p>
   <figure>
-  <img src="color-hsl" alt="The colorpicker displays colours in terms of hue, saturation and luminosty" />
+  <img src="img/color-hsl.jpg" alt="The colorpicker displays colours in terms of hue, saturation and luminosty" />
   <figcaption>Figure 59. The colorpicker displays colours in terms of hue, saturation and luminosty</figcaption>
   </figure>
   </dd>
   <dt><code>hsla</code>: Hue, Saturation, Luminosity and Alpha</dt>
   <dd>As with the RGB format, you can add an alpha value between <code>0.0</code> and <code>1.0</code> to set the opacity of a colour defined with hue, saturation and luminosity.
   <figure>
-  <img src="color-" alt="Use the alpha slider to set the opacity of the colour." />
+  <img src="img/color-hsla.jpg" alt="Use the alpha slider to set the opacity of the colour." />
   <figcaption>Figure 60. Use the alpha slider to set the opacity of the colour.</figcaption>
   </figure>
   </dd>
@@ -1982,7 +1982,7 @@ You've already had a glimpse about how to apply <code>background-color</code> to
 <li>Look at the main browser window for your <code>index.html</code> page. The first match, and the padding around it, should have become semi-transparent.</li>
 </ul>
 <figure>
-<img src="opacity" alt="Using the Console to run JavaScript commands" />
+<img src="img/opacity.png" alt="Using the Console to run JavaScript commands" />
 <figcaption>Figure 61. Using the Console to run JavaScript commands</figcaption>
 </figure>
 <p class="aside info">This is just a preview of what JavaScript can do. You will find explanations for this on page <a href="#js">19: JavaScript.</a></p>
@@ -2005,7 +2005,7 @@ You've already had a glimpse about how to apply <code>background-color</code> to
   border-radius: 1.5em;
 }</pre>
 <figure>
-<img src="background-black" alt="Setting the background color" />
+<img src="img/backgroundBlack.png" alt="Setting the background color" />
 <figcaption>Figure 62. Setting the <code>background-color</code> of the page</figcaption>
 </figure>
 <h3>Text <code>color</code></h3>
@@ -2027,7 +2027,7 @@ You've already had a glimpse about how to apply <code>background-color</code> to
   border-radius: 1.5em;
 }</pre>
 <figure>
-<img src="background-black" alt="Setting the color for all text" />
+<img src="img/backgroundBlack.png" alt="Setting the color for all text" />
 <figcaption>Figure 63. Setting the <code>color</code> for all text on the page</figcaption>
 </figure>
 <p>There are 2 things to notice here.</p>
@@ -2096,7 +2096,7 @@ Well done! Up until now, to see the effect of the changes you have made, you hav
   <span class="new">cursor: pointer;</span>
 }</pre>
 <figure>
-<img src="cursor-pointer" alt="The cursor image changes to a pointer over the match images" />
+<img src="img/cursorArrow.png" alt="The cursor image changes to a pointer over the match images" />
 <figcaption>Figure 64. The cursor image changes to a pointer over the match images</figcaption>
 </figure>
 <p>Changing the <code>background-color</code> is as easy as creating a new rule, and moving one line of code. I've also taken the opportunity to choose a new value for the <code>background-color</code>. You can, of course, choose whichever colour you prefer. Remember to delete the line <code>background-color: gray;</code> from the existing <code>.matches img { }</code> rule.</p>
@@ -2123,7 +2123,7 @@ Well done! Up until now, to see the effect of the changes you have made, you hav
 }</span>
 </pre>
 <figure>
-<img src="cursor-rollover" alt="Using the :hover pseudo element as a selector" />
+<img src="img/cursorRollover.png" alt="Using the :hover pseudo element as a selector" />
 <figcaption>Figure 65. Using the :hover pseudo element as a selector</figcaption>
 </figure>
 <p>The new rule may be short, but the concept is powerful. I recommend that you read the explanation on pseudo elements in the Learn More About... section below.</p>
@@ -2349,7 +2349,7 @@ If your web page behaves the way it did when it was the tracked by the rollover 
 <p>As your skills and knowledge increase, you can return to branches that you worked on earlier, and move them forward again. Perhaps some of your branches can become the starting point for a whole new project.</p></div>
 <p>To keep your project tidy, you should store all your JavaScript in a separate folder. In your text editor, create a new document, and save at as <code>nim.js</code> in a folder called <code>js</code>, alongside your <code>index.html</code> file. Your project folder should now look like this:</p>
 <figure>
-<img src="project-folder" alt="The img, css and js folders in the same folder as your index.html file" />
+<img src="img/projectFolder.png" alt="The img, css and js folders in the same folder as your index.html file" />
 <figcaption>Figure 66. The img, css and js folders in the same folder as your index.html file</figcaption>
 </figure>
 <h3>Hello World in JavaScript</h3>
@@ -2367,7 +2367,7 @@ If your web page behaves the way it did when it was the tracked by the rollover 
 &lt;/html&gt;</pre>
 <p>Save both files and refresh the <code>index.html</code> page in your browser. If all goes well, you should see something like this:</p>
 <figure>
-<img src="js-hello-world" alt="A Hello World JavaScript alert" />
+<img src="img/js-helloWorld.png" alt="A Hello World JavaScript alert" />
 <figcaption>Figure 67. A Hello World JavaScript alert</figcaption>
 </figure>
 <p>If you don't see this alert dialog, then check the Troubleshooting section below.</p>
@@ -2475,7 +2475,7 @@ alert ("JavaScript says Hello!")
 <p>Perhaps you thought of right-clicking on the hidden answers, and looking in the Elements Inspector, to see how I had hidden them. If you did, congratulations! You have a smart and inquisitive mind. You explore how others achieve the effects that you want to achieve.</p>
 <p>If you look closely at the display in the Elements Inspector, can you see what I did to set the opacity of the answers to <code>0</code>.</p>
 <figure>
-<img src="class-hover" alt="Using a class and a CSS rule to set the opacity of an element" />
+<img src="img/classHover.png" alt="Using a class and a CSS rule to set the opacity of an element" />
 <figcaption>Figure XX. Using a class a CSS rule to set the <code>opacity</code> of an element</figcaption>
 </figure>
 <p>Oops! Did I just give away the answer? OK, so here are three new questions:</p>
@@ -2496,7 +2496,7 @@ opacity: 0;
 }</span></pre>
 <p>And here's a screenshot to show the changes that I made to my version. (I haven't made my match totally transparent, so that you can still see where it used to be).</p>
 <figure>
-<img src="hidden-match" alt="Hard-coded changes to hide the last match" />
+<img src="img/hiddenMatch.png" alt="Hard-coded changes to hide the last match" />
 <figcaption>Figure XX. Hard-coded changes to hide the last match</figcaption>
 </figure>
 <p>Make sure that you make the following change to your <code>style.css</code> file before you continue. (Perhaps your colours will be different. That's fine.)</p>
@@ -2537,7 +2537,7 @@ opacity: 0.1;
 <li>Check that the second match has disappeared, and check the rules that have been applied to it, as shown in the screenshot below</li>
 </ul>
 <figure>
-<img src="classList" alt="Adding a class name to an element" />
+<img src="img/classList.png" alt="Adding a class name to an element" />
 <figcaption>Figure XX. Using <code>classList.add()</code> to add a class name to an element</figcaption>
 </figure>
 
