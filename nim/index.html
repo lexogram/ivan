@@ -575,7 +575,7 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <li>How to track changes with Git</li>
 <li>How to update your GitHub web site</li>
 </ul>
-<a href="#" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_01/index.html" target="source">Download the source files</a>
 </div>
 <p>Do you remember the very first HTML page that you saw on page 2?</p>
 <pre>&lt;!DOCTYPE html&gt;
@@ -741,7 +741,6 @@ If you are ready to go on, click on the Next arrow below, or on item <a href="#r
 <li>How to revert changes you have made</li>
 <li>How to rewrite your history of changes</li>
 </ul>
-<a href="#" target="source">Download the source files</a>
 </div>
 <p>In you <code>index.html</code> file, the words "Hello World!" have gone. The change that you have just made moves your project forward. But let's imagine for a moment that it creates a problem, and that you want to get back to your "Hello World" version of the file. How can you do that?</p>
 <p>Git provides 3 commands: <code>checkout</code>, <code>revert</code> and <code>reset</code>, of increasing power. You've already used <code>checkout</code> command to create the <code>gh-pages</code> branch in your repository. You can use a different flavour of it now to look at your project the way it was in the past, without disturbing its current state.</p>
@@ -851,9 +850,8 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 <div class="aside preview">On this page, you'll learn:
 <ul>
 <li>How to plan your project</li>
-<li>How to see create an issue to track progress developing features and fixing bugs</li>
+<li>How to create an issue to track progress developing features and fixing bugs</li>
 </ul>
-<a href="#" target="source">Download the source files</a>
 </div>
 <p>You've been working at this for some time now, but your game is still... let's say <em>a little disappointing</em>. No images, no interaction, no artificial intelligence. You might like to take a look at <a href="complete/">the game you are getting ready to write</a>, and make a note of what needs to be done to get from where you are now to where you want to be. Here are some of the things that you might note:</p>
 <ol>
@@ -870,8 +868,29 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 </ol>
 <p>In fact, there are plenty other things that you will need to do. You can never be sure that you have thought of everything before you start. You are likely to discover new issues as you go along. That's normal.</p>
 <h3>Issues</h3>
-<p>The GitHub site provides you with a system for tracking what still needs to be done. Their system is called "Issues". At the moment, all your issues are requests for <span class="keyword">features</span> that you want to develop. Later, you might also want to track <span class="keyword">bugs</span>. In either case, you want to have a clear description of what to do, and a way noting progress, and when it's all done.</p>
-<p>To create ... TODO</p>
+<p>The GitHub site provides you with a system for tracking what still needs to be done. Their system is called "Issues". At the moment, all your issues are requests for <span class="keyword">features</span> that you want to develop. Later, you might also want to track <span class="keyword">bugs</span>. In either case, you want to have a clear description of what to do, and a way of noting progress, and of noting when it's all done.</p>
+<p>To create an issue</p>
+<ul>
+<li>Visit your GitHub repository at <em>https://github.com/<span class="red">your-username</span>/nim</em></li>
+<li>At the top right of the page (you may have to scroll the window to see it), there is a <code>&nbsp;+&nbsp;</code> button, with a tooltip that says "Create new...". Click on that and choose "New issue"</li>
+<li>The page <em>https://github.com/<span class="red">your-username</span>/nim/issues/new</em> will open</li>
+<li>Give your new issue a title, such as "Add images of matches"</li>
+<li>Add a comment, if you think that the title alone is not enough</li>
+<li>Click on the Submit New Issue button</li>
+<li>You'll find yourself on a new page, where the issue is described as Open. As you make progress, you can add new comments here. When you have treated the issue to your satisfaction, you will be able to click on the Close Issue button.</li>
+<li>Repeat this process for each of the notes that you have made. (You can use the New Issue button instead of selecting from the <code>&nbsp;+&nbsp;</code> menu button.)</li>
+</ul>
+
+<figure>
+<img src="new-issue" alt="Creating a new issue on GitHub" />
+<figcaption>Figure XX. Creating a new issue on GitHub</figcaption>
+</figure>
+
+<p>You now have a checklist of features that you want to add to your game. It will be very gratifying to close each issue, and to see how much progress you have made.</p>
+
+<div class="aside next">
+Now it's time to start dealing with the first issue. Click on the Next arrow below, or on item <a href="#image">9: Adding an image</a> in the menu on the left.</div>
+
 <footer>
 <ul class="nav">
 <li>
@@ -893,7 +912,7 @@ For a more detailed treatment of <code>checkout</code>, <code>revert</code> and 
 <li>The role of the <code>src</code> and <code>alt</code> attributes for <code>img</code> elements</li>
 <li>The advantages of working on an open source project, using material from Creative Commons</li>
 </ul>
-<a href="#" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_03/index.html" target="source">Download the source files</a>
 </div>
 <p>Here's an image of a match, called <code>match.png</code> :</p>
 <figure>
@@ -947,7 +966,7 @@ This image is available to use with a Creative Commons licence. You can find the
 <figcaption>Figure 34. Updating your local Git repository and pushing the changes to the GitHub server</figcaption>
 </figure>
 <div class="aside issue">You have now successfully treated your first issue: <em>Add images of matches</em>.
-<p>On your GitHub page...</p>
+<p>You can visit your <a href="https://github.com/issues">Issues</a> page on GitHub, click on the link to this particular issue, and triumphantly click on the Close Issue button. Isn't that satisfying?</p>
 </div>
 
 <p class="aside next">If you want to know more about the <code>img</code> tag and its <code>src</code>, <code>alt</code> and other <span class="keyword">attributes</span>, please read the Understanding Images section below. When you're ready to continue, click on the Next arrow below, or on item <a href="#div">10: Rows of images</a> in the menu on the left.
@@ -1121,8 +1140,10 @@ git push origin gh-pages
 </div>
 
 <div class="aside issue">You can now close your second issue: <em>Arrange the images in rows</em>.
-<p>On your GitHub site...</p>
-<p>But now you can see that there is a new issue to deal with: the match images are not laid out neatly. You can ...</p>
+<p>You can visit your <a href="https://github.com/issues">Issues</a> page on GitHub, click on the link to this issue, and click on the Close Issue button.</p>
+<p>But now you can see that there is a new issue to deal with: the match images are not laid out neatly. Click on the New Issue button and enter a title for this: "Lay out match images in a neat V arrangement".</p>
+<p>It will not take long to have a whole series of closed issues behind you, and to feel a sense of how much you have achieved.</p>
+<p></p>
 </div>
 
 <div class="aside next">
@@ -1390,6 +1411,9 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 git push
 </pre>
 <p>What does your game look like on the GitHub server now?</p>
+</div>
+
+<div class="aside issue">Great! It's time to close your third issue on your <a href="https://github.com/issues">Issues</a> page on GitHub.
 </div>
 
 <div class="aside next">
@@ -2293,7 +2317,8 @@ Deleted branch rollover (was 32f3995).</pre>
 <p>You have now seen the whole life cycle of a branch: how to create a new branch, how to use it to make changes without changing the anything in the stable main branch, how to merge it back into the main branch, and how to delete it when you no longer need it.</p>
 <p>You can feel comfortable now about using branches. You can create a new branch whenever you start a new episode in your development process. You can create a new branch whenever you want to try out a new idea.</p>
 
-<div class="aside issue">You have now successfully treated another issue from your list: <em>Show the player that the images are interactive...</em>
+<div class="aside issue">You have now successfully treated another issue from your list: <em>Show the player that the images are interactive</em>. You can close this on your <a href="https://github.com/issues">Issues</a> page on GitHub.
+</em>
   
 </div>
 
@@ -2304,7 +2329,7 @@ If your web page behaves the way it did when it was the tracked by the rollover 
 <footer>
 <ul class="nav">
 <li>
-<a href="#button">
+<a href="#js">
 <img src="../img/arrow.png" alt="next"/>
 </a>
 </li>
@@ -2314,7 +2339,7 @@ If your web page behaves the way it did when it was the tracked by the rollover 
 
 <!-- JAVASCRIPT -->
 <section id="js">
-<h2>Hiding Images with JavaScript</h2>
+<h2>Adding JavaScript to your game</h2>
 <div class="aside preview">On this page, you'll learn how to:
 <ul>
 <li>Add JavaScript to your HTML page</li>
@@ -2350,8 +2375,8 @@ If your web page behaves the way it did when it was the tracked by the rollover 
 </figure>
 <p>If you don't see this alert dialog, then check the Troubleshooting section below.</p>
 <div class="aside next">
-When you're ready, click on the Next arrow below, or on item <a href="#"></a> in the menu on the left.
-<p>If you want to know more about  below.</p>
+If everything goes as expected, you can click on the Next arrow below, or on item <a href="#hide">20: Hiding an image</a> in the menu on the left, and keep on making good progresss
+<p>If you want to further insights, you can read the optional section below.</p>
 </div>
 
 <div class="optional details">
@@ -2422,7 +2447,7 @@ alert ("JavaScript says Hello!")
 <footer>
 <ul class="nav">
 <li>
-<a href="#button">
+<a href="#hide">
 <img src="../img/arrow.png" alt="next"/>
 </a>
 </li>
@@ -2480,7 +2505,7 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 <footer>
 <ul class="nav">
 <li>
-<a href="#reset">
+<a href="#button">
 <img src="../img/arrow.png" alt="next"/>
 </a>
 </li>

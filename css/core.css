@@ -184,6 +184,17 @@ filter: FlipH;
   display: inline-block;
 }
 
+.preview a[href='#'],
+.preview a[href='#']:hover,
+.preview a[href='#']:active,
+.preview a[href='#']:visited {
+  background-color: #eee;
+  border-color: #eee;
+  text-decoration: none;
+  cursor: default;
+  color: #ccc;
+}
+
 .preview a:active {
   border-style: inset;
  }
@@ -302,8 +313,8 @@ border-right-color: #dce;
 border-bottom-color: #dce;*/
 }
 .issue {
-background: #ffe7ee;
-border-color: #ffe7ee;
+background: #edc;
+border-color: #edc;
 /*border-right-color: #dce;
 border-bottom-color: #dce;*/
 }
@@ -432,7 +443,7 @@ color: #96c;
 /* */
 .issue::before {
 content: "\e80f";
-color: #967;
+color: #986;
 }
 .symptom::before{
 content: "\e810";
