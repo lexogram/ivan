@@ -493,7 +493,7 @@ color: #336;
 }
 /*#terminal .details {
 margin: 2em 0;
-}*/ 
+}*/
 .tips>div{
 background-color: #f8ffff;
 border: 0px solid #eff;
@@ -587,13 +587,31 @@ top: -2.2em;
 overflow: hidden;
 position: relative;
 }
-.inverted input ~ div, /* while authoring, to open all optional divs */
+.inverted input ~ div, /*while authoring, to open all optional divs*/
 input:checked ~ div{
 height: auto;
 padding: 0.5em;
 padding-top: 2em;
 border-width: 1px;
 }
+
+
+
+.empty label,
+.empty label::before{
+color: #ccc;
+}
+.empty input ~ div,
+.empty input:checked ~ div{
+height: 0;
+padding: 0;
+border-width: 0;
+}
+.empty input:checked + label::before{
+padding-right: 0.5em; /*To account for change in content */
+content: "\e805";
+}
+
 span.new {
 font-weight: bold;
 color: #000;

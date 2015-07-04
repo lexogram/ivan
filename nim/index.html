@@ -35,8 +35,8 @@
 <li><a href="#js">JavaScript</a></li>
 <li><a href="#hide">Hiding an image</a></li>
 <li><a href="#click">Detecting a click</a></li>
-<li><a href="#button">The Reset button</a></li>
 <li><a href="#reset">Resetting the game</a></li>
+<li><a href="#button">The Reset button</a></li>
 <li><a href="#layout">The game layout</a></li>
 <li><a href="#turns">Whose turn is it?</a></li>
 <li><a href="#rules">Enforcing rules</a></li>
@@ -114,7 +114,7 @@
 <div class="optional tips">
 <input type="checkbox" id="html-tips"/>
 <label for="html-tips">Tips and Tricks</label>
-<div> 
+<div>
 <div class="aside tip">
 On almost every page, you will find a button that allows you to Download The Source Files for that page. You might like to download these files into a separate project folder, and use them as a preview of what you will have achieved by the end of the section.
 <p>If you get really stuck at any point, you can download my original files and use them to replace your own files, so that you can continue from a stable code base.</p></div>
@@ -1033,7 +1033,7 @@ This image is available to use with a Creative Commons licence. You can find the
 <div>
 <p class="symptom">Your image does not appear in your <code>index.html</code> page in the browser. A "broken image" icon appears instead.</p>
 <ul>
-<li>HTML links are Case Sensitive. This means that "link" is not the same as "LINK" or "Link". Check if you have used any UPPERCASE letters when you named the match image file or the folder it is in. The names of the folder and the file should use the same case as the <code>src</code> path that you have created. If your path is <code>src="img/match.png"</code> then the folder 
+<li>HTML links are Case Sensitive. This means that "link" is not the same as "LINK" or "Link". Check if you have used any UPPERCASE letters when you named the match image file or the folder it is in. The names of the folder and the file should use the same case as the <code>src</code> path that you have created. If your path is <code>src="img/match.png"</code> then the folder
 should be called "img" and the image itself should be called "match.png".</li>
 <li>Perhaps you have not stored the image inside a folder called <code>img</code>, which is where you HTML page is looking for it.</li>
 <li>Perhaps you are using a different image, and you have called it "match.jpg" or "match.gif". In that case, you make sure that the extension you use in your HTML file is the same as the extension for the file itself. You might like to follow the steps to show all file extensions, in the Tips and Tricks section above.</li>
@@ -1151,7 +1151,7 @@ To learn more about the <code>div</code> element, you can read the Understanding
 <p>When you're ready to learn how CSS can give style to your web page, click on the Next arrow below, or on item <a href="#css">11: Styling with CSS</a> in the menu on the left.</p>
 </div>
 
-<div class="optional details">
+<div class="optional empty details">
 <input type="checkbox" id="div-details"/>
 <label for="div-details">Understanding the <code>div</code> element</label>
 <div>
@@ -1169,7 +1169,7 @@ To learn more about the <code>div</code> element, you can read the Understanding
 </div>
 </div>
 
-<div class="optional trouble">
+<div class="optional empty trouble">
 <input type="checkbox" id="div-trouble" />
 <label for="div-trouble">Troubleshooting </label>
 <div>
@@ -1432,7 +1432,7 @@ If you are comfortable with the concepts of classes and selectors, you can click
 <!-- REACTING TO THE MOUSE -->
 <section id="mouse">
 <h2>Reacting to the mouse</h2>
-<div class="aside preview">Your next objective is to make your game react to movements of the mouse, to encourage the player to interact with the matches. Specifically, you can: 
+<div class="aside preview">Your next objective is to make your game react to movements of the mouse, to encourage the player to interact with the matches. Specifically, you can:
 <ul>
 <li>Change the cursor when it moves over a match</li>
 <li>Create a highlight around the match under the cursor</li>
@@ -1464,7 +1464,7 @@ If you are comfortable with the concepts of classes and selectors, you can click
 <img src="img/rollover.png" alt="Changing the background-color on hover" />
 <figcaption>Figure 41. Changing the <code>background-color</code> of an image on hover</figcaption>
 </figure>
-<p>If you copy and paste the CSS rules above into your <code>style.css</code> file, save it and refresh your <code>index.html</code> file in your browser, you should see the effect for yourself.</p> 
+<p>If you copy and paste the CSS rules above into your <code>style.css</code> file, save it and refresh your <code>index.html</code> file in your browser, you should see the effect for yourself.</p>
 <div class="aside next">
 If you're happy to know that this works, without needing to explore any deeper, you can skip the next 5 sections. Click on item <a href="#js">19: JavaScript</a> in the menu on the left, to learn how to make the matches disappear.
 <p>If you want to understand how you can achieve this yourself, you can work through the pages on <a href="#units">CSS units</a>, <a href="#box">the box model</a>, <a href="#colors">colours</a> and <a href="#hover">interactions</a>. Click on the Next arrow below, or on <a href="#units">14: CSS units</a> to keep reading.</p>
@@ -1570,7 +1570,7 @@ body {
 }</span></pre>
 <p>Save your <code>style.css</code> file and refresh your <code>index.html</code> file in the browser. You should see the matches become smaller.</p>
 <div class="aside note">Note that the selector <code>.matches img</code> means "all <code>img</code> elements which have a parent with the class <code>match</code>. The space between <code>.matches</code> and <code>img</code> means "anywhere in the hierarchy": the element with the <code>match</code> class does not have to be the immediate parent of the <code>img</code> element.
-<p>In this case, the selector <code>.matches &gt; img</code> would also work. The <code>&gt;</code> means that the two elements must be in a direct parent-child relationship.</p></div>   
+<p>In this case, the selector <code>.matches &gt; img</code> would also work. The <code>&gt;</code> means that the two elements must be in a direct parent-child relationship.</p></div>
 <h3>Using the Elements Inspector to experiment with CSS</h3>
 <p>Instead of changing the value of <code>font-size</code> in your <code>style.css</code> file, saving it, and refreshing your browser, you can use a much faster technique for experimenting with CSS, using the browser's Elements Inspector. Right-click on a match and select Inspect Element from the contextual menu that opens. By default, the Styles pane on the right should be open, and you should see a list of the rules that apply to the element that you clicked on.</p>
 <p>The third rule in the list as the one that you applied to the <code>body</code> element, to define the font size. If you click on the value (<code>10px</code>) the value should pop out of the pane and the text should be selected. You can now type any value you like (even invalid ones). Alternatively, you can use the Up and Down arrow keys to alter the value by 1 unit. You can hold down the Shift key to alter the value by 10 each time, or the Alt key to alter the value by 0.1.</p>
@@ -1624,7 +1624,7 @@ body { font-size: <span class="red">10 px</span> }</pre></dd>
 <dt><code>vmin</code></dt>
 <dd>One <code>vmin</code> unit is the smaller of the <code>vw</code> and the <code>vh</code> units</dd>
 <dt><code>vmax</code></dt>
-<dd>One <code>vmax</code> unit is the larger of the <code>vw</code> and the <code>vh</code> units</dd> 
+<dd>One <code>vmax</code> unit is the larger of the <code>vw</code> and the <code>vh</code> units</dd>
 </dl>
 <p>Elements with sizes measured in <code>px</code> will have a fixed size. Elements with sizes measured in <code>vw</code>, <code>vh</code>, <code>vmin</code> or <code>vmax</code> will change in size when the user resizes the window. Elements with sizes measured in <code>%</code> will have a size relative to their parent: if the size of the parent is measured with respect to the window (as a <code>%</code>, or as a <code>v...</code>), then the size of the element will change with the size of the window. Elements with sizes measured in <code>em</code> will all change in size together if you change the font-size of their base elements.</p>
 <div class="aside info">The <code>em</code>, <code>%</code>, <code>vw</code>, <code>vh</code>, <code>vmin</code> and <code>vmax</code> units are for your convenience. In practice, the browser converts these to pixel dimensions before applying them to the elements in your page. If you look at the values shown in the Computed pane of the Elements Inspector, or at the callouts in the main browser window, you will see that the units that are displayed are always <code>px</code>.
@@ -2180,7 +2180,7 @@ You've taken the longer way round to understand all the details of the CSS rules
 </div>
 </div>
 
-<div class="optional details">
+<div class="optional empty details">
 <input type="checkbox" id="pseudo-details"/>
 <label for="pseudo-details">Learn more about pseudo elements</label>
 <div>
@@ -2191,7 +2191,7 @@ You've taken the longer way round to understand all the details of the CSS rules
 </div>
 </div>
 
-<div class="optional tips">
+<div class="optional empty tips">
 <input type="checkbox" id="hover-tips"/>
 <label for="hover-tips">Tips and Tricks</label>
 <div>
@@ -2327,7 +2327,7 @@ Deleted branch rollover (was 32f3995).</pre>
 <p>You can feel comfortable now about using branches. You can create a new branch whenever you start a new episode in your development process. You can create a new branch whenever you want to try out a new idea.</p>
 
 <div class="aside issue">You have now successfully treated another issue from your list: <em>Show the player that the images are interactive</em>. You can close this on your <a href="https://github.com/issues">Issues</a> page on GitHub.
-  
+
 </div>
 
 <div class="aside next">
@@ -2554,7 +2554,7 @@ opacity: 0.1;
 <div class="aside next">
 That's just one line of code, but it's doing many things that may be new for you. To understand all that is going on, you might like to read the optional sections below.<p>When you're ready to continue, click on the Next arrow below, or on item <a href="#click">21: Detecting a click</a> in the menu on the left.</p></div>
 
-<div class="optional details">
+<div class="optional empty details">
 <input type="checkbox" id="DOM-details"/>
 <label for="DOM-details">Discover the Document Object Model</label>
 <div>
@@ -2563,7 +2563,7 @@ That's just one line of code, but it's doing many things that may be new for you
 </div>
 </div>
 
-<div class="optional details">
+<div class="optional empty details">
 <input type="checkbox" id="array-details"/>
 <label for="array-details">Discover JavaScript arrays</label>
 <div>
@@ -2572,7 +2572,7 @@ That's just one line of code, but it's doing many things that may be new for you
 </div>
 </div>
 
-<div class="optional details">
+<div class="optional empty details">
 <input type="checkbox" id="method-details"/>
 <label for="method-details">Discover object methods</label>
 <div>
@@ -2679,10 +2679,10 @@ git commit -m "Add CSS 'removed' rule; add JavaScript to detect a click"</pre>
 
 <div class="aside next">
 There are several important ideas for you to explore here: events, functions and scope. You can read about them in the optional sections below.
-<p>When you're ready, click on the Next arrow below, or on item <a href="#reset">22: The Reset button</a> in the menu on the left.</p>
+<p>When you're ready, click on the Next arrow below, or on item <a href="#reset">22: Resetting the game</a> in the menu on the left.</p>
 </div>
 
-<div class="optional details">
+<div class="optional empty details">
 <input type="checkbox" id="objects-details"/>
 <label for="objects-details">Learn more about objects</label>
 <div>
@@ -2691,7 +2691,7 @@ There are several important ideas for you to explore here: events, functions and
 </div>
 </div>
 
-<div class="optional details">
+<div class="empty optional details">
 <input type="checkbox" id="event-details"/>
 <label for="event-details">Learn more about events</label>
 <div>
@@ -2700,7 +2700,7 @@ There are several important ideas for you to explore here: events, functions and
 </div>
 </div>
 
-<div class="optional details">
+<div class="empty optional details">
 <input type="checkbox" id="function-details"/>
 <label for="function-details">Learn more about JavaScript functions</label>
 <div>
@@ -2709,7 +2709,7 @@ There are several important ideas for you to explore here: events, functions and
 </div>
 </div>
 
-<div class="optional details">
+<div class="empty optional details">
 <input type="checkbox" id="scope-details"/>
 <label for="scope-details">Learn more about scope in JavaScript</label>
 <div>
@@ -2771,6 +2771,32 @@ There are several important ideas for you to explore here: events, functions and
 </footer>
 </section>
 
+<!-- RESETTING THE GAME -->
+<section id="reset">
+<h2>Resetting the Game</h2>
+<div class="aside preview">On this page, you'll learn how to:
+<ul>
+<li>Remove a class from an element</li>
+<li>Name a function</li>
+<li>Create a variable</li>
+<li>Select all HTML elements with a given class</li>
+<li>Work with an array of elements</li>
+<li>Repeat the same action on each element</li>
+</ul>
+<a href="">Download the source files</a>
+</div>
+<p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#button">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
 <!-- THE RESET BUTTON -->
 <section id="button">
 <h2>Creating a Reset Button</h2>
@@ -2783,28 +2809,6 @@ There are several important ideas for you to explore here: events, functions and
 </div>
 <p></p>
 
-<footer>
-<ul class="nav">
-<li>
-<a href="#reset">
-<img src="../img/arrow.png" alt="next"/>
-</a>
-</li>
-</ul>
-</footer>
-</section>
-
-<!-- RESETTING THE GAME -->
-<section id="reset">
-<h2>Resetting the Game</h2>
-<div class="aside preview">On this page, you'll learn:
-<ul>
-<li>How to </li>
-<li></li>
-</ul>
-<a href="">Download the source files</a>
-</div>
-<p></p>
 <footer>
 <ul class="nav">
 <li>
