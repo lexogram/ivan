@@ -103,12 +103,12 @@
 <figcaption>Figure 1: How HTML &lt;title&gt; and &lt;body&gt; HTML elements appear in a browser</figcaption></figure>
 <p>You can discover what all these <code>&lt;tags&gt;</code> mean in the Understanding HTML Tags section at the end of page <a href="#game">6: Your game goes here</a>. But in fact, your browser will automatically create most of these tags if they are missing, so you can start with something even simpler, for now.</p>
 <h3>Do It Yourself</h3>
-<p>In the programming community, it is a tradition that your first program in any new language should display the words <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program#History">"hello world"</a>. To honour that tradition, you can create your own Hello World page and open it in <em>your</em> browser.</p>
+<p>In the programming community, it is a tradition that your first program in any new language should display the words <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program#History">"hello world"</a>. To honour that tradition, you can create your own Hello World page and open it in your browser.</p>
 <p>If you haven't already got a text editor, <a href="http://www.sublimetext.com/2">download and install a trial copy of Sublime Text</a>. Open your text editor and create a new document. You can type <code>hello world</code> (or any other message you like), then save your file as <code>index.html</code>.</p>
 <p>Find the file that you have just created on your desktop, and double-click on it. It should open in your favourite browser.</p>
 <figure><img src="img/02_helloWorld.png" alt="A Hello World HTML page displayed in a browser" /><figcaption>Figure 2. A Hello World HTML page displayed in a Google Chrome</figcaption></figure>
 <h3>Hello... Desktop</h3>
-<p>Actually, the world can't see your message yet. This file that you saved on your local hard drive is only visible in your browser. Your next step will be to put an HTML file onto this server, so that anyone in the world can see it. To be precise, it will take you a total of 15 steps, including the ones that you have just taken. There will be clear instructions, explanations and screenshots to make sure that you find your way.</p>
+<p>Actually, the world can't see your message yet. This file that you saved on your local hard drive is only visible in <em>your</em> browser. Your next step will be to put an HTML file onto this server, so that anyone in the world can see it. To be precise, it will take you a total of 15 steps, including the ones that you have just taken. There will be clear instructions, explanations and screenshots to make sure that you find your way.</p>
 <p class="aside next">If you are eager to continue building your game, click on the Next arrow below, or on item <a href="#git">3: Getting Git</a> in the menu on the left. Your Hello message should be online for the world to see when you have reach the end of page 5. If you need help or want to know more, click on optional sections below.</p>
 
 <div class="optional tips">
@@ -130,7 +130,7 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <input type="checkbox" id="html-trouble"/>
 <label for="html-trouble">Troubleshooting your HTML page</label>
 <div>
-<p class="symptom">Your HTML page is not appearing correctly in the browser. Perhaps one of these steps will help you:</p>
+<p class="symptom">Your HTML page is not appearing correctly in the browser.</p>
 <ul>
 <li>If you are not using Sublime Text, perhaps your text editor is saving your files in a <code class="keyword">rich text</code> format, such as <code>.doc</code> or <code>.rtf</code>. Make sure that you are saving in a plain text format, using <code>.html</code> as the extension.</li>
 <li>There may be many files called <code>index.html</code> on your computer. Make sure that you are opening the right one. If you are using Sublime Text, you can use the right-click &gt; Show in Browser shortcut, to be sure that you are opening the same document that you are working on.</li>
@@ -419,7 +419,7 @@ git push origin gh-pages
 </figure>
 <p>Git will ask you for the username and password that you registered when you created your Git account. When you type your password in the Terminal window, no characters will appear. Press Enter when you're done.</p>
 <p>That's it! Now you can visit your new web site. <strong>In your browser, type in the URL for your GitHub site</strong>. For me, it will be:</p>
-<a href="http://blackslate.github.io/nim/">http://blackslate.github.io/nim/</a>
+<a href="http://blackslate.github.io/nim/" class="url">http://blackslate.github.io/nim/</a>
 <p>For you, if you called your repository "nim", then all you have to do is replace my "blackslate" username with your own username.</p>
 <p>http://<strong>&lt;yourUserName&gt;</strong>.github.io/nim/</p>
 <figure>
@@ -982,7 +982,7 @@ This image is available to use with a Creative Commons licence. You can find the
 <h4>src</h4>
 <p>The <code>src</code> (source) attribute tells the browser where to find the image. This can be an either:</p>
 <ul>
-<li>an <span class="keyword">absolute path</span> that uniquely identifies the file on the whole of the Internet, such as <code><a href="http://lexogram.github.io/openbook/nim/complete/img/match.png">http://lexogram.github.io/openbook/nim/complete/img/match.png</a></code></li>
+<li>an <span class="keyword">absolute path</span> that uniquely identifies the file on the whole of the Internet, such as <code><a href="http://lexogram.github.io/openbook/nim/complete/img/match.png" class="url">http://lexogram.github.io/openbook/nim/complete/img/match.png</a></code></li>
 <li>a <span class="keyword">relative path</span> indicating the how to find the image if you start in the folder that contains the HTML page itself. If the HTML page is in a folder called <code>nim/</code> and an image called <code>match.png</code> is in a folder called <code>nim/img/</code>, then the relative path will be <code>img/match.png</code>.</li>
 </ul>
 <h4>alt</h4>
@@ -3244,7 +3244,7 @@ When you're ready to begin, click on the Next arrow below, or on item <a href="#
 <p>HTML would be the food on your plate. HTML provides the content and the structure of the information in your web page.</p>
 <p>A web page that just contains HTML can be informative, and can contain links to other pages.</p>
 <h4>CSS</h4>
-<p>CSS would be the way table is laid and the way the food is presented on your plate. CSS takes care of the colour, shape and position of the HTML elements. It's what gives the page its <span class="keyword">style</span>.</p>
+<p>CSS would be the way the table is laid and the way the food is presented on your plate. CSS takes care of the colour, shape and position of the HTML elements. It's what gives the page its <span class="keyword">style</span>.</p>
 <p>A web page that just contains CSS is like a deserted restaurant: neat and decorative surroundings, all prepared for something to happen.</p>
 <h4>JavaScript</h4>
 <p>JavaScript would be the animation and conversation. JavaScript is what makes the web page come to life, with interactions, animations, cause and effect. JavaScript can connect you to other internauts in other places, making the web a social place to be.</p>

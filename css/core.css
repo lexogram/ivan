@@ -599,7 +599,7 @@ border-width: 1px;
 
 .empty label,
 .empty label::before{
-color: #ccc;
+color: #ddd;
 }
 .empty input ~ div,
 .empty input:checked ~ div{
@@ -663,6 +663,41 @@ font-style: normal;
 
 @media print
 {
-  #side, header img { display: none; }
-  main, header, section { display: block; }
+  * {
+    background-color: transparent !important;
+    color: #000 !important;
+  }
+  .sidebar, .empty, .next, header, footer .nav, .preview a {
+    display: none;
+  }
+  p.support::before { color: #669;}
+  main, section { display: block; padding-bottom: 0;}
+  main {left: 0; width: auto; height: auto;}
+  input ~ div {height: auto; top: 0;}
+  footer {height: 1px; page-break-after: always;}
+  p,
+  figure {
+    display: block;
+    page-break-before: auto;
+    page-break-after: auto;
+    page-break-inside: avoid;
+  }
+  a {
+    text-decoration: none;
+  }
+  a:link:after,
+  a:visited:after {
+    content: " (http://lexogram.github.io/openbook/" attr(href) ") ";
+    font-weight: normal;
+    font-style: oblique;
+  }
+  a[href^="http"]:link:after,
+  a[href^="http"]:visited:after {
+    content: " (" attr(href) ")";
+  }
+  a.url:link:after,
+  a.url:visited:after {
+    content: "";
+  }
 }
+
