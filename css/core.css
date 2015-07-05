@@ -239,8 +239,8 @@ section {
   box-sizing: border-box;
 }
 section, section:target ~ :last-child{
-display: none;
-}
+/*display: none;
+*/}
 section:target,
 section:last-child {
 display: block;
@@ -458,7 +458,7 @@ font-weight: bold;
 
 figure{
 text-align: center;
-margin:0;
+margin: 1em 0;
 }
 figcaption{
 font-size: 0.85em;
