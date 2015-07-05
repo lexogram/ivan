@@ -2785,7 +2785,38 @@ There are several important ideas for you to explore here: events, functions and
 </ul>
 <a href="">Download the source files</a>
 </div>
-<p></p>
+<p>To <em>add</em> the class <code>"removed"</code> to an element, you used a command like <code><em>element</em>.classList.add("removed")</code>. I'm sure you can make a good guess at what command you need to <em>remove</em> a class. Here's how you can test your guess:</p>
+<ul>
+<li>In the browser's Development Tools panel, disable the breakpoint temporarily</li>
+<li>In your main browser window, click on a match to hide it</li>
+<li>Re-enable you breakpoint</li>
+<li>Click on the match that you have just hidden</li>
+<li>The debugger will open at the line that says <code>  event.target.classList.add("removed"), and the match will still be hidden</code></li>
+<li>At the prompt in the Console pane, type the command that you think will show the match again</li>
+<li>Press Enter</li>
+</ul>
+<p>Here's how that looks for me, just before I press Enter.</p>
+<figure>
+<img src="img/remove-class.png" alt="removing a class from an element from the console"/>
+<figcaption>Figure XX. Removing a class from an element from the console</figcaption>
+</figure>
+<p>Oops, did I make the command a little difficult to read? Is this better?</p>
+<pre class="hover">event.target.classList.<strong>remove</strong>("removed")</pre>
+<p>Did your match reappear?</p>
+<h3>JavaScript errors</h3>
+<p>I'm now going to get you to do something wrong, on purpose.</p>
+<ul>
+<li>Click on the Resume Script Execution button. Your match should disappear again, as the line of code in your <code>nim.js</code> file is executed.</li>
+<li>Click on the Console, to make sure that it is listening to the keyboard</li>
+<li>Press the Up arrow on your keyboard, to show the last command that you typed again</li>
+<li>Press Enter, to execute it.</li>
+</ul>
+<p>Here's the error message that the Console gives me:</p>
+<figure>
+<img src="img/event-undefined.png" alt="An error caused by using a variable out of scope" />
+<figcaption>Figure XX. An error caused by using a variable out of scope</figcaption>
+</figure>
+
 <footer>
 <ul class="nav">
 <li>

@@ -256,6 +256,7 @@ display: block;
 .next,
 .kudos,
 .support,
+.experiment,
 pre {
 display: block;
 padding: 0.5em;
@@ -440,7 +441,10 @@ color: #c99;
 content: "\e80d";
 color: #96c;
 }
-/* */
+.kudos::before {
+content: "\e80e";
+color: #96c;
+}
 .issue::before {
 content: "\e80f";
 color: #986;
