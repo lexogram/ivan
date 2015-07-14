@@ -176,19 +176,37 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 <input type="checkbox" id="git-trouble"/>
 <label for="git-trouble">Installing and Updating Git</label>
 <div>
-<h4>Installing Git: Windows</h4>
-<p>Git is not installed by default on the Windows operating system. The easiest way to install it is to <a href="https://git-scm.com/download/win">download an installer</a>. When you click on the link, the download should start automatically.</p>
+<h4>Installing Git on Windows</h4>
+<p>The easiest way to install Git on the Windows is to <a href="https://git-scm.com/download/win">download an installer</a>. When you click on the link, the download should start automatically.</p>
 <p class="aside note">You can launch the installer application and simply click on the Next &gt; button, <strong>until you reach the screen Adjusting Your PATH Environment</strong>. (See image below). Here, it is best to select the Use Git From The Windows Command Prompt radio button. The Windows Command Prompt uses the Windows-standard <code>/</code> character in path names, which means that you can copy and paste path names from the Explorer windows, or drag files onto the Command Prompt window to paste their paths automatically into the window. Perhaps later, you will prefer to use the Git Bash application: selecting the second radio button, as shown in the image below, will allow you to choose the option you like best.</p>
 <figure>
 <img src="img/04_installGitWindows.png" alt="" />
 <figcaption>Figure 5. Choose - Use Git From The Windows Command Prompt</figcaption>
 </figure>
+<h4>Installing Git on Mac OS X</h4>
+<p>If <code>git --version</code> tell you <code>command not found: git</code>, then you can download an installer for Git and run the installer</p>
+<p>If you are using Mac OS 10.9 (Mavericks) or later, you can <a href="http://git-scm.com/download/mac">download an installer</a> from the git-scm.com site.</p>
+<p>If your version of Mac OS X is older (but no older than OS 10.6 Snow Leopard), then you can use the latest Snow Leopard installer that you can find at<a href="http://sourceforge.net/projects/git-osx-installer/files/">sourceforge.net</a></p>
+<p class="aside note">The sourceforge site contains commercial advertising, and may include links to third-party sites that masquerade as download buttons. It is safe to click on the links with the format <em>git-2.x.x-intel-universal...dmg</em>.</p>
+<p>When you have downloaded the DMG file that is appropriate for your version of Mac OS X:</p>
+<ul>
+<li>Double-click on the downloaded file</li>
+<li>Right-click on the yellow PKG icon and select Open from the contextual menu. (If you simply double-click, Mac OS X may tell you that it cannot be opened.)</li>
+<li>Click Open in the dialog window</li>
+<li>Enter the name and password of an admin user, to allow the installation</li>
+<li>Click through the Continue buttons in the installation dialog</li>
+<li>Click on Close when the installation is finished</li>
+</ul>
+<figure>
+<img src="../img/GitOnMac.png" alt="Installing Git on Mac OS X" />
+<figcaption>Figure XX. Installing Git on Mac OS X</figcaption>
+</figure>
+
 <h4>Updating Git: Mac</h4>
-<p>Git is installed by default on Mac OS X. However, older versions of the Mac operating system may have versions which are now considered obsolete. Mac OS 10.8 (Snow Leopard) for example, comes with version 1.7.4.4. Using this would cause an error if relied on it when following the instructions in section 5.</p>
-<p>The Mac OS X operating system relies on its own version of Git for certain housekeeping tasks. As a result, is is better not to update the pre-installed version of Git.</p>
-<p>A safer option is to install an up-to-date version of Git, and to use the newer version for all your work.</p>
-<p>You can <a href="https://git-scm.com/downloads">download the most recent version of Git</a> from git-scm.com, and run the installer. However, when you run <code>git --version</code> in the Terminal window, you will probably see that the old version continues to be used.</p>
-<p>To tell your Mac that you want to use the newer version, you need to execute some command line commands. Here are commands that I use on Mac OS 10.8.5 after running the Git installer for version 2.3.5:</p>
+<p>If you have installed other coding environments, such as XCode, Git may already be installed on your Mac. However, it's possible that this previously installed version is now considered obsolete, and that you will need to upgrade it. If <code>git --version</code> tells you that you have version 1.7.9.5 or earlier, you might run into errors if you relied on it to follow the instructions in section 5.</p>
+<p>Your other coding environment may rely on this older version for housekeeping duties, so it is best not to change it. The safest option is to install an up-to-date version of Git, and to use the newer version for all your work.</p>
+<p>To do this, follow the Install Git on Mac instructions above.</p>
+<p>To tell your Mac that you want to use the newer version, you need to execute some commands in the Terminal. Here are commands that I use on Mac OS 10.8.5 after running the Git installer for version 2.3.5:</p>
 <pre class="revised"><span class="new">git --version</span>
 git version 1.7.4.4
 <span class="new">which git</span>
@@ -201,6 +219,8 @@ git version 1.7.4.4
 <span class="new">git --version</span>
 git version 2.3.5
 </pre>
+<h4>Installing Git on a Unix-like system</h4>
+
 <p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
 </div>
@@ -2805,19 +2825,82 @@ There are several important ideas for you to explore here: events, functions and
 <p>Oops, did I make the command a little difficult to read? Is this better?</p>
 <pre class="hover">event.target.classList.<strong>remove</strong>("removed")</pre>
 <p>Did your match reappear?</p>
+<p class="aside disrupt">If you want to see what happens when you execute this command when the debugger is not halted at this breakpoint, see the Breaking Things On Purpose section below.</p>
+<h3>Creating an array of removed elements</h3>
+<p>When the game is over, all the matches will have had the <code>removed</code> class attached to them. You will want to make all these matches reappear. First, you need to make an <span class="keyword">array</span>  of all the removed matches.</p>
+<p>You've already used the <code>.matches</code> class in your <code>style.css</code> file, to select all the match images. Perhaps you could use it again now, to get JavaScript to select all the matches. Type this after the Console prompt:</p>
+<pre>document.getElementsByClassName("matches")</pre>
+<p>You should see an array of elements printed out into the Console. However, this is not exactly what you need. You need an array of the <code>img</code> elements inside the <code>match</code> &lt;div&gt;s. For that, you need a different command:</p>
+<pre>document.querySelectorAll(".matches img")</pre>
+<p>Try it: it works exactly the same way as a CSS selector, from inside JavaScript.</p>
+<figure>
+<img src="img/querySelectorAll.png" alt="querySelectorAll() acts exactly like a CSS selector from within JavaScript" />
+<figcaption>Figure XX. <code>querySelectorAll()</code> acts exactly like a CSS selector from within JavaScript</figcaption>
+</figure>
+<h3>Applying the same code to each element in an array</h3>
+<p>One of the things you will do very often in JavaScript is to <span class="keyword">iterate</span>  through a sequence of items. There are several ways you can do this in JavaScript. Here is some code to add to your <code>nim.js</code> file, that uses the most basic technique:</p>
+<pre class="revised">document.body.onclick = function (event) {
+  event.target.classList.add("removed")
+}
+
+<span class="new">function reset() {
+  var matches = document.querySelectorAll(".matches img.removed");
+
+  for (var ii=0; ii<matches.length; ii++) {
+    var match = matches[ii];
+    match.classList.remove("removed");
+  }
+}</span></pre>
+<div class="aside next">
+When you're ready, click on the Next arrow below, or on item <a href="#"></a> in the menu on the left.
+<p>If you want to know more about  below.</p>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="selectors-details"/>
+<label for="selectors-details">Learn more about arrays of elements</label>
+<div>
+<p>There are several JavaScript commands that you can use to create an array of elements, so that you can treat them all together:</p>
+<dl>
+  <dt><a href="http://www.w3schools.com/jsref/met_document_getelementsbytagname.asp">getElementsByTagName()</a></dt>
+  <dd><code>parentElement.getElementsByTagName()</code> creates an array of all the elements that are the children of a given parent element, that have a given tag name, such as <code>"img"</code>, <code>"div"</code> <code>"h1"</code>. You can find more details on the <a href="https://developer.mozilla.org/en/docs/Web/API/Document/getElementsByTagName">Mozilla Developers site</a></dd>
+  <dt><a href="http://www.w3schools.com/jsref/met_document_getelementsbyclassname.asp">getElementsByClassName()</a></dt>
+   <dd><code>parentElement.getElementsByClassName()</code> creates an array of all the elements that are the children of a given parent element, to which you have given a specific class name, such as <code>"matches"</code>. You can find more details on the <a href="https://developer.mozilla.org/en/docs/Web/API/Document/getElementsByClassName">Mozilla Developers site</a></dd>
+  <dt><a href="http://www.w3schools.com/jsref/met_document_queryselectorall.asp">querySelectorAll()</a></dt>
+  <dd><code>parentElement.querySelectorAll()</code> creates an array of all the elements that are the children of a given parent element, which match a CSS selector, such as <code>".matches img"</code>. For this command, you must include the <code>.</code> dot in front of the class name, exactly as you would for CSS. You can find more details on the <a href="https://developer.mozilla.org/en/docs/Web/API/Document/querySelectorAll">Mozilla Developers site</a></dd>
+</dl>
+<p>There are similar methods that return a single element, or the <code>null</code> object if no elements match:</p>
+<dl>
+  <dt><a href="http://www.w3schools.com/jsref/met_document_queryselector.asp">querySelector()</a></dt>
+  <dd>This is like <code>element.querySelectorAll()</code>, except that it returns just the first element that matches the selector.You can find more details on the <a href="https://developer.mozilla.org/en/docs/Web/API/Document/querySelector">Mozilla Developers site</a></dd>
+  <dt><a href="http://www.w3schools.com/jsref/met_doc_getelementbyid.asp">getElementById()</a></dt>
+<dd>An <code>id</code> is similar to a <code>class</code> except that JavaScript will only recognize the first element on a given page with a given id. You can find more details on the <a href="https://developer.mozilla.org/en/docs/Web/API/Document/getElementsById">Mozilla Developers site</a></dd>
+</dl>
+</div>
+</div>
+
+<div class="optional break">
+<input type="checkbox" id="reset-break"/>
+<label for="reset-break">Breaking things on purpose</label>
+<div>
 <h3>JavaScript errors</h3>
-<p>I'm now going to get you to do something wrong, on purpose.</p>
+<p>I'm going to get you to do something wrong, on purpose.</p>
 <ul>
-<li>Click on the Resume Script Execution button. Your match should disappear again, as the line of code in your <code>nim.js</code> file is executed.</li>
+<li>If the JavaScript debugger is still stopped at the breakpoint, click on the Resume Script Execution button. Your match should disappear again, as the line of code in your <code>nim.js</code> file is executed.</li>
 <li>Click on the Console, to make sure that it is listening to the keyboard</li>
-<li>Press the Up arrow on your keyboard, to show the last command that you typed again</li>
-<li>Press Enter, to execute it.</li>
+<li>Press the Up arrow on your keyboard, to show the last command that you typed again<pre>
+event.target.classList.remove("removed")</pre></li>
+<li>Press Enter, to execute this line of code.</li>
 </ul>
 <p>Here's the error message that the Console gives me:</p>
 <figure>
 <img src="img/event-undefined.png" alt="An error caused by using a variable out of scope" />
 <figcaption>Figure XX. An error caused by using a variable out of scope</figcaption>
 </figure>
+<p>When you click on a match and then pause your code at a breakpoint in the debugger, the <code>event</code> argument has a value. The JavaScript engine generates this value from all the information that is relevant to your click action. </p>
+<p>When you execute the same code outside the context of a click action, the JavaScript engine has no reason to create an event object, so the variable <code>event</code> is undefined.</p>
+</div>
+</div>
 
 <footer>
 <ul class="nav">

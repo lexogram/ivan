@@ -239,8 +239,8 @@ section {
   box-sizing: border-box;
 }
 section, section:target ~ :last-child{
-/*display: none;
-*/}
+display: none;
+}
 section:target,
 section:last-child {
 display: block;
@@ -256,7 +256,7 @@ display: block;
 .next,
 .kudos,
 .support,
-.experiment,
+.disrupt,
 pre {
 display: block;
 padding: 0.5em;
@@ -302,7 +302,7 @@ border-color: #e4fdfd;
 border-bottom-color: #dee;*/
 }
 .git {
-background: #eee7ff;
+background: #efefe7;
 /*border-color: #f8f0ff;
 border-right-color: #dce;
 border-bottom-color: #dce;*/
@@ -344,6 +344,12 @@ border-right-color: #003;
 border-bottom-color: #003;*/
 color: #fff;
 }
+.disrupt {
+background: #ecc;
+/*border-color: #669;
+border-right-color: #003;
+border-bottom-color: #003;*/
+}
 pre {
 background: #eee;
 /*border-color: #ccc;
@@ -351,7 +357,7 @@ border-right-color: #f4f4ff;
 border-bottom-color: #f4f4ff;*/
 }
 .git pre{
-background: #ece0f8;
+background: #ddc;
 /*border-color: #ede;
 border-right-color: #fef;
 border-bottom-color: #fef;*/
@@ -441,9 +447,9 @@ color: #c99;
 content: "\e80d";
 color: #96c;
 }
-.kudos::before {
+.disrupt::before {
 content: "\e80e";
-color: #96c;
+color: #966;
 }
 .issue::before {
 content: "\e80f";
@@ -521,6 +527,18 @@ background-color: #eed;
 .trouble label::before{
 color: #633;
 }
+.break>div{
+background-color: #fff8f8;
+border: 0px solid #fcc;
+}
+.break pre,
+.break code{
+background-color: #fee;
+}
+.break label,
+.break label::before{
+color: #966;
+}
 
 .warn code{
 background-color: #ecc;
@@ -539,7 +557,7 @@ background-color: #eef8f8
 background-color: #cee
 }
 .git code{
-background-color: #e8d8ff;
+background-color: #ddc;
 }
 .info pre{
 background-color: #ddddf8;
