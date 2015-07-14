@@ -535,6 +535,7 @@ border: 0px solid #fcc;
 .break code{
 background-color: #fee;
 }
+.break h3,
 .break label,
 .break label::before{
 color: #966;

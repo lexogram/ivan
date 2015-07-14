@@ -2846,14 +2846,21 @@ There are several important ideas for you to explore here: events, functions and
 <span class="new">function reset() {
   var matches = document.querySelectorAll(".matches img.removed");
 
-  for (var ii=0; ii<matches.length; ii++) {
+  for (var ii=0; ii&lt;matches.length; ii++) {
     var match = matches[ii];
     match.classList.remove("removed");
   }
 }</span></pre>
+<p>This code creates an array of <code>img</code> elements which have the <code>"removed"</code> class, and then uses a standard <span class="keyword">for loop</span> to remove the <code>"removed"</code> class from each element in this array. See the Learn More About Loops section below if you want more information about how this works.</p>
+<h3>Using the Console to reset the game</h3>
+<p>To test that this code works, you can use the Console. Click on one or more matches to make them disappear, and then type the command <span class="keyword">reset()</span> after the prompt symbol, then press return:</p>
+<figure>
+<img src="img/reset-from-console.png" alt="Resetting the game from the Console" />
+<figcaption>Figure XX. Resetting the game from the Console</figcaption>
+</figure>
 <div class="aside next">
-When you're ready, click on the Next arrow below, or on item <a href="#"></a> in the menu on the left.
-<p>If you want to know more about  below.</p>
+The next step will be to create a Reset button that will execute the <code>reset</code> command automatically when the player clicks on it. When you're ready, click on the Next arrow below, or on item <a href="#button">The Reset button</a> in the menu on the left.
+<p>The Learn More About section below provide explanations of important concepts that you will want to master, in order to get the most out of the coming pages.</p>
 </div>
 
 <div class="optional details">
@@ -2879,6 +2886,19 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 </div>
 </div>
 
+<div class="optional details">
+<input type="checkbox" id="loop-details"/>
+<label for="loop-details">Learn more about loops</label>
+<div>
+<p>For more information on how the <span class="keyword">for</span> statetment creates a loop, you can follow this links:</p>
+<ul>
+<li>
+<a href="http://www.w3schools.com/js/js_loop_for.asp">w3schools</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for">Mozilla</a></li>
+</ul>
+</div>
+</div>
+
 <div class="optional break">
 <input type="checkbox" id="reset-break"/>
 <label for="reset-break">Breaking things on purpose</label>
@@ -2899,6 +2919,8 @@ event.target.classList.remove("removed")</pre></li>
 </figure>
 <p>When you click on a match and then pause your code at a breakpoint in the debugger, the <code>event</code> argument has a value. The JavaScript engine generates this value from all the information that is relevant to your click action. </p>
 <p>When you execute the same code outside the context of a click action, the JavaScript engine has no reason to create an event object, so the variable <code>event</code> is undefined.</p>
+<div class="aside note">When everything works perfectly, you do not need to understand how it works. To understand something, it helps to break it apart and put it back together, seeing how all the pieces fit.
+<p>You do not become a good programmer by writing perfect code. You become a good programmer by exploring all the imperfections in your thinking. Each time your code breaks, you can seize a new opportunity to learn.</p></div>
 </div>
 </div>
 
@@ -2918,12 +2940,73 @@ event.target.classList.remove("removed")</pre></li>
 <h2>Creating a Reset Button</h2>
 <div class="aside preview">On this page, you'll learn:
 <ul>
-<li>How to </li>
-<li></li>
+<li>How to create a button using HTML</li>
+<li>Execute code when the user clicks on a button</li>
 </ul>
 <a href="">Download the source files</a>
 </div>
+<p>The Console is a good place to test your code, but you want people to be able to play your game without even knowing that the Console (or your code) exists. Fortunately, you can create a button and make it execute the <code>reset()</code> command with a single line of HTML</p>
+<p>In your text editor, open your <code>index.html</code> file and edit it as follows:</p>
+<pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Nim&lt;/title&gt;
+    &lt;link rel="stylesheet" href="css/style.css" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Nim&lt;/h1&gt;
+    &lt;h2&gt;The game that will beat you&lt;/h2&gt;
+    &lt;div class="matches"&gt;
+      &lt;img src="img/match.png" alt="match 1 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 2 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 3 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 4 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 5 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 6 row 1" /&gt;
+      &lt;img src="img/match.png" alt="match 7 row 1" /&gt;
+    &lt;/div&gt;
+    &lt;div class="matches"&gt;
+      &lt;img src="img/match.png" alt="match 1 row 2" /&gt;
+      &lt;img src="img/match.png" alt="match 2 row 2" /&gt;
+      &lt;img src="img/match.png" alt="match 3 row 2" /&gt;
+      &lt;img src="img/match.png" alt="match 4 row 2" /&gt;
+      &lt;img src="img/match.png" alt="match 5 row 2" /&gt;
+    &lt;/div&gt;
+    &lt;div class="matches"&gt;
+      &lt;img src="img/match.png" alt="match 1 row 3" /&gt;
+      &lt;img src="img/match.png" alt="match 2 row 3" /&gt;
+      &lt;img src="img/match.png" alt="match 3 row 3" /&gt;
+    &lt;/div&gt;
+    &lt;div class="matches"&gt;
+      &lt;img src="img/match.png" alt="match 1 row 4" /&gt;
+    &lt;/div&gt;
+    <span class="new">&lt;button type="button" onclick="reset()"&gt;Reset&lt;/button&gt;</span>
+    &lt;script src="js/nim.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+<p>Save your file and refresh your browser. You should see a new button named Reset. Click on one or more of the matches, and then on the Reset button. The matches that you clicked on should now reappear.</p>
+
+<div class="aside next"> You can discover how this new line works by reading the optional sections below. You'll be adding four more buttons like this in the following pages, and using CSS to lay them out neatly.
+<p>When you're ready to continue, click on the Next arrow below, or on item <a href="#layout">The game layout</a> in the menu on the left.</p>
+</div>
+
+<div class="optional empty details">
+<input type="checkbox" id="button-details"/>
+<label for="button-details">Learn more about buttons</label>
+<div>
+<h4></h4>
 <p></p>
+</div>
+</div>
+
+<div class="optional empty details">
+<input type="checkbox" id="button-details"/>
+<label for="button-details">Learn more about the <code>onclick</code> attribute</label>
+<div>
+<h4></h4>
+<p></p>
+</div>
+</div>
 
 <footer>
 <ul class="nav">
