@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="css/nim.css" />
+</head>
+<body>
+<main>
+  <h1>Nim</h1>
+  <div class="game">
+    <div class="matches seven">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+    </div>
+      <div class="matches five">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+    </div>
+    <div class="matches three">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+      <img src="/nim/img/match.png" alt="match">
+    </div>
+    <div class="matches one">
+      <img src="/nim/img/match.png" alt="match">
+    </div>
+
+    <div class="turns">
+      <div class="player1 active">
+         <button type="button">Done</button>
+       <p>Player 1</p>
+      </div><div class="player2">
+        <button type="button">Done</button>
+        <p>Player 2</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="start">
+    <button type="button" onclick="reset()">Start new game</button>
+  </div>
+</main>
+
+<script src="js/nim.js"></script>
+</body>
+</html>

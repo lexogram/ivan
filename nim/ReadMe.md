@@ -61,5 +61,6 @@ Extra steps:
  - JS:  Allow undo
  - JS:  Drag to select matches
  - JS:  Automatically apply `Done` if you take all matches in a row
+ - JS:  Allow player to tap Enter instead of clicking `Done`
  - ALL: Make accessible
  - HTML + CSS: Adapt for iPhone, iPad, Android, ... devices
