@@ -37,11 +37,14 @@
 <li><a href="#click">Detecting a click</a></li>
 <li><a href="#reset">Resetting the game</a></li>
 <li><a href="#button">The Reset button</a></li>
+<li><a href="#elements">The game elements</a></li>
 <li><a href="#layout">The game layout</a></li>
 <li><a href="#turns">Whose turn is it?</a></li>
 <li><a href="#rules">Enforcing rules</a></li>
+<li><a href="#scope">Variables and scope</a></li>
 <li><a href="#rows">One row at a time</a></li>
 <li><a href="#winner">Who won?</a></li>
+<li><a href="#two-players">Two player game</a></li>
 <li><a href="#overlay">Using an overlay</a></li>
 <li><a href="#player">Computer player</a></li>
 <li><a href="#random">Random moves</a></li>
@@ -199,7 +202,7 @@ Why call your file <code>index.html</code>? In fact, you could call your html fi
 </ul>
 <figure>
 <img src="../img/GitOnMac.png" alt="Installing Git on Mac OS X" />
-<figcaption>Figure XX. Installing Git on Mac OS X</figcaption>
+<figcaption>Figure 6. Installing Git on Mac OS X</figcaption>
 </figure>
 
 <h4>Updating Git: Mac</h4>
@@ -251,11 +254,13 @@ git version 2.3.5
 <li>Select a chunk of text with your cursor</li>
 <li>Replace that chunk of text by simply typing over it</li>
 <li>Remove the selected text with keyboard shortcut for Cut</li>
+<li>Easily undo and redo your actions</li>
 </ul>
 <p>In a word processor, you can also place the text insertion point anywhere you want and type to insert new text.</p>
 <p>Terminal applications do not work that way.</p>
 <p>In a Terminal application, you cannot cut or replace text, and you must use the arrow keys (rather than the mouse) to place the text insertion point. To delete text, you must place the text insertion point at the end of the text to delete and then use the backspace key to delete the characters one by one.</p>
 <p>This may seem awkward to you at first, but it allows you to keep your hands over the keyboard at all times; you never need to reach out sideways for the mouse.</p>
+<p>If, regrettably, you enter a command that does something that you did not want to do, your only solution is to enter a new command that explicitly undoes that precise action. It's good to check your command carefully before you press the Enter key.</p>
 </div>
 <h4>Copy and Paste in the Windows Command Prompt</h4>
 <p class="aside tip">The standard keyboard shortcuts like <code>Ctrl-C</code> and <code>Ctrl-Z</code> were introduced by Apple in 1984 and were adopted in Windows applications only much later. The Windows Command Prompt uses an older keyboard shortcut system. In the Windows Command Prompt, you will need to use <code>Alt-Spacebar</code> to show a contextual menu, and then press the letter that appears underlined in the menu item that you want to use.<br /><br />For example, to select text, you can press <code>Alt-Spacebar</code> then E (for <code><span class="under">E</span>dit</code>), then M (for <code><span class="under">M</span>ark</code>). You can now use the arrow keys to move the selection around and extend it. Pressing Enter will copy the highlighted text to your clipboard. Use <code>Alt-Spacebar <span class="under">E</span>dit</code>, <code><span class="under">P</span>aste</code> to paste your text.</p>
@@ -289,30 +294,30 @@ git version 2.3.5
 <p>The first page asks for a username and an email address that are not currently registered on GitHub. It will also ask you to enter a password. At the beginning, at least, you will be typing this username and password often.</p>
 <figure>
 <img src="img/05_joinGitHub.png" alt="" />
-<figcaption>Figure 6. Create a personal account on GitHub</figcaption>
+<figcaption>Figure 7. Create a personal account on GitHub</figcaption>
 </figure>
 <p>On the second page, you can accept the Free plan, which is already chosen as the default. Simply press the Finish Sign Up button.</p>
 <figure>
 <img src="img/06_choosePlan.png" alt="" />
-<figcaption>Figure 7. Choose a free plan</figcaption>
+<figcaption>Figure 8. Choose a free plan</figcaption>
 </figure>
 <p>This is the very first time you are visiting GitHub as a registered user, so you see a special screen, suggesting that you take the official tour of what Git and GitHub can do for you. When you return to this page in the future, the top section will be different.</p>
 <figure>
 <img src="img/07_newRepository.png" alt="" />
-<figcaption>Figure 8. You're ready to create a repository</figcaption>
+<figcaption>Figure 9. You're ready to create a repository</figcaption>
 </figure>
 <p class="aside tip">You might like to take GitHub's own tour now, to learn about the basic Git commands, or you might like to bookmark the <a href="https://guides.github.com/activities/hello-world/">Hello World tutorial</a> or the <a href="try.github.io/">Try Git tutorial</a> so that you can come back to these after the world has seen you say "Hello!"</p>
 <p>On the right of the page, you can see a big green New Repository button. Click on that and fill in the Repository Name field. A new page will appear. This first time, to keep everything simple, leave everything else exactly the way it is, and just click on the Create Repository button. (You might like to fill in the optional Description field, though.)</p>
 <figure>
 <img src="img/08_createRepository.png" alt="" />
-<figcaption>Figure 9. Give your project a name</figcaption>
+<figcaption>Figure 10. Give your project a name</figcaption>
 </figure>
 <p>You'll find yourself on a page full of choices and command line code. No worries. When you find yourself here again later, you will have a much clearer understanding of what all this means.</p>
 <figure>
 <img src="img/09_copyRepoURL.png" alt="" />
-<figcaption>Figure 10. Copy the URL for your new repository</figcaption>
+<figcaption>Figure 11. Copy the URL for your new repository</figcaption>
 </figure>
-<p>The most important thing to do now is to <strong>copy the URL for your new GitHub repository</strong>. You can do this by clicking on the Copy To Clipboard button, as shown in Figure 10 above. You'll need to paste this URL into a Terminal window in the next step.</p>
+<p>The most important thing to do now is to <strong>copy the URL for your new GitHub repository</strong>. You can do this by clicking on the Copy To Clipboard button, as shown in Figure 11 above. You'll need to paste this URL into a Terminal window in the next step.</p>
 <p class="aside next">Your immediate aim is to get your Hello World page online, so I propose to take an unconventional shortcut. If you want to know what the conventional path is, then you can read the Branches and Pages section below. If you want to move along quickly, just click on the Next arrow below, or on item <a href="#branch">5: Creating a branch</a> in the menu on the left.</p>
 
 <div class="optional details">
@@ -328,7 +333,7 @@ git version 2.3.5
 <p>As a rule, you start a project with a single branch called <span class="keyword">master</span>. The master branch will contain only code that has been tested extensively, to ensure that it is stable. Each time you want to make a change (which might not be so stable), you create a new branch, and you work on that. Let's imagine that you call the new branch <span class="keyword">develop</span>. When you first create the develop branch, it is identical to the master branch. When you have tested your new code and have decided that the develop branch is stable, you can merge the changes back into the master branch, like one arm of a river flowing back into the main channel. After each new merge, the master branch and the develop branch might again be identical. You can continue working in the develop branch, and make additional branches from that. Your additional branches may be for proposed bug fixes, for new features and for experiments.</p>
 <figure>
 <img src="https://git-scm.com/images/about/branches@2x.png" width="500" height="288" alt="Branches">
-<figcaption>Figure 11. The multiple paths or <span class="keyword">branches</span> in a project repository</figcaption>
+<figcaption>Figure 12. The multiple paths or <span class="keyword">branches</span> in a project repository</figcaption>
 </figure>
 <p>You can give your branches any name you like (so long as they only use the 53 permitted characters). Normally, you would use a name that describes the change you are about to make.</p>
 <h4>Pages</h4>
@@ -390,7 +395,7 @@ git version 2.3.5
 
 <figure>
 <img src="img/10_cdCommand.png" alt="" />
-<figcaption>Figure 12. Using the <code>cd</code> command in a Terminal window</figcaption>
+<figcaption>Figure 13. Using the <code>cd</code> command in a Terminal window</figcaption>
 </figure>
 
 <ul>
@@ -398,7 +403,8 @@ git version 2.3.5
 <li><ol>
 <li><strong>Type: <code>git clone&nbsp;</code></strong> (with a space after "clone")</li>
 <li><strong>Paste in the URL that you copied</strong> at the end of the last step</li>
-<li><strong>Add a space and <code>&nbsp;gh-pages</code></strong>. The complete command might look something like this, except that you will use your own username instead of "blackslate":<br /><code>git clone https://github.com/<strong>blackslate</strong>/nim.git gh-pages</code></li>
+<li><strong>Add a space and <code>&nbsp;gh-pages</code></strong>. The complete command might look something like this, except that you will use your own username instead of "blackslate":<p><code>git clone https://github.com/<strong>blackslate</strong>/nim.git gh-pages</code></p>
+<p><em>Don't simply copy and paste this line: make sure that you have correctly entered your own username, and that you have used the right name for your repository, before you press the Enter key.</em></p></li>
 <li><strong>Press the Enter key</strong>.</li>
 </ol>
 </li>
@@ -408,12 +414,12 @@ git version 2.3.5
 <p>Inside your <code>nim</code> folder you should now see a folder named <code>gh-pages</code>. The clone command should have copied into it all the contents of your new repository on the GitHub server (in other words, nothing, since your new repository is still empty). The output in the Terminal should look something like this:</p>
 <figure>
 <img src="img/11_clone.png" alt="" />
-<figcaption>Figure 13. Using <code>git clone</code> to create a local repository.</figcaption>
+<figcaption>Figure 14. Using <code>git clone</code> to create a local repository.</figcaption>
 </figure>
-<p>The <code>git clone</code> command also created an invisible folder called <code>.git</code> inside the new <code>gh-pages</code> folder, as you can see in Figure 14 below. This contains all the data that the Git application needs to keep track of the changes that you make to your project.</p>
+<p>The <code>git clone</code> command also created an invisible folder called <code>.git</code> inside the new <code>gh-pages</code> folder, as you can see in Figure 15 below. This contains all the data that the Git application needs to keep track of the changes that you make to your project.</p>
 <figure>
 <img src="img/12_invisibleGit.png" alt="" />
-<figcaption>Figure 14. The contents of the invisible <code>.git</code> folder</figcaption>
+<figcaption>Figure 15. The contents of the invisible <code>.git</code> folder</figcaption>
 </figure>
 <p class="aside tip">To learn how to make "invisible" files visible on your computer, you can read the Tips and Tricks section below.</p>
 <p>Now for some more command line magic. (Do you remember what the <code>cd&nbsp;</code> command does?)</p>
@@ -427,7 +433,7 @@ git status</pre>
 <p>Here's how your Terminal window might look now:</p>
 <figure>
 <img src="img/13_orphanBranch.png" alt="" />
-<figcaption>Figure 15. Checking out a new <span class="keyword">orphan</span> branch of your project</figcaption>
+<figcaption>Figure 16. Checking out a new <span class="keyword">orphan</span> branch of your project</figcaption>
 </figure>
 <p>Just a few more actions, and you'll see your Hello World web page online.</p>
 <ul>
@@ -436,7 +442,7 @@ git status</pre>
 </ul>
 <figure>
 <img src="img/14_status.png" alt="" />
-<figcaption>Figure 16. The <code>status</code> of your project is updated each time you make a change.</figcaption>
+<figcaption>Figure 17. The <code>status</code> of your project is updated each time you make a change.</figcaption>
 </figure>
 <ul>
 <li>Now you're going to tell Git that you are confident about the changes that you have made. In the Terminal window, <strong>type the following 3 commands</strong>:</li>
@@ -447,7 +453,7 @@ git push origin gh-pages
 </pre>
 <figure>
 <img src="img/15_commit.png" alt="" />
-<figcaption>Figure 17. Pushing your changes to the remote GitHub repository</figcaption>
+<figcaption>Figure 18. Pushing your changes to the remote GitHub repository</figcaption>
 </figure>
 <p>Git will ask you for the username and password that you registered when you created your Git account. When you type your password in the Terminal window, no characters will appear. Press Enter when you're done.</p>
 <p>That's it! Now you can visit your new web site. <strong>In your browser, type in the URL for your GitHub site</strong>. For me, it will be:</p>
@@ -456,7 +462,7 @@ git push origin gh-pages
 <p>http://<strong>&lt;yourUserName&gt;</strong>.github.io/nim/</p>
 <figure>
 <img src="img/16_helloWorld.png" alt="" />
-<figcaption>Figure 18. A Hello that the world can see</figcaption>
+<figcaption>Figure 19. A Hello that the world can see</figcaption>
 </figure>
 <div class="aside next">Congratulations! You have completed the first challenge: getting your first web page online in just 15 steps. Here's what you 've done so far. You:
 <ol>
@@ -495,7 +501,7 @@ Here are the <code>git</code> commands that you have just used:
 The <code>checkout</code> command said "Prepare all the files in this folder as the files that I am currently working on." The <code>--orphan</code> <span class="keyword">option</span> said "The files in this branch are to be treated completely separately from any files in any other branch". In other words, if you had a <span class="keyword">master</span> branch for your main development, the branch that you are now checking out would be totally unrelated to it. The <code>gh-pages</code> branch name at the end of the command tells Git what you want to call this new branch.  If you look at the page for your repository on GitHub, you'll find that it now has a <code>gh-pages</code> branch.
 <figure>
 <img src="img/gh-pagesBranch.png" alt="A new branch in your GitHub repository" />
-<figcaption>Figure 19. Using <code>checkout ... <span class="keyword">branch-name</span></code> creates a new branch in your project.</figcaption>
+<figcaption>Figure 20. Using <code>checkout ... <span class="keyword">branch-name</span></code> creates a new branch in your project.</figcaption>
 </figure>
 </dd>
 <dt><a href="https://git-scm.com/docs/git-status"><code>git status</code></a></dt>
@@ -508,7 +514,7 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 </ul>
 <figure>
 <img src="http://i.stack.imgur.com/XwVzT.png" alt="Git Data Transport Commands" />
-<figcaption>Figure 20. How Git tracks the changes you make</figcaption>
+<figcaption>Figure 21. How Git tracks the changes you make</figcaption>
 </figure>
 <p class="aside kudos">Credit: <a href="http://blog.osteele.com/posts/2008/05/my-git-workflow/">Oliver Steele</a></p>
 
@@ -522,7 +528,7 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <dd>Up until this point, all the changes have been made on your local computer. The <code>git push</code> command tells Git to send all the changed files to the remote repository on the GitHub server. When you did this, the <code>index.html</code> will have appeared in your GitHub page in your browser (you may need to refresh the page first.
 <figure>
 <img src="img/index-html.png" alt="index.html becomes visible on GitHub" />
-<figcaption>Figure 21. <code>git push</code> makes your files visible in the remote repository</figcaption>
+<figcaption>Figure 22. <code>git push</code> makes your files visible in the remote repository</figcaption>
 </figure>
 <p>By default, your local repository is called <code>origin</code>. You have just created and checked out a remote branch called <code>gh-pages</code>.Using plain <code>git push</code> will assume that you mean <code>git push origin gh-pages</code>, but it is best to be explicit each time, just to be sure that Git is not making different assumptions from you.</p>
 </dd>
@@ -607,7 +613,7 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <li>How to track changes with Git</li>
 <li>How to update your GitHub web site</li>
 </ul>
-<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_01/index.html" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_06/step_06.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>Do you remember the very first HTML page that you saw on page 2?</p>
 <pre>&lt;!DOCTYPE html&gt;
@@ -638,7 +644,7 @@ The <code>checkout</code> command said "Prepare all the files in this folder as 
 <li>As a sanity check, type <code>git status</code>. The terminal window should show that index.html has been modified.
 <figure>
 <img src="img/git-status.png" alt="git status after modifying your index.html file" width="536" />
-<figcaption>Figure 22. <code>git status</code> after modifying your <code>index.html</code> file</figcaption>
+<figcaption>Figure 23. <code>git status</code> after modifying your <code>index.html</code> file</figcaption>
 </figure>
 </li>
 <li>Type <code>git add -A</code> and press Enter</li>
@@ -647,14 +653,14 @@ go here'"</code></li>
 <li>Type <code>git push origin gh-pages</code> and then enter your username and password
 <figure>
 <img src="img/git-commit.png" alt="Pushing your first modification to the GitHub server" width="536" />
-<figcaption>Figure 23. Pushing your first modification to the GitHub server</figcaption>
+<figcaption>Figure 24. Pushing your first modification to the GitHub server</figcaption>
 </figure>
 </li>
 </ul>
 <p>Now you can visit your project site on the GitHub web site. Instead of "Hello World", you should see your new page.</p>
 <figure>
 <img src="img/gameGoesHere.png" alt="the updated page on the GitHub site" />
-<figcaption>Figure 24. The updated page on the GitHub web site</figcaption>
+<figcaption>Figure 25. The updated page on the GitHub web site</figcaption>
 </figure>
 
 <div class="aside next">
@@ -677,7 +683,7 @@ If you are ready to go on, click on the Next arrow below, or on item <a href="#r
 <dt><code>&lt;head&gt;...&lt;/head&gt;</code></dt>
 <dd><p>The <code>head</code> element contains instructions to the browser that are not shown inside the browser window. In sections <a href="css">11</a> and <a href="js">12</a>, you will add instructions to tell the browser where to find additional files to download. The <code>head</code> can also contain information for search engines that summarize the contents of the page.</p></dd>
 <dt><code>&lt;title&gt;...&lt;/title&gt;</code></dt>
-<dd><p>As you can see from the screen shot in figure 1, the text inside the <code>title</code> element appears in the title bar of the browser window, or as a label in the tab for the current page.</p>
+<dd><p>As you can see from the screen shot in <a href="#html">figure 1</a>, the text inside the <code>title</code> element appears in the title bar of the browser window, or as a label in the tab for the current page.</p>
 <p>Search engines like <a href="http://www.google.com">Google</a>, <a href="http://www.yandex.com">Yandex</a> and <a href="http://www.baidu.com">Baidu</a> use the text in the <code>title</code> element to understand the main purpose of the page.</p></dd>
 <dt><code>&lt;body&gt;...&lt;/body&gt;</code></dt>
 <dd><p>The <code>body</code> element contains everything that will appear inside the browser window. There should only be one <code>body</code> element.</p></dd>
@@ -741,11 +747,11 @@ If you are ready to go on, click on the Next arrow below, or on item <a href="#r
 <li>On your desktop, select your <code>index.html</code> file and make sure that the default application that will be used to open <code>.html</code> files is your default browser.
 <figure>
 <img src="img/openWith.png" alt="Set the default application for .html files on Windows" />
-<figcaption>Figure 25. Windows - set the default application for <code>.html</code> files</figcaption>
+<figcaption>Figure 26. Windows - set the default application for <code>.html</code> files</figcaption>
 </figure>
 <figure>
 <img src="TODO MAC" alt="Set the default application for .html files on Macintosh" />
-<figcaption>Figure 26. Macintosh - set the default application for <code>.html</code> files</figcaption>
+<figcaption>Figure 27. Macintosh - set the default application for <code>.html</code> files</figcaption>
 </figure>
 </li>
 </ul>
@@ -781,7 +787,7 @@ If you are ready to go on, click on the Next arrow below, or on item <a href="#r
 <pre>git log</pre>
 <figure>
 <img src="img/git-log.png" alt="the git log command" />
-<figcaption>Figure 27. The <code>git log</code> command gives a unique name for each <code>commit</code></figcaption>
+<figcaption>Figure 28. The <code>git log</code> command gives a unique name for each <code>commit</code></figcaption>
 </figure>
 <p>You will see the history of the <code>commit</code>s that you have made, starting with the most recent. Each <code>commit</code> has a unique 32-character name. You don't need to memorize this.</p>
 <h3>git checkout</h3>
@@ -789,24 +795,24 @@ If you are ready to go on, click on the Next arrow below, or on item <a href="#r
 <pre>git checkout e6b50f7</pre>
 <figure>
 <img src="img/checkoutHello.png" alt="Using git checkout to view an earlier stage in the project" />
-<figcaption>Figure 28. Using <code>git checkout</code> to view an earlier stage in the project</figcaption>
+<figcaption>Figure 29. Using <code>git checkout</code> to view an earlier stage in the project</figcaption>
 </figure>
 <p>Git restores my entire project (in this case, just the <code>index.html</code> file) to the state it was in after my first commit. If I open <code>index.html</code> in my text editor, and refresh it in my browser, I can see that I am back to Hello World.</p>
 <p>This change is only temporary. I can get back to where I was before by checking out the most recent <code>commit</code>:</p>
 <pre>git checkout b6d433d</pre>
 <figure>
 <img src="img/checkOutGameHere.png" alt="checking out the most recent <code>commit" />
-<figcaption>Figure 29. Checking out the most recent <code>commit</code></figcaption>
+<figcaption>Figure 30. Checking out the most recent <code>commit</code></figcaption>
 </figure>
 <p>You can try this for yourself. It's safe to do it now, right at the beginning of your project. If the worst comes to the worst, you can always delete everything you've done, and you need only 15 steps to get back to where you are now.</p>
 <h3>git revert</h3>
-<p>The <code>git revert xxxxxxx</code> command is more powerful. It is not an "undo" command, but its effect is to undo all the changes made by the chosen commit, but . In fact, it creates a new <code>commit</code> that resets the state of your project to the way it was earlier. This action adds a new element to the history of your project. If you change your mind, you can then revert the previous <code>revert</code>. You can <code>revert</code> back to any point in the past, and all the intervening changes will still be safely stored, for you to revert to if you need to.</p>
+<p>The <code>git revert xxxxxxx</code> command is more powerful. It is not an "undo" command, but its effect is to undo all the changes made by the chosen commit. In fact, it creates a new <code>commit</code> that resets the state of your project to the way it was earlier. This action adds a new element to the history of your project. If you change your mind, you can then revert the previous <code>revert</code>. You can <code>revert</code> back to any point in the past, and all the intervening changes will still be safely stored, for you to revert to if you need to.</p>
 <p class="aside note">Before testing the <code>revert</code> command, I strongly recommend that you configure Git to use Sublime Text as its preferred text editor. You can find instructions for this in the Tips and Tricks section at the bottom of page <a href="#branch">5: Creating a branch</a>. If you don't do this, you might need to use the Troubleshooting section below to find out how to manage the command line text editor that Git uses by default.</p>
 <p>If you have set up Git to use Sublime Text as the default text editor, you might like to test this command now. </p>
 <ul>
 <li>Check the <code>git log</code> that you made earlier for the name of the most recent commit</li>
 <li>Run the command <code>git revert </code> + the first 7 characters in the name. For me, this would be:<br /> <code>git revert b6d433d</code>. The name that you use will be different.</li>
-<li>Git will now open a text editor for you to create a message explaining why you are reverting to a previous version. If you have configured Git to use Sublime Text as its preferred text editor, you should see something like Figure XX below.
+<li>Git will now open a text editor for you to create a message explaining why you are reverting to a previous version. If you have configured Git to use Sublime Text as its preferred text editor, you should see something like Figure 30 below.
 <figure>
 <img src="img/revert-commit-message.png" alt="you must provide a commit message when you use the revert command" width="536" />
 <figcaption>Figure 30. You must provide a <code>commit</code>  message when you use the <code>revert</code> command</figcaption>
@@ -944,7 +950,7 @@ Now it's time to start dealing with the first issue. Click on the Next arrow bel
 <li>The role of the <code>src</code> and <code>alt</code> attributes for <code>img</code> elements</li>
 <li>The advantages of working on an open source project, using material from Creative Commons</li>
 </ul>
-<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_03/index.html" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_09/step_09.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>Here's an image of a match, called <code>match.png</code> :</p>
 <figure>
@@ -1102,7 +1108,7 @@ should be called "img" and the image itself should be called "match.png".</li>
 <li>How to add multiple images to your page</li>
 <li>How to use the <code>div</code> element to arrange them in rows</li>
 </ul>
-<a href="" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_10/step_10.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>Showing 2 matches in your web page is as easy as showing one. You can simply copy and paste the line that you have just changed:</p>
 <pre class="revised">&lt;!DOCTYPE html&gt;
@@ -1231,7 +1237,7 @@ To learn more about the <code>div</code> element, you can read the Understanding
 <li>Cascading Style Sheets</li>
 <li>How to set the alignment of text</li>
 </ul>
-<a href="" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_11/step_11.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>You now have the <span class="keyword">content</span> that you need to play the game of Nim, but the matches are not yet laid out neatly in a symmetrical V shape. The easiest way to get the images to appear in a V shape is to treat them like text (yes, text) and use <code>center</code> alignment for them. But first, you need to create a separate file to contain the layout instructions.</p>
 <p>In your text editor, create a new, empty file called <code>style.css</code>, and save it an a folder called <code>css</code> in same folder as your <code>index.html</code> file. Your folder structure should now look like this:</p>
@@ -1246,7 +1252,8 @@ To learn more about the <code>div</code> element, you can read the Understanding
 <li>Tell the <code>style.css</code> file how to treat the HTML elements</li>
 </ul>
 <p>At the beginning of your <code>index.html</code> file, inside the <code>&lt;head&gt;</code> tag, add the line that appears in bold below:</p>
-<pre>&lt;html&gt;
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
   &lt;head&gt;
     &lt;title&gt;Nim&lt;/title&gt;
     <span class="new">&lt;link rel="stylesheet" href="css/style.css" /&gt;</span>
@@ -1269,7 +1276,7 @@ To learn more about the <code>div</code> element, you can read the Understanding
 <div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
 <pre>git status
 git add -A
-git commit -m "Add css/styles.css to centre the matches"
+git commit -m "Add css/style.css to centre the matches"
 git push origin gh-pages
 </pre>
 <p>Now, you should be able to see the matches centred in your GitHub page.</p>
@@ -1355,8 +1362,8 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 <div>
 <p class="symptom">Your matches remain bunched together on the left of the page:</p>
 <ul>
-<li>In your <code>index.html</code> file, check that the relative path to your <code>styles.css</code> is correct</li>
-<li>In your <code>styles.css</code> file, check that you have all the right symbols: curly brackets <code>{}</code> around the rule to apply, a colon <code>:</code> after the attribute name, and a semi-colon <code>;</code> after the value.</li>
+<li>In your <code>index.html</code> file, check that the relative path to your <code>style.css</code> is correct</li>
+<li>In your <code>style.css</code> file, check that you have all the right symbols: curly brackets <code>{}</code> around the rule to apply, a colon <code>:</code> after the attribute name, and a semi-colon <code>;</code> after the value.</li>
 </ul>
 <p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
 </div>
@@ -1382,10 +1389,10 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 <li>Giving elements a class attribute to distinguish them</li>
 <li>Select an element by its class</li>
 </ul>
-<a href="" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_12/step_12.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>As it happens, you won't want to centre all the text in your game. For example, later, you will want the text for the rules to be aligned to the left. Using a CSS <span class="keyword">selector</span>, you can choose to apply <code>text-align: center</code> only to the <code>&lt;div&gt;</code> elements that show the matches.</p>
-<p>In your <code>styles.css</code> file, rename the selector from <code>body</code> to <code>div</code>, as shown below:</p>
+<p>In your <code>style.css</code> file, rename the selector from <code>body</code> to <code>div</code>, as shown below:</p>
 <pre class="revised"><span class="new">div</span> {
   text-align: center;
 }</pre>
@@ -1422,7 +1429,7 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
     &lt;div <span class="new">class="matches"&gt;</span>
       &lt;img src="img/match.png" alt="match 1 row 1" /&gt;
 ...</pre>
-<p>In your <code>styles.css</code> file, make the rule more specific:</p>
+<p>In your <code>style.css</code> file, make the rule more specific:</p>
 <pre class="revised"><span class="new">div.matches</span> {
   text-align: center;
 }</pre>
@@ -1440,7 +1447,7 @@ When you're ready, click on the Next arrow below, or on item <a href="#"></a> in
 <div class="aside info">A dot <code>.</code> before a selector item indicates a <span class="keyword">class name</span>. A selector item without a dot designates a <span class="keyword">tag name</span>.
 <p>You will also see selector items that start with a hash <code>#</code> character. These are <code>id</code>s. The browser will only recognize one element with a given <code>id</code> on a given page. You can use <code>id="<span class="keyword">unique-id-name"</span> </code> to identify unique elements, such as a checkbox or radio button. You will be doing this on page <a href="#rules">29: Showing the rules</a>.</p></div>
 <div class="aside git">Remember to use the Terminal to push these changes to the GitHub server. Here's a shorter version, without the <code>git status</code> command. The <code>-a</code> option for <code>commit</code> will automatically apply the <code>add</code> command for all changed files. Since you only have one repository, and one branch checked out, Git will automatically know that you are referring to the <code>origin</code> local repository and the <code>gh-pages</code> branch, so you can omit this information, too.
-<pre>git commit -am "Add .matches class to designate the divs to be centered"
+<pre>git commit -am "Add .matches class to designate divs to be centered"
 git push
 </pre>
 <p>What does your game look like on the GitHub server now?</p>
@@ -1471,7 +1478,7 @@ If you are comfortable with the concepts of classes and selectors, you can click
 <li>Change the cursor when it moves over a match</li>
 <li>Create a highlight around the match under the cursor</li>
 </ul>
-<a href="" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_13/step_13.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>Here's some CSS that will do this (and some extra things too):</p>
 <pre class="revised"><span class="new">body {
@@ -1524,7 +1531,7 @@ If you're happy to know that this works, without needing to explore any deeper, 
 <li>Use <code>px</code> and <code>em</code> units</li>
 <li>Set the size of an element</li>
 </ul>
-<a href="" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_14/step_14.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>One important question is: "How big should the game be?" And one good answer is: "I don't know yet. Let's deal with the proportions first and work out the size later." So that's the way I propose that you should work.</p>
 <p class="aside tip">For purely practical reasons, since this is a tutorial, it will be good to make the game tall and thin. You'll discover the JavaScript development environment shortly, and you will want to give plenty of space to it, and still keep your game visible. This is easy to do if the game fills only a narrow vertical slice of your screen.</p>
@@ -1539,7 +1546,7 @@ Switched to a new branch 'rollover'</pre>
 <pre class="revised"><span class="new">git log --oneline</span>
 8439f0a Preview of rollover effect
 ad5e390 Add .matches class to designate the divs to be centered
-656e9b6 Add css/styles.css to centre the matches
+656e9b6 Add css/style.css to centre the matches
 7c1cdc9 16 matches arranged in 4 rows, using &lt;div&gt;
 4d68023 Add img/match.png; modified index.html to show this image
 b6d433d 'Hello World' becomes 'The game will go here'
@@ -1725,7 +1732,7 @@ body { font-size: <span class="red">10 px</span> }</pre></dd>
 <li>Create space and lines around your elements</li>
 <li>Create elements with rounded corners</li>
 </ul>
-<a href="" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_15/step_15.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>In the Elements Inspector, you may have already noticed a diagram that looks like this:</p>
 <figure>
@@ -1792,6 +1799,9 @@ body { font-size: <span class="red">10 px</span> }</pre></dd>
 <pre>margin: 0 1px 2em 3%</pre>
 <p>When you set a value to <code>0</code>, there is no need to include any unit. The value will be zero regardless of the unit you use.</p>
 <div class="aside note">If you use <code>%</code> as the unit for <code>padding</code> or <code>margin</code> then this always refers to the <em>width</em> of the parent, never the height, even when you use it with the <code>-top</code> or <code>-bottom</code> attributes.<p>You cannot use <code>%</code> as the unit for <code>border-width</code>.</p></div>
+<div class="aside note">You can also use <code>auto</code> for the two horizontal values of <code>margin</code>, in order to centre an element horizontally within its parent.<pre><em>selector</em> {
+  margin: 0 auto;
+}</pre></div>
 <h3>The various <code>border</code> attributes</h3>
 <p>If you look at the CSS rule for the blue element, you will see that it includes this definition for the border:</p>
 <pre>  border-style: solid;
@@ -1912,7 +1922,7 @@ You've already had a glimpse about how to apply <code>background-color</code> to
 <li>Set the background colour of an element</li>
 <li>Set the text color for an element and its children</li>
 </ul>
-<a href="" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_16/step_16.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>When you were experimenting with the <code>padding</code>, <code>border</code> and <code>margin</code> settings on page <a href="box">15: The CSS box model</a>, you may have noticed the colour swatches. You may even have clicked on one of them and seen the colorpicker open. This allows you to change the <code>color</code> that you apply to an element. If you Shift-click on a colour swatch, you will see that the same <code>color</code> can be defined in different ways.</p>
 <figure>
@@ -2121,7 +2131,7 @@ Well done! Up until now, to see the effect of the changes you have made, you hav
 <li>Change the appearance of the cursor</li>
 <li>Change the value of an attribute when the mouse is over an element</li>
 </ul>
-<a href="" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_17/step_17.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>When you move your cursor over a link on a web page, the cursor changes to a pointing finger, and often the link changes colour. You can make this happen when the cursor moves over a match image, too. Changing the cursor image is easy. You can do it with one line of CSS:</p>
 <pre class="revised">body {
@@ -2333,7 +2343,7 @@ e2b3e69 Add padding, border-radius and background-color
 3e9c2b9 Revert "Preview of rollover effect"</span>
 8439f0a Preview of rollover effect
 ad5e390 Add .matches class to designate the divs to be centered
-656e9b6 Add css/styles.css to centre the matches
+656e9b6 Add css/style.css to centre the matches
 7c1cdc9 16 matches arranged in 4 rows, using &lt;div&gt;
 4d68023 Add img/match.png; modified index.html to show this image
 b6d433d 'Hello World' becomes 'The game will go here'
@@ -2387,7 +2397,7 @@ If your web page behaves the way it did when it was the tracked by the rollover 
 <li>Add JavaScript to your HTML page</li>
 <li>Show an alert when the page is loaded</li>
 </ul>
-<a href="" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_19/step_19.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>JavaScript adds magic to your game... or at least the illusion of magic. Each of the ideas that you are about to learn is simple enough in itself. The power of what you are learning comes from the way you can combine these new ideas.</p>
 <div class="aside tip">Each time you learn something new, you can create a new branch in your repository and use it to experiment with the new idea. You can imagine a simple activity of your own, and test how far you can take it.
@@ -2504,7 +2514,7 @@ alert ("JavaScript says Hello!")
 <li>Create a CSS rule that makes a class of elements transparent</li>
 <li>Use your browser Console to change the class of an element</li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_20/step_20.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>If you have read page <a href="#units">14: CSS units</a> you already know at least two ways to make a match <code>img</code> element disappear. Think about it for a minute or two, and then roll your mouse over the space below to see a possible answer.</p>
 <ol>
@@ -2631,11 +2641,12 @@ That's just one line of code, but it's doing many things that may be new for you
 <h2>Detecting a click on an HTML element</h2>
 <div class="aside preview">In this step, you'll learn how to:
 <ul>
+<li>Use the JavaScript debugger</li>
 <li>Use JavaScript to detect a mouse click</li>
 <li>Discover which element the player clicked</li>
 <li>Use JavaScript to add a class to the chosen element</li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_21/step_21.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>For now, the <code>alert</code> command in your <code>nim.js</code> file runs automatically as soon as your page is loaded into the browser. If you make the following change, it will wait until you click somewhere on the page:</p>
 <pre class="revised"><span class="new">document.body.onclick = function (event) {</span>
@@ -2655,8 +2666,8 @@ That's just one line of code, but it's doing many things that may be new for you
 </figure>
 <ul>
 <li>In the Scope panel on the right, you can see the list of <span class="keyword">variables</span> that JavaScript is currently using. One of these is called <code>event</code>. This is the <code>event</code> <span class="keyword">argument</span> that you used in the first line of your code.</li>
-<li>Click on the small disclosure triangle next to <code>event</code>, as shown in the Figure XX above. You should now see a long list of the attributes of the <code>event</code> <span class="keyword">object</span>.</li>
-<li>Find the <code>target</code> attribute. If you clicked on a match, he Scope Inspector should indicate that the <code>target</code> is a <code>img</code> element. Click on the disclosure triangle next to it. You should now see even more details.</li>
+<li>Click on the small disclosure triangle next to <code>event</code>, as shown in the Figure 74 above. You should now see a long list of the attributes of the <code>event</code> <span class="keyword">object</span>.</li>
+<li>Find the <code>target</code> attribute. If you clicked on a match, the Scope Inspector should indicate that the <code>target</code> is a <code>img</code> element. Click on the disclosure triangle next to it. You should now see even more details.</li>
 </ul>
 <figure>
 <img src="img/event-target.png" alt="Inspecting the event object" />
@@ -2708,7 +2719,7 @@ page on GitHub</a> to close one issue and open 4 more... or perhaps you can solv
 <div class="aside git">Your project has now reached a new stable state. You can make a new commit and push your changes to your GitHub web site:
 <pre>git status
 git add -A
-git commit -m "Add CSS 'removed' rule; add JavaScript to detect a click"</pre>
+git commit -m "Add CSS 'removed' rule; JavaScript to detect a click"</pre>
 </div>
 
 <div class="aside next">
@@ -2744,8 +2755,8 @@ There are several important ideas for you to explore here: events, functions and
 </div>
 
 <div class="empty optional details">
-<input type="checkbox" id="scope-details"/>
-<label for="scope-details">Learn more about scope in JavaScript</label>
+<input type="checkbox" id="scope-info"/>
+<label for="scope-info">Learn more about scope in JavaScript</label>
 <div>
 <h4></h4>
 <p></p>
@@ -2817,7 +2828,7 @@ There are several important ideas for you to explore here: events, functions and
 <li>Work with an array of elements</li>
 <li>Repeat the same action on each element</li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_22/step_22.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>To <em>add</em> the class <code>"removed"</code> to an element, you used a command like <code><em>element</em>.classList.add("removed")</code>. I'm sure you can make a good guess at what command you need to <em>remove</em> a class. Here's how you can test your guess:</p>
 <ul>
@@ -2832,7 +2843,7 @@ There are several important ideas for you to explore here: events, functions and
 <p>Here's how that looks for me, just before I press Enter.</p>
 <figure>
 <img src="img/remove-class.png" alt="removing a class from an element from the console"/>
-<figcaption>Figure XX. Removing a class from an element from the console</figcaption>
+<figcaption>Figure 82. Removing a class from an element from the console</figcaption>
 </figure>
 <p>Oops, did I make the command a little difficult to read? Is this better?</p>
 <pre class="hover">event.target.classList.<strong>remove</strong>("removed")</pre>
@@ -2847,7 +2858,7 @@ There are several important ideas for you to explore here: events, functions and
 <p>Try it: it works exactly the same way as a CSS selector, from inside JavaScript.</p>
 <figure>
 <img src="img/querySelectorAll.png" alt="querySelectorAll() acts exactly like a CSS selector from within JavaScript" />
-<figcaption>Figure XX. <code>querySelectorAll()</code> acts exactly like a CSS selector from within JavaScript</figcaption>
+<figcaption>Figure 83. <code>querySelectorAll()</code> acts exactly like a CSS selector from within JavaScript</figcaption>
 </figure>
 <h3>Applying the same code to each element in an array</h3>
 <p>One of the things you will do very often in JavaScript is to <span class="keyword">iterate</span>  through a sequence of items. There are several ways you can do this in JavaScript. Here is some code to add to your <code>nim.js</code> file, that uses the most basic technique:</p>
@@ -2868,7 +2879,7 @@ There are several important ideas for you to explore here: events, functions and
 <p>To test that this code works, you can use the Console. Click on one or more matches to make them disappear, and then type the command <span class="keyword">reset()</span> after the prompt symbol, then press return:</p>
 <figure>
 <img src="img/reset-from-console.png" alt="Resetting the game from the Console" />
-<figcaption>Figure XX. Resetting the game from the Console</figcaption>
+<figcaption>Figure 84. Resetting the game from the Console</figcaption>
 </figure>
 <div class="aside next">
 The next step will be to create a Reset button that will execute the <code>reset</code> command automatically when the player clicks on it. When you're ready, click on the Next arrow below, or on item <a href="#button">The Reset button</a> in the menu on the left.
@@ -2927,7 +2938,7 @@ event.target.classList.remove("removed")</pre></li>
 <p>Here's the error message that the Console gives me:</p>
 <figure>
 <img src="img/event-undefined.png" alt="An error caused by using a variable out of scope" />
-<figcaption>Figure XX. An error caused by using a variable out of scope</figcaption>
+<figcaption>Figure 85. An error caused by using a variable out of scope</figcaption>
 </figure>
 <p>When you click on a match and then pause your code at a breakpoint in the debugger, the <code>event</code> argument has a value. The JavaScript engine generates this value from all the information that is relevant to your click action. </p>
 <p>When you execute the same code outside the context of a click action, the JavaScript engine has no reason to create an event object, so the variable <code>event</code> is undefined.</p>
@@ -2955,7 +2966,7 @@ event.target.classList.remove("removed")</pre></li>
 <li>How to create a button using HTML</li>
 <li>Execute code when the user clicks on a button</li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_23/step_23.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p>The Console is a good place to test your code, but you want people to be able to play your game without even knowing that the Console (or your code) exists. Fortunately, you can create a button and make it execute the <code>reset()</code> command with a single line of HTML</p>
 <p>In your text editor, open your <code>index.html</code> file and edit it as follows:</p>
@@ -2999,7 +3010,16 @@ event.target.classList.remove("removed")</pre></li>
 <p>Save your file and refresh your browser. You should see a new button named Reset. Click on one or more of the matches, and then on the Reset button. The matches that you clicked on should now reappear.</p>
 
 <div class="aside next"> You can discover how this new line works by reading the optional sections below. You'll be adding four more buttons like this in the following pages, and using CSS to lay them out neatly.
-<p>When you're ready to continue, click on the Next arrow below, or on item <a href="#layout">The game layout</a> in the menu on the left.</p>
+<p>When you're ready to continue, click on the Next arrow below, or on item <a href="#layout">24: The game elements</a> in the menu on the left.</p>
+</div>
+
+<div class="aside git">One of your open issues is "Add buttons to restart the game". The button that you have just created deals with one essential part of this issue: it resets the layout of the matches. In the completed game, you will have three buttons:
+<ul>
+<li>One to start a two-player game</li>
+<li>One to allow you to play first against the computer</li>
+<li>One to make the computer play first against you</li>
+</ul>
+<p>Each of these buttons will call this generic <code>reset()</code> method, and then do something specific. You might like to update this entry on your <a href="https://github.com/issues">Issues</a> page on the GitHub site to indicate the progress that you have made.</p>
 </div>
 
 <div class="optional details">
@@ -3023,14 +3043,197 @@ event.target.classList.remove("removed")</pre></li>
 <li><a href="http://www.w3schools.com/jsref/event_onclick.asp">w3schools</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Event_attributes">Mozilla</a></li>
 </ul>
-<p>You may notice that the Mozilla page gives several reasons why you should avoid using <code>onclick</code>. On page <a href="#turns">25: Whose turn is it?</a> you will see an alternative method.</p>
+<p>You may notice that the Mozilla page gives several reasons why you should avoid using <code>onclick</code>. On page <a href="#turns">26: Whose turn is it?</a> you will see an alternative method.</p>
 </div>
 </div>
 
 <footer>
 <ul class="nav">
 <li>
-<a href="#layout">
+<a href="#elements">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
+<!-- THE GAME ELEMENTS -->
+<section id="elements">
+<h2>The Game Elements</h2>
+<div class="aside preview">In this step, you'll practice:
+<ul>
+<li>Creating <code>&lt;div&gt;</code> elements to separate your page into distinct sections</li>
+<li>Creating button elements</li>
+<li>Adding descriptive classes to elements, so that they can be identified later in JavaScript</li>
+</ul>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
+</div>
+<p>Now that you know how to create a button, you can create all the buttons you will need to control the game:</p>
+<ul>
+<li>A button for each player, to say "I've finished my turn"</li>
+<li>A button to reset the matches in their original positions, so that you can play a game against another human player</li>
+<li>A button that will reset the game so that you can start a game against the computer</li>
+<li>A button to reset the game and make the computer start to play against you</li>
+</ul>
+<p>In this step, you can focus on adding the buttons (with HTML). In the next step, you can focus on placing them neatly on the screen (with CSS). Finally, you can add start adding the JavaScript that will give these buttons their purpose.</p>
+<p>There are several changes that you need to make to your <code>index.html</code> file. To make it simpler to understand them, I'll explain each change separately, and then provide you with the complete code for the HTML file. I recommend that you make one change at a time, and check the result in your browser. If something goes wrong, you can replace all your HTML with the final version that I give at the end</p>
+
+<h3>Separating the game from the Start buttons</h3>
+<p>To make the structure of the page clear, it's good to create separate sections for the elements that control the game itself and the buttons that restart the game. To do this, you can create one <code>&lt;div&gt;</code> element that surrounds the matches elements, a second <code>&lt;div&gt;</code> element into which you can place all elements to say whose turn it is, and a third <code>&lt;div&gt;</code> element into which you can place all the buttons for restarting the game. You can give each of these new <code>&lt;div&gt;</code> elements a specific class, so that it is easy to distinguish them.</p>
+<p class="aside note">In the code listing below, the <code>...</code> ellipsis dots indicate HTML code that you already have, but which has been omitted here for clarity.</p>
+<pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Nim&lt;/title&gt;
+    &lt;link rel="stylesheet" href="css/style.css" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Nim&lt;/h1&gt;
+    &lt;h2&gt;The game that will beat you&lt;/h2&gt;
+    <span class="new">&lt;div class="game"&gt;</span>
+      &lt;div class="matches"&gt;
+        ...
+      &lt;/div&gt;
+    <span class="new">&lt;/div&gt;
+
+    &lt;div class="turns"&gt;</span>
+      &lt;!-- elements to say whose turn it is will go here --&gt;
+    <span class="new">&lt;/div&gt;
+
+    &lt;div class="start"&gt;</span>
+      &lt;button type="button" onclick="reset()"&gt;Reset&lt;/button&gt;
+    <span class="new">&lt;/div&gt;</span>
+
+    &lt;script src="js/nim.js"&gt;&lt;/script&gt;    
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+<p>These changes will have little or no effect on the appearance of your page. If you see no changes when you save your <code>index.html</code> file and reload it in your browser, that is quite normal.</p>
+
+<h3>The Start buttons</h3>
+<p>Inside the new "start" <code>&lt;div&gt;</code> elements, you can replace your existing Reset button with HTML code for the three different buttons that will restart the game in different ways. Once again, you can give a specific class to each button to identify it.</p>
+<div class="aside note">Note that none of these new buttons has an <code> onclick="reset()"</code> attribute, so for now these buttons will do nothing when you click on them. You'll still be able to make a match vanish when you click on it, but you will need to reload the whole page to make it reappear again.
+<p>At this step, you are just concerned with placing the buttons on your web page. I'll explain how to restore this functionality at step <a href="#two-players">30: Two player game</a>, but you might like to fix this before then. You'll find a new method for doing this in step <a href="#turns">26: Whose turn is it?</a></p></div>
+<pre class="revised">    ...
+    &lt;div class="start"&gt;
+      <span class="strike">&lt;button type="button" onclick="reset()"&gt;Reset&lt;/button&gt;</span>
+      <span class="new">&lt;button type="button" class="playerStarts"&gt;
+        Start new game against computer
+      &lt;/button&gt;
+      &lt;button type="button" class="computerStarts"&gt;
+        Computer to start new game
+      &lt;/button&gt;
+      &lt;button type="button" class="twoPlayers"&gt;
+        Start new 2-player game
+      &lt;/button&gt;</span>
+    &lt;/div&gt;
+    
+    &lt;script src="js/nim.js"&gt;&lt;/script&gt;  
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+<p>Save your HTML file and reload it in browser. You should see 3 buttons that appear after the matches.</p>
+<figure>
+<img src="img/restart-buttons.png" alt="Three buttons for restarting the game" />
+<figcaption>Figure 86. The three buttons for restarting the game are currently inactive</figcaption>
+</figure>
+
+<h3>Showing whose turn it is</h3>
+<p>You also need a way to show the player(s) whose turn it is, and to allow the current player to indicate that s/he has finished removing matches.</p>
+<p>You can give the two players the classes "player1" and "player2", and the names "You" and "Computer". If the game is to be between two human players, then you can use JavaScript later to change these names to "Player 1" and "Player 2".</p>
+<p>Note that only one player will be active at a time. You can add an "active" class to the first player. In the next step, you can use CSS to give the player's name a distinctive colour, and to hide the "Done" button for the other player.</p>
+<pre class="revised">   ...
+
+    &lt;div class="turns"&gt;
+      <span class="new">&lt;div class="player1 active"&gt;
+        &lt;button type="button">Done&lt;/button&gt;
+        &lt;p&gt;You&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="player2"&gt;
+        &lt;button type="button">Done&lt;/button&gt;
+        &lt;p&gt;Computer&lt;/p&gt;
+      &lt;/div&gt;</span>
+    &lt;/div&gt;
+
+    ...
+</pre>
+<figure>
+<img src="img/whose-turn.png" alt="The elements that show whose turn it is" />
+<figcaption>Figure 87. The elements that show whose turn it is</figcaption>
+</figure>
+
+<h3>The complete HTML</h3>
+<p>For reference, here's how your <code>index.html</code> file should look now:</p>
+<pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Nim&lt;/title&gt;
+    &lt;link rel="stylesheet" href="css/style.css" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Nim&lt;/h1&gt;
+    &lt;h2&gt;The game that will beat you&lt;/h2&gt;
+    <span class="new">&lt;div class="game"&gt;</span>
+      &lt;div class="matches"&gt;
+        &lt;img src="img/match.png" alt="match 1 row 1" /&gt;
+        &lt;img src="img/match.png" alt="match 2 row 1" /&gt;
+        &lt;img src="img/match.png" alt="match 3 row 1" /&gt;
+        &lt;img src="img/match.png" alt="match 4 row 1" /&gt;
+        &lt;img src="img/match.png" alt="match 5 row 1" /&gt;
+        &lt;img src="img/match.png" alt="match 6 row 1" /&gt;
+        &lt;img src="img/match.png" alt="match 7 row 1" /&gt;
+      &lt;/div&gt;
+      &lt;div class="matches"&gt;
+        &lt;img src="img/match.png" alt="match 1 row 2" /&gt;
+        &lt;img src="img/match.png" alt="match 2 row 2" /&gt;
+        &lt;img src="img/match.png" alt="match 3 row 2" /&gt;
+        &lt;img src="img/match.png" alt="match 4 row 2" /&gt;
+        &lt;img src="img/match.png" alt="match 5 row 2" /&gt;
+      &lt;/div&gt;
+      &lt;div class="matches"&gt;
+        &lt;img src="img/match.png" alt="match 1 row 3" /&gt;
+        &lt;img src="img/match.png" alt="match 2 row 3" /&gt;
+        &lt;img src="img/match.png" alt="match 3 row 3" /&gt;
+      &lt;/div&gt;
+      &lt;div class="matches"&gt;
+        &lt;img src="img/match.png" alt="match 1 row 4" /&gt;
+      &lt;/div&gt;
+    <span class="new">&lt;/div&gt;
+
+    &lt;div class="turns"&gt;
+      &lt;div class="player1 active"&gt;
+        &lt;button type="button" disabled="">Done&lt;/button&gt;
+        &lt;p&gt;You&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="player2"&gt;
+        &lt;button type="button" disabled="">Done&lt;/button&gt;
+        &lt;p&gt;Computer&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="start"&gt;
+      &lt;button type="button" class="playerStarts"&gt;
+        Start new game against computer
+      &lt;/button&gt;
+      &lt;button type="button" class="computerStarts"&gt;
+        Computer to start new game
+      &lt;/button&gt;
+      &lt;button type="button" class="twoPlayers"&gt;
+        Start new 2-player game
+      &lt;/button&gt;
+    &lt;/div&gt;</span>
+    
+    &lt;script src="js/nim.js"&gt;&lt;/script&gt;  
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<div class="aside next">
+The material in this step simply gives you practice with concepts that you have already seen. If anything here seems unfamiliar to you, it may help to look back at the optional sections in the previous steps. If all is clear, then you are ready to click oon the Next arrow below, or on item <a href="#layout">25: The game layout?</a> in the menu on the left.</p>
+</div>
+
+<footer>
+<ul class="nav">
+<li>
+<a href="#turns">
 <img src="../img/arrow.png" alt="next"/>
 </a>
 </li>
@@ -3041,14 +3244,181 @@ event.target.classList.remove("removed")</pre></li>
 <!-- THE GAME LAYOUT -->
 <section id="layout">
 <h2>The Game Layout</h2>
-<div class="aside preview">In this step, you'll learn:
+<div class="aside preview">In this step, you'll learn how to:
 <ul>
-<li>How to </li>
-<li></li>
+<li>Set the width of an element relative to the width of its parent</li>
+<li>Limit the width of the body element</li>
+<li>Place two elements side by side</li>
+<li>Add padding or a margin above and below an element</li>
+<li>Hide an element if does not belong to a particular class</li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_25/step_25.zip?raw=true" target="source">Download the source files</a>
 </div>
-<p>In the next step, you </p>
+<p>By default, each button is just wide enough to show the text it contains. It would look neater if all the buttons were the same width.The easiest way to do this is to set each button to be the same width as its parent element. You can add this rule to your <code>style.css</code> file:</p>
+<pre>
+button {
+  width: 100%;
+}</pre>
+<p>However, you have not yet set the width of any element in your page, so all elements will <span class="keyword">inherit</span> the width of the browser window. This may mean that the buttons are unnaturally wide. You can change this by setting the width of the <code>&lt;body&gt;</code> element. If you make the following changes to your <code>style.css</code> file, then game will appear tall and thin and centred in the browser window</p>
+<pre class="revised">body {
+  font-size: 9px;
+  background-color: black;
+  color: rgb(255,255,255);
+  <span class="new">width: 25em;
+  margin: 0 auto;</span>
+}
+
+.matches {
+  text-align: center;
+}
+.matches img{
+  width: 1em;
+  height: 10em;
+  padding: 1em;
+  border-radius: 1.5em;
+  cursor: pointer;
+}
+.matches img:hover{
+  background-color: #321;
+}
+
+img.removed {
+opacity: 0;
+}
+
+<span class="new">button {
+  width: 100%;
+}</span></pre>
+<figure>
+<img src="img/body-width.png" alt="Setting the width of all the buttons" />
+<figcaption>Figure 88. Setting the width of all the buttons</figcaption>
+</figure>
+<h3>Placing elements side by side</h3>
+<p>By default, all <code>&lt;div&gt;</code> elements are stacked vertically. It would look better to place the "player1" and "player2" <code>&lt;div&gt;</code>s, inside the "turns" <code>&lt;div&gt;</code>, side by side. This is because the browser's default stylesheet (<span class="keyword">user agent stylesheet</span>) sets the <code>display</code> style attribute of all <code>&lt;div&gt;</code> elements to <code>block</code>:</p>
+<figure>
+<img src="img/display-block.png" alt="The default display setting for divs is block" />
+<figcaption>Figure 89. The default display setting for <code>&lt;div&gt;</code> elements is <code>block</code></figcaption>
+</figure>
+<p>To display the "player" <code>div</code> elements side by side, you can set the value of their <code>display</code> attribute to <code>inline-block</code>, and their <code>width</code> attribute to 49% of the parent "turns" <code>div</code>. (Actually, 50% would make more sense but you'll need to make an adjustment to the HTML before this will work.) Add this to your <code>style.css</code> file, save your file then refresh your browser.</p>
+<pre>
+.turns div {
+  width: 49%;
+  display: inline-block;
+}</pre>
+<figure>
+<img src="img/display-inline-block.png" alt="Placing two divs side by side" />
+<figcaption>Figure 90. Using <code>{ display: inline-block }</code> to place two <code>&lt;div&gt;</code> elements side by side</figcaption>
+</figure> 
+<p class="aside note">In <a href="#box">15: The CSS box model</a>, you've already seen the reason why a width of 50% will not work: it's a question of whitespace in the HTML file. You can find more information about this in the Tips and Tricks section below.</p>
+<h3>Applying a rule when a class is missing</h3>
+<p>To show whose turn it is you can do two things:</p>
+<ul>
+<li>Emphasize the text that shows the current player</li>
+<li>Show the "Done" button only for the current player and remove it for the other player. </li>
+</ul>
+<p>Here are a couple of rules that do this:</p>
+<pre>
+.active {
+  color: #fc9;
+  font-weight: bold;
+}
+.turns :not(.active) button {
+  display: none;
+}</pre>
+<p>Note the <code>:not(.<em>classname</em>)</code> selector. The complete selector <code>.turns :not(.active) button</code> means (reading right to left) "All buttons that are children of an element which does not have the class "active", and where this element is itself a child of an element with the class "turns".</p>
+
+<h3>Revised CSS</h3>
+<p>Here's a new version of the <code>style.css</code>. It includes some additional changes (in red) that should already be familiar to you.</p>
+<pre class="revised">body {
+  font-size: 9px;
+  background-color: black;
+  color: rgb(255,255,255);
+<span class="new">  width: 25em;
+  margin: 0 auto;</span>
+}
+
+.matches {
+  text-align: center;
+}
+.matches img{
+  width: 1em;
+  height: 10em;
+  padding: 1em;
+  border-radius: 1.5em;
+  cursor: pointer;
+}
+.matches img:hover{
+  background-color: #321;
+}
+
+img.removed {
+  opacity: 0;
+}
+
+<span class="new">button {
+  width: 100%;
+}
+
+<span class="red">div.turns {
+  padding: 2em 0;
+}</span>
+.turns div {
+  width: 50%;
+  display: inline-block;
+<span class="red">  font-size: 2em;
+  text-align: center;</span>
+}
+<span class="red">.turns p {
+  margin: 0.25em 0;
+}</span>
+.active {
+  color: #fc9;
+  font-weight: bold;
+}
+.turns :not(.active) button {
+  display: none;
+}</span></pre>
+<p>Here's how your new buttons and text elements should look after you make these changes, save your file and refresh your browser. </p>
+<figure>
+<img src="img/turns-start.png" alt="Buttons and text elements laid out using CSS" />
+<figcaption>Figure 91. How your buttons and text elements look after you have applied your CSS rules</figcaption>
+</figure>
+
+<div class="aside next">
+You've learned to apply CSS to your new HTML elements, so that they appear neatly on the page. The next step will be to apply JavaScript to these elements, in order to create the game play.
+<p>If you want to make your layout even neater, read the Tips and Tricks section. When you're ready, click on the Next arrow below, or on item <a href="#turns">26: Whose turn is it</a> in the menu on the left.</p>
+</div>
+
+<div class="optional tips">
+<input type="checkbox" id="layout-tips"/>
+<label for="layout-tips">Tips and Tricks</label>
+<div>
+<h4>Whitespace and 50% width</h4>
+<p>If you want the "player" <code>&lt;div&gt;</code> elements to appear side by side, both with a width of 50%, then you will need to make sure that there is no whitespace between them in your <code>index.html</code> file. If you followed my earlier instructions, here's what your HTML currently looks like:</p>
+<pre>   ...
+      &lt;div class="player1 active"&gt;
+        &lt;button type="button" disabled="">Done&lt;/button&gt;
+        &lt;p&gt;You&lt;/p&gt;
+      <span class="red">&lt;/div&gt;
+      &lt;div class="player2"&gt;</span>
+        &lt;button type="button" disabled="">Done&lt;/button&gt;
+        &lt;p&gt;Computer&lt;/p&gt;
+      &lt;/div&gt;
+      ...</pre>
+<p>Between the closing <code>&lt;/div&gt;</code> tag and the following opening <code>&lt;div&gt;</code> tag there is a new line character. This is displayed in your browser as a single space, like this: <code>&lt;/div&gt; &lt;/div&gt;</code></p>
+<p>To eliminate this whitespace, you need to run the two lines together, with no space at all between them:</p>
+<pre>   ...
+      &lt;div class="player1 active"&gt;
+        &lt;button type="button" disabled="">Done&lt;/button&gt;
+        &lt;p&gt;You&lt;/p&gt;
+      <span class="red">&lt;/div&gt;&lt;div class="player2"&gt;</span>
+        &lt;button type="button" disabled="">Done&lt;/button&gt;
+        &lt;p&gt;Computer&lt;/p&gt;
+      &lt;/div&gt;
+      ...</pre>
+</div>
+</div>
+
 <footer>
 <ul class="nav">
 <li>
@@ -3063,14 +3433,127 @@ event.target.classList.remove("removed")</pre></li>
 <!-- WHOSE TURN IS IT? -->
 <section id="turns">
 <h2>Whose Turn Is It?</h2>
-<div class="aside preview">In this step, you'll learn:
+<div class="aside preview">In this step, you'll learn how to:
 <ul>
-<li>How to </li>
-<li></li>
+<li>Add a <code>nextTurn()</code> method to change which player is active</li>
+<li>Add an <code>initializeButtons()</code> method to tell the "Done" buttons to call the <code>nextTurn()</code> method, when they are clicked.</li>
+<li>Ensure that the <code>initializeButtons()</code> is executed when your web page first loads</li>
+<li>Modify the existing <code>reset()</code> method so that it activates player 1, when the game begins.</li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_26/step_26.zip?raw=true" target="source">Download the source files</a>
 </div>
-<p></p>
+<p>As you did earlier, you can first add a new JavaScript function to your <code>nim.js</code> file, then test it using the Console. When it works the way you expect it to, you can add another JavaScript function to make it work from the web page itself, without resorting to the Console.</p>
+<h3>Moving the active class from one player to the other</h3>
+<p>Add this to your <code>nim.js</code> file, save the changes and refresh your browser:</p>
+<pre class="revised">document.body.onclick = function (event) {
+  event.target.classList.add("removed")
+}
+
+function reset() {
+  var matches = document.querySelectorAll(".matches img.removed");
+
+  for (var ii=0; ii&lt;matches.length; ii++) {
+    var match = matches[ii];
+    match.classList.remove("removed");
+  }
+}
+
+<span class="new">function nextTurn() {
+    var active = document.querySelector(".active");
+    var next = document.querySelector(".turns div:not(.active)");
+
+    active.classList.remove("active");
+    next.classList.add("active");
+}</span></pre>
+<p>Now you can open the Console and type <code>nextTurn()</code> after the <code>&gt;</code> prompt, and press return. Press the up arrow to make the command reappear, and press return again. Each time you do this, the highlight should shift to the name of the other player, and the "Done" button above the player that is now active should be the only one visible.</p>
+<figure>
+<img src="img/nextTurn.png" alt="Executing the nextTurn() function from the Console." />
+<figcaption>Figure 92. Executing the nextTurn() function from the Console.</figcaption>
+</figure>
+<p>Here's what this code does:</p>
+<ul>
+<li>It creates a variable called <code>active</code> to refer to the first (and only) element that currently has the class "active"</li>
+<li>It creates a variable called <code>next</code> to refer to the first (and only) <code>&lt;div&gt;</code> that is a child of an element with the "turns" class, that does not currently hav the class "active". Note that the selector needs to be specific about what type of element this non "active" element is, and where it is to be found, because all the elements except one have no "active" class.</li>
+<li>It removes the "active" class from the current active element</li>
+<li>It adds the "active" class to the element identified as <code>next</code>.</li>
+</ul>
+<p>The <code>&lt;div&gt;</code> elements identified as <code>active</code> and <code>next</code> alternate each time the function is called.</p>
+<h3>Triggering <code>nextTurn()</code> when you click Done</h3>
+<p>In step <a href="#button">23: The Reset button</a>, you used HTML to tell the Reset button to call a particular JavaScript function, like this:</p>
+<pre>  &lt;button type="button" onclick="reset()"&gt;Reset&lt;/button&gt;</pre>
+<p>It is good to keep HTML and JavaScript separate. Here's how you can use JavaScript to add an <code>onclick</code> attribute to the two Done buttons:</p>
+<pre class="revised">document.body.onclick = function (event) {
+  event.target.classList.add("removed")
+}
+
+function reset() {
+  var matches = document.querySelectorAll(".matches img.removed");
+
+  for (var ii=0; ii&lt;matches.length; ii++) {
+    var match = matches[ii];
+    match.classList.remove("removed");
+  }
+}
+
+function nextTurn() {
+    var active = document.querySelector(".turns div.active");
+    var next = document.querySelector(".turns div:not(.active)");
+
+    active.classList.remove("active");
+    next.classList.add("active");
+}
+
+<span class="new">function initializeButtons() {
+  var buttons = document.querySelectorAll(".turns button");
+  var button
+
+  for (var ii=0; ii&lt;buttons.length; ii++) {
+    button = buttons[ii];
+    button.onclick = nextTurn;
+  }
+}
+
+initializeButtons()</span></pre>
+<p>The function <code>initializeButtons()</code> creates an array from the two buttons that are children of the "turns" <code>&lt;div&gt;</code>., and then uses a <code>for (...) {...}</code> repeat loop to set the <code>onclick</code> attribute for each button to <code>nextTurn</code>.</p>
+<div class="aside note">Note that <code>nextTurn</code> refers to the function as a whole, while <code>nextTurn()</code> is a command to execute all the code inside the function.
+<p>The function <code>initializeButtons</code> does nothing on its own: there has to be a command <code>initializeButtons()</code> that will make it execute.</p></div>
+<p>Save the changes to your <code>nim.js</code> file, then refresh your browser. Now, when you click on the visible Done button, it will disappear to be replaced by the other, and the highlight will pass to the other player's name, because the "active" class is moving from one player <code>&lt;div&gt;</code> to the other.</p>
+<div class="aside git">In the last couple of steps, you have
+<ul>
+<li>Added HTML for the two Done buttons and the names of the players</li>
+<li>Added CSS rules to display them appropriately.</li>
+</ul>
+<p>In this step, you added JavaScript to make these buttons switch players. You have now completed one of the issues that you opened on your GitHub site: <em>Add a button so that the current player can say "Your turn"</em>.</p>
+<p>Now you can visit your <a href="https://github.com/issues">Issues</a> page on GitHub, click on the links to this particular issue, and close it. Another task completed.</p></div>
+
+<div class="aside next">
+You can now click on the Done buttons to swap players... at any time. In fact, you want this to be possible only after the current player has removed at least one match. In the next step you will see how to force this to happen.
+<p>When you're ready, click on the Next arrow below, or on item <a href="#rules">27: Enforcing the rules</a> in the menu on the left.</p>
+<p>If you are looking for a challenge, you can read the Experiment section below.</p>
+</div></div>
+
+<div class="optional break">
+<input type="checkbox" id="turns-trial"/>
+<label for="turns-trial">Experiment: Resetting the game</label>
+<div><p>Currently, the three buttons at the bottom of the page don't do anything. The last one should do two things:</p>
+<ul>
+<li>Call <code>reset()</code></li>
+<li>Ensure that only the first player <code>&lt;div&gt;</code> element has the "active" class.</li>
+</ul>
+<p>If you want to test your understanding of all you have learnt so far, you might like to edit the <code>nim.js</code> file to make this happen.</p>
+<p>Before you start making your own experimental changes, I suggest that you:</p>
+<ul>
+<li>Commit all the changes that you have made so far and push them to the remote server</li>
+<li>Create a new branch, as you saw in step <a href="#branch">5: Creating a branch</a></li>
+<li>Use the new branch for your experimental work.</li>
+</ul>
+<p>This way, if you get stuck, it is easy to use <code>git revert</code> as shown in step <a href="#revert">7: Reverting changes</a>, and to carry on with the tutorial from where you left off.</p>
+<p>If you are successful in getting it to work, you can feel a glow of pride, and use <code>git merge</code>, as shown in step <a href="#merge">18: Merging 2 Git branches</a> to merge your experimental branch back into the <code>master</code> branch, and continue from there.</p>
+<p>In any case, I will provide you with all the details you need to succeed in this when you get to step <a href="#two-player">30: Two player game</a>, so you have nothing to lose.</p>
+</div>
+</div>
+
+</div>
 <footer>
 <ul class="nav">
 <li>
@@ -3085,14 +3568,469 @@ event.target.classList.remove("removed")</pre></li>
 <!-- ENFORCING RULES -->
 <section id="rules">
 <h2>Enforcing the Rules</h2>
-<div class="aside preview">In this step, you'll learn:
+<div class="aside preview">In this step, you'll learn about:
 <ul>
-<li>How to </li>
-<li></li>
+<li>Creating variables that are shared between functions</li>
+<li>Creating a separate function for each action</li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_27/step_27.zip?raw=true" target="source">Download the source files</a>
 </div>
-<p></p>
+<p>Currently, each time you click on one of the Done buttons, your code checks which of the "player" <code>&lt;div&gt;</code>s currently has the "active" class, and which does not. Up until now, this information was just needed for the <code>nextTurn</code> function.</p>
+<p>Your goal is this step is to enable the Done button for the active player only after the active player has clicked on a match. This means that you will be creating a new function which also needs to know which player <code>&lt;div&gt;</code> has the "active" class. A good way of treating this is to define the<code>active</code> variable outside the <code>nextTurn</code> function, so that it will be accessible to other functions, too.</p>
+<h>Making the <code>active</code> variable global</h>
+<p>At the top of your <code>nim.js</code> file, add the following line:</p>
+<pre class="revised"><span class="new">var active</span>
+
+document.body.onclick = function (event) {
+...</pre>
+<p>Now modify your <code>initializeTurns</code> function as shown below:</p>
+<pre class="revised">function initializeTurns() {
+  var turnButtons = document.querySelectorAll(".turns button")
+  var button
+
+  for (var ii=0; ii&lt;turnButtons.length; ii++) {
+    button = turnButtons[ii];
+    button.onclick = nextTurn;
+
+    <span class="new">if (ii === 0) {
+      active = button.parentElement
+      active.classList.add("active");
+    }</span>
+  }
+}</pre>
+<p>When this function runs, the value of <code>active</code> will be set to the <code>&lt;div&gt;</code> with the class of "player1" (the parent of the first button found inside the "turns" <code>&lt;div&gt;</code>.</p>
+<p class="aside info">For details on the <code>parentElement</code> property, you can read the Learn More About HTML Properties section below.</p>
+<p class="aside warn">The line <code>var active</code> creates a <span class="keyword">global</span> variable. This means that any function anywhere can get and set its value. This might seem convenient, but it can make your code behave in unexpected ways. You should use global variables as seldom as possible. In the next step, you will see how to <em>limit the scope</em> of the variable <code>active</code>.</p>
+<h3>Enabling the active player button when a match is removed</h3>
+<p>Here's the function that currently hides a match when you click on it:</p>
+<pre>document.body.onclick = function (event) {
+  event.targetclassList.add("removed")
+}</pre>
+<p>You could simply add the following line to this function...</p>
+<pre>active.classList.add("enabled")</pre>
+<p>... but it's better to do this more neatly, by dividing it into two functions, and passing the <code>event</code> argument to the second function, like this:</p>
+<pre class="revised">var active
+
+document.body.onclick = function (event) {
+  <span class="new">hideMatch(event)</span>
+}
+
+<span class="new">function hideMatch(event) {
+  var match = event.target;
+  match</span>.classList.add("removed")
+
+  <span class="new">active.classList.add("enabled")
+}</span></pre>
+<p>In a moment, you'll see the advantage of having two distinct functions. This code, although it works, is flawed in two ways:</p>
+<ul>
+<li>You can click on any object (not just a match) and the <code>hideMatch</code> function will be called</li>
+<li>The player can currently hide matches from more than one row.</li>
+</ul>
+<p>If you separate the function that decides which elements trigger the "hide match" feature from the function that actually performs the "hide match" code, then you can fix each of these issues separately, in a clean way.</p>
+<h3>Simplifying the <code>nextTurn</code> function</h3>
+<p>Now that the <code>active</code> variable is declared and set outside the <code>nextTurn</code> function, you can simplify this function. First you set the <code>next</code> variable to be refer to the "player" <code>&lt;div&gt;</code> that is not currently active, then you remove the "active" class from the <code>active</code> <code>&lt;div&gt;</code>, and then you change the value of the <code>active</code> variable so that it now refers to the <code>next</code> <code>&lt;div&gt;</code>. Finally, you add the "active" class to this other <code>&lt;div&gt;</code>.</p>
+<pre class="revised">function nextTurn() {
+  <span class="strike">var active = document.querySelector(".active");</span>
+  var next = document.querySelector(".turns div:not(.active)");
+  active.classList.remove("active");
+  <span class="new">active.classList.remove("enabled");</span>
+
+  <span class="new">active = next
+  active</span>.classList.add("active");
+}</pre>
+<p>Save your <code>nim.js</code> file, refresh the browser and test what happens if you click on the Done button. Everything is exactly as it was before. You need to make one more change to force the current player to click on a match before the Done button will become active. Add the lines below to your <code>nextTurn</code> function, save and refresh and try again:</p>
+<pre>function nextTurn() {
+  <span class="new">if (!active.classList.contains("enabled")) {
+    return
+  }</span>
+
+  var active = document.querySelector(".active");
+  var next = document.querySelector(".turns div:not(.active)");
+  active.classList.remove("active");
+  active.classList.remove("enabled");
+
+  active = next
+  active.classList.add("active");
+}</pre>
+<h3>Fixing a bug</h3>
+<p>Actually, it doesn't quite work does it? If you click twice on the Done button, the players will swap. In fact, if you click on any element (a match, one of the restart buttons, the word "Computer", the background, ...) and then on the Done button, the players will swap.</p>
+<p>So there is one more check that you have to make: you need to check if the user is actually clicking on a match. Since the only <code>&lt;img&gt;</code> elements on your page are matches, you can use a shortcut and simply check if the element the user clicked on is an <code>&lt;img&gt;</code> element. Here's a change for you to make:</p>
+<pre>function hideMatch(event) {
+  var match = event.target;
+  <span class="new">if (match.nodeName !== "IMG") {
+    return
+  }</span>
+  
+  match.classList.add("removed");
+
+  <span class="new">active.classList.add("enabled")
+}</span></pre>
+<p class="aside info">For details on the <code>nodeName</code> property, you can read the Learn More About HTML Properties section below.</p>
+<h3>Using CSS to show when the Done button not enabled</h3>
+<p>There is a <a href="http://www.w3schools.com/jsref/prop_select_disabled.asp"><code>disabled</code></a> attribute that you could apply to the Done button, but different browsers would change the appearance of the button in different ways. 
+As you have seen, you can achieve the same effect using the check...</p>
+<pre>if (!active.classList.contains("enabled")) {
+    return
+  }</pre>
+<p>... to prevent any further code from being executed. This also has the advantage that you can use the absence of the "enabled" class to set the appearance of the disabled button.</p>
+<p>Add this rule at the end of your <code>style.css</code> file:</p>
+<pre class="revised">...
+
+.turns :not(.active) button {
+  display: none;
+}
+<span class="new">.active:not(.enabled) button {
+  opacity: 0.2;
+}</span></pre>
+<p>Note how the selector will choose any button which is a descendant of an element with an "active" class, so long as that element does not also have a "enabled" class. If you prefer, you can make the opacity 0.</p>
+<h3>Complete listing of the <code>nim.js</code> file</h3>
+<p>Here's what your <code>nim.js</code> file should look like now:</p>
+<pre class="revised"><span class="new">var active</span>
+
+document.body.onclick = function (event) {
+  <span class="new">hideMatch(event)</span>
+}
+
+<span class="new">function hideMatch(event) {
+  var match = event.target;
+  if (match.nodeName !== "IMG") {
+    return
+  }</span>
+  
+  match.classList.add("removed");
+
+  <span class="new">active.classList.add("enabled")
+}</span>
+
+function reset() {
+  var matches = document.querySelectorAll(".matches img.removed");
+
+  for (var ii=0; ii&lt;matches.length; ii++) {
+    var match = matches[ii];
+    match.classList.remove("removed");
+  }
+}
+
+function nextTurn() {
+  <span class="new">if (!active.classList.contains("enabled")) {
+    return
+  }</span>
+
+  var next = document.querySelector(".turns div:not(.active)");
+  active.classList.remove("active");
+  <span class="new">active.classList.remove("enabled");</span>
+
+  <span class="new">active = next
+  active</span>.classList.add("active");
+}
+
+function initializeTurns() {
+  var turnButtons = document.querySelectorAll(".turns button")
+  var button
+
+  for (var ii=0; ii&lt;turnButtons.length; ii++) {
+    button = turnButtons[ii];
+    button.onclick = nextTurn;
+
+    <span class="new">if (ii === 0) {
+      active = button.parentElement
+      active.classList.add("active");
+    }</span>
+  }
+}
+
+initializeTurns()</pre>
+
+<div class="aside next">Now you can force the current player to remove a match before passing the turn to the other player. However, players should only take matches from more one row, and that rule still needs to be applied.
+<p>Perhaps you have got this feature working in your project, and you are tempted to move on to applying the next rule. However, this code contains a <span class="keyword">global</span> variable, and that can make debugging difficult. To learn how to write code in a more reliable way, click on the Next arrow below, or on item <a href="#scope">28: Variables and scope</a> in the menu on the left.</p>
+<p>If you want to know more about  below.</p>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="rules-details"/>
+<label for="rules-details">Learn more about HTML properties</label>
+<div>
+<h4>parentElement</h4>
+<p>You can read more about the parentElement property on the following sites:</p>
+<ul>
+<li><a href="http://www.w3schools.com/jsref/prop_node_parentelement.asp">w3schools</a></li>
+<li><a href="https://developer.mozilla.org/en/docs/Web/API/Node/parentElement">Mozilla</a></li>
+</ul>
+<h4>nodeName</h4>
+<p>The <code> <em>element</em>.nodeName</code> property returns the UPPERCASE string that can be used to create an element of this type. So for, you have created the following elements:</p>
+<ul>
+<li><code>&lt;html&gt;</code> nodeName: HTML</li>
+<li><code>&lt;head&gt;</code> nodeName: HEAD</li>
+<li><code>&lt;title&gt;</code> nodeName: TITLE</li>
+<li><code>&lt;link&gt;</code> nodeName: LINK</li>
+<li><code>&lt;body&gt;</code> nodeName: BODY</li>
+<li><code>&lt;h1&gt;</code> nodeName: H1</li>
+<li><code>&lt;h2&gt;</code> nodeName: H2</li>
+<li><code>&lt;div&gt;</code> nodeName: DIV</li>
+<li><code>&lt;img&gt;</code> nodeName: IMG</li>
+<li><code>&lt;body&gt;</code> nodeName: BODY</li>
+<li><code>&lt;button&gt;</code> nodeName: BUTTON</li>
+<li><code>&lt;p&gt;</code> nodeName: P</li>
+</ul>
+<p>You can read more about the nodeName property on the following sites:</p>
+<ul>
+<li><a href="http://www.w3schools.com/jsref/prop_node_nodeName.asp">w3schools</a></li>
+<li><a href="https://developer.mozilla.org/en/docs/Web/API/Node/nodeName">Mozilla</a></li>
+</ul>
+</div>
+</div>
+
+<div class="optional trouble">
+<input type="checkbox" id="rules-trouble"/>
+<label for="rules-trouble">Troubleshooting </label>
+<div>
+<p class="aside mail">If you have any problems with this step, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+</div>
+</div>
+</div>
+
+<footer>
+<ul class="nav">
+<li>
+<a href="#scope">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
+<!-- VARIABLES AND SCOPE -->
+<section id="scope">
+<h2>Variables, functions, closures and scope</h2>
+<div class="aside preview">In this step, you'll learn about:
+<ul>
+<li>Global functions and variables</li>
+<li>Scope</li>
+<li>Immediately-invoked function expressions (IIFEs)</li>
+</ul>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_28/step_28.zip?raw=true" target="source">Download the source files</a>
+</div>
+<p>Suppose something isn't working in your JavaScript code, and you decide to debug it. Suppose you want to look at the value of the <code>active</code> variable, just after it has been created. You've already <a href="#click">seen how to create a debug breakpoint</a> and to use the Scope inspector to look at the values of your variables. You can do that again now.</p>
+<ul>
+<li>Open the Developer Tools panel at the Sources Tab</li>
+<li>Select the Source pane in the column on the left</li>
+<li>Open the js folder and select nim.js</li>
+<li>In the code pane on the right, click on the line number opposite the line <code>active.classList.add("active")</code>, to create a breakpoint</li>
+<li>Reload the page, so that the debugger stops at your breakpoint</li>
+</ul>
+<p>Now if you look in the Scope pane, you should see the values of the following <span class="keyword">Local</span> variables:</p>
+<ul>
+<li>button</li>
+<li>ii</li>
+<li>this</li>
+<li>turnButtons</li>
+</ul>
+<p>But there is no sign of <code>active</code>. Why not?</p>
+<h3><code>window.active</code> </h3>
+<p>The variables listed above are all <span class="keyword">local</span>. That means that they were created inside the function that is currently being executed: <code>initializeTurns</code>. When the <code>initializeTurns</code> function completes what it has to do, the JavaScript engine will forget the values of these variables.</p>
+<p>You have defined the variable <code>active</code> outside any function. When you do this, the JavaScript engine considers the variable to be a property of the global <code>window</code> object. To test this, type <code>window.active</code> in the Console. You should see the value of the variable displayed.</p>
+<figure>
+<img src="img/window-active.png" alt="The active variable is a global, stored as a property of the window object" />
+<figcaption>Figure 93. The <code>active</code> variable is a global, stored as a property of the window object</figcaption>
+</figure>
+<h3>So many global variables</h3>
+<p>If you click on the disclosure triangle beside the word "Global" in the Scope pane, you will see the complete list of all the globals that the browser uses, in alphabetical order. Global variables whose names start with a capital letter will appear before those that start with a lowercase letter, so you'll need to scroll a long way before you find <code>active</code>.</p>
+<figure>
+<img src="img/global-active.png" alt="Scrolling through all the globals" />
+<figcaption>Figure 94. Scrolling through all the globals</figcaption>
+</figure>
+<h3>The properties of <code>window</code></h3>
+<p>Most globals are created by the browser, for its own housekeeping. Only a few are created as properties of the <code>window</code> object. All the globals that you create are properties of the <code>window</code> object. You can see all these variables by typing...</p>
+<pre>keys(window)</pre>
+<p>... after the <code>&gt;</code> prompt in the Console:</p>
+<figure>
+<img src="img/window-properties.png" alt="Window properties" />
+<figcaption>Figure 95. <code>window</code> properties</figcaption>
+</figure>
+<p>You might recognize some of these:</p>
+<ul>
+<li>active</li>
+<li>hideMatch</li>
+<li>reset</li>
+<li>nextTurn</li>
+<li>initializeTurns</li>
+</ul>
+<p>In addition to the <code>active</code> variable, these are the functions that you have created in your script.</p>
+<h3>Functions within functions</h3>
+<p>To take all these variables and functions out of the global window space, you can wrap your entire code in a function, like this:</p>
+<pre class="revised"><span class="new">;(function() {</span>
+  // All your existing code goes here
+<span class="new">})()</span></pre>
+<p class="aside note">You can see the full listing of your code wrapped in a function like this at the end of this page.</p>
+<p>To test the effect of this, add these lines, one at the beginning and the other at the end of your script, save your <code>nim.js</code> file and refresh your browser. The breakpoint will still be on the same line number, but the code itself will have shifted. The easiest solution is to click on the Step Over button to execute the line at the breakpoint, so that <code>active</code> now has a value.</p>
+<figure>
+<img src="img/closure.png" alt="Using an immediately-invoked function expression to create a closure" />
+<figcaption>Figure 96. Using an immediately-invoked function expression to create a closure</figcaption>
+</figure>
+<p>You should now see a new entry in the Scope pane if the Developer Tools: Closure. If you expand the entry for Closure, you should see the <code>active</code> variable. It is no longer listed with the globals, because it is now defined within the unnamed <code>function</code> that you have just created.</p>
+<p>You can think of <span class="keyword">scope</span> as being like the rooms in a house. The things in the room are private to the room: you can only use them when you are in that room. The room also has access to the electrical system and the WiFi that is private to the house. The house has access to public utilities, like the road system, and to global phenomena, like the weather.</p>
+<p>Creating a function creates a closed space. You can create a function within a function: the inner functions have access to the information that is available to the outer function. Outer functions cannot see what is going on inside an inner function.</p>
+<h3>Closure and namespace</h3>
+<p>In the <code>reset</code> function, there is a variable called <code>ii</code> which is used for iterating through match <code>&lt;img&gt;</code> elements. In the <code>initializeTurns</code> function, there is another variable, also called <code>ii</code>, which is used to iterate through the "turn" <code>&lt;button&gt;</code> elements.  Because these two variables are defined inside different functions, they refer to different things, just like the word "table" refers to a different piece of furniture when you are in your kitchen or a dining room or an office.</p>
+<h3>Functions and parentheses</h3>
+<p>In English, one word can have many different meanings. The distinction is clear from the context. For example can use the word "set" in the context of the sun, a tennis game, a table, concrete, and so on, and in each case, the meaning of the word "set" is quite distinct.</p>
+<p>TIn JavaScript, round parentheses <code>( )</code> can have three different meanings, depending on the context.</p>
+<h4>1) Function declaration</h4>
+<p>You have already seen how to declare a function. In your code, you write:</p>
+<pre>function nameOfYourFunction(argumentName) {
+  // The commands to execute go here
+}</pre>
+<p class="aside note">The name of the function is in fact optional. A function that has no name is called an <span class="keyword">anonymous function</span>.</p>
+<p>In the context of a function declaration, the parentheses after the name of the function mean "the words inside these parentheses are the names of variables that are given to this function when it is asked to execute its code". These <span class="keyword">argument</span> variables are in the scope of the function.</p>
+<p>You can refer to the function by using its name, without any parentheses. To test this:</p>
+<ul>
+<li>Place a breakpoint on the line <code>initializeTurns()</code></li>
+<li>Refresh your page. The debugger will open inside the scope of the outer anonymous function.</li>
+<li>After the <code>&gt;</code> prompt in the Console, type <code>initializeTurns</code>. Do not include any parentheses.</li>
+<li>The console will show you that the variable name <code>initializeTurns</code> refers to the <code>function initializeTurns()</code></li>
+</ul>
+<figure>
+<img src="img/function-variable.png" alt="The function name, without parentheses, refers to the function itself" />
+<figcaption>Figure 97. The function name, without parentheses, refers to the function itself</figcaption>
+</figure>
+<h4>2) Executing a function</h4>
+<p>In the context where you want to execute the code inside a function, you write the function name <em>followed by opening and closing parentheses.</em> In this case, the parentheses have a different meaning. Here they mean "take the function with this name and execute the commands inside it." If you include any variabele names inside the parentheses, the value of these variables will be passed to the function as arguments to the function.</p>
+<h4>3) Evaluating items</h4>
+<p>A third way that parentheses can be used is to group items together, so that the expression inside the parentheses is evaluated. For example <code>(5 - 4) * 3</code> means <code>1 * 3</code>, while <code>5 - (4 * 3)</code> means <code>5 - 12</code>. The expression inside the parentheses is evaluated before any other operations are applied. </p>
+<h3>Immediately-invoked function expressions</h3>
+<p>The new function that you have created parentheses in all three ways:</p>
+<ul>
+<li>It contains a pair of parentheses after the word <code>function</code>, as part of the function definition</li>
+<li>It is wrapped in a pair of parentheses, to tell the JavaScript engine to evaluate it</li>
+<li>It is followed by a pair of parenthesis, to tell the JavaScript engine to execute the evaluated function.</li>
+</ul>
+<p>In other words, when the JavaScript engine encounters code in the form...</p>
+<pre>(function optionalFunctionName() {
+  // code to execute
+})()</pre>
+<p>... it immediately executes the code inside the function. This code structure is called an <span class="keyword">immediately-invoked function expression</span> (IFFE, pronounced "iffy"). This is equivalent to:</p>
+<pre>function optionalFunctionName() {
+  // code to execute
+}
+
+optionalFunctionName()</pre>
+<h3>That semi-colon</h3>
+<p>You'll have noticed that I use a semi-colon as the very first character. If you read the other articles, you'll see that the writers put a semi-colon at the end... and also at the end of every line.</p>
+<p>This is one of the few places where the lack of a semi-colon may cause the JavaScript engine to become confused. Perhaps you already know the joke: Time flies like an arrow, and fruit flies like a banana. But the JavaScript engine has no sense of humour.</p> 
+<p>If you put two immediately-invoked function expressions one after the other, without a semi-colon to separate them, the JavaScript engine will choose the wrong meaning for the parentheses around the second function expression. Instead of understanding it as "evaluate the expression inside these parentheses" (meaning 3), it will understand it as "execute the previously evaluated expression" (meaning 2), and will stop working.</p>
+<p>You can test this, to see what will happen. Change the current <code>initializeTurns</code> function to an immediately-invoked function expression, and then add another IIFE right after it, with no semi-colon between them:</p>
+<pre class="revised">  ...
+
+  <span class="new">;(</span>function initializeTurns() {
+    var turnButtons = document.querySelectorAll(".turns button")
+    var button
+
+    for (var ii=0; ii&lt;turnButtons.length; ii++) {
+      button = turnButtons[ii]
+      button.onclick = nextTurn
+
+      if (ii === 0) {
+        active = button.parentElement
+        active.classList.add("active")
+      }
+    }
+  }<span class="new">)()
+
+  (function () {
+    alert ("Semi-colon required")
+  })()</span></pre>
+<p>Now save your changes and refresh the browser. You should see an error reported in the Console, and no alert will appear.</p>
+<figure>
+<img src="img/missing-semicolon.png" alt="One case where a missing semicolon will cause an error" />
+<figcaption>Figure 98. One case where a missing semicolon will cause an error"</figcaption>
+</figure>
+<p>If you now add the semi-colon between the two IFFEs, save your changes and refresh your browser, no error will occur and the alert will show.</p>
+<p>I put the semi-colon at the beginning of the IFFE, to tell other developers "I only use semi-colons where they are absolutely necessary, and one is necessary here." That's my coding style, and you are free to put semi-colons at the end of every line if you want to.</p>
+<h3>The complete code listing</h3>
+<p>The alert IFFE that you just added is not necessary. It was just used for demonstration purposes. You can delete it. Your code should now look like this:</p>
+new
+<pre class="revised"><span class="new">;(function() {</span>
+  var active
+
+  document.body.onclick = function (event) {
+    hideMatch(event)
+  }
+
+  function hideMatch(event) {
+    var match = event.target
+    if (match.nodeName !== "IMG") {
+      return
+    }
+    
+    match.classList.add("removed")
+
+    active.classList.add("enabled")
+  }
+
+  function reset() {
+    var matches = document.querySelectorAll(".matches img.removed")
+
+    for (var ii=0; ii&lt;matches.length; ii++) {
+      var match = matches[ii]
+      match.classList.remove("removed")
+    }
+  }
+
+  function nextTurn() {
+    if (!active.classList.contains("enabled")) {
+      return
+    }
+
+    var next = document.querySelector(".turns div:not(.active)")
+    active.classList.remove("active")
+    active.classList.remove("enabled")
+
+    active = next
+    active.classList.add("active")
+  }
+
+  <span class="new">;(</span>function initializeTurns() {
+    var turnButtons = document.querySelectorAll(".turns button")
+    var button
+
+    for (var ii=0; ii&lt;turnButtons.length; ii++) {
+      button = turnButtons[ii]
+      button.onclick = nextTurn
+
+      if (ii === 0) {
+        active = button.parentElement
+        active.classList.add("active")
+      }
+    }
+  }<span class="new">)()
+})())</span></pre>
+<div class="aside next">The changes that you have made in this step may seem small, but it is important to understand the concepts involved. If anything is still unclear, I recommend that you visit the links in the Learn More About IFFEs section.
+<p>
+When you're ready to continue, click on the Next arrow below, or on item <a href="#rows">29: One row at a time</a> in the menu on the left.</p>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="scope-details"/>
+<label for="scope-details">Learn more about IFFEs</label>
+<div>
+<p>"Immediately-invoked function expressions" and "self-executing anonymous functions" are two ways of saying the same thing. Here are some places where you can find further explanations of this concept:</p>
+<ul>
+<li><a href="http://markdalgleish.com/2011/03/self-executing-anonymous-functions/">Self-Executing Anonymous Functions, by Mark Dalgleish</a></li>
+<li><a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">Immediately-Invoked Function Expression (IIFE), by Ben Alman</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Immediately-invoked_function_expression">Immediately-invoked function expression on Wikipedia</a></li>
+</ul>
+</div>
+</div>
+
+<div class="optional trouble">
+<input type="checkbox" id="scope-trouble"/>
+<label for="scope-trouble">Troubleshooting </label>
+<div>
+<p class="aside mail">If you have any problems with this step, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+</div>
+</div>
+
 <footer>
 <ul class="nav">
 <li>
@@ -3112,7 +4050,7 @@ event.target.classList.remove("removed")</pre></li>
 <li>How to </li>
 <li></li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p></p>
 <footer>
@@ -3134,7 +4072,29 @@ event.target.classList.remove("removed")</pre></li>
 <li>How to </li>
 <li></li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
+</div>
+<p></p>
+<footer>
+<ul class="nav">
+<li>
+<a href="#two-players">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
+<!-- TWO PLAYER GAME -->
+<section id="two-players">
+<h2>Completing the two-player game</h2>
+<div class="aside preview">In this step, you'll learn:
+<ul>
+<li>How to </li>
+<li></li>
+</ul>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p></p>
 <footer>
@@ -3156,7 +4116,7 @@ event.target.classList.remove("removed")</pre></li>
 <li>How to </li>
 <li></li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p></p>
 <footer>
@@ -3178,7 +4138,7 @@ event.target.classList.remove("removed")</pre></li>
 <li>How to </li>
 <li></li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p></p>
 <footer>
@@ -3200,7 +4160,7 @@ event.target.classList.remove("removed")</pre></li>
 <li>How to </li>
 <li></li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p></p>
 <footer>
@@ -3222,7 +4182,7 @@ event.target.classList.remove("removed")</pre></li>
 <li>How to </li>
 <li></li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p></p>
 <footer>
@@ -3244,7 +4204,7 @@ event.target.classList.remove("removed")</pre></li>
 <li>How to </li>
 <li></li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p></p>
 <footer>
@@ -3266,7 +4226,7 @@ event.target.classList.remove("removed")</pre></li>
 <li>How to </li>
 <li></li>
 </ul>
-<a href="">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p></p>
 <footer>

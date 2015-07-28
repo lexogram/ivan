@@ -352,9 +352,9 @@ border-bottom-color: #003;*/
 }
 pre {
 background: #eee;
-/*border-color: #ccc;
+border-color: #ccc;
 border-right-color: #f4f4ff;
-border-bottom-color: #f4f4ff;*/
+border-bottom-color: #f4f4ff;
 }
 .git pre{
 background: #ddc;
@@ -482,7 +482,7 @@ text-align: left;
 font-style:oblique;
 }
 code{
-background-color: #eee;
+background-color: #f0f0f8;
 }
 section.optional {
 background-color: #f8f8ff;
@@ -496,6 +496,9 @@ border: 0px solid #eef;
 }
 .details code{
 background-color: #eef;
+}
+.disrupt code{
+background-color: #dbb;
 }
 .details label,
 .details label::before{
@@ -533,7 +536,7 @@ border: 0px solid #fcc;
 }
 .break pre,
 .break code{
-background-color: #fee;
+background-color: #edd;
 }
 .break h3,
 .break label,
@@ -723,4 +726,3 @@ font-style: normal;
     content: "";
   }
 }
-
