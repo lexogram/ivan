@@ -3,10 +3,10 @@ document.body.onclick = function (event) {
 }
 
 function reset() {
-  var matches = document.querySelectorAll(".matches img.removed");
+  var matches = document.querySelectorAll(".matches img.removed")
 
   for (var ii=0; ii<matches.length; ii++) {
-    var match = matches[ii];
-    match.classList.remove("removed");
+    var match = matches[ii]
+    match.classList.remove("removed")
   }
 }
