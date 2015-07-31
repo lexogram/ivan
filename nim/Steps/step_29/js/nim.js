@@ -1,41 +1,45 @@
 ;(function() {
-  var rows = document.querySelectorAll(".matches")
   var active
+  var rowCount
 
-  ;(function initialize() {
-    initializeRows()
-    initializeTurns()
-  })()
-
-  function initializeRows() {
-    var row
-
-    for (var ii=0; ii<rows.length; ii++) {
-      row = rows[ii]
-      row.onclick = hideMatch
-    }
-  }
-
-  function initializeTurns() {
-    var turnButtons = document.querySelectorAll(".turns button")
-    var button
-
-    for (var ii=0; ii<turnButtons.length; ii++) {
-      button = turnButtons[ii]
-      button.onclick = nextTurn
-
-      if (ii === 0) {
-        active = button.parentElement
-        active.classList.add("active")
-      }
-    }
-  }
+  document.body.onclick = hideMatch
 
   function hideMatch(event) {
     var match = event.target
+    
+    if (match.nodeName !== "IMG") {
+      return
+    } else if (match.className === "removed") {
+      return
+    } else if (rowsDontMatch(match)) {
+      return
+    }
+    
     match.classList.add("removed")
 
     active.classList.add("enabled")
+  }
+
+  function rowsDontMatch(match) {
+    var matchCount = match.parentElement.childElementCount
+    if (rowCount) {
+      if (rowCount !== matchCount) {
+        return true
+      }
+    } else {
+      rowCount = matchCount
+    }
+
+    return false
+  }
+
+  function reset() {
+    var matches = document.querySelectorAll(".matches img.removed")
+
+    for (var ii=0; ii<matches.length; ii++) {
+      var match = matches[ii]
+      match.classList.remove("removed")
+    }
   }
 
   function nextTurn() {
@@ -48,15 +52,23 @@
     active.classList.remove("enabled")
 
     active = next
-  active.classList.add("active")
+    active.classList.add("active")
+
+    rowCount = 0
   }
 
-  function reset() {
-    var matches = document.querySelectorAll(".matches img.removed")
+  ;(function initializeTurns() {
+    var turnButtons = document.querySelectorAll(".turns button")
+    var button
 
-    for (var ii=0; ii<matches.length; ii++) {
-      var match = matches[ii]
-      match.classList.remove("removed")
+    for (var ii=0; ii<turnButtons.length; ii++) {
+      button = turnButtons[ii]
+      button.onclick = nextTurn
+
+      if (ii === 0) {
+        active = button.parentElement
+        active.classList.add("active")
+      }
     }
-  }
+  })()
 })()

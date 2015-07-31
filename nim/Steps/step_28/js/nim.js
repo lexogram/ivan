@@ -1,13 +1,13 @@
 ;(function() {
   var active
 
-  document.body.onclick = function (event) {
-    hideMatch(event)
-  }
+  document.body.onclick = hideMatch
 
   function hideMatch(event) {
     var match = event.target
     if (match.nodeName !== "IMG") {
+      return
+    } else if (match.className === "removed") {
       return
     }
     
