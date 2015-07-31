@@ -44,8 +44,12 @@
 <li><a href="#scope">Variables and scope</a></li>
 <li><a href="#rows">One row at a time</a></li>
 <li><a href="#winner">Who won?</a></li>
-<li><a href="#two-players">Two player game</a></li>
-<li><a href="#overlay">Using an overlay</a></li>
+<li><a href="#position">Positioning an overlay</a></li>
+<li><a href="#transforms">Using CSS transforms</a></li>
+<li><a href="#cheats">Developer cheats</a></li>
+<li><a href="#win">Showing the winner</a></li>
+<li><a href="#two-players">Two-player game</a></li>
+<li><a href="#housekeeping">Housekeeping</a></li>
 <li><a href="#player">Computer player</a></li>
 <li><a href="#random">Random moves</a></li>
 <li><a href="#ai">Intelligent moves</a></li>
@@ -63,6 +67,12 @@
 <li><a href="#auto">Automating actions</a></li>
 <li><a href="#enter">ENTER = [ Done ]</a></li>
 <li><a href="#a11y">Accessibility</a></li>
+
+<li><a href="#multiplayer">Multiplayer</a></li>
+<li><a href="#nodejs">NodeJS</a></li>
+<li><a href="#register">Register</a></li>
+<li><a href="#lobby">Find other players</a></li>
+<li><a href="#remote">Remote actions</a></li>
 </ul-->
 </nav>
 </div>
@@ -1270,7 +1280,7 @@ To learn more about the <code>div</code> element, you can read the Understanding
 <p>This tells the browser: "For the <code>body</code> element and all its children, make text appear centred on the page."</p>
 <figure>
 <img src="img/align-center.png" alt="Centring the matches with text-align: center" />
-<figcaption>Figure 38. Centring the matches with <code>body { text-align: center; }</code></figcaption>
+<figcaption>Figure 38. Centring the matches with <code>body {&nbsp;text-align:&nbsp;center;&nbsp;}</code></figcaption>
 </figure>
 
 <div class="aside git">You might like to use the following commands in your Terminal to push these changes to the GitHub server:
@@ -1684,7 +1694,7 @@ body { font-size: <span class="red">10 px</span> }</pre></dd>
 <p>When you first open the Development Tools in Google Chrome, the main browser window will be split in two, vertically. You can create a horizontal split by clicking on the button in the top right corner of the window, or open the Developer Tools in a separate window by clicking and holding on the button, and choosing the second option in the menu that opens.</p>
 <figure>
 <img src="img/inspector-positions.png" alt="Choosing the position of the Development Tools panel" />
-<figcaption>Figure 49. Choosing the position of the Development Tools panel</figcaption>
+<figcaption>Figure  49. Choosing the position of the Development Tools panel</figcaption>
 </figure>
 </div>
 </div>
@@ -2094,7 +2104,6 @@ You've already had a glimpse about how to apply <code>background-color</code> to
 </ol>
 <div class="aside git">It's time to commit your latest changes to your local repository:
 <pre>git commit -am "Set background-color and color for the entire page"</pre>
-<p>Now, .</p>
 </div>
 
 <div class="aside next">
@@ -2155,7 +2164,7 @@ Well done! Up until now, to see the effect of the changes you have made, you hav
 <img src="img/cursorArrow.png" alt="The cursor image changes to a pointer over the match images" />
 <figcaption>Figure 67. The cursor image changes to a pointer over the match images</figcaption>
 </figure>
-<p>Changing the <code>background-color</code> is as easy as creating a new rule, and moving one line of code. I've also taken the opportunity to choose a new value for the <code>background-color</code>. You can, of course, choose whichever colour you prefer. Remember to delete the line <code>background-color: gray;</code> from the existing <code>.matches img { }</code> rule.</p>
+<p>Changing the <code>background-color</code> is as easy as creating a new rule, and moving one line of code. I've also taken the opportunity to choose a new value for the <code>background-color</code>. You can, of course, choose whichever colour you prefer. Remember to delete the line <code>background-color: gray;</code> from the existing <code>.matches img {&nbsp;}</code> rule.</p>
 
 <pre class="revised">body {
   font-size: 10px;
@@ -2249,7 +2258,7 @@ You've taken the longer way round to understand all the details of the CSS rules
 <div>
 <p class="symptom">The <code>background-color</code> around all the matches doesn't go away.</p>
 <ul>
-<li>Perhaps you didn't remove the line <code>background-color: gray;</code> from the <code>.matches img{ }</code> rule.</li>
+<li>Perhaps you didn't remove the line <code>background-color: gray;</code> from the <code>.matches img{&nbsp;}</code> rule.</li>
 <li>Perhaps your browser has decided to keep using an outdated version of your <code>style.css</code> stylesheet. You can follow <a href="html/clearcache.html">this link</a> to learn how to clear the cache for your browser.</li>
 </ul>
 <p class="aside support">If this doesn't solve your problem, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
@@ -2371,7 +2380,6 @@ Deleted branch rollover (was 32f3995).</pre>
 <p>You can feel comfortable now about using branches. You can create a new branch whenever you start a new episode in your development process. You can create a new branch whenever you want to try out a new idea.</p>
 
 <div class="aside issue">You have now successfully treated another issue from your list: <em>Show the player that the images are interactive</em>. You can close this on your <a href="https://github.com/issues">Issues</a> page on GitHub.
-
 </div>
 
 <div class="aside next">
@@ -2719,7 +2727,8 @@ page on GitHub</a> to close one issue and open 4 more... or perhaps you can solv
 <div class="aside git">Your project has now reached a new stable state. You can make a new commit and push your changes to your GitHub web site:
 <pre>git status
 git add -A
-git commit -m "Add CSS 'removed' rule; JavaScript to detect a click"</pre>
+git commit -m "Add CSS 'removed' rule; JavaScript to detect a click"
+git push origin gh-pages</pre>
 </div>
 
 <div class="aside next">
@@ -3009,18 +3018,28 @@ event.target.classList.remove("removed")</pre></li>
 &lt;/html&gt;</pre>
 <p>Save your file and refresh your browser. You should see a new button named Reset. Click on one or more of the matches, and then on the Reset button. The matches that you clicked on should now reappear.</p>
 
-<div class="aside next"> You can discover how this new line works by reading the optional sections below. You'll be adding four more buttons like this in the following pages, and using CSS to lay them out neatly.
-<p>When you're ready to continue, click on the Next arrow below, or on item <a href="#layout">24: The game elements</a> in the menu on the left.</p>
+<div class="aside info"> You can discover how this new line works by reading the optional sections below. You'll be adding four more buttons like this in the following pages, and using CSS to lay them out neatly.
 </div>
 
-<div class="aside git">One of your open issues is "Add buttons to restart the game". The button that you have just created deals with one essential part of this issue: it resets the layout of the matches. In the completed game, you will have three buttons:
+<div class="aside git">In the Terminal window, you can push your changes to the GitHub repository. If necessary, first use the <code>cd /path/to/your/local/repository</code> command to point to the right folder.
+<pre>git status
+git add -A
+git commit -m "Add Reset button"
+git push origin gh-pages
+</pre>
+
+<p>You can now close one of the issues that you have created on GitHub: <em>Make all the matches reappear again, to start a new game</em>. You can visit your <a href="https://github.com/issues">Issues</a> page on the GitHub site, click on this issue, and then click on the Close Issue button. You're doing well.</p>
+<p>Another of your open issues is <em>Add buttons to restart the game</em>. The button that you have just created deals with one essential part of this issue: it resets the layout of the matches. In the completed game, you will have three buttons:</p>
 <ul>
 <li>One to start a two-player game</li>
 <li>One to allow you to play first against the computer</li>
 <li>One to make the computer play first against you</li>
 </ul>
-<p>Each of these buttons will call this generic <code>reset()</code> method, and then do something specific. You might like to update this entry on your <a href="https://github.com/issues">Issues</a> page on the GitHub site to indicate the progress that you have made.</p>
+<p>Each of these buttons will call this generic <code>reset()</code> method, and then do something specific. You might like to update this entry to indicate the progress that you have made.</p>
 </div>
+
+<p class="aside next">
+When you're ready to continue, click on the Next arrow below, or on item <a href="#layout">24: The game elements</a> in the menu on the left.</p>
 
 <div class="optional details">
 <input type="checkbox" id="button-details"/>
@@ -3077,7 +3096,13 @@ event.target.classList.remove("removed")</pre></li>
 <li>A button to reset the game and make the computer start to play against you</li>
 </ul>
 <p>In this step, you can focus on adding the buttons (with HTML). In the next step, you can focus on placing them neatly on the screen (with CSS). Finally, you can add start adding the JavaScript that will give these buttons their purpose.</p>
-<p>There are several changes that you need to make to your <code>index.html</code> file. To make it simpler to understand them, I'll explain each change separately, and then provide you with the complete code for the HTML file. I recommend that you make one change at a time, and check the result in your browser. If something goes wrong, you can replace all your HTML with the final version that I give at the end</p>
+<p>There are several changes that you need to make to your <code>index.html</code> file. To make it simpler to understand them, I'll explain each change separately, and then provide you with the complete code for the HTML file. I recommend that you make one change at a time, and check the result in your browser. If something goes wrong, you can replace all your HTML with the final version that I give at the end.</p>
+
+<div class="aside git">When you are about to make a series of changes that might go wrong, it's good to create a new branch with Git. In the terminal window, use the <code>cd&nbsp;</code> command to navigate to the folder that holds your local Git repository, then use the following commands to create a new branch. You can call the new branch "gameplay":
+<pre class="revised"><span class="new">git checkout -b gameplay</span>
+Switched to a new branch 'gameplay'</pre>
+<p>When you have a two-player game working correctly, you can merge this branch back into the gh-pages branch, and push the working game to the GitHub server. In the meantime, all your changes will be local.</p>
+</div>
 
 <h3>Separating the game from the Start buttons</h3>
 <p>To make the structure of the page clear, it's good to create separate sections for the elements that control the game itself and the buttons that restart the game. To do this, you can create one <code>&lt;div&gt;</code> element that surrounds the matches elements, a second <code>&lt;div&gt;</code> element into which you can place all elements to say whose turn it is, and a third <code>&lt;div&gt;</code> element into which you can place all the buttons for restarting the game. You can give each of these new <code>&lt;div&gt;</code> elements a specific class, so that it is easy to distinguish them.</p>
@@ -3113,7 +3138,7 @@ event.target.classList.remove("removed")</pre></li>
 <h3>The Start buttons</h3>
 <p>Inside the new "start" <code>&lt;div&gt;</code> elements, you can replace your existing Reset button with HTML code for the three different buttons that will restart the game in different ways. Once again, you can give a specific class to each button to identify it.</p>
 <div class="aside note">Note that none of these new buttons has an <code> onclick="reset()"</code> attribute, so for now these buttons will do nothing when you click on them. You'll still be able to make a match vanish when you click on it, but you will need to reload the whole page to make it reappear again.
-<p>At this step, you are just concerned with placing the buttons on your web page. I'll explain how to restore this functionality at step <a href="#two-players">30: Two player game</a>, but you might like to fix this before then. You'll find a new method for doing this in step <a href="#turns">26: Whose turn is it?</a></p></div>
+<p>At this step, you are just concerned with placing the buttons on your web page. I'll explain how to restore this functionality at step <a href="#two-players">35: Two-player game</a>, but you might like to fix this before then. You'll find a new method for doing this in step <a href="#turns">26: Whose turn is it?</a></p></div>
 <pre class="revised">    ...
     &lt;div class="start"&gt;
       <span class="strike">&lt;button type="button" onclick="reset()"&gt;Reset&lt;/button&gt;</span>
@@ -3307,7 +3332,7 @@ opacity: 0;
 }</pre>
 <figure>
 <img src="img/display-inline-block.png" alt="Placing two divs side by side" />
-<figcaption>Figure 90. Using <code>{ display: inline-block }</code> to place two <code>&lt;div&gt;</code> elements side by side</figcaption>
+<figcaption>Figure 90. Using <code>{&nbsp;display:&nbsp;inline-block&nbsp;}</code> to place two <code>&lt;div&gt;</code> elements side by side</figcaption>
 </figure> 
 <p class="aside note">In <a href="#box">15: The CSS box model</a>, you've already seen the reason why a width of 50% will not work: it's a question of whitespace in the HTML file. You can find more information about this in the Tips and Tricks section below.</p>
 <h3>Applying a rule when a class is missing</h3>
@@ -3383,6 +3408,13 @@ img.removed {
 <img src="img/turns-start.png" alt="Buttons and text elements laid out using CSS" />
 <figcaption>Figure 91. How your buttons and text elements look after you have applied your CSS rules</figcaption>
 </figure>
+
+<div class="aside git">You can commit your latest changes to your gameplay branch:
+<pre>git status
+git add -A
+git commit -m "Add Player and Start buttons; Create layout"
+</pre>
+</div>
 
 <div class="aside next">
 You've learned to apply CSS to your new HTML elements, so that they appear neatly on the page. The next step will be to apply JavaScript to these elements, in order to create the game play.
@@ -3518,7 +3550,12 @@ initializeButtons()</span></pre>
 <div class="aside note">Note that <code>nextTurn</code> refers to the function as a whole, while <code>nextTurn()</code> is a command to execute all the code inside the function.
 <p>The function <code>initializeButtons</code> does nothing on its own: there has to be a command <code>initializeButtons()</code> that will make it execute.</p></div>
 <p>Save the changes to your <code>nim.js</code> file, then refresh your browser. Now, when you click on the visible Done button, it will disappear to be replaced by the other, and the highlight will pass to the other player's name, because the "active" class is moving from one player <code>&lt;div&gt;</code> to the other.</p>
-<div class="aside git">In the last couple of steps, you have
+<div class="aside git">Time to commit these changes to the gameplay branch on your local repository:
+<pre>git status
+git add -A
+git commit -m "Add nextTurn() and initializeButtons()"
+</pre>
+<p>In the last couple of steps, you have:</p>
 <ul>
 <li>Added HTML for the two Done buttons and the names of the players</li>
 <li>Added CSS rules to display them appropriately.</li>
@@ -3548,7 +3585,7 @@ You can now click on the Done buttons to swap players... at any time. In fact, y
 <li>Use the new branch for your experimental work.</li>
 </ul>
 <p>This way, if you get stuck, it is easy to use <code>git revert</code> as shown in step <a href="#revert">7: Reverting changes</a>, and to carry on with the tutorial from where you left off.</p>
-<p>If you are successful in getting it to work, you can feel a glow of pride, and use <code>git merge</code>, as shown in step <a href="#merge">18: Merging 2 Git branches</a> to merge your experimental branch back into the <code>master</code> branch, and continue from there.</p>
+<p>If you are successful in getting it to work, you can feel a glow of pride, and use <code>git merge</code>, as shown in step <a href="#merge">18: Merging 2 Git branches</a> to merge your experimental branch back into the current<code>gameplay</code> branch, and continue from there.</p>
 <p>In any case, I will provide you with all the details you need to succeed in this when you get to step <a href="#two-player">30: Two player game</a>, so you have nothing to lose.</p>
 </div>
 </div>
@@ -3608,20 +3645,18 @@ document.body.onclick = function (event) {
 }</pre>
 <p>You could simply add the following line to this function...</p>
 <pre>active.classList.add("enabled")</pre>
-<p>... but it's better to do this more neatly, by dividing it into two functions, and passing the <code>event</code> argument to the second function, like this:</p>
+<p>... but it's better to do this more neatly, by dividing it into two parts, like this:</p>
 <pre class="revised">var active
 
-document.body.onclick = function (event) {
-  <span class="new">hideMatch(event)</span>
-}
+document.body.onclick = <span class="new">hideMatch
 
-<span class="new">function hideMatch(event) {
+function hideMatch(event) {
   var match = event.target;
   match</span>.classList.add("removed")
 
   <span class="new">active.classList.add("enabled")
 }</span></pre>
-<p>In a moment, you'll see the advantage of having two distinct functions. This code, although it works, is flawed in two ways:</p>
+<p>You'll soon see the advantage of having two distinct steps. This code, although it works, is flawed in two ways:</p>
 <ul>
 <li>You can click on any object (not just a match) and the <code>hideMatch</code> function will be called</li>
 <li>The player can currently hide matches from more than one row.</li>
@@ -3652,9 +3687,10 @@ document.body.onclick = function (event) {
   active = next
   active.classList.add("active");
 }</pre>
+<p class="aside note">The <code>!</code> operator means "not", so the expression <code>!active.classList.contains("enabled")</code> means "the list of classes for the active element does not contain the word 'enabled'". To discover more about the logical operators such as <code>!</code>, you can read the optional Learn More About Logic section below.</p>
 <h3>Fixing a bug</h3>
 <p>Actually, it doesn't quite work does it? If you click twice on the Done button, the players will swap. In fact, if you click on any element (a match, one of the restart buttons, the word "Computer", the background, ...) and then on the Done button, the players will swap.</p>
-<p>So there is one more check that you have to make: you need to check if the user is actually clicking on a match. Since the only <code>&lt;img&gt;</code> elements on your page are matches, you can use a shortcut and simply check if the element the user clicked on is an <code>&lt;img&gt;</code> element. Here's a change for you to make:</p>
+<p>So there is a further check that you have to make: you need to check if the user is actually clicking on a match. Since the only <code>&lt;img&gt;</code> elements on your page are matches, you can use a shortcut and simply check if the element the user clicked on is an <code>&lt;img&gt;</code> element. Here's a change for you to make:</p>
 <pre>function hideMatch(event) {
   var match = event.target;
   <span class="new">if (match.nodeName !== "IMG") {
@@ -3666,10 +3702,30 @@ document.body.onclick = function (event) {
   <span class="new">active.classList.add("enabled")
 }</span></pre>
 <p class="aside info">For details on the <code>nodeName</code> property, you can read the Learn More About HTML Properties section below.</p>
+<h3>One bug can hide another</h3>
+<p>With a little thought, you may be able to find another way to swap players without removing any matches. You've made sure that the player clicks on a match. For the first player, all the matches are visible. But could the <em>second</em> player click on a match <code>&lt;img&gt;</code> element, without hiding a match?</p>
+<p>Think about it for a moment. If you're stuck (or if you are sure that you have the right answer and you prefer copy-and-pasting rather than typing), roll the cursor over the space below to see a clue.</p>
+<pre class="hover revised">...
+
+function hideMatch(event) {
+  var match = event.target
+  if (match.nodeName !== "IMG") {
+    return
+  }<span class="new"> else if (match.className === "removed") {
+    return
+  }</span>
+  
+  match.classList.add("removed")
+
+  active.classList.add("enabled")
+}
+
+...</pre>
+<p>Make the suggested change to your <code>nim.js</code> file, save it, then refresh your browser. Check that the Done button will no longer appear until at least one match has been removed.</p>
 <h3>Using CSS to show when the Done button not enabled</h3>
 <p>There is a <a href="http://www.w3schools.com/jsref/prop_select_disabled.asp"><code>disabled</code></a> attribute that you could apply to the Done button, but different browsers would change the appearance of the button in different ways. 
 As you have seen, you can achieve the same effect using the check...</p>
-<pre>if (!active.classList.contains("enabled")) {
+<pre>  if (!active.classList.contains("enabled")) {
     return
   }</pre>
 <p>... to prevent any further code from being executed. This also has the advantage that you can use the absence of the "enabled" class to set the appearance of the disabled button.</p>
@@ -3682,18 +3738,18 @@ As you have seen, you can achieve the same effect using the check...</p>
 <span class="new">.active:not(.enabled) button {
   opacity: 0.2;
 }</span></pre>
-<p>Note how the selector will choose any button which is a descendant of an element with an "active" class, so long as that element does not also have a "enabled" class. If you prefer, you can make the opacity 0.</p>
+<p>Note how the selector will choose any button which is a descendant of an element with an "active" class, so long as that element does not also have a "enabled" class. If you prefer, you can make the opacity 0 to hide the button completely.</p>
 <h3>Complete listing of the <code>nim.js</code> file</h3>
 <p>Here's what your <code>nim.js</code> file should look like now:</p>
 <pre class="revised"><span class="new">var active</span>
 
-document.body.onclick = function (event) {
-  <span class="new">hideMatch(event)</span>
-}
+document.body.onclick = <span class="new">hideMatch</span>
 
 <span class="new">function hideMatch(event) {
   var match = event.target;
   if (match.nodeName !== "IMG") {
+    return
+  } else if (match.className === "removed") {
     return
   }</span>
   
@@ -3741,9 +3797,14 @@ function initializeTurns() {
 
 initializeTurns()</pre>
 
+<div class="aside git">Time to commit these changes to your local repository:
+<pre>git status
+git add -A
+git commit -m "Force player to take a match before clicking Done"
+</pre></div>
+
 <div class="aside next">Now you can force the current player to remove a match before passing the turn to the other player. However, players should only take matches from more one row, and that rule still needs to be applied.
 <p>Perhaps you have got this feature working in your project, and you are tempted to move on to applying the next rule. However, this code contains a <span class="keyword">global</span> variable, and that can make debugging difficult. To learn how to write code in a more reliable way, click on the Next arrow below, or on item <a href="#scope">28: Variables and scope</a> in the menu on the left.</p>
-<p>If you want to know more about  below.</p>
 </div>
 
 <div class="optional details">
@@ -3776,6 +3837,24 @@ initializeTurns()</pre>
 <ul>
 <li><a href="http://www.w3schools.com/jsref/prop_node_nodeName.asp">w3schools</a></li>
 <li><a href="https://developer.mozilla.org/en/docs/Web/API/Node/nodeName">Mozilla</a></li>
+</ul>
+</div>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="if-details"/>
+<label for="if-details">Learn more about <code>logic</code></label>
+<div>
+<p>You can read more about using <code>else</code> with <code>if</code> statements on these sites:</p>
+<ul>
+<li><a href="http://www.w3schools.com/js/js_if_else.asp">JavaScript If...Else Statements</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else">if...else</a></li>
+<li><a href="http://www.tutorialspoint.com/javascript/javascript_ifelse.htm">JavaScript - if...else Statement</a></li>
+</ul>
+<p>You can learn more about the logical operators (or, and, not, exclusive or) on these sites:</p>
+<ul>
+<li><a href="http://www.w3schools.com/js/js_comparisons.asp">JavaScript Comparison and Logical Operators</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators">Logical OperatorsJavaScript Comparison and Logical Operators</a></li>
 </ul>
 </div>
 </div>
@@ -3899,7 +3978,7 @@ initializeTurns()</pre>
 <h4>3) Evaluating items</h4>
 <p>A third way that parentheses can be used is to group items together, so that the expression inside the parentheses is evaluated. For example <code>(5 - 4) * 3</code> means <code>1 * 3</code>, while <code>5 - (4 * 3)</code> means <code>5 - 12</code>. The expression inside the parentheses is evaluated before any other operations are applied. </p>
 <h3>Immediately-invoked function expressions</h3>
-<p>The new function that you have created parentheses in all three ways:</p>
+<p>The new function that you have created uses parentheses in all three ways:</p>
 <ul>
 <li>It contains a pair of parentheses after the word <code>function</code>, as part of the function definition</li>
 <li>It is wrapped in a pair of parentheses, to tell the JavaScript engine to evaluate it</li>
@@ -3953,9 +4032,7 @@ new
 <pre class="revised"><span class="new">;(function() {</span>
   var active
 
-  document.body.onclick = function (event) {
-    hideMatch(event)
-  }
+  document.body.onclick = hideMatch
 
   function hideMatch(event) {
     var match = event.target
@@ -4005,6 +4082,12 @@ new
     }
   }<span class="new">)()
 })())</span></pre>
+
+<div class="aside git">You can commit these changes to your local repository now:
+<pre>
+git commit -am "Wrap in immediately-invoked function expression"
+</pre></div>
+
 <div class="aside next">The changes that you have made in this step may seem small, but it is important to understand the concepts involved. If anything is still unclear, I recommend that you visit the links in the Learn More About IFFEs section.
 <p>
 When you're ready to continue, click on the Next arrow below, or on item <a href="#rows">29: One row at a time</a> in the menu on the left.</p>
@@ -4045,14 +4128,113 @@ When you're ready to continue, click on the Next arrow below, or on item <a href
 <!-- ONE ROW AT A TIME -->
 <section id="rows">
 <h2>One Row at a Time</h2>
-<div class="aside preview">In this step, you'll learn:
+<div class="aside preview">In this step, you'll learn to:
 <ul>
-<li>How to </li>
-<li></li>
+<li>Ask the right questions on the Internet to discover what JavaScript keywords to use</li>
+<li>Count the number of children of an element</li>
+<li>Check which row the current player first clicked on</li>
 </ul>
-<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_29/step_29.zip?raw=true" target="source">Download the source files</a>
 </div>
-<p></p>
+<p>Right now, there is nothing to prevent a player from removing matches from more than one row. This is against the rules, and must be stopped. This means that you are going to have to find a way to check which row a given match belongs to.</p> 
+<p>One easy way to distinguish between the rows is by the number of <code>&lt;img&gt;</code> elements the row contains.</p>
+<p>At the moment, you are attaching an <code>onclick</code> handler to the <code>&lt;body&gt;</code> element. This means that every click anywhere on the page will trigger a <code>click</code> mouse event. In the <code>hideMatch</code> function, you are checking for <code>event.target</code>, which should be an <code>&lt;img&gt;</code> element. If it is an <code>&lt;img&gt;</code> element, then its parent element will be one of the <code>&lt;div&gt;</code> elements with the "matches" class. All you need to do is:</p>
+<ul>
+<li>Find out which element is the parent of the clicked <code>&lt;img&gt;</code> element</li>
+<li>Find out how many children that parent has</li>
+</ul>
+<p>The answer will be 1, 3, 5 or 7, regardless of how many matches have already been hidden.</p>
+<p>You have already seen how to find the parent of a given element, because you have used it in the <code>initializeTurns</code> function. But if you have forgotten, it is very easy to find out using your favourite search engine. You just have to ask the right question. Try these search words:</p>
+<kbd><a href="https://www.google.com/webhp#q=parent+of+html+element">parent of html element</a></kbd>
+<p>What is the first hit that you get? It is probably either a link to <code><a href="http://www.w3schools.com/jsref/prop_node_parentelement.asp">parentElement</a></code> or <code><a href="http://www.w3schools.com/jsref/prop_node_parentnode.asp">parentNode</a></code>. Either property is good.</p>
+<p>What about finding how many children a given element has? How about these search terms:</p>
+<kbd><a href="https://www.google.ca/webhp#q=number+of+children+of+html+element">number of children of html element</a></kbd>
+<p>It might take a little bit more searching, but you should soon find links to <a href="http://www.w3schools.com/jsref/prop_element_childelementcount.asp">HTML DOM childElementCount Property</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/childElementCount">ParentNode.childElementCount</a></p>
+<p>Here are some changes that you can make to your <code>nim.js</code> file, to prevent matches being removed from more than one row:</p>
+<pre class="revised">;(function() {
+  var active
+  <span class="new">var rowCount</span>
+  ...
+
+  function hideMatch(event) {
+    var match = event.target
+    
+    if (match.nodeName !== "IMG") {
+      return
+    } else if (match.className === "removed") {
+      return
+    }<span class="new"> else if (rowsDontMatch(match)) {
+      return
+    }</span>
+    
+    match.classList.add("removed")
+
+    active.classList.add("enabled")
+  }
+
+  <span class="new">function rowsDontMatch(match) {
+    var matchCount = match.parentElement.childElementCount
+    if (rowCount) {
+      if (rowCount !== matchCount) {
+        return true
+      }
+    } else {
+      rowCount = matchCount
+    }
+
+    return false
+  }</span>
+
+  ...
+
+  function nextTurn() {
+    if (!active.classList.contains("enabled")) {
+      return
+    }
+
+    var next = document.querySelector(".turns div:not(.active)")
+    active.classList.remove("active")
+    active.classList.remove("enabled")
+
+    active = next
+    active.classList.add("active")
+
+    <span class="new">rowCount = 0</span>
+  }</pre>
+<h3>Identifying the row from which the player took the first match</h3>
+<p>In the <code>nextTurn</code> function, you set a new variable called <code>rowCount</code> to 0. When the player clicks on a visible match, the new function <code>rowsDontMatch</code> is called, and the <code>&lt;img&gt;</code> element on which the player clicked is passed as an argument. The line...</p>
+<pre>var matchCount = match.parentElement.childElementCount</pre>
+<p>... calculates the number of matches in the row (the number of children of the <code>&lt;img&gt;</code> element's parent).</p>
+<p>If this is the first match that the player has clicked during this turn, then <code>rowCount</code> will be <code>0</code>. Zero behaves like <code>false</code> so the lines... </p>
+<pre>    else {
+      rowCount = matchCount
+    }</pre>
+<p>... will be executed, and then the <code>rowsDontMatch</code> function will return the value <code>false.</code></p>
+<p>If the player clicks on other matches, <code>rowCount</code> will already have a non-zero value (1, 3, 5 or 7) and this value will behave like <code>true</code>. As a result the lines...</p>
+<pre>      if (rowCount !== matchCount) {
+        return true
+      }</pre>
+<p>... will be executed. If the player clicked on a match in a different row, the <code>rowsDontMatch</code> function will return the value <code>true</code>. If the click was on the same row (and therefore the match can legally be removed), none of the code inside the <code>if ( ) {&nbsp;} else {&nbsp;}</code> statement will be executed, and the next line to run will be <code>return false</code>.</p>
+<p>If <code>rowsDontMatch</code> returns <code>true</code>, then <code>hideMatch</code> will not execute any more code. No matches will disappear.</p>
+
+<div class="aside git">Time to commit these changes to your local repository:
+<pre>git commit -am "Limit player to taking from only one row"
+</pre>
+<p>Now you can visit your <a href="https://github.com/issues">Issues</a> page on GitHub, and close this issue.</p>
+</div>
+
+<div class="aside next">You have seen how to check which row the player first took a match from in the current move, and how to prevent the player from taking any matches from a different row.
+<p>You need to do one more thing before you will have finished the basic two-player game: check when the game is finished. When you're ready, click on the Next arrow below, or on item <a href="#winner">30: Who won?</a> in the menu on the left.</p>
+</div>
+
+<div class="optional trouble">
+<input type="checkbox" id="row-trouble"/>
+<label for="row-trouble">Troubleshooting </label>
+<div>
+<p class="aside mail">If you have any problems with this step, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+</div>
+</div>
+
 <footer>
 <ul class="nav">
 <li>
@@ -4067,14 +4249,590 @@ When you're ready to continue, click on the Next arrow below, or on item <a href
 <!-- WHO WON? -->
 <section id="winner">
 <h2>Who Won?</h2>
+<div class="aside preview">In this step, you'll learn how to:
+<ul>
+<li>Read the text of a given HTML element</li>
+<li>Count the number of HTML elements with a given class</li>
+<li>Indicate that the game is over</li>
+</ul>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_30/step_30.zip?raw=true" target="source">Download the source files</a>
+</div>
+<p>You can now play Nim as a two-player game, removing matches until there are no matches left. When a player removes the last match, the game should say something like "You win" or "Player 1 wins". This means that your code must have some way of:</p>
+<ul>
+<li>Knowing the name of the current player ("You", "Computer", "Player X")</li>
+<li>Deciding whether to use "win" or "wins", depending on the name of the winning player.</li>
+</ul>
+<p>When the last match has been removed, then all the <code>&lt;img&gt;</code> elements will have the class "removed". There are 16 matches in all. If there are 16 images with the class "removed" then the game is over.</p>
+<h3>Selecting all the "removed" match images</h3>
+<p>In the <code>reset</code> method, you have already used<code>var matches = document.querySelectorAll(".matches img.removed")</code> to create an array of all the elements with the "removed" class. You have also used <code>matches.length</code> to count the number of elements in this array. It should be easy for you to create a <code>checkForGameOver</code> method that uses these two techniques, and checks whether the result is 16, in which case all the matches have been removed, and the game is over.</p>
+<p>Perhaps you'd like to try that for yourself.</p>
+<h3>Getting the name of the winner</h3>
+<p>The loser is the player who plays the last move. To announce who won, you will need to read the name of the current player, just before the current player switches. You'll need to do this in the <code>nextTurn</code> function, but you'll need to check for the losing move in the <code>hideMatch</code> function. This means that the variable that holds the name of the winner needs to be declared outside both these functions, inside the outermost closure:</p>
+<pre class="revised">;(function() {
+  var active
+  var rowCount
+  <span class="new">var winner</span>
+
+  ...</pre>
+<p>To discover how to get the text itself, you can run an Internet search such as...</p>
+<kbd><a href="https://www.google.com/webhp?#q=get+text+of+html+element">get text of html element</a></kbd>
+<p>This should lead you to articles such as:</p>
+<ul>
+<li><a href="http://www.w3schools.com/jsref/prop_node_textcontent.asp">HTML DOM textContent Property</a>, which immediately gives you an example of exactly what you need.</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent">Node.textContent</a></li>
+</ul>
+<p>Here's how you can set the value of <code>winner</code> each time a player finishes a turn:</p>
+<pre> ...
+
+  function nextTurn() {
+    if (!active.classList.contains("enabled")) {
+      return
+    }
+
+    <span class="new">winner = active.querySelector("p").textContent</span>
+
+    var next = document.querySelector(".turns div:not(.active)")
+    active.classList.remove("active")
+    active.classList.remove("enabled")
+
+    active = next
+    active.classList.add("active")
+
+    rowCount = 0 
+  }
+
+  ...
+</pre>
+<p>In other words: look inside the <code>active</code> player div for an element with a <code>&lt;p&gt;</code> tag, and set <code>winner</code> to the text of the this element. Then swap players, so that the other player becomes "active".</p>
+<h3>Detecting that the game is over</h3>
+<p>Here's how you can add a call to a <code>checkForGameOver</code> function to the <code>hideMatch</code> function.</p>
+<pre class="revised">  ...
+
+  function hideMatch(event) {
+    var match = event.target
+    
+    if (match.nodeName !== "IMG") {
+      return
+    } else if (match.className === "removed") {
+      return
+    } else if (rowsDontMatch(match)) {
+      return
+    }
+    
+    match.classList.add("removed")
+    active.classList.add("enabled")
+
+    <span class="new">checkForGameOver()
+  }
+
+  function checkForGameOver() {
+    var selector = ".matches img.removed"
+    var removed = document.querySelectorAll(selector).length
+
+    if (removed === 16) { // HARD-CODED NUMBER OF MATCHES
+      showWinner()
+    }
+  }
+
+  function showWinner() {
+    var message
+
+    if (winner === "You") {
+      message  = winner+" win!"
+    } else {
+      message = winner+" wins!"
+    }
+
+    alert (message)
+  }</span>
+
+  function rowsDontMatch(match) {
+  ...</pre>
+<p>Note that checking that the game is over and announcing the winner are done in two separate functions, to make it easy to change each feature separately.</p>
+<figure>
+<img src="img/you-win.png" alt="Displaying an alert when the game is over" />
+<figcaption>Figure 99. Displaying an alert when the game is over</figcaption>
+</figure>
+
+<div class="aside git">Well done! That's another issue resolved: <em>Check that the current player has taken the last match</em>. You can visit your <a href="https://github.com/issues">Issues</a> page on GitHub, and close this issue.
+<p>Do you need a reminder about how to commit your changes locally?
+</p>
+<pre class="hover">git commit -am "Check when player takes the last match"
+</pre></div>
+
+<p class="aside next">In the next step you will see how to display the winner in the page itself, instead of using an alert. When you're ready, click on the Next arrow below, or on item <a href="#position">31: Using an overlay</a> in the menu on the left.</p>
+
+<footer>
+<ul class="nav">
+<li>
+<a href="#position">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
+<!-- POSITIONING AN OVERLAY -->
+<section id="position">
+<h2>Positioning an Overlay</h2>
 <div class="aside preview">In this step, you'll learn:
 <ul>
-<li>How to </li>
-<li></li>
+<li>How to create a semi-transparent overlay</li>
+<li>How to change the text of an HTML element</li>
+<li>How to use the <code>id</code> attribute</li>
 </ul>
-<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_31/step_31.zip?raw=true" target="source">Download the source files</a>
+</div>
+<p>It's easy to create an alert to show who has won, but it does not look very professional. It would be better to make the winning announcement in the same style as the page itself. To do this, you'// need to make changes to all three documents in your game: <code>index.html</code>, <code>style.css</code> and <code>nim.js</code>.</p>
+<h3>Creating an overlay in HTML</h3>
+<p>When the game is over, all the matches will be gone, and the "player" names and Done buttons will no longer be needed. However, you will want to be able to click on any of the three start buttons. It would make sense to place the winner announcement in the centre of the area currently defined by <code>&lt;div class="game"&gt;</code> and <code>&lt;div class="turns"&gt;</code>.</p>
+<p>One way to do this is to place both these <code>&lt;div&gt;</code>elements inside a wrapper <code>&lt;div&gt;</code>, and then create a third child of the wrapper <code>&lt;div&gt;</code> which will take up 100% of the width and 100% of the height of its parent.</p>
+<p>In your <code>index.html</code> file, add a new <code>&lt;div&gt;</code> with a class of "playzone", as shown below:</p>
+<pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Nim&lt;/title&gt;
+    &lt;link rel="stylesheet" href="css/style.css" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Nim&lt;/h1&gt;
+    &lt;h2&gt;The game that will beat you&lt;/h2&gt;
+    <span class="new">&lt;div class="playzone"&gt;</span>
+      &lt;div class="game"&gt;
+        &lt;div class="matches"&gt;
+          &lt;img src="img/match.png" alt="match 1 row 1" /&gt;
+          ...
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class="turns"&gt;
+        &lt;div class="player1"&gt;
+          &lt;button type="button"&gt;Done&lt;/button&gt;
+          &lt;p&gt;You&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="player2"&gt;
+          &lt;button type="button"&gt;Done&lt;/button&gt;
+          &lt;p&gt;Computer&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    <span class="new">&lt;/div&gt;</span>
+
+    ...</pre>
+<p>Now, inside the new <code>&lt;div&gt;</code>, you can create a nest of two new elements: a <code>&lt;div&gt;</code> that will serve to cover the whole area with a semi-opaque mask, and a <code>&lt;p&gt;</code> element to show the identity of the winner:</p>
+<pre><span class="revised">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Nim&lt;/title&gt;
+    &lt;link rel="stylesheet" href="css/style.css" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Nim&lt;/h1&gt;
+    &lt;h2&gt;The game that will beat you&lt;/h2&gt;</span>
+    &lt;div class="playzone"&gt;<span class="revised">
+      &lt;div class="game"&gt;
+        ..
+      &lt;/div&gt;
+
+      &lt;div class="turns"&gt;
+        ...
+      &lt;/div&gt;</span>
+
+      <span class="new">&lt;div id="winner" class="mask"&gt;
+        &lt;p class="dialog active"&gt;The Computer wins!&lt;/p&gt;
+      &lt;/div&gt;&lt;/div&gt;</span>
+    &lt;/div&gt;
+
+    ...</pre>
+<p class="aside note">The "mask" div has an <code>id</code> attribute.For more information on the <code>id</code> attribute, see the Learn More About <code>id</code>s section below.</p>
+<h3>Using CSS to position the winner announcement</h3>
+<p>If you save your changes and refresh your browser, you will see that the text "The Computer wins!" in small characters beneath the names of the players. To make it appear over the top of other elements, you need to use the <code>position</code> CSS attribute.</p>
+<p>In your <code>style.css</code> file, add the following two rules, then save your files and refresh your browser.</p>
+<pre>
+.playzone {
+  <span class="new">position: relative;</span>
+}
+.mask {
+  <span class="new">position: absolute;</span>
+  height: 100%;
+  width: 100%;
+  top: 0;
+  background:rgba(100,0,0,0.8);
+}</pre>
+<p>You should now see a dark red overlay with an opacity of 80% above the matches and the players' names. (I've used red so that it is easy to see. By the end of the next step, it will be changed to black, to blend in with the background). The text "The Computer wins!" should appear at the top left of this area.</p>
+<figure>
+<img src="img/overlay-absolute.png" alt="Using position: absolute; to place elements outside the normal flow" />
+<figcaption>Figure 100. Using <code>{&nbsp;position:&nbsp;absolute;&nbsp;}</code> to place elements outside the normal flow</figcaption>
+</figure>
+<p>The default value for the <code>position</code> property is <code>static</code>. Elements with a <code>static</code> position flow after each other down the page. If you change the value of an element's <code>position</code> to <code>absolute</code>, you tell the browser to remove the element from the normal flow. It will now appear on top of other elements, and with its top left at the absolute position that you give <em>relative to the closest parent that does not have a <code>static</code> position</em>.</p>
+<p>By setting the <code>position</code> of the "playzone" parent to "relative", you tell the browser that the "mask" overlay needs to be positioned absolutely with respect to the "playzone" element. If you delete or comment out the CSS rule for <code>.playzone</code>, then the "mask" element will be positioned relative to the <code>&lt;body&gt;</code>, and will thus cover the three start buttons as well, making it impossible to click them. (Try it and see.)</p>
+<p>Setting the <code>height</code> and the <code>width</code> of the "mask" <code>&lt;div&gt;</code> makes it exactly the same dimensions as its parent "playzone" <code>&lt;div&gt;</code>. Setting the <code>top</code> attribute to <code>0</code> places the "mask" <code>&lt;div&gt;</code> at exactly the same vertical position as its parent.</p>
+<p class="aside note">The Learn More About Position section below will give you insight into how the <code>position</code> property works.</p>
+<h3>CSS to centre the winner text</h3>
+<p>The easiest way to position the winner text in a good vertical position is to use absolute positioning and <code>em</code> units for the <code>top</code> attribute. Te centre it horizontally, you can set the <code>width</code>  of the element to <code>100%</code> of the width of its parent, and use <code>center</code> for the <code>text-align</code> attribute.</p>
+<p>Add these two rules to your <code>style.css</code> file, save it and refresh your browser.</p>
+<pre>.dialog{
+  position: absolute;
+  top: 8.2em; /* Hand-picked hard-coded value */
+  width: 100%;
+  text-align: center;
+}
+#winner p{
+  font-size: 2.5em;
+}</pre>
+<p>On my system, the value of <code>8.2em</code> places the text nicely between the middle two rows of matches.</p>
+<figure>
+<img src="img/hardcoded-top.png" alt="Using em units to fix the vertical position" />
+<figcaption>Figure 101. Using <code>em</code> units to fix the vertical position</figcaption>
+</figure>
+
+<div class="aside next">
+When you're ready, click on the Next arrow below, or on item <a href="#"></a> in the menu on the left.
+<p>If you want to know more about  below.</p>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="position-details"/>
+<label for="position-details">Learn more about <code>position</code></label>
+<div>
+<p>Here are some links with more details about how the <code>position</code> property works:</p>
+<ul>
+<li><a href="http://www.w3schools.com/css/css_positioning.asp">CSS Layout - The position Property</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">position</a></li>
+</ul>
+</div>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="id-details"/>
+<label for="id-details">Learn more about <code>id</code>s</label>
+<div>
+<p>In CSS, you can apply a <code>class</code> to many different elements, and you can apply many classes to one element. Sometimes you need to identify a unique element. It can be complicated to create a selector that will do this if you only use classes.</p>
+<p>The solution is to set an <code>id</code> attribute for your unique element. If you give the same <code>id</code> to several elements, the browser will only recognize the first element with that <code>id</code>. In JavaScript, you can use <code>document.getElementById("<em>idString</em>")</code> to refer to the first element in the page that has the given id.</p>
+<p>In your CSS document, a class is identified by a preceding dot. An id is identified by a preceding hash symbol:</p>
+<pre><span class="red">.</span><em>class</em> {
+  /* CSS rules */
+}
+
+<span class="red">#</span><em>id</em> {
+  /* CSS rules */
+}</pre>
+<p>You can read more about the <code>id</code> selector on other sites:</p>
+<ul>
+<li><a href="http://www.w3schools.com/cssref/sel_id.asp">CSS #id Selector</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors">ID selectors</a></li>
+</ul>
+</div>
+</div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#transforms">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
+<!-- USING CSS TRANSFORMS -->
+<section id="transforms">
+<h2>Using CSS Transforms</h2>
+<div class="aside preview">In this step, you'll learn:
+<ul>
+<li>How to use the transform property to change an element's layout with respect to itself</li>
+</ul>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_32/step_32.zip?raw=true" target="source">Download the source files</a>
+</div>
+<p>The technique that you used in <a href="#position">the last step</a> for placing an element vertically assumes that you know the height of parent element. Here's a technique that you can use when you don't know the height:</p>
+<ul>
+<li>Move the top of the text element half-way down the parent element</li>
+<li>Shift the text element upwards half its own height</li>
+</ul>
+<p>The first of these is easy: you can set the value of <code>top</code> to <code>50%</code>: 50% of the height of the parent element.</p>
+<p>To shift the element by a percentage of its <em>own</em> height, you need to use an attribute that has been added more recently to CSS. The vendor of different browser have not yet agreed on how it should work exactly. As a result, you need to use not one CSS property but several, one for each vendor. Your browser will ignore the properties that it does not understand.</p>
+<h3>Unit-free CSS for centring an element vertically.</h3>
+<p>Make the following change to your CSS rule for the "dialog" class:</p>
+<pre class="revised">
+.dialog{
+position: absolute;
+width: 100%;
+<span class="strike">top: 8.2em;</span>
+<span class="new">top: 50%;
+-webkit-transform: translate(0, -50%);
+-moz-transform: translate(0, -50%);
+-ms-transform: translate(0, -50%);
+-o-transform: translate(0, -50%);
+transform: translate(0, -50%);</span>
+text-align: center;
+}</pre>
+<div class="aside note">The <code>transform</code> property will eventually become standard. It should be placed last. The other properties all have a <span class="keyword">vendor prefix</span>. If a given browser supports both its own vendor-prefixed version of the property and the standard property itself, then the value given later will be applied.
+<p>In Google Chrome, for example, if you disable the <code>transform</code> setting in the "dialog" rule, by unchecking its checkbox in the Styles pane (as shown in figure 102 below), the <code>webkit-transform</code> property will be activated instead. The effect should be the same.</p></div>
+<figure>
+<img src="img/vendor-transform.png" alt="Using the transform property to move an element relative to itself" />
+<figcaption>Figure 102. Using the transform property to move an element relative to itself</figcaption>
+</figure>
+<p>Here, the <code>transform</code> property is used to <span class="keyword">translate</span> the winner text element upwards by 50% of its own height. The <code>transform</code> property can be used for many other manipulations, such as rotation, scale, skew, 3D perspective. For more information, see the Learn More About Transform section below.</p>
+<p class="aside note">Note that the position of the "winner" text is different now. In the previous step, you used a hard-coded custom value; with this technique, you are simply placing the text exactly in the vertical centre. Now that you know this new technique, you can choose which you like better.</p>
+
+<h3>Matching the mask colour to the background</h3>
+<p>I used red as the background colour for the "#winner" element, so that you could easily see its extent. To blend the overlay into the page as a whole, it's better to use the same background colour as for the <code>&lt;body&gt;</code>:</p>
+<pre class="revised">
+.mask {
+  position:absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  background:rgba(<span class="new">0</span>,0,0,0.8);
+}</pre>
+<p class="aside next">
+You might want to read the Learn More About Transforms section below, to understand how this CSS feature works. When you're ready, click on the Next arrow below, or on item <a href="#cheats">33: Developer cheats</a> in the menu on the left.</p>
+</div>
+<div class="optional details">
+<input type="checkbox" id="transform-details"/>
+<label for="transform-details">Learn more about <code>transforms</code></label>
+<div>
+<p>You can discover more about the <code>transform</code> property on other sites:</p>
+<ul>
+<li><a href="http://www.w3schools.com/cssref/css3_pr_transform.asp">CSS transform Property</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform">transform</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_transforms">Using CSS transforms</a></li>
+</ul>
+</div>
+</div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#cheats">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
+<!-- DEVELOPER CHEATS -->
+<section id="cheats">
+<h2>Creating Developer Cheats</h2>
+<div class="aside preview">In this step, you'll learn:
+<ul>
+<li>How to call a function inside a closure from outside</li>
+</ul>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_33/step_33.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p></p>
+<h3>Cheating for reasons of efficiency</h3>
+<p>In the next step, you will be seeing how to show your new winner announcement when the game is over. You will probably want to test that the announcement appears the way you expect it to, several times.</p>
+<p>In step <a href="winner">30: Who won?</a>, you needed to remove all the matches one by one, and swap players from time to time before the winner alert would appear. This is time-consuming. It would be good to be able to invoke the winner alert at any time. </p>
+<p>At step <a href="reset">22: Resetting the Game</a>, you typed the command <code>reset()</code> in the Console to reset the game. What do you think will happen if you type <code>showWinner("Winner!")</code> after the <code>&gt;</code> prompt in the Console?</p>
+<figure>
+<img src="img/showWinner-error.png" alt="Calling a function from outside its scope causes an error" />
+<figcaption>Figure 103. Calling a function from outside its scope causes an error</figcaption>
+</figure>
+<p>The answer is: lots of angry red text. Why?</p>
+<p>In step <a href="scope">28: Variables and scope</a>, you created an immediately-invoked function expression to wrap all your code, so that it would keep all your variables neatly in their own closures. The downside of this is that you can't now call any of the functions inside this closure. Fortunately there is a simple slution, that you already know: declare a variable outside the closure, and set the value of this variable inside the closure. Like this:</p>
+<pre class="revised"><span class="new">var functionVariable</span>
+
+;(function() {
+  var active
+
+  ...
+
+  <span class="new">functionVariable =</span> function showWinner(winner) {
+    alert (winner)
+  }
+
+  ...
+  </pre>
+<p>The value of a variable can be a function. You can execute your function-variable, by placing opening and closing parentheses after it (enclosing some optional arguments), like this:</p>
+<pre>functionVariable("Winner")</pre>
+<p>When you do this, you execute the <code>showWinner</code> function that is stored inside your IIFE closure. </p>
+<p>I've used <code>functionVariable</code> here, to show that the variable name and the function have their own separate existences. For simplicity and consistency, I suggest that you use the same name for both.</p>
+<pre class="revised"><span class="new">var showWinner</span>
+
+;(function() {
+  var active
+
+  ...
+
+  <span class="new">showWinner =</span> function showWinner(winner) {
+    alert (winner)
+  }
+
+  ...</pre>
+<figure>
+<img src="img/showWinner-alert.png" alt="Using a top-level variable to call a function inside a closure" />
+<figcaption>Figure 104. Using a top-level variable to call a function inside a closure</figcaption>
+</figure>
+<p class="aside note">The variable <code>showWinner</code> that you have just created is a <span class="keyword">global</span>, and its good to avoid using globals. This particular global is only used to save you time during development. As soon as the game is working the way you want it to, you can delete your global declarations, and it will continue to work inside the safety of the closure.</p>
+<h3>A <code>reset</code> cheat</h3>
+<p>Here's another developer cheat that will prove useful to you:</p>
+<pre class="revised">var showWinner
+<span class="new">var reset</span>
+
+;(function() {
+  var active
+  var rowCount
+  var winner
+ 
+  ...
+
+  <span class="new">reset =</span> function reset() {
+    var matches = document.querySelectorAll(".matches img.removed")
+
+    for (var ii=0; ii&lt;matches.length; ii++) {
+      var match = matches[ii]
+      match.classList.remove("removed")
+    }
+  }
+
+  ...</pre>
+<p>This will let you execute the <code>reset()</code> command in the Console after the <code>&gt;</code> prompt, at any time.</p>
+<p class="aside next">
+Now that you can summon up the winner announcement whenever you want to see it, you are ready to integrate and test your new system. Click on the Next arrow below, or on item <a href="#win">34: Showing the winner</a> in the menu on the left.</p>
+</div>
+<footer>
+<ul class="nav">
+<li>
+<a href="#win">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
+
+<!-- SHOWING THE WINNER -->
+<section id="win">
+<h2>Showing the winner</h2>
+<div class="aside preview">In this step, you'll learn how to:
+<ul>
+<li>Hide and show an element and its children</li>
+<li>Set the text of an HTML element</li>
+</ul>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_34/step_34.zip?raw=true" target="source">Download the source files</a>
+</div>
+<p>The winner announcement currently shows all the time. You already know how to make it invisible by setting the <code>opacity</code> of its elements to <code>0</code>, but a totally transparent element will still catch mouse events, so you won't be able to click on the matches or the buttons. You need to hide the #winner element completely. How can you do that? Here's are some search terms you could use to find the answer:</p>
+<kbd><a href="https://www.google.ca/webhp?#q=hide%20html%20element">hide html element</a></kbd>
+<h3><code>display: none;</code> </h3>
+<p>You have already seen the <code>display</code> property. In step <a href="#layout">25: The game layout</a>, you used <code>{&nbsp;display:&nbsp;inline-block;&nbsp;}</code> to place the two "player" <code>&lt;div&gt;</code>s side by side. You can use it with the value <code>none</code> to remove an element from the page. Here are a couple of changes that you could make to your <code>index.html</code> and <code>style.css</code> files:</p>
+<h4>HTML</h4>
+<pre class="revised">    ...
+      &lt;/div&gt;
+
+      &lt;div id="winner" class="mask <span class="new">hidden"</span>&gt;
+        &lt;p class="dialog active"&gt;The computer wins!&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    ...</pre>
+<h4>CSS</h4>
+<pre class="revised"><span class="new">.hidden{
+  display: none;
+}</span></pre>
+<p>Make these changes, save your files and refresh your browser. The game should appear with all the matches fully visible. Clicking on a match should make it disappear, just as before.</p>
+<h3>Showing the winner element when the game is over</h3>
+<p>Now you can replace the <code>alert (winner)</code> command in the <code>showWinner</code> function with a command that makes the #winner element reappear. In your <code>nim.js</code> file, make the following changes:</p>
+<pre class="revised">var showWinner
+var reset
+
+;(function() {
+  var active
+  var rowCount
+  var winner
+  <span class="new">var winnerDiv = document.querySelector("#winner")</span>
+
+  ...
+
+  showWinner = function showWinner(winner) {
+    <span class="new">winnerDiv.classList.remove("hidden")</span>
+  }
+
+  ...</pre>
+<p>Save your changes, refresh your browser, and type the command <code>showWinner()</code> into the console. The #winner anouncement should appear.</p>
+<h3>Hiding the winner when the game is reset</h3>
+<p>Hiding the #winner anouncement is just as easy. You can add a single line to the <code>reset</code> function:</p>
+<pre class="revised">  ...
+
+  reset = function reset() {
+    var matches = document.querySelectorAll(".matches img.removed")
+
+    for (var ii=0; ii&lt;matches.length; ii++) {
+      var match = matches[ii]
+      match.classList.remove("removed")
+    }
+
+    <span class="new">winnerDiv.classList.add("hidden")</span>
+  }
+  
+  ...</pre>
+<p>If you type <code>reset()</code> in the Console, you should see the winner overlay disappear.</p>
+<h3>Setting the text of an HTML element</h3>
+<p>The <code>showWinner</code> function receives the name of the winner as an argument. In step <a href="#winner">30: Who won?</a>, you saw how to <em>get</em> the text of an HTML element using <code>textContent. New you can use the same property to set the text in the #winner anouncement. Make the following change, save your changes, and refresh your browser.</code> </p>
+<pre class="revised">  ...
+
+  showWinner = function showWinner(winner) {
+    <span class="new">var p = winnerDiv.querySelector("p")
+    p.textContent = winner</span>
+    winnerDiv.classList.remove("hidden")
+  }
+
+  ...</pre>
+<p>If you type <code>showWinner("Player 1 wins!)</code> in after the <code>&gt;</code> prompt in the Console, you should see the customized winner announcement appear as an overlay over your game.</p>
+<figure>
+<img src="img/custom-winner.png" alt="Showing an overlay with a custom text" />
+<figcaption>Figure 105. Showing an overlay with a custom text</figcaption>
+</figure>
+
+<pre class="revised">var showWinner
+<span class="new">var reset</span>
+
+;(function() {
+  var active
+  var rowCount
+  var winner
+  <span class="new">var winnerDiv = document.querySelector("#winner")</span>
+
+  ...
+
+  <span class="new">showWinner =</span> function showWinner(winner) {
+    <span class="new">var p = winnerDiv.querySelector("p")
+    p.textContent = winner
+    winnerDiv.classList.remove("hidden")</span>
+  }
+
+  ...
+
+  <span class="new">reset =</span> function reset() {
+    var matches = document.querySelectorAll(".matches img.removed")
+
+    for (var ii=0; ii&lt;matches.length; ii++) {
+      var match = matches[ii]
+      match.classList.remove("removed")
+    }
+
+    <span class="new">winnerDiv.classList.add("hidden")</span>
+  }
+
+  ...</pre>
+
+<div class="aside git">Remember to commit these changes to your local repository.
+<pre class="hover">git commit -am "Use overlay to show winner"
+</pre></div>
+
+<div class="aside next">
+Just one more step and you will have completed the two-player version of the game. Then you'll be ready to add create a computer player with artificial intelligence, that will beat you every time... if you don't know how to win.
+<p>When you're ready, click on the Next arrow below, or on item <a href="#two-players">35: Two-player game</a> in the menu on the left.</p>
+</div>
+
+<div class="optional trouble">
+<input type="checkbox" id="row-trouble"/>
+<label for="row-trouble">Troubleshooting </label>
+<div>
+<p class="aside mail">If you have any problems with this step, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+</div>
+</div>
+
 <footer>
 <ul class="nav">
 <li>
@@ -4089,18 +4847,328 @@ When you're ready to continue, click on the Next arrow below, or on item <a href
 <!-- TWO PLAYER GAME -->
 <section id="two-players">
 <h2>Completing the two-player game</h2>
-<div class="aside preview">In this step, you'll learn:
+<div class="aside preview">In this step, you'll learn how to:
 <ul>
-<li>How to </li>
-<li></li>
+<li>Get the Start buttons to start a new game</li>
+<li>Set the names of the players</li>
+<li>Tidy up your JavaScript code</li>
 </ul>
-<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_35/step_35.zip?raw=true" target="source">Download the source files</a>
 </div>
-<p></p>
+<p>When you complete this step, you will have a fully-working two-player game. It will be good to clean up the code, so that all is ready for you to add a computer player and its artificial intelligence. I'll show you the changes one at a time, and at the end I'll give you the complete code listing, with the functions rearranged in a logical order.</p>
+<h3>Initialization</h3>
+<p>When the web page first loads, the game should tell all the interactive elements (matches and buttons) what they should do when you click on them. At the moment, the <code>initializeTurns</code> function invokes itself. In the finished game, there will be more than turns to initialize. To make this clear, you can create an <code>initialize</code> function, and get it to call other functions that deal with each situation.</p>
+<p>In your <code>nim.js</code> file, make the following changes:</p>
+<pre class="revised">var showWinner
+var reset
+
+;(function() {
+  var active
+  var rowCount
+  var winner
+  var winnerDiv = document.querySelector("#winner")
+
+  <span class="new">// Code that runs when the page is first loaded
+  ;(function initialize () {</span>
+    document.body.onclick = hideMatch
+    <span class="new">document.querySelector(".start").onclick = startNewGame
+    initializeTurns()
+
+    startNewGame()
+  })()</span>
+
+  <span class="new">// Code to start a new game
+  function startNewGame() {
+    reset()
+  }</span></pre>
+<p>The new <code>initialize</code> function is self-invoking, so the existing <code>initializeTurns</code> function can become an ordinary function again. It no longer needs to be an IFFE. You can remove the parentheses that made it auto-evaluate and auto-execute:</p>
+<pre>  <span class="strike">;(</span> function initializeTurns() {
+    var turnButtons = document.querySelectorAll(".turns button")
+    var button
+
+    for (var ii=0; ii&lt;turnButtons.length; ii++) {
+      button = turnButtons[ii]
+      button.onclick = nextTurn
+
+      if (ii === 0) {
+        active = button.parentElement
+        active.classList.add("active")
+      }
+    }
+  }<span class="strike">)()</span></pre>
+<p>Save your changes and refresh your browser.</p>
+<div class="aside warn">In the Console, you will probably see an error.
+<figure>
+<img src="img/reset-not-function.png" alt="Error: reset is not a function" />
+<figcaption>Figure XX. Error: reset is not a function</figcaption>
+</figure>
+<p>Why does this happen?</p>
+<p>The short answer is: The JavScript engine has not yet read to the line that says <code>reset = function reset() { ... }</code>, so the variable <code>reset</code> does not yet have a value. The simplest solution is to remove <code>reset = </code>, to create a simple function definition again:</p>
+<pre><span class="strike">reset =</span> function reset() {
+  var matches = document.querySelectorAll(".matches img.removed")
+
+  for (var ii=0; ii&lt;matches.length; ii++) {
+    var match = matches[ii]
+    match.classList.remove("removed")
+  }
+
+  winnerDiv.classList.add("hidden")
+}</pre>
+<p>You're not losing any functionality: clicking one of the Start buttons will now do the same as manually typing <code>reset()</code> into the Console.</p>
+<p>Now that you are no longer giving a value to the <code>reset</code> variable, you can remove the declaration at the top of your script:</p>
+<pre>var showWinner
+<span class="strike">var reset</span>
+
+;(function() {
+...</pre>
+<p>The long answer is important. Understanding why this error occurred will help you to avoid writing buggy code in the future. I recommend that you read Learn More About Hoisting below.</p>
+</div>
+<p>After you have dealt with the <code>reset</code> issue, save your changes and refresh your browser again, to check that the error has gone.</p>
+<h3>Starting a new game</h3>
+<p>I've got you to create a new <code>startNewGame</code> function which does nothing but call another function. What's the point of that? Choose a row of matches and click on some of them to remove them, and then click on any of the Start buttons: the matches should reappear.</p>
+<p>This is because a click anywhere in the "start" class <code>&lt;div&gt;</code> will call the <code>startGame</code> function, which will in turn call <code>reset</code>, which removes the "removed" class from all the hidden matches. This should happen regardless of which of the Start buttons is clicked.</p>
+<p>In step <a href="#XXXX">UNKNOWN</a>, you will be setting the game up differently depending on which Start button is clicked. For now, you can get all Start buttons to start a two-player game, with players called "Player 1" and "Player 2".</p>
+<pre class="revised">...
+
+  // Code to start a new game
+  function startNewGame(event) {
+    <span class="new">player1 = "Player 1"
+    player2 = "Player 2"
+    setPlayers(player1, player2)</span>
+
+    reset()
+  }
+
+  <span class="new">function setPlayers(player1, player2) {
+    var players = document.querySelectorAll(".turns div")
+    var player, nameField
+
+    for (var ii=0; ii&lt;players.length; ii++) {
+      player = players[ii]
+      nameField = player.querySelector("p")
+
+      if (ii === 0) {       
+        nameField.textContent = player1
+
+      } else {
+        nameField.textContent = player2
+      }
+    }
+  }</span>
+
+...</pre>
+<p>The <code>startNewGame</code> function now decides what each player is going to be called, and the new <code>setPlayers</code> function displays these names in the HTML page.</p>
+<p>It would make sense to move the initialization of the <code>active</code> variable, and the classes attached to it, from the <code>initializeTurns</code> function to the <code>setPlayers</code> function:</p>
+<pre class="revised">...
+  function setPlayers(player1, player2) {
+    var players = document.querySelectorAll(".turns div")
+    var player, nameField
+
+    for (var ii=0; ii&lt;players.length; ii++) {
+      player = players[ii]
+      nameField = player.querySelector("p")
+
+      if (ii === 0) {       
+        <span class="new">active = player
+        active.classList.add("active")
+        active.classList.remove("enabled")</span>
+        nameField.textContent = player1
+
+      } else {
+        <span class="new">player.classList.remove("active")</span>
+        nameField.textContent = player2
+      }
+    }
+  }
+
+  ...
+
+  function initializeTurns() {
+    var turnButtons = document.querySelectorAll(".turns button")
+    var button
+
+    for (var ii=0; ii&lt;turnButtons.length; ii++) {
+      button = turnButtons[ii]
+      button.onclick = nextTurn
+<span class="strike">       
+      if (ii === 0) {
+        active = button.parentElement
+        active.classList.add("active")
+      }</span>
+    }
+  }
+
+  ...</pre>
+<p>Now, the first three lines of the <code>initialize</code> function just set up the various <code>onclick</code> event listeners, once and for all, and the <code>setPlayers</code> function deals with the players names and which player will play first.</p>
+<h3>Resetting <code>rowCount</code></h3>
+<p>The two-player game is now complete... or is it? You can save your changes, refresh the browser, play all the way through to the end and see who the winner is, and you can click on any of the Start buttons to restart the two-player game... And that's when the bug bites.</p>
+<p>If Player 1 in the second game does not click on a match in last row that was clicked in the last game, nothing happens. Why? The answer is hidden below.</p>
+<p class="hover">Answer: the variable <code>rowCount</code> is still set to the number of matches in the last row that was clicked.</p>
+<p>You need to add one line of code to the <code>reset</code> function. See if you can find the answer for yourself before checking what's missing below:</p>
+<pre class="revised">  ...
+
+  function reset() {
+    var matches = document.querySelectorAll(".matches img.removed")
+
+    for (var ii=0; ii&lt;matches.length; ii++) {
+      var match = matches[ii]
+      match.classList.remove("removed")
+    }
+
+    winnerDiv.classList.add("hidden")
+    
+    <span class="new hover">rowCount = 0</span>
+  }
+
+  ...</pre>
+<div class="aside next">
+Congratulations! You have reached a significant milestone in the creation of your game. All the functionality for a two-player game is now in place.
+<p>You will find below the complete code for the <code>nim.js</code> file, with the most recent changes in bold. I've re-ordered the functions so that they appear in the order in which they are executed. If you have any difficulty understanding how any part of it works, use the Troubleshooting section at the end to explain what is not clear to you.</p>
+<p>When you're ready, click on the Next arrow below, or on item <a href="#housekeeping">36: Housekeeping</a> in the menu on the left.</p>
+</div>
+<h3>The complete code for a two-player game</h3>
+<pre class="revised">var showWinner
+
+;(function() {
+  var active
+  var rowCount
+  var winner
+  var winnerDiv = document.querySelector("#winner")
+
+  <span class="new">// Code that runs when the page is first loaded
+  ;(function initialize () {
+    document.body.onclick = hideMatch
+    document.querySelector(".start").onclick = startNewGame
+    initializeTurns()
+
+    startNewGame({target: {className: "twoPlayers"}})
+  })()</span>
+
+  function initializeTurns() {
+    var turnButtons = document.querySelectorAll(".turns button")
+    var button
+
+    for (var ii=0; ii&lt;turnButtons.length; ii++) {
+      button = turnButtons[ii]
+      button.onclick = nextTurn
+    }
+  }
+
+  <span class="new">// Code to start a new game
+  function startNewGame(event) { 
+    player1 = "Player 1"
+    player2 = "Player 2"
+    setPlayerNames()
+  
+    reset()
+  }
+
+  function setPlayerNames() {
+    var players = document.querySelectorAll(".turns div")
+    var match, player, nameField
+
+    for (var ii=0; ii&lt;players.length; ii++) {
+      player = players[ii]
+      nameField = player.querySelector("p")
+
+      if (ii === 0) {       
+        active = player
+        active.classList.add("active")
+        active.classList.remove("enabled")
+        nameField.textContent = player1
+
+      } else {
+        player.classList.remove("active")
+        nameField.textContent = player2
+      }
+    }
+  }</span>
+
+  function reset() {
+    var matches = document.querySelectorAll(".matches img.removed")
+
+    for (var ii=0; ii&lt;matches.length; ii++) {
+      var match = matches[ii]
+      match.classList.remove("removed")
+    }
+
+    winnerDiv.classList.add("hidden")
+
+    <span class="new">rowCount = 0</span>
+  }
+
+  <span class="new">// Code that runs each time a match is removed</span>
+  function hideMatch(event) {
+    var match = event.target
+    
+    if (match.nodeName !== "IMG") {
+      return
+    } else if (match.className === "removed") {
+      return
+    } else if (rowsDontMatch(match)) {
+      return
+    }
+    
+    match.classList.add("removed")
+    active.classList.add("enabled")
+
+    checkForWinner()
+  }
+
+  function rowsDontMatch(match) {
+    var matchCount = match.parentElement.childElementCount
+    if (rowCount) {
+      if (rowCount !== matchCount) {
+        return true
+      }
+    } else {
+      rowCount = matchCount
+    }
+
+    return false
+  }
+
+  function checkForWinner() {
+    var selector = ".matches img.removed"
+    var removed = document.querySelectorAll(selector).length
+
+    if (removed === 16) {
+      if (winner === "You") {
+        showWinner(winner+" win!")
+      } else {
+        showWinner(winner+" wins!")
+      }
+    }
+  }
+
+  showWinner = function showWinner(winner) {
+    var p = winnerDiv.querySelector("p")
+    p.textContent = winner
+    winnerDiv.classList.remove("hidden")
+  }
+
+  <span class="new">// Code that runs when the Done button is clicked</span>
+  function nextTurn() {
+    if (!active.classList.contains("enabled")) {
+      return
+    }
+
+    winner = active.querySelector("p").textContent
+
+    var next = document.querySelector(".turns div:not(.active)")
+    active.classList.remove("active")
+    active.classList.remove("enabled")
+
+    active = next
+    active.classList.add("active")
+
+    rowCount = 0 
+  }
+})()</pre>
 <footer>
 <ul class="nav">
 <li>
-<a href="#overlay">
+<a href="#housekeeping">
 <img src="../img/arrow.png" alt="next"/>
 </a>
 </li>
@@ -4108,17 +5176,43 @@ When you're ready to continue, click on the Next arrow below, or on item <a href
 </footer>
 </section>
 
-<!-- USING AN OVERLAY -->
-<section id="overlay">
-<h2>Using an Overlay</h2>
-<div class="aside preview">In this step, you'll learn:
+<!-- HOUSEKEEPING -->
+<section id="housekeeping">
+<h2>Housekeeping</h2>
+<div class="aside preview">In this step, you'll:
 <ul>
-<li>How to </li>
-<li></li>
+<li>Merge your gameplay branch back into the main gh-pages branch</li>
+<li>Push your working game to the public GitHub.io web site</li>
 </ul>
-<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
 </div>
-<p></p>
+<p>It's a real achievement to have reached this point. You started with perhaps little to no knowledge of HTML, CSS, JavaScript and Git version control, and now you have a game that you can play with another human. (True, you could play the game with real matches, but you wouldn't have learned so much.</p>
+<p>Now, you'll be eager to put your game online, where others can see it. To do that, you first need to merge the local gameplay branch with the main gh-pages branch. Then you need to push the merged version to the GitHub server.</p>
+<h3>Working in the Terminal</h3>
+<p>Here are the commands that you will need to use in the Terminal window. They should all be familiar to you.</p>
+<p class="aside note">Remember that you may need to use the <code>cd&nbsp;</code> command to <em>change directory</em> to the folder where your game files are stored.</p>
+<p>1. Commit your changes to the gameplay branch. This will make sure that Git knows exactly how much you have done, and stores it in the hidden <code>git</code> folder.</p>
+<pre>git commit -am "Phase complete: all features for two-player game"</pre>
+<p>2. Checkout the gh-pages branch. This action will replace the working two-player game with the version you had at step <a href="#button">23: The Reset button.</a>. You might like to refresh your browser to see how different your game was back then.</p>
+<pre>git checkout gh-pages</pre>
+<p>3. Merge in all your changes since then.</p>
+<pre>git merge gameplay</pre>
+<p>4. Commit the merge operation.</p>
+<pre>git commit -am "Merged with gameplay"</pre>
+<p>5. Push the merged version to your remote repository on GitHub:</p>
+<pre>git push origin gh-pages</pre>
+<p>Now you can visit your site on GitHub.io, and check that everything is working there, too.</p>
+</div>
+<div class="aside next">
+When you're ready to start working on giving the game its artificial intelligence, click on the Next arrow below, or on item <a href="#player">37: Computer player</a> in the menu on the left.
+</div>
+<div class="optional trouble">
+<input type="checkbox" id="merge-trouble"/>
+<label for="merge-trouble">Troubleshooting </label>
+<div>
+<p class="aside mail">If you have any problems with this step, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+</div>
+</div>
+
 <footer>
 <ul class="nav">
 <li>
@@ -4138,7 +5232,7 @@ When you're ready to continue, click on the Next arrow below, or on item <a href
 <li>How to </li>
 <li></li>
 </ul>
-<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_36/step_36.zip?raw=true" target="source">Download the source files</a>
 </div>
 <p></p>
 <footer>

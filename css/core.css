@@ -10,7 +10,7 @@ html,
 body {
 height: 100%;
 font-family: Helvetica, sans-serif;
-font-size: 13px;
+font-size: 14px;
 }
 html{
 margin: 0;
@@ -657,7 +657,7 @@ color: #009;
 .gold {
 color: #960;
 }
-pre.revised {
+.revised {
 font-weight: normal;
 color: #999;
 }
