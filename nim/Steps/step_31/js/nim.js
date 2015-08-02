@@ -1,5 +1,6 @@
 ;(function() {
   var active
+  var winner
   var rowIndex = -1
   var rows = document.querySelectorAll(".matches")
 
@@ -17,8 +18,26 @@
     }
     
     match.classList.add("removed")
-
     active.classList.add("enabled")
+
+    checkForWinner()
+  }
+
+  function checkForWinner() {
+    var selector = ".matches img.removed"
+    var removed = document.querySelectorAll(selector).length
+
+    if (removed === 16) {
+      if (winner === "You") {
+        showWinner(winner+" win!")
+      } else {
+        showWinner(winner+" wins!")
+      }
+    }
+  }
+
+  function showWinner(winner) {
+    alert (winner)
   }
 
   function rowsDontMatch(match) {
@@ -59,6 +78,8 @@
       return
     }
 
+    winner = active.querySelector("p").textContent
+
     var next = document.querySelector(".turns div:not(.active)")
     active.classList.remove("active")
     active.classList.remove("enabled")
@@ -66,7 +87,7 @@
     active = next
     active.classList.add("active")
 
-    rowIndex = -1
+    rowIndex = -1 
   }
 
   ;(function initializeTurns() {

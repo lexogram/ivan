@@ -1,8 +1,12 @@
+var showWinner
+var reset
+
 ;(function() {
   var active
+  var winner
   var rowIndex = -1
   var rows = document.querySelectorAll(".matches")
-
+ 
   document.body.onclick = hideMatch
 
   function hideMatch(event) {
@@ -17,8 +21,26 @@
     }
     
     match.classList.add("removed")
-
     active.classList.add("enabled")
+
+    checkForWinner()
+  }
+
+  function checkForWinner() {
+    var selector = ".matches img.removed";
+    var removed = document.querySelectorAll(selector).length;
+
+    if (removed === 16) {
+      if (winner === "You") {
+        showWinner(winner+" win!")
+      } else {
+        showWinner(winner+" wins!")
+      }
+    }
+  }
+
+  showWinner = function showWinner(winner) {
+    alert (winner)
   }
 
   function rowsDontMatch(match) {
@@ -45,7 +67,7 @@
     }
   }
 
-  function reset() {
+  reset = function reset() {
     var matches = document.querySelectorAll(".matches img.removed")
 
     for (var ii=0; ii<matches.length; ii++) {
@@ -58,6 +80,8 @@
     if (!active.classList.contains("enabled")) {
       return
     }
+
+    winner = active.querySelector("p").textContent
 
     var next = document.querySelector(".turns div:not(.active)")
     active.classList.remove("active")

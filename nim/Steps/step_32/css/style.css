@@ -1,0 +1,78 @@
+body {
+  font-size: 9px;
+  background-color: black;
+  color: rgb(255,255,255);
+  width: 25em;
+  margin: 0 auto;
+}
+
+.matches {
+  text-align: center;
+}
+.matches img{
+  width: 1em;
+  height: 10em;
+  padding: 1em;
+  border-radius: 1.5em;
+  cursor: pointer;
+}
+.matches img:hover{
+  background-color: #321;
+}
+
+img.removed {
+  opacity: 0;
+}
+
+button {
+  width: 100%;
+}
+
+div.turns {
+  padding: 2em 0;
+}
+.turns div {
+  width: 50%;
+  display: inline-block;
+  font-size: 2em;
+  text-align: center;
+}
+.turns p {
+  margin: 0.25em 0;
+}
+.active {
+  color: #fc9;
+  font-weight: bold;
+}
+.turns :not(.active) button {
+  display: none;
+}
+.active:not(.enabled) button {
+  opacity: 0.2;
+}
+
+.playzone {
+  position: relative;
+}
+.mask {
+  position:absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  background:rgba(0,0,0,0.8);
+}
+
+.dialog{
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  -o-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  text-align: center;
+}
+#winner p{
+  font-size: 2.5em;
+}

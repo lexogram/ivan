@@ -207,6 +207,13 @@
     var rowsWithMultipleMatches = 0;
     var rowToTakeFrom;
 
+    checkMatchCounts();
+    if (rowsWithMultipleMatches < 2) {
+      createOddNumberOfRowsWithOneMatch();
+    } else {
+      reduceXORtoZero();
+    }
+
     function checkMatchCounts() {
       var matchesInRow;
       for (var ii=0; ii<matchesInRows.length; ii++) {
@@ -266,13 +273,6 @@
         taken = matchCount - leave;
         break;
       }
-    }
-
-    checkMatchCounts();
-    if (rowsWithMultipleMatches < 2) {
-      createOddNumberOfRowsWithOneMatch();
-    } else {
-      reduceXORtoZero();
     }
   }
 
