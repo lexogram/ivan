@@ -3642,7 +3642,8 @@ document.body.onclick = function (event) {
   }
 }</pre>
 <p>When this function runs, the value of <code>active</code> will be set to the <code>&lt;div&gt;</code> with the class of "player1" (the parent of the first button found inside the "turns" <code>&lt;div&gt;</code>.</p>
-<p class="aside info">For details on the <code>parentElement</code> property, you can read the Learn More About HTML Properties section below.</p>
+<p class="aside info">For details on the <code>parentElement</code> property, you can read the Learn More About HTML Properties section below.</p> 
+<p class="aside info">For details on the <code>===</code> <span class="keyword">comparison</span>, you can read the Learn More About Comparisons section below.</p>
 <p class="aside warn">The line <code>var active</code> creates a <span class="keyword">global</span> variable. This means that any function anywhere can get and set its value. This might seem convenient, but it can make your code behave in unexpected ways. You should use global variables as seldom as possible. In the next step, you will see how to <em>limit the scope</em> of the variable <code>active</code>.</p>
 <h3>Enabling the active player button when a match is removed</h3>
 <p>Here's the function that currently hides a match when you click on it:</p>
@@ -3862,6 +3863,15 @@ git commit -m "Force player to take a match before clicking Done"
 <li><a href="http://www.w3schools.com/js/js_comparisons.asp">JavaScript Comparison and Logical Operators</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators">Logical OperatorsJavaScript Comparison and Logical Operators</a></li>
 </ul>
+</div>
+</div>
+
+<div class="empty optional details">
+<input type="checkbox" id="comparison-details"/>
+<label for="comparison-details">Learn more about comparison</label>
+<div>
+<h4></h4>
+<p></p>
 </div>
 </div>
 
@@ -5396,8 +5406,8 @@ When you're ready to continue, click on the Next arrow below, or on item <a href
 <figcaption>Figure 108. Getting and setting the values in an array</figcaption>
 </figure>
 <p>At the <code>&gt;</code> prompt in the Console, type:</p>
-<pre class="revised">&gt; <span class="new">matchesInRows[0]</span>
-&lt; 7</pre>
+<pre class="revised"><span class="new">matchesInRows[0]</span>
+7</pre>
 <p>The Console tells you <code>7</code>; this is the first value in the array. Note that the JavaScript starts counting at 0, not at 1. The first value in an array is the 0th value. Or if you prefer: there are 0 values that appear before it. See what values you get when you try <code>matchesInRows[1]</code>, <code>matchesInRows[2]</code>, <code>matchesInRows[3]</code>, <code>matchesInRows[4]</code> and <code>matchesInRows[-1]</code>./p>  
 <p>Do these results make sense to you? The value <code>undefined</code> that you get for <code>matchesInRows[4]</code> or <code>matchesInRows[-1]</code> simply means: "There is no value at the position <code>4</code> or <code>-1</code> . You've gone beyond the end or the start of the array."</p>
 <p class="aside note">The variable <code>rowsWithMatches</code> tells you which rows currently have matches visible. It starts at 0, meaning the first row, which starts out with 7 matches.</p>
@@ -5812,7 +5822,126 @@ When you can beat the computer player most of the time, click on the Next arrow 
 </ul>
 <a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_24/step_24.zip?raw=true" target="source">Download the source files</a>
 </div>
-<p></p>
+<p class="aside warn">If you've come to this page without being able to beat <a href="random/">the game with the random computer player</a> more than half the time, then please continue to elaborate a winning strategy before you continue.</p>
+<p>As you should have noticed, the following are losing combinations of matches, starting with the most obvious:</p>
+<ul>
+<em><li>1</li>
+<li>1, 1, 1</li>
+<li>1, 2, 3</li>
+<li>1, 4, 5</li>
+<li>2, 2</li>
+<li>3, 3</li></em>
+<li>4, 4</li>
+<li>5, 5</li>
+<em><li>1, 1, 2, 2</li>
+<li>1, 1, 3, 3</li></em>
+<li>1, 1, 4, 4</li>
+<li>1, 1, 5, 5</li>
+<li>2, 4, 6</li>
+<li>3, 5, 6</li>
+<li>2, 5, 7</li>
+<li>3, 4, 7</li>
+<li>1, 2, 5, 6</li>
+<li>1, 3, 4, 6</li>
+<li>1, 2, 4, 7</li>
+<li>1, 3, 5, 7</li>
+</ul>
+<p>If it is your turn to play, and the matches are in any of the combinations above, and you opponent knows about these combinations, then you will lose. Alternatively, if the matches are in any other combination, then you can take just the right number of matches from just the right row to create one of these losing combinations, so that you can force your opponent to lose.</p>
+<h3>Permutations</h3>
+<p>Most of these combinations can only occur in one way. However, for those shown in <em>italics</em> there are are several possible permutations. The final match that the losing player must take may be in any of the four rows, for instance. The combination <code>1, 1, 1</code> could appear as any of the following perumtations:</p>
+<ul>
+<li>1, 1, 1, 0</li>
+<li>1, 1, 0, 1</li>
+<li>1, 0, 1, 1</li>
+<li>0, 1, 1, 1</li>
+</ul>
+<p>The computer player needs to solve two problems:</p>
+<ul>
+<li>How to recognize a losing combination, regardless of the permutation.</li>
+<li>How to create a losing combination from any combination that could lead to a win</li>
+</ul>
+<h3>Sorting permutations</h3>
+<p>If arrange the number of matches in order of the number of matches in each row (rather than by the row numbers), all permutations of the same numbers will reduce to the same combination.</p>
+<p>In the Console pane, try this:</p>
+<pre class="revised"><span class="new">[3,1,4,5,9,6,2].sort()</span>
+[1, 2, 3, 4, 5, 6, 9]</pre>
+<p>You can find more information on the <code><em>array</em>.sort()</code> method <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort">here</a>.</p>
+<h3>Comparing arrays</h3>
+<p>JavaScripts <a href="hhttps://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators#Equality">comparison operators</a> are not designed for comparing arrays. If you take two different arrays with identical contents, and you compare them using the <code>==</code> equals operator, you will get the result <code>false</code>...</p>
+<pre class="revised"><span class="new">[1, 2, 3, 4, 5, 6, 9] == [1, 2, 3, 4, 5, 6, 9]</span>
+false</pre>
+<p>... because the two arrays are stored in different places in the computer memory. The purist's way of comparing two arrays would be to:</p>
+<ul>
+<li>Check if the arrays are the same length</li>
+<li>If so, check that each item in each array has the same value</li>
+</ul>
+<p>A much simpler way is to convert the array to strings and compare the strings. When JavaScript compares strings it performs the to operations above automatically. To join all the values of an array into a string, you can use the <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/join"><code>join()</code></a> method. Try this in the Console pane:</p>
+<pre class="revised"><span class="new">[1, 2, 3, 4, 5, 6, 9].join("") === "1234569"</span>
+true</pre>
+<p>Notice that this technique allows you to use the clean <span class="keyword">strict equals</span> <code>===</code> operator rather than its <a href="http://www.sitepoint.com/dont-fear-evil-twins/">"evil twin"</a> <code>==</code>.</p>
+<h3>Checking for a losing position</h3>
+<p>Here are three changes that you can make to your <code>nim.js</code> file.</p>
+<pre class="revised">
+;(function() {
+  var active
+  var winner
+  var useAI
+  var computerToPlay
+  var rowsWithMatches
+  var matchesInRows
+  var taken
+  var rowIndex = -1
+  var rows = document.querySelectorAll(".matches")
+  var winnerDiv = document.querySelector("#winner")
+  <span class="new">var losers = ["1357", "1247", "1256", "1346",  "1155", "1144",
+  "1133", "1122", "0257", "0347", "0356", "0246", "0145", "0123",
+  "0111", "0055", "0044", "0033", "0022", "0001"]</span>
+
+  ...
+
+  function computerChooseMove() {
+    <span class="new">var string = convertToString(matchesInRows);
+
+    if (losers.indexOf(string) &lt; 0) {</span>
+      findWinningMove()
+    } else {
+      chooseRandomMove()
+    }
+
+    hideMatches()
+    gameOver = checkForWinner()
+
+    if (!gameOver) {
+      active.classList.add("enabled")
+      nextTurn()
+    }
+  }
+
+  <span class="new">function convertToString(array) {
+    var string;
+
+    array.sort() // [7, 5, 0, 1] =&gt; [0, 1, 5, 7]
+    string = array.join(""); // "0157"
+
+    return string;
+  }</span>
+
+  ...</pre>
+<p>When the script first loads, you create a <code>loser</code> array of the combinations that place the current player in a losing position. When it's the computer's turn to play, you take the current values in the <code>matchesInRows</code> variable and convert them to a four-digit string. Then you use the <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf"><code><em>array</em>.indexOf()</code></a> method to check if the current combination is a losing one.</p>
+<p>If the current combination is a losing one, then the computer will be forced to make a random choice (and to "hope" that you will fail to take advantage of its weakness). If the current combination is not in the array of losing combinations, then the computer can make a move that creates a losing combination that you will have to deal with. After the computer has moved itself into a winning position, its victory is secure.</p>
+<p class="aside note">Right now, the game is broken. If you let the computer player get into a winnable position, it will just stop playing, because your <code>findWinningMove</code> function is still an empty stub. You can put that right in the next step.</p>
+
+<div class="aside next">
+You've seen how to detect when the computer player is in a winning position. Now you are ready to discover how to turn this knowledge to the computer player's advantage. Click on the Next arrow below, or on item <a href="#ai">41: Intelligent moves</a> in the menu on the left.
+</div>
+
+<div class="optional trouble">
+<input type="checkbox" id="combination-trouble"/>
+<label for="combination-trouble">Troubleshooting </label>
+<div>
+<p class="aside mail">If you have any problems with this step, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+</div>
+</div>
 <footer>
 <ul class="nav">
 <li>
