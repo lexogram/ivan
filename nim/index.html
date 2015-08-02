@@ -51,7 +51,9 @@
 <li><a href="#two-players">Two-player game</a></li>
 <li><a href="#housekeeping">Housekeeping</a></li>
 <li><a href="#player">Computer player</a></li>
+<li><a href="#matches">Tracking matches</a></li>
 <li><a href="#random">Random moves</a></li>
+<li><a href="#combinations">Winning combinations</a></li>
 <li><a href="#ai">Intelligent moves</a></li>
 <li><a href="#final">Final details</a></li>
 <li><a href="#toggle">Showing the rules</a></li>
@@ -59,6 +61,7 @@
 </ol>
 <!--p>Future Improvements</p>
 <ul>
+<li><a href="#ai-skill">Intelligence level</a></li>
 <li><a href="#mobile">Layout for devices</a></li>
 <li><a href="#confirm">Confirmation dialog</a></li>
 <li><a href="#L10N">Other languages</a></li>
@@ -2883,7 +2886,10 @@ There are several important ideas for you to explore here: events, functions and
     match.classList.remove("removed");
   }
 }</span></pre>
-<p>This code creates an array of <code>img</code> elements which have the <code>"removed"</code> class, and then uses a standard <span class="keyword">for loop</span> to remove the <code>"removed"</code> class from each element in this array. See the Learn More About Loops section below if you want more information about how this works.</p>
+<p>This code creates an array of <code>img</code> elements which have the <code>"removed"</code> class, and then uses a standard <span class="keyword">for loop</span> to remove the <code>"removed"</code> class from each element in this array.</p>
+<div class="aside note">See the Learn More About Loops section below if you want more information about how this works.
+<p>The <a href="https://msdn.microsoft.com/library/26k41698(v=vs.94).aspx"><code>++</code> <em>increment operator</em></a> adds 1 to the variable it follows. For example, if <code>ii</code> is equal to 3, the expression <code>ii++</code> makes it become 4.</p>
+</div>
 <h3>Using the Console to reset the game</h3>
 <p>To test that this code works, you can use the Console. Click on one or more matches to make them disappear, and then type the command <span class="keyword">reset()</span> after the prompt symbol, then press return:</p>
 <figure>
@@ -3687,7 +3693,7 @@ function hideMatch(event) {
   active = next
   active.classList.add("active");
 }</pre>
-<p class="aside note">The <code>!</code> operator means "not", so the expression <code>!active.classList.contains("enabled")</code> means "the list of classes for the active element does not contain the word 'enabled'". To discover more about the logical operators such as <code>!</code>, you can read the optional Learn More About Logic section below.</p>
+<p class="aside note">The <code>!</code> operator means "not", so the expression <code>!active.classList.contains("enabled")</code> means "the list of classes for the active element does not contain the word 'enabled'". An expression that JavaScript can evaluate as <code>true</code> or <code>false</code> is called a <span class="keyword">Boolean</span> expression, after the mathematician <a href="http://www-history.mcs.st-andrews.ac.uk/history/Biographies/Boole.html">George Boole</a>. To discover more about the logical operators such as <code>!</code>, you can read the optional Learn More About Logic section below.</p>
 <h3>Fixing a bug</h3>
 <p>Actually, it doesn't quite work does it? If you click twice on the Done button, the players will swap. In fact, if you click on any element (a match, one of the restart buttons, the word "Computer", the background, ...) and then on the Done button, the players will swap.</p>
 <p>So there is a further check that you have to make: you need to check if the user is actually clicking on a match. Since the only <code>&lt;img&gt;</code> elements on your page are matches, you can use a shortcut and simply check if the element the user clicked on is an <code>&lt;img&gt;</code> element. Here's a change for you to make:</p>
@@ -3843,7 +3849,7 @@ git commit -m "Force player to take a match before clicking Done"
 
 <div class="optional details">
 <input type="checkbox" id="if-details"/>
-<label for="if-details">Learn more about <code>logic</code></label>
+<label for="if-details">Learn more about logic</code></label>
 <div>
 <p>You can read more about using <code>else</code> with <code>if</code> statements on these sites:</p>
 <ul>
@@ -4140,20 +4146,24 @@ When you're ready to continue, click on the Next arrow below, or on item <a href
 <p>One easy way to distinguish between the rows is by the number of <code>&lt;img&gt;</code> elements the row contains.</p>
 <p>At the moment, you are attaching an <code>onclick</code> handler to the <code>&lt;body&gt;</code> element. This means that every click anywhere on the page will trigger a <code>click</code> mouse event. In the <code>hideMatch</code> function, you are checking for <code>event.target</code>, which should be an <code>&lt;img&gt;</code> element. If it is an <code>&lt;img&gt;</code> element, then its parent element will be one of the <code>&lt;div&gt;</code> elements with the "matches" class. All you need to do is:</p>
 <ul>
-<li>Find out which element is the parent of the clicked <code>&lt;img&gt;</code> element</li>
-<li>Find out how many children that parent has</li>
+<li>Find out which element is the parent of the clicked <code>&lt;img&gt;</code> element. This will be one of the "match" <code>&lt;div&gt;</code> elements.</li>
+<li>Find out what position this element is in as a child of <em>its</em> parent. This will give the number of the row the match is in</li>
 </ul>
-<p>The answer will be 1, 3, 5 or 7, regardless of how many matches have already been hidden.</p>
+<p class="aside note">JavaScript starts counting at 0, meaning "there are 0 items before this one". As a result the result of the calculation will be 0, 1, 2 or 3.</p>
 <p>You have already seen how to find the parent of a given element, because you have used it in the <code>initializeTurns</code> function. But if you have forgotten, it is very easy to find out using your favourite search engine. You just have to ask the right question. Try these search words:</p>
 <kbd><a href="https://www.google.com/webhp#q=parent+of+html+element">parent of html element</a></kbd>
 <p>What is the first hit that you get? It is probably either a link to <code><a href="http://www.w3schools.com/jsref/prop_node_parentelement.asp">parentElement</a></code> or <code><a href="http://www.w3schools.com/jsref/prop_node_parentnode.asp">parentNode</a></code>. Either property is good.</p>
-<p>What about finding how many children a given element has? How about these search terms:</p>
-<kbd><a href="https://www.google.ca/webhp#q=number+of+children+of+html+element">number of children of html element</a></kbd>
-<p>It might take a little bit more searching, but you should soon find links to <a href="http://www.w3schools.com/jsref/prop_element_childelementcount.asp">HTML DOM childElementCount Property</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/childElementCount">ParentNode.childElementCount</a></p>
+<p>What about finding which position a given element has ? How about these search terms:</p>
+<kbd><a href="https://www.google.ca/webhp#q=javascript+get+index+of+element+in+parent">javascript get index of element in parent</a></kbd>
+<p>This time, you might find that the top hits are on a site called <a href="http://stackoverflow.com/">StackOverflow.com</a>.</p>
+<div class="aside tip">StackOverflow is a site where developers (using any programming language) can ask questions about code. You might like to <a href="https://stackoverflow.com/users/signup?returnurl=http%3a%2f%2fstackoverflow.com%2f">sign up</a>, so that you can ask questions of your own. I recommend that you <a href="http://stackoverflow.com/tour">take the official tour of the site</a> before you start asking questions, so that you understand how to write questions that will receive useful answers.
+<p>Here's <a href="http://stackoverflow.com/a/11762728/1927589">one answer</a> that is a good starting point for the solution I propose below. The best answers usually have the highest number of votes, but sometimes it is better to choose an answer that is easier to understand, so that you can adapt it more easily to your particular case.</p>
+</div>
 <p>Here are some changes that you can make to your <code>nim.js</code> file, to prevent matches being removed from more than one row:</p>
 <pre class="revised">;(function() {
   var active
-  <span class="new">var rowCount</span>
+  <span class="new">var rowCount = -1
+  var rows = document.querySelectorAll(".matches")</span>
   ...
 
   function hideMatch(event) {
@@ -4168,21 +4178,31 @@ When you're ready to continue, click on the Next arrow below, or on item <a href
     }</span>
     
     match.classList.add("removed")
-
     active.classList.add("enabled")
   }
 
   <span class="new">function rowsDontMatch(match) {
-    var matchCount = match.parentElement.childElementCount
-    if (rowCount) {
-      if (rowCount !== matchCount) {
-        return true
-      }
-    } else {
-      rowCount = matchCount
+    var currentRowIndex = getCurrentRowIndex(match)
+
+    if (rowIndex &lt; 0) {
+      rowIndex = currentRowIndex
+    } else if (rowIndex !== currentRowIndex) {
+      return true
     }
 
     return false
+  }
+
+  function getCurrentRowIndex(match) {   
+    var parentElement = match.parentElement
+    var row
+
+    for (var index=0; index&lt;rows.length; index++) {
+      row = rows[index]
+      if (row === parentElement) {
+        return index
+      }
+    }
   }</span>
 
   ...
@@ -4199,22 +4219,29 @@ When you're ready to continue, click on the Next arrow below, or on item <a href
     active = next
     active.classList.add("active")
 
-    <span class="new">rowCount = 0</span>
+    <span class="new">rowCount = -1</span>
   }</pre>
 <h3>Identifying the row from which the player took the first match</h3>
-<p>In the <code>nextTurn</code> function, you set a new variable called <code>rowCount</code> to 0. When the player clicks on a visible match, the new function <code>rowsDontMatch</code> is called, and the <code>&lt;img&gt;</code> element on which the player clicked is passed as an argument. The line...</p>
-<pre>var matchCount = match.parentElement.childElementCount</pre>
-<p>... calculates the number of matches in the row (the number of children of the <code>&lt;img&gt;</code> element's parent).</p>
-<p>If this is the first match that the player has clicked during this turn, then <code>rowCount</code> will be <code>0</code>. Zero behaves like <code>false</code> so the lines... </p>
-<pre>    else {
-      rowCount = matchCount
-    }</pre>
+<p>At the top of your script, you declare a two new variables:</p>
+<ul>
+<li><code>rowIndex</code> with a default value of <code>-1</code></li>
+<li><code>rows</code>, which is set to an array of the four rows with the class "matches"</li>
+</ul>
+<p>In the <code>nextTurn</code> function, you set the value of <code>rowIndex</code> to <code>-1</code> again. This resets the value before each player starts to remove matches.</p>
+<p>When the player clicks on a visible match, the new function <code>rowsDontMatch</code> is called, and the <code>&lt;img&gt;</code> element on which the player clicked is passed as an argument. The first line of the <code>rowsDontMatch</code> function...</p>
+<pre>var currentRowIndex = getCurrentRowIndex(match)</pre>
+<p>... calls the <code>getCurrentRowIndex</code> function, sending the match <code>&lt;img&gt;</code> element as an argument to this function.</p>
+<h3>Getting the index of the row that was clicked</h3>
+<p><code>getCurrentRowIndex</code> starts by setting discovering which element that is the parent of the match <code>img</code> that the player clicked on. It then runs a repeat loop. This uses a variable called <code>index</code>, whose value starts at 0. The repeat loop considers each of the <code>rows</code> of matches in turn, checking to see if the current <code>row</code> is the same as the row that contains the match that was clicked on. If it is, then the repeat loop stops what it's doing and returns the value of <code></code> to the <code>rowsDontMatch</code> function. The variable <code>currentRowIndex</code> now has a value from <code>0</code> (for the top row) to <code>3</code> (for the bottom row).</p>
+<p></p>
+<h3>Comparing row numbers</h3>
+<p>If this is the first match that the player has clicked during this turn, then <code>rowIndex</code> will be <code>-1</code> so <code>(rowIndex &lt; 0)</code> will be true. In this case the line</p>
+<pre>  rowIndex = currentRowIndex</pre>
 <p>... will be executed, and then the <code>rowsDontMatch</code> function will return the value <code>false.</code></p>
-<p>If the player clicks on other matches, <code>rowCount</code> will already have a non-zero value (1, 3, 5 or 7) and this value will behave like <code>true</code>. As a result the lines...</p>
-<pre>      if (rowCount !== matchCount) {
-        return true
-      }</pre>
-<p>... will be executed. If the player clicked on a match in a different row, the <code>rowsDontMatch</code> function will return the value <code>true</code>. If the click was on the same row (and therefore the match can legally be removed), none of the code inside the <code>if ( ) {&nbsp;} else {&nbsp;}</code> statement will be executed, and the next line to run will be <code>return false</code>.</p>
+<p>If the player had already clicked another match, then <code>rowIndex</code> will already have a value that is not negative (0, 1, 2 or 3). In this case expression...</p>
+<pre>(rowIndex !== currentRowIndex)</pre>
+<p>... will be evaluated. If the player clicked earlier on a match in a different row, the numbers in <code>rowIndex</code> and <code>currentRowIndex</code> will be different; this expression will evaluate as <code>true</code> and the <code>rowsDontMatch</code> function will return the value <code>true</code> to the <code>hideMatch</code> function.</p>
+<p>If the click was on the same row (and therefore the match can legally be removed), none of the code inside the <code>if (&nbsp;) {&nbsp;} else if (&nbsp;) {&nbsp;}</code> statement will be executed, and the next line to run will be <code>return false</code>.</p>
 <p>If <code>rowsDontMatch</code> returns <code>true</code>, then <code>hideMatch</code> will not execute any more code. No matches will disappear.</p>
 
 <div class="aside git">Time to commit these changes to your local repository:
@@ -4270,7 +4297,6 @@ When you're ready to continue, click on the Next arrow below, or on item <a href
 <p>The loser is the player who plays the last move. To announce who won, you will need to read the name of the current player, just before the current player switches. You'll need to do this in the <code>nextTurn</code> function, but you'll need to check for the losing move in the <code>hideMatch</code> function. This means that the variable that holds the name of the winner needs to be declared outside both these functions, inside the outermost closure:</p>
 <pre class="revised">;(function() {
   var active
-  var rowCount
   <span class="new">var winner</span>
 
   ...</pre>
@@ -4672,7 +4698,6 @@ You might want to read the Learn More About Transforms section below, to underst
 
 ;(function() {
   var active
-  var rowCount
   var winner
  
   ...
@@ -4738,8 +4763,9 @@ var reset
 
 ;(function() {
   var active
-  var rowCount
   var winner
+  var rowCount = -1
+  var rows = document.querySelectorAll(".matches")
   <span class="new">var winnerDiv = document.querySelector("#winner")</span>
 
   ...
@@ -4783,38 +4809,6 @@ var reset
 <img src="img/custom-winner.png" alt="Showing an overlay with a custom text" />
 <figcaption>Figure 105. Showing an overlay with a custom text</figcaption>
 </figure>
-
-<pre class="revised">var showWinner
-<span class="new">var reset</span>
-
-;(function() {
-  var active
-  var rowCount
-  var winner
-  <span class="new">var winnerDiv = document.querySelector("#winner")</span>
-
-  ...
-
-  <span class="new">showWinner =</span> function showWinner(winner) {
-    <span class="new">var p = winnerDiv.querySelector("p")
-    p.textContent = winner
-    winnerDiv.classList.remove("hidden")</span>
-  }
-
-  ...
-
-  <span class="new">reset =</span> function reset() {
-    var matches = document.querySelectorAll(".matches img.removed")
-
-    for (var ii=0; ii&lt;matches.length; ii++) {
-      var match = matches[ii]
-      match.classList.remove("removed")
-    }
-
-    <span class="new">winnerDiv.classList.add("hidden")</span>
-  }
-
-  ...</pre>
 
 <div class="aside git">Remember to commit these changes to your local repository.
 <pre class="hover">git commit -am "Use overlay to show winner"
@@ -4864,8 +4858,9 @@ var reset
 
 ;(function() {
   var active
-  var rowCount
   var winner
+  var rowCount = -1
+  var rows = document.querySelectorAll(".matches")
   var winnerDiv = document.querySelector("#winner")
 
   <span class="new">// Code that runs when the page is first loaded
@@ -4900,7 +4895,7 @@ var reset
 <div class="aside warn">In the Console, you will probably see an error.
 <figure>
 <img src="img/reset-not-function.png" alt="Error: reset is not a function" />
-<figcaption>Figure XX. Error: reset is not a function</figcaption>
+<figcaption>Figure 106. Error: reset is not a function</figcaption>
 </figure>
 <p>Why does this happen?</p>
 <p>The short answer is: The JavScript engine has not yet read to the line that says <code>reset = function reset() { ... }</code>, so the variable <code>reset</code> does not yet have a value. The simplest solution is to remove <code>reset = </code>, to create a simple function definition again:</p>
@@ -5031,8 +5026,9 @@ Congratulations! You have reached a significant milestone in the creation of you
 
 ;(function() {
   var active
-  var rowCount
   var winner
+  var rowCount = -1
+  var rows = document.querySelectorAll(".matches")
   var winnerDiv = document.querySelector("#winner")
 
   <span class="new">// Code that runs when the page is first loaded
@@ -5227,14 +5223,192 @@ When you're ready to start working on giving the game its artificial intelligenc
 <!-- COMPUTER PLAYER -->
 <section id="player">
 <h2>Creating a Computer Player</h2>
-<div class="aside preview">In this step, you'll learn:
+<div class="aside preview">In this step, you'll:
 <ul>
-<li>How to </li>
-<li></li>
+<li>Reflect on the steps needed to create a computer player</li>
+<li>Show the appropriate player names when a new game starts</li>
+<li>Record what matches can still be taken</li>
 </ul>
-<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_36/step_36.zip?raw=true" target="source">Download the source files</a>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_37/step_37.zip?raw=true" target="source">Download the source files</a>
 </div>
-<p></p>
+<p>You've created a game where a human player has to click on each match to make it disappear. Now you're going to create a computer player that can choose one or more matches automatically.</p>
+<p>In the first instance, you can create a player that takes matches at random. You'll be able to win against this player, if you understand what moves make. As you are playing, you'll have the chance to work out what the winning strategy is.</p>
+<p>The next objective will be to work out how to program the computer player so that it applies this strategy. You'll see that there may be times when a random choice is the only move that the computer player can make, so your first version of the player will still be needed.</p>
+<p>Here are the different issues that you are going to have to deal with:</p>
+<ul>
+<li>The computer must "know" when to play and when to let you play</li>
+<li>The computer must have a way of knowing which matches are left to take</li>
+<li>The computer must have a way to choose which match(es) to take...</li>
+<li>... two ways, in fact: one random, one calculated</li>
+<li>The computer can act almost instantaneously: there should be a way to make it act slowly enough for a human to see what move it is making</li>
+</ul>
+<p class="aside git">You can visit your <a href="https://github.com/issues">Issues</a> page on GitHub, and create a new issue for each of these. Perhaps you would like to take a little time to think about each one in greater depth, to see how many separate issues you should create. For example, knowing which matches are left means: knowing which rows still have matches, and knowing which specific matches in each row are still visible. Should this be one issue or two?</p>
+<h3>Telling the computer when to play</h3>
+<p>There are three Start buttons. One tells the computer it's never going to play. Another tells it that it should play first, then wait for you to respond. The third tells it to wait for you to play first, and then take its turn.</p>
+<p>One way to model these three options is to use two variables, each with a value of <code>true</code> or <code>false</code>. You can call the first variable <code>useAI</code>,where AI stands for "Artificial Intelligence". If this is <code>true</code>, then the computer gets to play. You can call the second variable <code>computerToPlay</code>. At the end of each turn, your code can check if <code>useAI</code> is true, and if it is, swap the value of <code>computerToPlay</code>. If both <code>useAI</code> and <code>computerToPlay</code> are true, then it's the computer's turn.</p>
+<p>You can set the values of these variables, depending on which Start button the player clicks on. This means that the place to set the values is in the <code>startNewGame</code> function. More than one function will need access to these variables, so you should declare them at the top of your IFFE, outside any of the inner functions.</p>
+<p>Make the following changes to your <code>nim.js</code> file, save it and refresh your browser.</p>
+<pre class="revised">var showWinner
+
+;(function() {
+  var active
+  var winner
+  <span class="new">var useAI
+  var computerToPlay</span>
+  
+  ...
+
+  // Code to start a new game
+  function startNewGame(event) {
+    <span class="new">var buttonName = event.target.className
+
+    if (buttonName === "twoPlayers") {
+      useAI = false</span>
+      player1 = "Player 1"
+      player2 = "Player 2"
+
+    <span class="new">} else {
+      useAI = true
+      if (buttonName === "computerStarts") {
+        computerToPlay = true
+        player1 = "Computer"
+        player2 = "You"
+
+      } else {
+        computerToPlay = false
+        player1 = "You"
+        player2 = "Computer"
+      }
+    }</span>
+
+    setPlayerNames()
+    reset()
+  }
+</pre>
+<p>Click on the different Start buttons. Do you see how the names of the players change?</p>
+<figure>
+<img src="img/player-names.png" alt="The names of the players change depending on which Start button is clicked." />
+<figcaption>Figure 107. The names of the players change depending on which Start button is clicked.</figcaption>
+</figure>
+<div class="aside next">
+When you're ready to continue, click on the Next arrow below, or on item <a href="#matches">38: Tracking matches</a> in the menu on the left.
+</div>
+
+<div class="optional trouble">
+<input type="checkbox" id="player-trouble"/>
+<label for="player-trouble">Troubleshooting</label>
+<div>
+<p class="aside mail">If you have any problems with this step, please <a href="https://github.com/lexogram/openbook/issues/new">tell us what happened</a> and we'll do our best to find a solution for you.</p>
+</div>
+</div>
+
+<footer>
+<ul class="nav">
+<li>
+<a href="#matches">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
+<!-- TRACKING MATCHES -->
+<section id="matches">
+<h2>Tracking the remaining matches</h2>
+<div class="aside preview">In this step, you'll learn how to:
+<ul>
+<li>Create a nested array</li>
+<li>Change the values in a nested array</li>
+</ul>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_38/step_38.zip?raw=true" target="source">Download the source files</a>
+</div>
+<p>The computer needs to keep track of what matches are available to be taken. You can see the matches on the screen, but the computer has no eyes and thinks in a different way. One good way to store information about the matches is in a nested array: a digital structure that resembles the layout of the matches.</p>
+<h3>What is an array?</h3>
+<p>A simple array is a list of items. An array is defined as:</p>
+<ul>
+<li>An opening square bracket: <code>[</code></li>
+<li>Zero or more <span class="keyword">values</span> , separated by commas: <code>"apples", "oranges"</code></li>
+<li>Optional white space between the values: <code>&nbsp</code> or line breaks</li>
+<li>A closing square bracket: <code>]</code></li>
+</ul>
+<p>The <span class="keyword">values</span> in an array can be any data type recognized by JavaScript. For example, they can be strings of characters (like "apple" in the example above), numbers (like in the examples you will see below), or even other arrays. An array of arrays is called a <span class="keyword">nested array</span>.</p>
+<p>Here's an array showing how many matches appear in each row:</p>
+<pre>var matchesInRows = [7 ,5 ,3 ,1]</pre>
+<p>Here's an array showing which rows contain at least one match</p>
+<pre>var rowsWithMatches = [0, 1, 2, 3]</pre>
+<p class="aside note">Note that JavaScript starts counting at 0. You'll get more practice with this in a moment.</p>
+<h3>Initializing the match arrays</h3>
+<p>The computer needs to start tracking which rows have matches, and where they are, right from the start of the game. You can change the <code>startNewGame</code> function, and add a new function, to do just this:</p>
+<pre class="revised">var showWinner
+
+;(function() {
+  var active
+  var winner
+  var useAI
+  var computerToPlay
+  <span class="new">var rowsWithMatches
+  var matchesInRows</span>
+  
+  ...
+
+  // Code to start a new game
+  function startNewGame(event) {
+    var buttonName = event.target.className
+
+    if (buttonName === "twoPlayers") {
+      useAI = false
+      player1 = "Player 1"
+      player2 = "Player 2"
+
+    } else {
+      useAI = true
+      if (buttonName === "computerStarts") {
+        computerToPlay = true
+        player1 = "Computer"
+        player2 = "You"
+
+      } else {
+        computerToPlay = false
+        player1 = "You"
+        player2 = "Computer"
+      }
+
+      <span class="new">setUpAI()</span>
+    }
+
+    setPlayerNames()
+    reset()
+  }
+
+  <span class="new">function setUpAI() {
+    rowsWithMatches = [0, 1, 2, 3]
+    matchesInRows = [7, 5, 3, 1]
+  }</span>
+
+  ...</pre>
+<h3>Getting values from an array</h3>
+<p>Save your changes then reload your <code>index.html</code> page in your browser. Nothing will have changed on the screen or in the way the game works, but now you will have three new variables to play with.</p>
+<p>Set a breakpoint on the line that calls <code>setPlayerNames()</code>, then click on the Computer To Start New Game button. The debugger should open at the breakpoint, just after <code>setUpAI</code> has been called.</p>
+<p>In the Scopes pane, open the Closure disclosure triangle, and then the matchesInRows disclosure triangle, to see the values in the array.</p>
+<figure>
+<img src="img/matchesInRows.png" alt="Getting and setting the values in an array" />
+<figcaption>Figure 108. Getting and setting the values in an array</figcaption>
+</figure>
+<p>At the <code>&gt;</code> prompt in the Console, type:</p>
+<pre class="revised">&gt; <span class="new">matchesInRows[0]</span>
+&lt; 7</pre>
+<p>The Console tells you <code>7</code>; this is the first value in the array. Note that the JavaScript starts counting at 0, not at 1. The first value in an array is the 0th value. Or if you prefer: there are 0 values that appear before it. See what values you get when you try <code>matchesInRows[1]</code>, <code>matchesInRows[2]</code>, <code>matchesInRows[3]</code>, <code>matchesInRows[4]</code> and <code>matchesInRows[-1]</code>./p>  
+<p>Do these results make sense to you? The value <code>undefined</code> that you get for <code>matchesInRows[4]</code> or <code>matchesInRows[-1]</code> simply means: "There is no value at the position <code>4</code> or <code>-1</code> . You've gone beyond the end or the start of the array."</p>
+<p class="aside note">The variable <code>rowsWithMatches</code> tells you which rows currently have matches visible. It starts at 0, meaning the first row, which starts out with 7 matches.</p>
+<h3>Setting values in an array</h3>
+<p>To change a value, you can simply use the <code>=</code> operator:</p>
+<pre>matchesInRows[0] = 4</pre>
+<p>Reopen the Closure disclosure triangle, and check the values in the <code>matchesInRows</code> array. Try setting the value at other index positions. What happens if you try <code>matchesInRows[10] = 4</code>? Yes, it works. It adds a new value at the given index position.</p>
+<div class="aside next">
+In this tutorial, you will learn just enough about arrays to get the code to work. In the Discover JavaScript arrays optional section at step <a href="hide">20: Hiding an image</a> you can find an introduction to arrays, plus links to other sites for more details.
+<p>When you're ready, click on the Next arrow below, or on item <a href="#random">39: Random moves</a> in the menu on the left.</p>
+</div>
 <footer>
 <ul class="nav">
 <li>
@@ -5249,6 +5423,388 @@ When you're ready to start working on giving the game its artificial intelligenc
 <!-- RANDOM MOVES -->
 <section id="random">
 <h2>Making Random Moves</h2>
+<div class="aside preview">In this step, you'll learn how to:
+<ul>
+<li>Get the computer to take a turn</li>
+<li>Create a legal move for the computer player</li>
+<li>Hide the matches that the computer player has taken</li>
+<li>Check if the computer lost the game</li>
+<li>Keep track of which matches the computer player can take on its next move</li>
+</ul>
+<a href="https://github.com/lexogram/openbook/blob/master/nim/Steps/step_39/step_39.zip?raw=true" target="source">Download the source files</a>
+</div>
+<p>Your <code>startNewGame</code> function can now tell whether the computer should play first or not. If the computer is to play first, then it must be able to choose its move. Make the following change to the <code>startNewGame</code> function:</p>
+<pre class="revised">...
+
+  // Code to start a new game
+  function startNewGame(event) {
+    var buttonName = event.target.className
+
+    if (buttonName === "twoPlayers") {
+      useAI = false
+      player1 = "Player 1"
+      player2 = "Player 2"
+
+    } else {
+      useAI = true
+      if (buttonName === "computerStarts") {
+        computerToPlay = true
+        player1 = "Computer"
+        player2 = "You"
+
+      } else {
+        computerToPlay = false
+        player1 = "You"
+        player2 = "Computer"
+      }
+
+      setUpAI()
+    }
+
+    setPlayerNames()
+    reset()
+
+    <span class="new">if (useAI && computerToPlay) {
+      computerChooseMove()
+    }</span>
+  }
+ 
+ ...
+
+</pre>
+<div class="aside note">The operator <code>&&</code> is a <span class="keyword">logical AND</span>. The expression <code>(useAI && computerToPlay)</code> is <code>true</code> if both <code>useAI</code> <em>and</em> <code>computerToPlay</code> are <code>true</code>.
+<p>You can find more information about logical operators in the Learn More About Logic section of the step <a href="#rules">27: Enforcing rules</a>.</p>
+</div>
+<p>Now add a similar chunk of code to the <code>nextTurn</code> function, plus three new <span class="keyword">stub</span> functions at the end of your script:</p>
+<pre class="revised">...
+
+  // Code that runs when the Done button is clicked
+  function nextTurn() {
+    if (!active.classList.contains("enabled")) {
+      return
+    }
+
+    winner = active.querySelector("p").textContent
+
+    var next = document.querySelector(".turns div:not(.active)")
+    active.classList.remove("active")
+    active.classList.remove("enabled")
+
+    active = next
+    active.classList.add("active")
+
+    <span class="new">if (useAI) {
+      computerToPlay = !computerToPlay;
+      if (computerToPlay) {
+        computerChooseMove();
+      }
+    }</span>
+
+    rowIndex = -1
+  }
+
+  <span class="new">// Code for the computer player
+  function computerChooseMove() {
+    if (false) {
+      findWinningMove()
+    } else {
+      chooseRandomMove()
+    }
+  }
+
+  function findWinningMove() {
+    // More code will go here
+  }
+
+  function chooseRandomMove() {
+    // More code will go here
+  }</span>
+})()</pre>
+<p>These three new functions do nothing useful yet. For now, they simply stop the game from continuing any further when it's the computer's turn to play. In particular, the first line of the <code>computerChooseMove</code> function...</p>
+<pre>    if (false) { ... }</pre>
+<p>... ensures that the <code>chooseRandomMove()</code> function will be called every time. It is easier to create a legal random move than to create a winning move, so you can deal with random moves first. When you have written the more complex <code>findWinningMove</code> function, then you will be able to replace <code>false</code> with a more meaningful expression.</p>
+<h3>Random</h3>
+<p>There are two random choices that the computer player has to make:</p>
+<ul>
+<li>Which row to take matches from</li>
+<li>How many matches to take from the chosen row</li>
+</ul>
+<p>You already have a variable called <code>rowIndex</code> that holds a number between 0 and 3, depending on which row the <em>player</em> chooses to take matches from. You can add a new variable at the top of your script to hold the number of matches that either the human player or the computer player decides to take. You'll need to set this to 0 before a new game starts, and increase it by 1 each time a human player takes a match:</p>
+<pre class="revised">;(function() {
+  var active
+  var winner
+  var useAI
+  var computerToPlay
+  var rowsWithMatches
+  var matchesInRows
+  <span class="new">var taken</span>
+  ...
+
+  function reset() {
+    var matches = document.querySelectorAll(".matches img.removed")
+
+    for (var ii=0; ii&lt;matches.length; ii++) {
+      var match = matches[ii]
+      match.classList.remove("removed")
+    }
+
+    winnerDiv.classList.add("hidden")
+
+    rowIndex = -1
+    <span class="new">taken = 0</span>
+  }
+
+  // Code that runs each time a match is removed
+  function hideMatch(event) {
+    var match = event.target
+    
+    if (match.nodeName !== "IMG") {
+      return
+    } else if (match.className === "removed") {
+      return
+    } else if (rowsDontMatch(match)) {
+      return
+    }
+    
+    match.classList.add("removed")
+    active.classList.add("enabled")
+
+    <span class="new">taken++</span>
+
+    checkForWinner()
+  }
+
+  ...</pre>
+
+<h3>Creating a random value</h3>
+<p>JavaScript has a built-in <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math"><code>Math</code></a> object, which allows you to do many mathematical operations. You will be using two of its methods here:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random">Math.random()</a> creates a seemingly random number from 0.0 up to (but not including) 1.</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor">Math.floor(<em>x</em>)</a> takes a floating point number and returns the next smallest integer.</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil">Math.ceil(<em>x</em></a>) (for <span class="keyword">ceiling</span>) does the opposite. It takes a floating point number and returns the next biggest integer.</li>
+</ul>
+<p>To choose a row at random, you can:</p>
+<ul>
+<li>Create a random number between 0.0 and 1 (e.g. 0.618)</li>
+<li>Multiply this number by the number of rows that still contain at least one match (e.g. 0.618 * 3 = 1.854</li>
+<li>Get the <code>floor</code> of this new number (e.g. 1)</li>
+</ul>
+<p>This is how the variable <code>index</code> is calculated in the <code>chooseRandomMove</code> function below.</p>
+<p>This number that you have generated is not the row number itself: it is the index position of the row number in the <code>rowsWithMatches</code> array. Suppose all the matches in the second row had been taken. <code>rowsWithMatches</code> would look like this: <code>[0, 2, 3]</code>, because the row <em>with</em> index number <code>1</code> would no longer have any matches. Choosing the value <em>at</em> index <code>1</code> in this list will give you the number <code>2</code>, representing the row that initally has 3 matches. This is how the value of <code>rowIndex</code> is calculated below.</p>
+<pre class="revised"> ...
+
+  function chooseRandomMove() {
+    <span class="new">var index, max
+    index = Math.floor(Math.random() * rowsWithMatches.length)
+    rowIndex = rowsWithMatches[index]
+    max = matchesInRows[rowIndex]
+    taken = Math.ceil(Math.random() * max); // 1 - max</span>
+  }
+
+  ...</pre>
+<h3>Deciding how many matches to take from this row</h3>
+<p>When you know which <code>rowIndex</code> the computer player will choose, you can calculate how many matches there are still in that row. This information is stored in the <code>matchesInRows</code> array. The current value of <code>matchesInRows[rowIndex]</code> represents the maximum number of matches the computer player can take.</p>
+<p>You now want  to create a number from 1 to this maximum number, as the number of matches the computer player should remove. The value of the variable <code>taken</code> is set to this number.</p>
+<p>The <code>chooseRandomMove</code> function thus sets both <code>rowIndex</code> and <code>taken</code> to usable values. Now you need to create a function that actually removes this number of matches from the chosen row.</p>
+<h3>Removing matches</h3>
+<p>Modify the <code>computerChooseMove</code> function and add the <code>hideMatches</code> function, as shown below:</p>
+<pre class="revised">
+
+  // Code for the computer player
+  function computerChooseMove() {
+    var gameOver
+
+    if (false) {
+      findWinningMove()
+    } else {
+      chooseRandomMove()
+    }
+
+    <span class="new">hideMatches()</span>
+  }
+
+  function chooseRandomMove() {
+    var index, max
+    index = Math.floor(Math.random() * rowsWithMatches.length)
+    rowIndex = rowsWithMatches[index]
+    max = matchesInRows[rowIndex]
+    taken = Math.ceil(Math.random() * max); // 1 - max
+  }
+
+  <span class="new">function hideMatches() {
+    var matches = rows[rowIndex].children; // [img, img, ...]
+    var removed = 0
+    var match; // img
+
+    for (var ii=0; ii&lt;matches.length; ii++) {
+      match = matches[ii]
+      if (!match.classList.contains("removed")) {
+        match.classList.add("removed")
+        removed ++
+
+        if (removed === taken) {
+          return
+        }
+      }
+    }
+  }</span>
+})()</pre>
+<p>The <code>hideMatches</code> function selects the <code>&lt;div&gt;</code> element that represents the row of matches that has been chosen, and iterates through the match <code>&lt;img&gt;</code> elements, looking for <code>&lt;img&gt;</code>s that have are still visible. To do this, it checks each <code>&lt;img&gt;</code> to see if it has a "removed" class or not.</p>
+<p>Each time it finds a new visible <code>&lt;img&gt;</code>, it adds the "removed" class to it, and increases the value of the <code>removed</code> variable. When <code>removed</code> has the same value as <code>taken</code> then it stops looking for any more.</p>
+
+<h3>Checking for game over</h3>
+<p>If the human player takes the last match, then the "winner" overlay will appear, preventing the player from clicking on the Done button. As a result, the losing human player cannot trigger the <code>nextTurn</code> function.</p>
+<p>The computer player does not have to click any buttons so the presence of the "winner" overlay has no effect on it. When the computer player's turn is over, it can call <code>nextTurn</code> immediately to give the human player a turn. However, if the computer player takes the last match, then the game is over. The "winner" overlay should appear, but the computer player should <em>not</em> call <code>nextTurn</code>.</p>
+<p>To take this into acount, you can change the <code>checkForWinner</code> function so that it returns <code>true</code> if the game is over and <code>false</code> if not. When a human player clicks on a match and <code>checkForWinner</code> is called, the value returned by the function can be ignored. When the computer player calls the function, then it can use the returned value to decide whether or not to call <code>nextTurn</code> and let the human play.</p>
+<pre class="revised">  ...
+
+  function checkForWinner() {
+    var selector = ".matches img.removed"
+    var removed = document.querySelectorAll(selector).length
+
+    if (removed === 16) {
+      if (winner === "You") {
+        showWinner(winner+" win!")
+      } else {
+        showWinner(winner+" wins!")
+      }
+      <span class="new">return true
+    }
+
+    return false</span>
+  }
+
+  ...
+
+  // Code for the computer player
+  function computerChooseMove() {
+    var gameOver
+
+    if (false) {
+      findWinningMove()
+    } else {
+      chooseRandomMove()
+    }
+
+    hideMatches(rowIndex, taken)
+    <span class="new">gameOver = checkForWinner()
+
+    if (!gameOver) {
+      active.classList.add("enabled")
+      nextTurn()
+    }</span>
+  }</pre>
+<p>Note that the computer player's Done button needs to be enabled, otherwise the conditional expression at the beginning of <code>nextTurn</code> will prevent the rest of the function from executing. Right now, you won't see the computer player's Done button appear at all, because it makes its move and gives the turn back to the player before screen updates. Later, you will be adding a timer so that the computer player's actions are not instantaneous, and the Done button will become visible during that time.</p>
+
+<h3>Updating the <code>matchesInRows</code> and <code>rowsWithMatches</code> arrays</h3>
+<p>If the computer player is playing then the <code>matchesInRows</code> and <code>rowsWithMatches</code> arrays need to be updated after every move, so that the computer knows how many matches are visible in each row. Add a couple of lines to the <code>nextTurn</code> function, and create a new <code>takeFromRow</code> function:</p>
+<pre class="revised">  ...
+
+  // Code that runs when the Done button is clicked
+  function nextTurn() {
+    if (!(active.classList.contains("enabled")) {
+      return
+    }
+
+    winner = active.querySelector("p").textContent
+
+    var next = document.querySelector(".turns div:not(.active)")
+    active.classList.remove("active")
+    active.classList.remove("enabled")
+
+    active = next
+    active.classList.add("active")   
+
+    if (useAI) {
+      <span class="new">takeFromRow(rowIndex, taken)
+      taken = 0</span>
+
+      computerToPlay = !computerToPlay
+      if (computerToPlay) {
+        computerChooseMove()
+      }
+    }
+
+    rowIndex = -1
+  }
+
+  <span class="new">function takeFromRow(row, taken) {
+    var remaining = matchesInRows[rowIndex] - taken
+    var index;
+
+    matchesInRows[rowIndex] = remaining
+    if (!remaining) {
+      index = rowsWithMatches.indexOf(rowIndex)
+      rowsWithMatches.splice(index, 1)
+    }
+  }</span>
+
+  ...</pre>
+<p>The <code>takeFromRow</code> function first calculates how many matches are left in the row from which matches were taken and updates the appropriate entry in <code>matchesInRows</code> accordingly. If there is at least one match remaining, then <code>remaining</code> will be a positive integer, which JavaScript treats as <span class="keyword">truthy</span>.
+<p class="aside note ">To be more precise, when evaluating a Boolean expression, JavaScript considers the number <code>0</code> to be the same as <code>false</code> and any other number to be equivalent to <code>true</code>. For more details see the optional Learn More About Truthy and Falsy values below.</p>
+<p>If all the matches have been taken from the chosen row, then the computer player can no longer take any matches from that row. The entry for that row is removed from the <code>rowsWithMatches</code> array, using the <code>splice</code> command. For details on the <code>splice</code> command, see Learn More About <code>splice</code> below.</p>
+<p>For example, if all the matches are removed from the second row (whose index is <code>1</code>), then <code>matchesInRows</code> may look like this <code>[7, 0, 3, 1]</code> and <code>rowsWithMatches</code> will lose its second value so that it looks like this: <code>[0, 2, 3]</code> </p>
+
+<p>Save your changes and refresh your <code>index.html</code> page in the browser. You can now choose Start New Game Against Computer or Computer To Start New Game, and the computer will play against you.</p>
+<div class="aside tip">The computer will make a legal move each time, but the chances are that it will not be a good move. This means that you can win.
+<p>If you play the game many times, you will begin to see patterns emerging. When there are only a few matches left, you will see that certain combinations of matches give a position from which you can be sure to win. For other combinations, you can only win if the computer player makes a mistake.</p>
+<p>You might like to use lateral thinking. You can play the game using real matches (or coins, or pebbles, or chocolate chips), and start at the end of the game and work backwards. What are the combinations where the other player is sure to lose? What other combinations guarantee that whatever the current player plays, you can set up a known combination where the other player is sure to lose? Such a combination is also a losing combination.</p>
+<p>In order to win, should you start the game, or allow the other player to start?</p>
+<p>There are 20 winning combinations. Before you move on to the next step, see if you can identify them all. Note the winning combinations down, they will be useful.</p>
+<p>When you program the artificial intelligence of the computer player, you can use these 20 combinations as a way of teaching the computer the strategy. As a human, holding 20 combinations in your head can be hard work. There is a simpler technique for a human to decide at a glance if any combination gives a winning position. If you can find this technique for yourself, you can be truly proud.</p>
+<p>If you want a clue, roll your mouse over the empty space below.</p>
+<p class="hover"><a href="http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/BitOp/xor.html">bitwise XOR parity check</a></p>
+<p class="hover">Even numbers of groups of 4, 2 and 1</p>
+<p class="hover"><a href="http://www.archimedes-lab.org/How_to_Solve/Win_at_Nim.html">Win at Nim</a></p>
+<p><strong>Make sure that you understand the strategy before you continue. Copying code that you don't understand is one aspect of <a href="https://en.wikipedia.org/wiki/Cargo_cult_programming">cargo cult programming</a>.</strong></p>
+</div>
+<div class="aside next">
+When you can beat the computer player most of the time, click on the Next arrow below, or on item <a href="#combinations">40: Winning combinations</a> in the menu on the left.</p>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="truthy-details"/>
+<label for="truthy-details">Learn more about truthy and falsy values</label>
+<div>
+<p>Every value that can be expressed in JavaScript can be evaluated as either equivalent to <code>true</code> (truthy) or equivalent to <code>false</code> (falsy). These values are always considered to be equivalent to <code>false</code>:</p>
+<ul>
+<li><code>false</code></li>
+<li><code>0</code> (zero)</li>
+<li><code>""</code> (empty string)</li>
+<li><code>null</code></li>
+<li><code>undefined</code></li>
+<li><code>NaN</code> (Not a Number)</li>
+</ul>
+<p>All other values are considered to be equivalent to <code>true</code>. For more details, see: <a href="http://www.sitepoint.com/javascript-truthy-falsy/">Truthy and Falsy: When All is Not Equal in JavaScript</a></p>
+</div>
+</div>
+
+<div class="optional details">
+<input type="checkbox" id="splice-details"/>
+<label for="splice-details">Learn more about <code>splice</code></label>
+<div>
+<p></p>
+<ul>
+<li><a href="http://www.w3schools.com/jsref/jsref_splice.asp">JavaScript Array splice() Method</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice">Array.prototype.splice()</a></li>
+</ul>
+</div>
+</div>
+
+<footer>
+<ul class="nav">
+<li>
+<a href="#combinations">
+<img src="../img/arrow.png" alt="next"/>
+</a>
+</li>
+</ul>
+</footer>
+</section>
+
+<!-- WINNING COMBINATIONS -->
+<section id="combinations">
+<h2>Winning Combinations</h2>
 <div class="aside preview">In this step, you'll learn:
 <ul>
 <li>How to </li>
