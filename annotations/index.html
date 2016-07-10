@@ -2,7 +2,7 @@
 <html lang=en>
 <head>
 <meta charset="utf-8">
-<title>HTML5 game tutorial</title>
+<title>Chrome extension</title>
 <link rel="stylesheet" href="../css/core.css" />
 </head>
 
@@ -75,14 +75,17 @@
   </ul>
   <p class="aside info">The injected data (code and CSS) is not applied to the extension's custom HTML page.</p>
   <p>The Chrome browser provides a number of proprietary methods to call methods in the <code>background</code> code or in another window or tab. This means that you can inject code into the pages that your user will visit, and use that to communicate between tabs and windows, via the <code>background</code> code.</p>
-  <p>You can arrange for an HTML page to open when you click the extension icon. This HTML page can contain an &lt;iframe&gt; which loads an arbitrary page from an arbitrary server. In this tutorial, you will see how to:
+  <p>You can arrange for an HTML page to open when you click the extension icon. This HTML page can contain an <code>&lt;iframe&gt;</code> which loads an arbitrary page from an arbitrary server. You can also use the injected <code>content</code> code to modify the DOM and the CSS of the main page. In this tutorial, you will see how to use these techniques:
   <ul>
-  <li>Display a reactive <a href="https://www.meteor.com/">Meteor</a> web site in the window</li>
+  <li>Add a toolbar at the top of the main page</li>
+  <li>Replace the <code>body</code> of the page with a modified copy, so that you can change the colour of individual words</li>
+  <li>Display a reactive <a href="https://www.meteor.com/">Meteor</a> web site in the custom window</li>
   <li>Tell your Meteor server about the user's actions in a third-party web page</li>
   <li>Connect your server to a Neo4j database</li>
   <li>Use information that you retrieve from your database to update the Notebook window and to customize the appearance of the third-party page</li>
   </ul>
   </p>
+  <p class="aside note">For this tutorial, the Meteor website that you will be working with will be a simple proof-of-concept prototype, with just enough features to show how the Chrome extension messaging system works. A <a href="../notebook/">forthcoming tutorial</a> will deal with the more advanced features of the Meteor site.</p>
 
   <footer>
     <ul class="nav">

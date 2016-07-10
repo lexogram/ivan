@@ -1,13 +1,14 @@
 <body>
 <div class="sidebar">
 <div class="logo">
-<p><img src="img/logo.png" alt="openbook home" /></p>
+<p><img src="img/logo.png" alt="openbook home" style="margin-top:6px"/></p>
 </div>
 <nav>
 <h2>Tutorials</h2>
 <ul>
 <li><a href="nim/">Nim</a></li>
 <li><a href="annotations/">Annotations</a></li>
+<li><a href="notebook/">Notebook</a></li>
 </ul>
 </li>
 </nav>
@@ -15,19 +16,20 @@
 
 <main>
 <header>
-<h1>Write Your Own Web Games</h1>
-<ul class="nav">
-<li>
-<a href="#back"><img src="../img/arrow.png" alt="back" /></a>
-</li><li>
-<a href="#next"><img src="../img/arrow.png" alt="next" /></a>
-</li>
-</ul>
+<h1>Write Your Own Web Applications</h1>
 </header>
 <article>
 <section id="top">
-<p class="top">You want to create your own web games. GitHub is a good place to learn and to share what you have learned.</p>
-<p class="top">You can see a link to "Nim", the first OpenBook tutorial, in the sidebar on the left. In the "Nim" tutorial, you will be learning to write HTML, CSS and JavaScript. You will also learn how to use GitHub to save and display your work, and how to write code that tests your code.</p>
+<p class="top">You want to create your own web applications. GitHub is a good place to learn and to share what you have learned.</p>
+<p class="top">You can see a links to specific tutorials in the side bar on the left.</p>
+<dl>
+  <dt>Nim</dt>
+  <dd>A game to play agains the computer, which uses artificial intelligence to beat any unelightened player. As you develop the game, you will be learning to write HTML, CSS and JavaScript. You will also learn how to use GitHub to save and display your work, and how to write code that tests your code.</dd>
+  <dt>Annotations</dt>
+  <dd>An extension for the Chrome browser that allows you to share notes that you make about the web pages that you visit</dd>
+  <dt>Notebook</dt>
+  <dd>A Meteor web site that works in conjunction with the Annotations extension to save your notes to a Neo4j database</dd>
+<dl>
 <h2>Before you begin</h2>
 <p>To get started, you will need five things:</p>
 <ol>
@@ -37,10 +39,10 @@
 <li><a href="https://pages.github.com">Set up your own web site</a> to test your work online, and share it with others.
 </ul>
 </li>
-<li><strong>The open source Git application.</strong> This allows you to communicate with GitHub (and many other similar sites), by typing commands. There is a good chance that it might already be installed on your computer.
+<li><strong>The open source Git application.</strong> This allows you to communicate with GitHub (and many other similar sites), by typing commands. There is a good chance that it might already be installed on your computer. See <a href="nim/#git">Getting Git</a> (part of the Nim tutorial) for more details.
 </li>
 <li><strong>A web browser.</strong> This is where you will see your games in action. I recommend Google Chrome. You can click here to <a href="https://www.google.com/chrome/">download Google Chrome</a>.</li>
-<li><strong>A text editor.</strong> This is where you will write your code, and save it as plain-text files. A text editor that is designed for writing code will help you in many ways. Computers do exactly what you tell them to do, even if you tell them the wrong things. A dedicated text editor will make it easier for you to find the right words to use, and to find where you have used the wrong words or the wrong structure. I can recommend Sublime Text. Click here to <a href="http://www.sublimetext.com/2">download Sublime Text</a>.<span class="aside note">Sublime Text has an unlimited trial period, but it is not free software. It will remind you regularly to purchase your own copy.</span></li>
+<li><strong>A text editor.</strong> This is where you will write your code, and save it as plain-text files. A text editor that is designed for writing code will help you in many ways. Computers do exactly what you tell them to do, even if you tell them the wrong things. A dedicated text editor will make it easier for you to find the right words to use, and to find where you have used the wrong words or the wrong structure. I can recommend Sublime Text, which you can <a href="http://www.sublimetext.com/2">download here</a>.<span class="aside note">Sublime Text has an unlimited trial period, but it is not free software. It will remind you regularly to purchase your own copy.</span></li>
 <li><strong>A Terminal application.</strong> On Windows, this is known as the Command Prompt. You will use your Terminal application to connect with your GitHub account, and to put your work online. Visit <a href="html/terminal.html">this link</a> to discover how to find the Terminal application on your computer.</li>
 </ol>
 <p class="aside info">All the screen shots for the OpenBook tutorials have been taken using Google Chrome and Sublime Text. You will probably find the tutorials easier to follow if you use the same applications, too.</p>
