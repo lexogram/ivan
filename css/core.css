@@ -1,9 +1,9 @@
 @font-face {
-  font-family: 'asides';
-  src: url('../fonts/asides.eot');
-  src: url('../fonts/asides.eot') format('embedded-opentype'), url('../fonts/asides.woff') format('woff'), url('../fonts/asides.ttf') format('truetype'), url('../fonts/asides.svg') format('svg');
-  font-weight: normal;
-  font-style: normal;
+font-family: 'asides';
+src: url('../fonts/asides.eot');
+src: url('../fonts/asides.eot') format('embedded-opentype'), url('../fonts/asides.woff') format('woff'), url('../fonts/asides.ttf') format('truetype'), url('../fonts/asides.svg') format('svg');
+font-weight: normal;
+font-style: normal;
 }
 
 html,
@@ -20,32 +20,32 @@ body{
 max-width: 800px;
 min-width: 480px;
 margin: 0 auto;
-  position: relative;
+position: relative;
 }
 .sidebar {
-  width: 200px;
-  height: 100%;
-  background-color: #bdc4fb;
+width: 200px;
+height: 100%;
+background-color: #bdc4fb;
 }
 .logo {
-  height: 50px;
-  text-align: center;
+height: 50px;
+text-align: center;
 }
 .logo a,
 .logo p {
-  line-height: 50px;
-  margin: 0;
+line-height: 50px;
+margin: 0;
 }
 .logo img {
 vertical-align: middle;
 }
 
 .sidebar nav {
-  margin: 0;
-  height: calc(100% - 50px);
-  overflow: auto;
-  box-sizing: border-box;
-  background: #e4e7fd;
+margin: 0;
+height: calc(100% - 50px);
+overflow: auto;
+box-sizing: border-box;
+background: #e4e7fd;
 }
 nav ul {
 list-style: none;
@@ -60,9 +60,7 @@ font-weight: bold;
 }
 nav ol li {
 padding: 0.25em 0;
-}
-nav li.target {
-background-color: #99c;
+margin: 0 0 0 2.5em;
 }
 
 a {
@@ -93,78 +91,93 @@ color: #ccc;
 .support a:active  {
 color: #eee;
 }
+nav ol {
+-webkit-padding-start: 0;
+}
 nav li:hover {
 background-color: rgba(0,0,255,0.1);
 transition: 0.3s;
 }
-
+nav li.target {
+/*background-color: rgba(0,0,255,0.2);*/
+}
+nav li.target a {
+font-weight: bold;
+}
 main {
 background: #fff;
-  width: calc(100% - 200px);
-  height: 100%;
-  position: absolute;
-  left: 200px;
-  top: 0;
+width: calc(100% - 200px);
+height: 100%;
+position: absolute;
+left: 200px;
+top: 0;
 }
 
 header {
 background: #cad0fc;
-  position: relative;
-  height: 50px;
-  background-color: #ccf;
-  text-align: center;
+position: relative;
+height: 50px;
+background-color: #ccf;
+text-align: center;
 box-sizing:border-box;
 border-bottom: 1px solid #dde;
 }
 header h1 {
-  margin: 0;
-  padding: 0 45px;
-  padding-top: calc(25px - 0.5em);
-  line-height: 1em;
+margin: 0;
+padding: 0 45px;
+padding-top: calc(25px - 0.5em);
+line-height: 1em;
 }
 footer {
-  background-color: #e4e7fd;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 32px;
-  text-align: right;
+background-color: #e4e7fd;
+position: absolute;
+bottom: 0;
+right: 0;
+width: 100%;
+height: 32px;
+text-align: right;
 }
 
 .nav {
-  position: absolute;
-  right: 0;
+position: absolute;
+right: 0;
 /*  bottom: 0; */
-  margin: 0;
-  padding: 0;
-  height: 32px;
-  font-size: 0;
-  list-style: none;
+margin: 0;
+padding: 0;
+height: 32px;
+font-size: 0;
+list-style: none;
 }
 header .nav {
-  bottom: 10px;
-  display: none; /* To be activated by JavaScript */
+bottom: 10px;
+display: none; /* To be activated by JavaScript */
+}
+header .nav.active {
+display: block
+}
+header .nav .disabled {
+opacity: 0.25;
+pointer-events: none;
 }
 .nav li {
-  display: inline-block;
+display: inline-block;
 /* HACK TO CENTRE ARROWS VERTICALLY */
-  position: relative;
-  top: 2px;
+position: relative;
+top: 2px;
 }
 .nav a {
-  width: 20px;
-  overflow: hidden;
-  line-height: 30px;
-  margin-right: 1px;
-  display: block;
+width: 20px;
+overflow: hidden;
+line-height: 30px;
+margin-right: 1px;
+display: block;
 }
 .nav img {
-  vertical-align: middle;
-  position: relative;
+vertical-align: middle;
+position: relative;
 }
 .nav a:hover img{
-  left: -20px;
+left: -20px;
 }
 .nav img[alt=back] {
 -moz-transform: scaleX(-1);
@@ -176,28 +189,33 @@ filter: FlipH;
 }
 
 .preview a {
-  margin: 0.5em 25px;
-  border: 1px outset #bdc4fb;
-  border-radius: 0.25em;
-  padding: 0.5em 1em;
-  background-color: #bdc4fb;
-  display: inline-block;
+margin: 0.5em 25px;
+border: 1px outset #bdc4fb;
+border-radius: 0.25em;
+padding: 0.5em 1em;
+background-color: #bdc4fb;
+display: inline-block;
 }
 
 .preview a[href=''],
 .preview a[href='']:hover,
 .preview a[href='']:active,
 .preview a[href='']:visited {
-  background-color: #eee;
-  border: 1px solid #eee;
-  text-decoration: none;
-  cursor: default;
-  color: #ccc;
+background-color: #eee;
+border: 1px solid #eee;
+text-decoration: none;
+cursor: default;
+color: #ccc;
+}
+
+.preview a.plain {
+margin: 0;
+padding: 0.1em;
 }
 
 .preview a:active {
-  border-style: inset;
- }
+border-style: inset;
+}
 
 h1, h2, h3 {
 margin: 1em 0 0;
@@ -220,9 +238,9 @@ font-style: oblique;
 }
 
 article {
-  height: calc(100% - 50px);
-  overflow: auto;
-  width: 100%;
+height: calc(100% - 50px);
+overflow: auto;
+width: 100%;
 }
 article .top{
 font-size: 1.25em;
@@ -232,11 +250,11 @@ margin: 0.5em 0;
 }
 
 section {
-  position: relative;
-  min-height: 100%;
-  padding: 0.5em;
-  padding-bottom: 50px;
-  box-sizing: border-box;
+position: relative;
+min-height: 100%;
+padding: 0.5em;
+padding-bottom: 50px;
+box-sizing: border-box;
 }
 section, section:target ~ :last-child{
 display: none;
@@ -418,11 +436,11 @@ content: "\e804";
 color: #6cc;
 }
 /* \e805 >
-   \e806 v
-   \e807 nix
-   \e808 mac
-   \e809 win
- */
+\e806 v
+\e807 nix
+\e808 mac
+\e809 win
+*/
 p.support::before {
 content: "\e80a";
 color: #fff;
@@ -459,7 +477,7 @@ color: #986;
 content: "\e810";
 }
 /* bug \e810
-   cc \e811
+cc \e811
 */
 
 .symptom {
@@ -546,6 +564,10 @@ color: #966;
 
 .warn code{
 background-color: #ecc;
+}
+.warn span.h2 {
+color: #c66;
+font-size: 1.25em;
 }
 .note code{
 background-color: #eec;
@@ -689,12 +711,12 @@ font-style: normal;
 
 @media print
 {
-  * {
-    background-color: transparent !important;
-    color: #000 !important;
+* {
+  background-color: transparent !important;
+  color: #000 !important;
   }
   .sidebar, .empty, .next, header, footer .nav, .preview a {
-    display: none;
+  display: none;
   }
   p.support::before { color: #669;}
   main, section { display: block; padding-bottom: 0;}
@@ -703,26 +725,26 @@ font-style: normal;
   footer {height: 1px; page-break-after: always;}
   p,
   figure {
-    display: block;
-    page-break-before: auto;
-    page-break-after: auto;
-    page-break-inside: avoid;
+  display: block;
+  page-break-before: auto;
+  page-break-after: auto;
+  page-break-inside: avoid;
   }
   a {
-    text-decoration: none;
+  text-decoration: none;
   }
   a:link:after,
   a:visited:after {
-    content: " (http://lexogram.github.io/openbook/" attr(href) ") ";
-    font-weight: normal;
-    font-style: oblique;
+  content: " (http://lexogram.github.io/openbook/" attr(href) ") ";
+  font-weight: normal;
+  font-style: oblique;
   }
   a[href^="http"]:link:after,
   a[href^="http"]:visited:after {
-    content: " (" attr(href) ")";
+  content: " (" attr(href) ")";
   }
   a.url:link:after,
   a.url:visited:after {
-    content: "";
+  content: "";
   }
 }

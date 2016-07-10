@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta charset="utf-8">
+<title>HTML5 game tutorial</title>
+<link rel="stylesheet" href="../css/core.css" />
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <a href="../"><img src="../img/logo.png" alt="openbook home" /></a>
+    </div>
+
+    <nav>
+      <ol>
+        <li><a href="#top">Overview</a></li>
+        <li><a href="#waiver">Waiver</a></li>
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#end">Conclusion</a></li>
+      </ol>
+    </nav>
+  </div>
+
+<main>
+<header>
+  <a href="https://github.com/lexogram/openbook/blob/master/LICENSE" class="cc">&#59409;</a>
+  <h1>Annotations : a Chrome extension</h1>
+  <ul class="nav">
+    <li>
+      <a href="#back"><img src="../img/arrow.png" alt="back" /></a>
+    </li><li>
+      <a href="#next"><img src="../img/arrow.png" alt="next" /></a>
+    </li>
+  </ul>
+</header>
+
+<article class="un-inverted">
+<!-- WAIVER -->
+<section id="waiver">
+  <div class="aside warn"><span class="h2">Waiver</span>
+    <p>To weave its magic, the Annotations extension makes permanent records of your actions in a database on the server at lexogram.com.</p>
+    <ul>
+      <li>It records the IP address that is assigned to you at the moment when you start using the Annotations extension</li>
+      <li>It records what pages you have visited, and on what dates</li>
+      <li>It stores a copy of the text of each page you visit</li>
+      <li>It stores the personal notes that you make, and, with your permission, may share these notes anonymously with other people</li>
+    </ul>
+     <p>From this information, the server generates a profile of your language skills which may become more and more accurate the more you use the Annotations extensions and the Lexogram service.</p>
+     <p>You may register with Lexogram using a unique username and password, so that you can keep track of your learning on different computers and share the same computer with different learners. You may provide an email address or a cell phone number, in order to reset your password. If you do so, then it will be technically possible to connect the activity associated with your account to you personally. Even if you don't register, your IP address may provide enough information to identify you.</p>
+     <p>Lexogram uses this data only to provide you with a service that we hope you will find valuable. Lexogram does not provide any information concerning your activities to any third parties. Lexogram does its best to keep its servers secure from malicious attacks. However, Lexogram cannot guarantee that your personal use of the Annotations extension and the Lexogram infrastructure will remain private forever. By using the Annotations extension, you agree to refrain from any activity that you might regret, and never to hold Lexogram responsible in any way for anything that happens as a result of your use of the services that Lexogram provides.</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#intro">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- INTRODUCTION -->
+<section id="intro">
+  <h2>Introduction to Chrome extensions</h2>
+  <p>A Chrome extension can consist of several moving parts:</p>
+  <ul>
+  <li>A clickable icon that appears in the Chrome toolbar to the right of the address bar omnibox</li>
+  <li>An HTML page that can open either as a popup or as a separate window</li>
+  <li>"Background" code that is loaded and run as soon as Chrome is launched. This defines what happens when you click on the toolbar icon</li>
+  <li>"Content" code that is injected into every page while the extension is enabled, and run after the page has loaded</li>
+  <li>CSS that is injected into every page while the extension is enabled.</li>
+  </ul>
+  <p class="aside info">The injected data (code and CSS) is not applied to the extension's custom HTML page.</p>
+  <p>The Chrome browser provides a number of proprietary methods to call methods in the <code>background</code> code or in another window or tab. This means that you can inject code into the pages that your user will visit, and use that to communicate between tabs and windows, via the <code>background</code> code.</p>
+  <p>You can arrange for an HTML page to open when you click the extension icon. This HTML page can contain an &lt;iframe&gt; which loads an arbitrary page from an arbitrary server. In this tutorial, you will see how to:
+  <ul>
+  <li>Display a reactive <a href="https://www.meteor.com/">Meteor</a> web site in the window</li>
+  <li>Tell your Meteor server about the user's actions in a third-party web page</li>
+  <li>Connect your server to a Neo4j database</li>
+  <li>Use information that you retrieve from your database to update the Notebook window and to customize the appearance of the third-party page</li>
+  </ul>
+  </p>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#end">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+</section>
+<!-- CONCLUSION -->
+<section id="end">
+<h2>Conclusion</h2>
+<div class="aside preview">Here's what you've learnt:
+<ul>
+<li>What an HTML page looks like</li>
+<li>How to open a very simple HTML page in your browser</li>
+</ul>
+</div>
+
+<p>Well done!</p>
+</section>
+
+<!-- OVERVIEW : SECTION 0 -->
+<section id="top">
+  <h2>Overview</h2>
+  <p class="top">Lexogram Annotations is a Chrome extension which helps you learn a language by making notes about web pages that you visit in the language that you are learning.</p>
+  <p>When you launch the Annotations extension, a popup window will open to display the Lexogram Notebook web site. The extension sets up communications between the page you have open in the main window and the Notebook, and provides a series of tools that help you understand and remember what you are reading.</p>
+
+  <div class="aside preview">In particular, the Annotations extension:
+    <ul>
+      <li>Tells the Notebook window what text you have selected on the main page</li>
+      <li>Connects to language sources such as <a href="http://translate.google.com" class="plain">Google Translate</a> and <a href="https://en.wiktionary.org/" class="plain">Wiktionary</a>, to help you to understand the word or phrase that you have selected</li>
+      <li>Allows you to make your own notes and translations, and saves them to the Lexogram server so that they can be shared with others</li>
+      <li>Remembers which words and expressions you have become familiar with, and highlights those that it thinks will be new to you.</li>
+    </ul>
+  </div>
+  <p class="aside support">If you have any difficulty anywhere in this tutorial, please <a href="https://github.com/lexogram/openbook/issues/new">tell us about it</a>, and we'll do our best to deal with it for you. Your questions and suggestions can help us make this tutorial better.
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#waiver">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+</article>
+</main>
+
+<script src="../js/core.js"></script>
+</body>
+</html>
