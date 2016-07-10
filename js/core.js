@@ -17,13 +17,18 @@
   var sectionDefault = sectionIds.length - 1 // last is in fact first
   var sectionIndex = getSectionIndex()
   var nav = document.querySelector("header .nav")
-  var navButtons = getNavButtonMap()
-  var menuItems = getNavMenuItemMap()
-  nav.classList.add("active")
+  var navButtons
+  var menuItems
+
+  if (nav) {
+    navButtons = getNavButtonMap()
+    menuItems = getNavMenuItemMap()
+    refreshView()
+  }
 
   window.addEventListener("hashchange", hashHasChanged, false);
 
-  refreshView()
+  
 
   function getSectionIds() {
     var sections = [].slice.call(document.querySelectorAll("section"))
@@ -49,6 +54,7 @@
     var back = nav.querySelector("[href='#back']")
 
     back.onclick = next.onclick = navigate
+    nav.classList.add("active")
 
     return {
       back: back
