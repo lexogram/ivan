@@ -18,6 +18,9 @@
         <li><a href="#top">Overview</a></li>
         <li><a href="#waiver">Waiver</a></li>
         <li><a href="#intro">Introduction</a></li>
+        <li><a href="#basic">A basic extension</a></li>
+        <li><a href="#window">A standalone window</a></li>
+        <li><a href="#meteor">Working with Meteor</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
     </nav>
@@ -76,17 +79,382 @@
   </ul>
   <p class="aside info">The injected data (code and CSS) is not applied to the extension's custom HTML page.</p>
   <p>The Chrome browser provides a number of proprietary methods to call methods in the <code>background</code> code or in another window or tab. This means that you can inject code into the pages that your user will visit, and use that to communicate between tabs and windows, via the <code>background</code> code.</p>
-  <p>You can arrange for an HTML page to open when you click the extension icon. This HTML page can contain an <code>&lt;iframe&gt;</code> which loads an arbitrary page from an arbitrary server. You can also use the injected <code>content</code> code to modify the DOM and the CSS of the main page. In this tutorial, you will see how to use these techniques:
-  <ul>
+  <p>You can arrange for an HTML page to open when you click the extension icon. You can also use the injected <code>content</code> code to modify the DOM and the CSS of the main page.</p>
+   <div class="aside preview">In this tutorial, you will see how to use these techniques to:
+   <ul>
   <li>Add a toolbar at the top of the main page</li>
   <li>Replace the <code>body</code> of the page with a modified copy, so that you can change the colour of individual words</li>
-  <li>Display a reactive <a href="https://www.meteor.com/">Meteor</a> web site in the custom window</li>
+  <li>Display a reactive <a href="https://www.meteor.com/" class="plain">Meteor</a> web site in the custom window</li>
   <li>Tell your Meteor server about the user's actions in a third-party web page</li>
-  <li>Connect your server to a Neo4j database</li>
-  <li>Use information that you retrieve from your database to update the Notebook window and to customize the appearance of the third-party page</li>
+  <li>Use information that you retrieve from your server to update the Notebook window and to customize the appearance of the third-party page</li>
   </ul>
-  </p>
+  </div>
   <p class="aside note">For this tutorial, the Meteor website that you will be working with will be a simple proof-of-concept prototype, with just enough features to show how the Chrome extension messaging system works. A <a href="../notebook/">forthcoming tutorial</a> will deal with the more advanced features of the Meteor site.</p>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#basic">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+</section>
+<!-- BASIC EXTENSION -->
+<section id="basic">
+<h2>Creating a basic extension</h2>
+<div class="aside preview">Here's what you'll learn in this exercise:
+<ul>
+<li>How to create a manifest.json file to define your extension</li>
+<li>How to create a button for the Chrome Toolbar</li>
+<li>How to create a page to display when the button is pressed</li>
+<li>How to activate your extension</li>
+</ul>
+<a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/01_basic_extension.zip" target="source">Download the source files</a>
+</div>
+
+<p>To create the simplest possible extension, you will need to create three files:</p>
+<dl>
+  <dt>manifest.json</dt>
+  <dd>This file tells Chrome about your extension and how to find the other two files. It must be called "manifest.json". The other files can have any name you want, so long as their names are recorded inside the <code>manifest.json</code> file.</dd>
+  <dt>A 19 x 19 pixel image</dt>
+  <dd>This will be used to create a button in the Chrome toolbar. In the <code>manifest.json</code> file shown below, it is named <code>icon.png</code>.</dd>
+  <dt>A simple HTML file</dt>
+  <dd>This contents of this file will be displayed in a window when you click on the Chrome toolbar icon. In the <code>manifest.json</code> file shown below, it is named <code>popup.html</code>.</dd>
+</dl>
+<h3>manifest.json</h3>
+<p>The <code>manifest.json</code> file is in <a href="http://www.json.org/">JSON</a> format. It can contain a wide range of information. The essential details are shown below.</p>
+<pre>{
+  "manifest_version": 2
+
+, "name": "Annotations"
+, "version": "alpha"
+, "description": "Helps you save and share notes about web pages"
+
+, "browser_action": {
+    "default_icon": "icon.png"
+  , "default_popup": "popup.html"
+  }
+
+, "permissions": [
+    "activeTab"
+  ]
+}</pre>
+<div class="aside note">Notes on the essential fields used in manifest.json
+  <ul>
+  <li><code>manifest_version</code> must be <code>2</code> in order to ensure that all the features mentioned in this tutorial are available.</li>
+  <li>In the Chrome Extensions management page, <code>name</code> will be used as the name of the extension. It may also be used as the tooltip when you roll your mouse over the extension's icon. The name does not have to be unique. It should be 45 characters or less.</li>
+  <li>The <code>version</code> must be a string of between 1-4 dot-separated integers each between 0 and 65536, such as "1" or "4.32.1.0"</li>
+  <li>The <code>description</code> is optional. It should be a plain text string (no HTML or other formatting) of 132 characters or less. The description will be used both in the Chrome extension page and in the Chrome Web Store.</li>
+  <li>There are two types of extension: <a href="https://developer.chrome.com/extensions/browserAction">browser_action</a>  extensions that can be used with any page, and <a href="https://developer.chrome.com/extensions/pageAction">page_action</a> extensions that will only be activated if the current page fits a particular set of criteria. The Annotations extension is designed for use with any page, so this <code>manifest.json</code> file contains an entry for <code>browser_action</code>.</li>
+  <li>If no <code>default_icon</code> is provided, then the button in the Chrome toolbar will use the first letter of the <code>name</code> to create an image for the button. You can use in image of any size, but it will be redimensioned to 19 x 19 pixels, so it's best to create an image at that size.</li>
+  <li>The simplest action for an extension is to display a popup window when the toolbar button is clicked. To see this in action, for now, you can create a simple HTML page. However, the Annotations extension will not use a popup window, so the <code>default_popup</code> entry will be removed later.</li>
+  <li>Users must grant an extension <code>permissions</code> to access any personal information. The lowest level of permission is access to the data on the current page or <code><a href="https://developer.chrome.com/extensions/activeTab">activeTab</a></code>. You'll need to add other permissions later.</li>
+  </ul>
+</div>
+
+<figure>
+<img src="img/tooltip.png" alt="extension tooltip" />
+<figcaption>Figure 1. The <code>name</code> appears as a tooltip on rollover</figcaption>
+</figure>
+
+<h3>The default_popup file</h3>
+<p>For the Annotations extension, you will be opening a new window rather than using a popup, but to get started, you can create a file named <code>popup.html</code> with the following minimal content:</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;body&gt;
+&lt;h1&gt;Popup&lt;/h1&gt;
+&lt;p&gt;More stuff can go here&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<h3>Loading your extension</h3>
+<p>Place your <code>manifest.json</code>, <code>popup.html</code> and <code>icon.png</code> files in the same folder on your hard drive (or <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/01_basic_extension.zip" target="source">download the source files</a> and decompress them). Open Chrome and type <code>chrome://extensions</code> in the address omnibox, then press the Enter key.</p>
+<figure>
+<img src="img/load.png" alt="loading your extension" />
+<figcaption>Figure 2. Loading your extension</figcaption>
+</figure>
+<p>Make sure the Developer Mode checkbox is selected, and then click on the Load Unpacked Extension button. A dialogue window will open; you can select the folder in which you saved your three files. The icon that you chose will appear in a button to the right of the address omnibox. If you click on it, a popup window will open to display your HTML page.</p>
+
+<figure>
+<img src="img/basic.png" alt="popup window" />
+<figcaption>Figure 3. The <code>default_popup</code> appears when you click on the icon</figcaption>
+</figure>
+
+<div class="aside next">In this exercise, you've created a minimalist Chrome extension that opens a popup window. You seen the importance of the <code>manifest.json</code> file and how to tell Chrome that your extension exists.
+<p>In the <a href="#window">next exercise</a>, you'll see how to create a background script to open a stand-alone window.</p>
+</div>
+<div class="optional tips">
+<input type="checkbox" id="icon-tips"/>
+<label for="icon-tips">Tip: Additional Icons</label>
+<div>
+<p>Currently, a generic icon is used for your extension in the Chrome Extensions management page.</p>
+<figure>
+<img src="img/default_icon.png" alt="default icon" />
+<figcaption>Figure 4. The default Chrome extension icon</figcaption>
+</figure>
+<p>It's a good idea to create additional icons that will be used on the Extensions management page, in the Chrome Web Store, during the installation of your extension, and as the favicon of any browser pages your extension might create.</p>
+<p>You can <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/01a_additional_icons.zip" target="source">download the source files</a> for a slightly more complex extension which places all the icon files in the same <code>img</code> folder, and gives them names that indicate their sizes.</p>
+<pre class="revised">{
+  "manifest_version": 2
+
+, "name": "Annotations"
+, "version": "1.0"
+, "description": "Helps you save and share notes about web pages."
+
+, "browser_action": {
+    "default_icon": "<span class="new">img/</span>icon<span class="new">19</span>.png"
+  , "default_popup": "popup.html"
+  }
+
+, "permissions": [
+    "activeTab"
+  ]
+
+<span class="new">, "icons": {
+    "16": "img/icon16.png"
+  , "48": "img/icon48.png"
+  , "128": "img/icon128.png"
+  }</span>
+}</pre>
+<p>If you use this version of the extension, you'll see a custom icon for your extension in the Extensions management page.</p>
+<figure>
+<img src="img/custom_icons.png" alt="custom icons" />
+<figcaption>Figure 5. Providing a full set of icons for your extension</figcaption>
+</figure>
+<p>You can find more information about this on the <a href="https://developer.chrome.com/apps/manifest/icons">Chrome Developer site</a>.</p>
+</div>
+</div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#window">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+</section>
+<!-- WINDOW -->
+<section id="window">
+<h2>A standalone window</h2>
+<div class="aside preview">Here's what you'll learn in this exercise:
+<ul>
+<li>How to create a background script that will be loaded as soon as Chrome is launched</li>
+<li>How to call a method in the background script when the extensions toolbar button is clicked</li>
+<li>How to tell Chrome to open a new window to display a specific URL</li>
+<li>How to debug a background script</li>
+</ul>
+<a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/02_standalone_window.zip" target="source">Download the source files</a>
+</div>
+
+<h3>Declaring a background script</h3>
+<p>In your <code>manifest.json</code> file, you can declare a <code>background</code> page. Chrome will create the page when it first starts up (or when you reload your extension) but will never show it. You can use the background page to load scripts that will be available at all times the browser is open. Here's how you can modify your <code>manifest.json</code> file so that it loads a script called <code>background.js</code>:</p>
+
+<pre class="revised">{
+  "manifest_version": 2
+
+, "name": "Annotations"
+, "version": "1.0"
+, "description": "Helps you save and share notes about web pages."
+
+, "browser_action": {
+    "default_icon": "img/icon19.png"
+  }
+
+, "permissions": [
+    "activeTab"
+  ]
+
+, "icons": {
+    "16": "img/icon16.png"
+  , "48": "img/icon48.png"
+  , "128": "img/icon128.png"
+  }
+
+<span class="new">, "background": {
+    "scripts": [
+      "js/background.js"
+    ]</span>
+  }
+}</pre>
+
+<h3>background.js</h3>
+<p>You can create a file called <code>background.js</code> with the following script. Notice that it refers to another file called <code>popup.html</code>; you can use the existing file with that name for now.</p>
+<p>Notice that the script uses a custom <code>notify()</code> method to both show an alert and log data in the console. You'll see shortly how to bring up the console where you can see the logged data. You'll also notice that this script makes calls to methods that are defined on a global <code>chrome</code> object.</p>
+
+<pre>"use strict"
+
+;(function background(){
+
+  function notify() {
+    console.log.apply(console, arguments)
+    alert(arguments[0])
+  }
+
+  function useExtension() {
+    notify ("useExtension triggered")
+
+    var URL = <span class="red">chrome.extension.getURL</span>("html/popup.html")
+    var width = 300
+    var top = 0
+
+    var options = {
+      url: URL
+    , left: screen.availWidth - width
+    , top: top
+    , width: width
+    , height: screen.availHeight - top
+    , focused: false
+    , type: "popup" // "normal"
+    }
+
+    <span class="red">chrome.windows.create</span>(options, callback)
+
+    function callback(window_data) {
+      notify ("window opened", window_data)
+    }
+  }
+
+  <span class="red">chrome.browserAction.onClicked.addListener</span>(useExtension)
+  notify ("Background script loaded")
+})()</pre>
+
+<h3>Reloading your extension</h3>
+<p>Here's how your files should be organized now, so that the <code>manifest.json</code> file can find them all:</p>
+<figure>
+<img src="img/background_js.png" alt="file hierarchy" />
+<figcaption>Figure 6. The new arrangement of your extension files</figcaption>
+</figure>
+
+<p>Each time you make a change to your extension, you need to tell Chrome to reload it. You can do this by clicking on the Reload link for your extension in the Chrome Extensions management window.</p>
+
+<figure>
+<img src="img/reload.png" alt="Reload your extension and open the Inspector window for the background page" />
+<figcaption>Figure 7. Reload your extension and open the Inspector window for the background page</figcaption>
+</figure>
+
+<h3>Debugging a background script</h3>
+<p>As you can see in Figure 7, abovo, when you reload your extension after adding a background script, you will see a new Inspect Views link in the Extension management panel, which allows you to open a Developer Tools Inspector window for the <code>background</code> page which Chrome has now created. When you activate your extension, your <code>popup.html</code> page should open in a new window. You'll see that the output of the <code>console.log()</code> command appears in the Console in the Inspector window for your <code>background</code> page.</p>
+
+<h3>The <code>chrome</code> object</h3>
+It's time now to look closer at what your <code>background.js</code> script is doing, and especially at the following three lines: 
+
+<pre><span class="red">chrome.extension.getURL</span>("html/popup.html")
+
+<span class="red">chrome.windows.create</span>(options, callback)
+
+<span class="red">chrome.browserAction.onClicked.addListener</span>(useExtension)</pre>
+
+All scripts running in Chrome have access to a  object named <code>chrome</code>. However, scripts running in a standard window and script running in the <code>background</code> have access to different objects that have the same name.
+<figure>
+<img src="img/page_chrome.png" alt="page chrome object" />
+<figcaption>Figure 8. The <code>chrome</code> object available in standard windows</figcaption>
+</figure> 
+
+<figure>
+<img src="img/background_chrome.png" alt="background chrome object" />
+<figcaption>Figure 9. The <code>chrome</code> object available to background scripts</figcaption>
+</figure>
+<p>As you can see from Figure 9, the <code>chrome</code> object that is available to <code>background</code> scripts posseses a number of extension-specific properties:</p>
+<ul>
+<li><code><a href="https://developer.chrome.com/extensions/browserAction">browserAction</a></code> </li>
+<li><code><a href="https://developer.chrome.com/extensions/extension">extension</a></code> </li>
+<li><code><a href="https://developer.chrome.com/extensions/i18n">i18n</a></code> (internationalization)</li>
+<li><code><a href="https://developer.chrome.com/extensions/management">management</a></code> </li>
+<li><code><a href="https://developer.chrome.com/extensions/permissions">permissions</a></code> </li>
+<li><code><a href="https://developer.chrome.com/extensions/tabs">tabs</a></code> </li>
+<li><code><a href="https://developer.chrome.com/extensions/windows">windows</a></code> </li>
+</ul>
+<p>You will be using several of these to as you develop your extension.</p>
+<h3><code>chrome.extension</code></h3>
+<p>The <code>chrome.extension</code> API provides support for exchanging messages between extensions or between an extension and its content scripts that have been injected into the pages in a standard window.</p>
+<p>The <code><a href="https://developer.chrome.com/extensions/extension#method-getURL">chrome.extension.getURL()</a></code> method converts a relative path such as <code>"html/popup.html"</code> into a fully-qualified URL: <code>"chrome-extension://maabmcngoiolpokniappbcolnflbgopo/html/popup.html"</code> </p>
+<h3><code>chrome.windows</code></h3>
+<p>You can use the <code>chrome.windows</code> API to create, modify, and rearrange windows in the browser.</p>
+<p>The <code><a href="https://developer.chrome.com/extensions/windows#method-create">chrome.windows.create(options, callback)</a></code> opens a new browser window with any optional sizing, position or default URL that you provide in the <code>options</code> argument.</p>
+<h3>chrome.browserAction</h3>
+<p>The <code>chrome.browserAction</code> allows you to control the extension button in the Chrome toolbar. You can modify its appearance, its title, and whether it is enabled. You can also detect when it is clicked, using the <code>chrome.browserAction.onClicked</code> event. The code above sets a listener for this event, and uses that to open a custom window with a specified position and size.</p>
+<p class="aside note">The listener for the <code>chrome.browserAction.onClicked</code> event will be triggered every time the toolbar button is clicked, not just the first time. Later you will be modifying this code so that it reacts differently if the extensions custom window is already open.</p>
+<h3>Window <code>type</code> </h3>
+<p>The <code><a href="https://developer.chrome.com/extensions/windows#type-CreateType">type</a></code> of the window is set to <code>"popup"</code>. This creates a window with no toolbar, so the user cannot navigate to another page in this window. There are four possible values for <code>type</code>:</p>
+<ul>
+<li><code>"normal"</code> (default)</li>
+<li><code>"popup"</code></li>
+<li><code>"panel"</code></li>
+<li><code>"detached_panel"</code></li>
+</ul>
+<p>At the time of writing, code>"popup"</code>, <code>"panel"</code> and <code>"detached_panel"</code> all have the same effect.</p>
+<figure>
+<img src="img/normal_window.png" alt='A window with a <code>type</code> of "normal"' />
+<figcaption>Figure 10. A window with a <code>type</code> of "normal"</figcaption>
+</figure>
+<figure>
+<img src="img/popup_window.png" alt='A window with a <code>type</code> of "popup"' />
+<figcaption>Figure 11. A window with a <code>type</code> of "popup"</figcaption>
+</figure>
+
+<h3>The <code>Window</code> object</h3>
+<p>When <code>chrome.windows.create(options, callback)</code> is run, it activates an optional callback, and sends a <code>Window</code> object as the argument:</p>
+<pre>{ alwaysOnTop: false
+, focused: false
+, height: 777
+, id: 161
+, incognito: false
+, left: 880
+, state: "normal"
+, tabs: [
+    active: true
+  , audible: false
+  , height: 682
+  , highlighted: true
+  , id: 162
+  , incognito: false
+  , index: 0
+  , mutedInfo: Object
+  , pinned: false
+  , selected: true
+  , status: "loading"
+  , width: 400
+  , windowId: 161
+  ]
+, top: 23
+, type: "normal"
+, width: 400
+}</pre>
+<p>In <a href="">TODO</a>, you'll use the <code>id</code> of the only tab of this window as a filter. You want this custom window to update when you interact with other windows, but you want to prevent this window from reacting to itself.</p>
+<div class="aside next">In this exercise, you've set up a a background script to react to a click on the toolbar button for your extension, and you've used that action to open a custom window. You've also seen how to open a Developer Tools Inspector window, so that you can debug your background script.
+<p>In the <a href="#meteor">next exercise</a>, you'll see how to install and run a Meteor web server on your development computer, and you'll get your custom popup window to display the site running on your Meteor server.</p>
+</div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#meteor">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+</section>
+
+<!-- METEOR -->
+<section id="meteor">
+<h2>Creating a Meteor site</h2>
+<div class="aside preview">Here's what you'll learn in this exercise:
+<ul>
+<li>How to install Meteor on your development computer</li>
+<li>How to view the default Meteor app in your extension popup window<</li>
+</ul>
+<a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+</div>
 
   <footer>
     <ul class="nav">
@@ -105,12 +473,14 @@
 <h2>Conclusion</h2>
 <div class="aside preview">Here's what you've learnt:
 <ul>
-<li>What an HTML page looks like</li>
-<li>How to open a very simple HTML page in your browser</li>
+<li>How to create a Chrome extension</li>
+<li>How to modify the DOM of the main page</li>
+<li>How to communicate between different pages</li>
+<li>How to interact with your own server</li>
 </ul>
 </div>
 
-<p>Well done!</p>
+<p>Well done! Now you're ready to add features to your Meteor server, to make the service provided by the extension even more valuable. Time for a <a href="../notebook/">new tutorial</a>.</p>
 </section>
 
 <!-- OVERVIEW : SECTION 0 -->
@@ -122,7 +492,6 @@
   <div class="aside preview">In particular, the Annotations extension:
     <ul>
       <li>Tells the Notebook window what text you have selected on the main page</li>
-      <li>Connects to language sources such as <a href="http://translate.google.com" class="plain">Google Translate</a> and <a href="https://en.wiktionary.org/" class="plain">Wiktionary</a>, to help you to understand the word or phrase that you have selected</li>
       <li>Allows you to make your own notes and translations, and saves them to the Lexogram server so that they can be shared with others</li>
       <li>Remembers which words and expressions you have become familiar with, and highlights those that it thinks will be new to you.</li>
     </ul>

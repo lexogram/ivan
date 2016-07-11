@@ -488,12 +488,16 @@ figure{
 text-align: center;
 margin: 1em 0;
 }
-figcaption{
+figcaption {
+margin-top: 1em;
 font-size: 0.85em;
 font-weight: bold;
 }
 figure p {
 text-align: left;
+}
+figure img {
+max-width: 100%;
 }
 
 .keyword{
@@ -608,7 +612,7 @@ margin-bottom: 0.25em;
 input {
 position: absolute;
 clip: rect(0, 0, 0, 0);
-top: 0;
+/*top: 0;*/
 }
 input + label{
 font-family: "Gill Sans",Helvetica, sans-serif;
