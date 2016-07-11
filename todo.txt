@@ -1,0 +1,22 @@
+TEXT
+- Image of completed extension, for section 1
+- Link to install extension in section 1
+- Create image showing interaction between various extension components, and add it to section 3 
+- End of section 5: link to section which deals with the tab id of the popup window.
+- Renumber images 1 - 11 to 3 - 13
+
+JS
+- Remember scrollTop when navigating away from a page; restore scrollTop when returning to that page.
+
+CSS
+<printing>
+- Place "last" page at the beginning
+- Number sections
+- Avoid splitting images on page breaks
+- Hide sidebar if page is too narrow
+
+MISC
+- Zoom scaled-down images to full size when clicked
+
+TESTING
+- Check that Tip disclosure triangles work correctly now in all major browsers

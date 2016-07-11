@@ -217,8 +217,8 @@ padding: 0.1em;
 border-style: inset;
 }
 
-h1, h2, h3 {
-margin: 1em 0 0;
+h1, h2, h3, h4 {
+margin: 2em 0 0;
 font-family: "Gill Sans",Helvetica, sans-serif;
 font-weight:bold;
 color: #003;
@@ -229,8 +229,12 @@ font-size:1.2em;
 h2, h3, h4 {
 color: #336;
 }
+h2 {
+text-align: center;
+}
 h3 {
 font-size:1.1em;
+text-decoration: underline;
 }
 h4 {
 font-size:1em;

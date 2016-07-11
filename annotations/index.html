@@ -20,7 +20,12 @@
         <li><a href="#intro">Introduction</a></li>
         <li><a href="#basic">A basic extension</a></li>
         <li><a href="#window">A standalone window</a></li>
-        <li><a href="#meteor">Working with Meteor</a></li>
+        <li><a href="#meteor">Creating a Meteor site</a></li>
+        <li><a href="#actions">Detecting user actions</a></li>
+        <li><a href="#toolbar">Inserting a toolbar</a></li>
+        <li><a href="#messages">Sending messages</a></li>
+        <li><a href="#server">Server-side with Meteor</a></li>
+        <li><a href="#tbd">TBD</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
     </nav>
@@ -39,7 +44,7 @@
   </ul>
 </header>
 
-<article class="un-inverted">
+<article>
 <!-- WAIVER -->
 <section id="waiver">
   <div class="aside warn"><span class="h2">Waiver</span>
@@ -102,11 +107,10 @@
   </footer>
 </section>
 
-</section>
 <!-- BASIC EXTENSION -->
 <section id="basic">
 <h2>Creating a basic extension</h2>
-<div class="aside preview">Here's what you'll learn in this exercise:
+<div class="aside preview">Here's what you'll learn in this section:
 <ul>
 <li>How to create a manifest.json file to define your extension</li>
 <li>How to create a button for the Chrome Toolbar</li>
@@ -158,7 +162,7 @@
 
 <figure>
 <img src="img/tooltip.png" alt="extension tooltip" />
-<figcaption>Figure 1. The <code>name</code> appears as a tooltip on rollover</figcaption>
+<figcaption>Figure 3. The <code>name</code> appears as a tooltip on rollover</figcaption>
 </figure>
 
 <h3>The default_popup file</h3>
@@ -174,17 +178,17 @@
 <p>Place your <code>manifest.json</code>, <code>popup.html</code> and <code>icon.png</code> files in the same folder on your hard drive (or <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/01_basic_extension.zip" target="source">download the source files</a> and decompress them). Open Chrome and type <code>chrome://extensions</code> in the address omnibox, then press the Enter key.</p>
 <figure>
 <img src="img/load.png" alt="loading your extension" />
-<figcaption>Figure 2. Loading your extension</figcaption>
+<figcaption>Figure 4. Loading your extension</figcaption>
 </figure>
 <p>Make sure the Developer Mode checkbox is selected, and then click on the Load Unpacked Extension button. A dialogue window will open; you can select the folder in which you saved your three files. The icon that you chose will appear in a button to the right of the address omnibox. If you click on it, a popup window will open to display your HTML page.</p>
 
 <figure>
 <img src="img/basic.png" alt="popup window" />
-<figcaption>Figure 3. The <code>default_popup</code> appears when you click on the icon</figcaption>
+<figcaption>Figure 5. The <code>default_popup</code> appears when you click on the icon</figcaption>
 </figure>
 
-<div class="aside next">In this exercise, you've created a minimalist Chrome extension that opens a popup window. You seen the importance of the <code>manifest.json</code> file and how to tell Chrome that your extension exists.
-<p>In the <a href="#window">next exercise</a>, you'll see how to create a background script to open a stand-alone window.</p>
+<div class="aside next">In this section, you've created a minimalist Chrome extension that opens a popup window. You seen the importance of the <code>manifest.json</code> file and how to tell Chrome that your extension exists.
+<p>In the <a href="#window">next section</a>, you'll see how to create a background script to open a stand-alone window.</p>
 </div>
 <div class="optional tips">
 <input type="checkbox" id="icon-tips"/>
@@ -193,7 +197,7 @@
 <p>Currently, a generic icon is used for your extension in the Chrome Extensions management page.</p>
 <figure>
 <img src="img/default_icon.png" alt="default icon" />
-<figcaption>Figure 4. The default Chrome extension icon</figcaption>
+<figcaption>Figure 6. The default Chrome extension icon</figcaption>
 </figure>
 <p>It's a good idea to create additional icons that will be used on the Extensions management page, in the Chrome Web Store, during the installation of your extension, and as the favicon of any browser pages your extension might create.</p>
 <p>You can <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/01a_additional_icons.zip" target="source">download the source files</a> for a slightly more complex extension which places all the icon files in the same <code>img</code> folder, and gives them names that indicate their sizes.</p>
@@ -222,7 +226,7 @@
 <p>If you use this version of the extension, you'll see a custom icon for your extension in the Extensions management page.</p>
 <figure>
 <img src="img/custom_icons.png" alt="custom icons" />
-<figcaption>Figure 5. Providing a full set of icons for your extension</figcaption>
+<figcaption>Figure 7. A custom icon for your extension</figcaption>
 </figure>
 <p>You can find more information about this on the <a href="https://developer.chrome.com/apps/manifest/icons">Chrome Developer site</a>.</p>
 </div>
@@ -239,11 +243,10 @@
   </footer>
 </section>
 
-</section>
 <!-- WINDOW -->
 <section id="window">
 <h2>A standalone window</h2>
-<div class="aside preview">Here's what you'll learn in this exercise:
+<div class="aside preview">Here's what you'll learn in this section:
 <ul>
 <li>How to create a background script that will be loaded as soon as Chrome is launched</li>
 <li>How to call a method in the background script when the extensions toolbar button is clicked</li>
@@ -329,21 +332,21 @@
 <p>Here's how your files should be organized now, so that the <code>manifest.json</code> file can find them all:</p>
 <figure>
 <img src="img/background_js.png" alt="file hierarchy" />
-<figcaption>Figure 6. The new arrangement of your extension files</figcaption>
+<figcaption>Figure 8. The new arrangement of your extension files</figcaption>
 </figure>
 
 <p>Each time you make a change to your extension, you need to tell Chrome to reload it. You can do this by clicking on the Reload link for your extension in the Chrome Extensions management window.</p>
 
 <figure>
 <img src="img/reload.png" alt="Reload your extension and open the Inspector window for the background page" />
-<figcaption>Figure 7. Reload your extension and open the Inspector window for the background page</figcaption>
+<figcaption>Figure 9. Reload your extension and open the Inspector window for the background page</figcaption>
 </figure>
 
 <h3>Debugging a background script</h3>
-<p>As you can see in Figure 7, abovo, when you reload your extension after adding a background script, you will see a new Inspect Views link in the Extension management panel, which allows you to open a Developer Tools Inspector window for the <code>background</code> page which Chrome has now created. When you activate your extension, your <code>popup.html</code> page should open in a new window. You'll see that the output of the <code>console.log()</code> command appears in the Console in the Inspector window for your <code>background</code> page.</p>
+<p>As you can see in Figure 9, abovo, when you reload your extension after adding a background script, you will see a new Inspect Views link in the Extension management panel, which allows you to open a Developer Tools Inspector window for the <code>background</code> page which Chrome has now created. When you activate your extension, your <code>popup.html</code> page should open in a new window. You'll see that the output of the <code>console.log()</code> command appears in the Console in the Inspector window for your <code>background</code> page.</p>
 
 <h3>The <code>chrome</code> object</h3>
-It's time now to look closer at what your <code>background.js</code> script is doing, and especially at the following three lines: 
+<p>It's time now to look closer at what your <code>background.js</code> script is doing, and especially at the following three lines:</p>
 
 <pre><span class="red">chrome.extension.getURL</span>("html/popup.html")
 
@@ -354,14 +357,14 @@ It's time now to look closer at what your <code>background.js</code> script is d
 All scripts running in Chrome have access to a  object named <code>chrome</code>. However, scripts running in a standard window and script running in the <code>background</code> have access to different objects that have the same name.
 <figure>
 <img src="img/page_chrome.png" alt="page chrome object" />
-<figcaption>Figure 8. The <code>chrome</code> object available in standard windows</figcaption>
+<figcaption>Figure 10. The <code>chrome</code> object available in standard windows</figcaption>
 </figure> 
 
 <figure>
 <img src="img/background_chrome.png" alt="background chrome object" />
-<figcaption>Figure 9. The <code>chrome</code> object available to background scripts</figcaption>
+<figcaption>Figure 11. The <code>chrome</code> object available to background scripts</figcaption>
 </figure>
-<p>As you can see from Figure 9, the <code>chrome</code> object that is available to <code>background</code> scripts posseses a number of extension-specific properties:</p>
+<p>As you can see from Figure 11, the <code>chrome</code> object that is available to <code>background</code> scripts posseses a number of extension-specific properties:</p>
 <ul>
 <li><code><a href="https://developer.chrome.com/extensions/browserAction">browserAction</a></code> </li>
 <li><code><a href="https://developer.chrome.com/extensions/extension">extension</a></code> </li>
@@ -372,16 +375,16 @@ All scripts running in Chrome have access to a  object named <code>chrome</code>
 <li><code><a href="https://developer.chrome.com/extensions/windows">windows</a></code> </li>
 </ul>
 <p>You will be using several of these to as you develop your extension.</p>
-<h3><code>chrome.extension</code></h3>
+<h4><code>chrome.extension</code></h4>
 <p>The <code>chrome.extension</code> API provides support for exchanging messages between extensions or between an extension and its content scripts that have been injected into the pages in a standard window.</p>
 <p>The <code><a href="https://developer.chrome.com/extensions/extension#method-getURL">chrome.extension.getURL()</a></code> method converts a relative path such as <code>"html/popup.html"</code> into a fully-qualified URL: <code>"chrome-extension://maabmcngoiolpokniappbcolnflbgopo/html/popup.html"</code> </p>
-<h3><code>chrome.windows</code></h3>
+<h4><code>chrome.windows</code></h4>
 <p>You can use the <code>chrome.windows</code> API to create, modify, and rearrange windows in the browser.</p>
 <p>The <code><a href="https://developer.chrome.com/extensions/windows#method-create">chrome.windows.create(options, callback)</a></code> opens a new browser window with any optional sizing, position or default URL that you provide in the <code>options</code> argument.</p>
-<h3>chrome.browserAction</h3>
+<h4>chrome.browserAction</h4>
 <p>The <code>chrome.browserAction</code> allows you to control the extension button in the Chrome toolbar. You can modify its appearance, its title, and whether it is enabled. You can also detect when it is clicked, using the <code>chrome.browserAction.onClicked</code> event. The code above sets a listener for this event, and uses that to open a custom window with a specified position and size.</p>
 <p class="aside note">The listener for the <code>chrome.browserAction.onClicked</code> event will be triggered every time the toolbar button is clicked, not just the first time. Later you will be modifying this code so that it reacts differently if the extensions custom window is already open.</p>
-<h3>Window <code>type</code> </h3>
+<h4>Window <code>type</code></h4>
 <p>The <code><a href="https://developer.chrome.com/extensions/windows#type-CreateType">type</a></code> of the window is set to <code>"popup"</code>. This creates a window with no toolbar, so the user cannot navigate to another page in this window. There are four possible values for <code>type</code>:</p>
 <ul>
 <li><code>"normal"</code> (default)</li>
@@ -389,14 +392,14 @@ All scripts running in Chrome have access to a  object named <code>chrome</code>
 <li><code>"panel"</code></li>
 <li><code>"detached_panel"</code></li>
 </ul>
-<p>At the time of writing, code>"popup"</code>, <code>"panel"</code> and <code>"detached_panel"</code> all have the same effect.</p>
+<p>At the time of writing, <code>"popup"</code>, <code>"panel"</code> and <code>"detached_panel"</code> all have the same effect.</p>
 <figure>
-<img src="img/normal_window.png" alt='A window with a <code>type</code> of "normal"' />
-<figcaption>Figure 10. A window with a <code>type</code> of "normal"</figcaption>
+<img src="img/normal_window.png" alt='A window with a type of "normal"' />
+<figcaption>Figure 12. A window with a <code>type</code> of "normal"</figcaption>
 </figure>
 <figure>
 <img src="img/popup_window.png" alt='A window with a <code>type</code> of "popup"' />
-<figcaption>Figure 11. A window with a <code>type</code> of "popup"</figcaption>
+<figcaption>Figure 13. A window with a <code>type</code> of "popup"</figcaption>
 </figure>
 
 <h3>The <code>Window</code> object</h3>
@@ -413,7 +416,7 @@ All scripts running in Chrome have access to a  object named <code>chrome</code>
   , audible: false
   , height: 682
   , highlighted: true
-  , id: 162
+  , <span class="red">id: 162</span>
   , incognito: false
   , index: 0
   , mutedInfo: Object
@@ -428,14 +431,14 @@ All scripts running in Chrome have access to a  object named <code>chrome</code>
 , width: 400
 }</pre>
 <p>In <a href="">TODO</a>, you'll use the <code>id</code> of the only tab of this window as a filter. You want this custom window to update when you interact with other windows, but you want to prevent this window from reacting to itself.</p>
-<div class="aside next">In this exercise, you've set up a a background script to react to a click on the toolbar button for your extension, and you've used that action to open a custom window. You've also seen how to open a Developer Tools Inspector window, so that you can debug your background script.
-<p>In the <a href="#meteor">next exercise</a>, you'll see how to install and run a Meteor web server on your development computer, and you'll get your custom popup window to display the site running on your Meteor server.</p>
+<div class="aside next">In this section, you've set up a a background script to react to a click on the toolbar button for your extension, and you've used that action to open a custom window. You've also seen how to open a Developer Tools Inspector window, so that you can debug your background script.
+<p>In the <a href="#meteor">next section</a>, you'll see how to install and run a Meteor web server on your development computer, and you'll get your custom popup window to display the site running on your Meteor server.</p>
 </div>
 
   <footer>
     <ul class="nav">
     <li>
-    <a href="#meteor">
+    <a href="#toolbar">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>
@@ -443,17 +446,253 @@ All scripts running in Chrome have access to a  object named <code>chrome</code>
   </footer>
 </section>
 
-</section>
-
 <!-- METEOR -->
 <section id="meteor">
 <h2>Creating a Meteor site</h2>
-<div class="aside preview">Here's what you'll learn in this exercise:
+<div class="aside preview">Here's what you'll learn in this section:
 <ul>
 <li>How to install Meteor on your development computer</li>
-<li>How to view the default Meteor app in your extension popup window<</li>
+<li>How to view the default Meteor app in your extension popup window</li>
 </ul>
 <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+<a href="https://www.meteor.com/install">Install Meteor</a>
+</div>
+
+<p><a href="https://www.meteor.com/">Meteor</a> is an open-source platform for creating reactive web sites in pure JavaScript. It runs on Windows, OSX and Linux and it allows you to write code that runs on the server or in the browser in one place and in one language. To deliver a very basic web page using Meteor takes a little time, but virtually no effort.
+
+<h3>Installing Meteor</h3>
+<p>It's easy to install Meteor on your development machine. First make sure that you are connected to the Internet.</p>
+
+<h4>Windows</h4><p>If you are on Windows, simply <a href="https://install.meteor.com/windows">download the installer</a> and run it.</p>
+<h4>OSX and Linux</h4>
+<p>If you are on OSX or Linux, you can install Meteor from a <a href="../html/terminal.html">Terminal window</a>. You need to use the Terminal as an administrator.
+<div class="aside tip">If you are working from a non-admin account, you'll need to start by logging in as an admin:
+<pre class="revised"><span class="new">su <em>admin</em></span>
+Password:•</pre>
+<p>Use the name of an administrator for your computer rather than <em>admin</em>, then type your password.</p></div>
+<p>In a Terminal window, type ...</p>
+<pre>curl https://install.meteor.com/ | sh</pre>
+<p>... and wait while the latest version of Meteor is automatically installed. The Terminal window will fill up with something like this:</p>
+<pre class="revised">  %  Total  % Received  % Xferd  Average Speed    Time     Time
+                                 Dload  Upload    Total    Spent
+100   7592  0     7592  0     0   5873       0  --:--:--  0:00:01 
+Removing your existing Meteor installation.
+Downloading Meteor distribution
+########################################################## 100.0%
+Meteor 1.3.4 has been installed in your home directory (~/.meteor)
+Writing a launcher script to /usr/local/bin/meteor for your
+convenience.
+This may prompt for your password.
+Password:•
+</pre>
+<p>Enter your admin password when you see the prompt for it, to complete the installation. If you did not run the <code>curl</code> command as an administrator, this step may fail.</p>
+
+<h3>Creating the default Meteor web site</h3>
+<p>In the Terminal window, use the <code><a href="http://www.computerhope.com/unix/ucd.htm">cd</a></code> command to navigate to the directory where you want to create your Meteor web site, and enter the following commands:</p>
+<pre>meteor create NoteBook
+cd NoteBook
+meteor</pre>
+<p>The first command may take a few minutes, as Meteor performs all the actions necessary for populating the <code>notebook</code> folder. When all is done, your folder should contain five items, including two that may be invisible: <code>.gitignore</code> and <code>.meteor</code>.</p>
+<figure>
+<img src="img/meteor_folder.png" alt="Contents of the notebook folder" />
+<figcaption>Figure 14. Contents of the NoteBook folder</figcaption>
+</figure>
+
+<p>When you run the final <code>meteor</code> command, you'll see a series of actions logged to the Terminal window, as the Meteor application launches. Finally, you should see something like this:</p>
+
+<pre>
+[[[[[ <em>/Path/to/the/folder/NoteBook</em> ]]]]]
+
+=> Started proxy.                             
+=> Started MongoDB.
+=> Started your app.                          
+
+=> App running at: http://localhost:3000/
+</pre>
+<p class="aside note">When you want to stop the Meteor app, press <code>Ctrl-C</code></p>
+<p class="aside note"><a href="https://www.mongodb.com/">MongoDB</a> is a free open-source cross-platform document-oriented database. It stores data in a JSON-like format, similar to the format of the <code>manifest.json</code> document you created earlier. (TODO: add reference to Neo4j?)</p>
+
+<h3>Displaying the Meteor web page in the popup window</h3>
+<p>You can test that the Meteor server is running by visiting <a href="http://localhost:3000/">http://localhost:3000/</a> in your browser. To get the Meteor page to show in your extensions popup window, you need to make some changes to your <code>background.js</code> script, as shown below.</p>
+<pre class="revised">"use strict"
+
+;(function background(){
+
+  <span class="new">var windowOpen = false</span>
+
+  function useExtension() {
+    <span class="new">if (windowOpen) {
+      return
+    }</span>
+
+    var URL = <span class="new">"http://localhost:3000/"</span>
+    var width = 300
+    var top = 0
+
+    var options = {
+      url: URL
+    , left: screen.availWidth - width
+    , top: top
+    , width: width
+    , height: screen.availHeight - top
+    , focused: false
+    , type: "popup"
+    }
+
+    chrome.windows.create(options, callback)
+
+    function callback(window_data) {
+      <span class="new">windowOpen = true</span>
+    }
+  }
+
+  chrome.browserAction.onClicked.addListener(useExtension)
+})()</pre>
+<p>The most important change is setting the <code>URL</code> to <code>"http://localhost:3000/"</code> so the window shows your Meteor site. The other changes ensure that the window is only opened once, the first time you click on the toolbar button.</p>
+<p class="aside note">Right now, if you close the popup window, then it will stay closed until you relaunch Google or reload your extension. In <a href="#">TODO</a>, you will be adding code that resets <code>windowOpen</code> to false when the window is closed.</p>
+<p>When you reload your extension and click on the toolbar button, you should see something like this:</p>
+<figure>
+<img src="img/meteor_default.png" alt="The default Meteor page in your extensions popup window" />
+<figcaption>Figure 15. The default Meteor page in your extensions popup window</figcaption>
+</figure>
+
+<p>The default Meteor site doesn't do anything that you want it to do yet.</p>
+
+<div class="aside next">In this section, you've seen how simple it is to install Meteor and to launch a default web site. You've also seen how to get the popup window of your extension to display this Meteor web site.
+<p>Now that your extension can connect to your own server in the custom window, it's time to look at how to set up communications between pages displayed in the main window and your custom page.</p>
+<p>In the <a href="#actions">next section</a>, you'll see how to inject code into pages in the main window, and use them to detect user actions.</p>
+</div>
+
+<p class="aside support">If you have any difficulty anywhere in this tutorial, please <a href="https://github.com/lexogram/openbook/issues/new">tell us about it</a>, and we'll do our best to deal with it for you. Your questions and suggestions can help us make this tutorial better.
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#actions">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- ACTIONS -->
+<section id="actions">
+<h2>Detecting user actions in the main window</h2>
+<div class="aside preview">Here's what you'll learn in this section:
+<ul>
+<li>How to </li>
+<li>How to </li>
+</ul>
+<a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+</div>
+
+<div class="aside next">In this section, you've .
+<p>In the <a href="#messages">next section</a>, you'll .</p>
+</div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#messages">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- MESSAGES -->
+<section id="messages">
+<h2>Sending messages between tabs</h2>
+<div class="aside preview">Here's what you'll learn in this section:
+<ul>
+<li>How to </li>
+<li>How to </li>
+</ul>
+<a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+</div>
+
+<div class="aside next">In this section, you've .
+<p>In the <a href="#toolbar">next section</a>, you'll .</p>
+</div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#toolbar">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- TOOLBAR -->
+<section id="toolbar">
+<h2>Inserting a toolbar into the current tab</h2>
+<div class="aside preview">Here's what you'll learn in this section:
+<ul>
+<li>How to </li>
+<li>How to </li>
+</ul>
+<a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/04_toolbar.zip" target="source">Download the source files</a>
+</div>
+
+<div class="aside next">In this section, you've .
+<p>In the <a href="#server">next section</a>, you'll .</p>
+</div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#server">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- SERVER -->
+<section id="server">
+<h2>Server-side scripts with Meteor</h2>
+<div class="aside preview">Here's what you'll learn in this section:
+<ul>
+<li>How to </li>
+<li>How to </li>
+</ul>
+<a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+</div>
+
+<div class="aside next">In this section, you've .
+<p>In the <a href="#tbd">next section</a>, you'll .</p>
+</div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#tbd">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- TBD -->
+<section id="tbd">
+<h2>TBD</h2>
+<div class="aside preview">Here's what you'll learn in this section:
+<ul>
+<li>How to </li>
+<li>How to </li>
+</ul>
+<a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+</div>
+
+<div class="aside next">In this section, you've .
+<p>In the <a href="#end">next section</a>, you'll .</p>
 </div>
 
   <footer>
@@ -467,7 +706,6 @@ All scripts running in Chrome have access to a  object named <code>chrome</code>
   </footer>
 </section>
 
-</section>
 <!-- CONCLUSION -->
 <section id="end">
 <h2>Conclusion</h2>
@@ -483,10 +721,10 @@ All scripts running in Chrome have access to a  object named <code>chrome</code>
 <p>Well done! Now you're ready to add features to your Meteor server, to make the service provided by the extension even more valuable. Time for a <a href="../notebook/">new tutorial</a>.</p>
 </section>
 
-<!-- OVERVIEW : SECTION 0 -->
+<!-- OVERVIEW -->
 <section id="top">
   <h2>Overview</h2>
-  <p class="top">Lexogram Annotations is a Chrome extension which helps you learn a language by making notes about web pages that you visit in the language that you are learning.</p>
+  <p class="top">Lexogram's <a href="#">Annotations</a> is a Chrome extension which helps you learn a language by making notes about web pages that you visit in the language that you are learning. This tutorial takes you step-by-step through the process of building version 1.0 of the Annotations extension.</p>
   <p>When you launch the Annotations extension, a popup window will open to display the Lexogram Notebook web site. The extension sets up communications between the page you have open in the main window and the Notebook, and provides a series of tools that help you understand and remember what you are reading.</p>
 
   <div class="aside preview">In particular, the Annotations extension:
@@ -496,6 +734,12 @@ All scripts running in Chrome have access to a  object named <code>chrome</code>
       <li>Remembers which words and expressions you have become familiar with, and highlights those that it thinks will be new to you.</li>
     </ul>
   </div>
+
+  <figure>
+  <img src="img/overview.png" alt="The Annotations extension in action" />
+  <figcaption>Figure 1. The Annotations extension in action</figcaption>
+  </figure>
+
   <p class="aside support">If you have any difficulty anywhere in this tutorial, please <a href="https://github.com/lexogram/openbook/issues/new">tell us about it</a>, and we'll do our best to deal with it for you. Your questions and suggestions can help us make this tutorial better.
 
   <footer>
