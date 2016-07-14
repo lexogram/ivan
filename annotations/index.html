@@ -21,6 +21,7 @@
         <li><a href="#basic">A basic extension</a></li>
         <li><a href="#window">A standalone window</a></li>
         <li><a href="#meteor">Creating a Meteor site</a></li>
+        <li><a href="#connection">Creating a connection</a></li>
         <li><a href="#actions">Detecting user actions</a></li>
         <li><a href="#toolbar">Inserting a toolbar</a></li>
         <li><a href="#messages">Sending messages</a></li>
@@ -79,11 +80,11 @@
   <li>A clickable icon that appears in the Chrome toolbar to the right of the address bar omnibox</li>
   <li>An HTML page that can open either as a popup or as a separate window</li>
   <li>"Background" code that is loaded and run as soon as Chrome is launched. This defines what happens when you click on the toolbar icon</li>
-  <li>"Content" code that is injected into every page while the extension is enabled, and run after the page has loaded</li>
+  <li>"Content" code that can be injected into pages that you visit while the extension is enabled, and which run after the page has loaded</li>
   <li>CSS that is injected into every page while the extension is enabled.</li>
   </ul>
   <p class="aside info">The injected data (code and CSS) is not applied to the extension's custom HTML page.</p>
-  <p>The Chrome browser provides a number of proprietary methods to call methods in the <code>background</code> code or in another window or tab. This means that you can inject code into the pages that your user will visit, and use that to communicate between tabs and windows, via the <code>background</code> code.</p>
+  <p>The Chrome browser provides a number of proprietary methods to call methods in the <span class="keyword">background</span> code or in another window or tab. This means that you can inject code into the pages that your user will visit, and use that to communicate between tabs and windows, via the <span class="keyword">background</span> code.</p>
   <p>You can arrange for an HTML page to open when you click the extension icon. You can also use the injected <code>content</code> code to modify the DOM and the CSS of the main page.</p>
    <div class="aside preview">In this tutorial, you will see how to use these techniques to:
    <ul>
@@ -94,6 +95,10 @@
   <li>Use information that you retrieve from your server to update the Notebook window and to customize the appearance of the third-party page</li>
   </ul>
   </div>
+  <figure>
+  <img src="img/communications.png" alt="How the different modules communicate" />
+  <figcaption>Figure 2. How the different modules communicate</figcaption>
+  </figure>
   <p class="aside note">For this tutorial, the Meteor website that you will be working with will be a simple proof-of-concept prototype, with just enough features to show how the Chrome extension messaging system works. A <a href="../notebook/">forthcoming tutorial</a> will deal with the more advanced features of the Meteor site.</p>
 
   <footer>
@@ -257,7 +262,7 @@
 </div>
 
 <h3>Declaring a background script</h3>
-<p>In your <code>manifest.json</code> file, you can declare a <code>background</code> page. Chrome will create the page when it first starts up (or when you reload your extension) but will never show it. You can use the background page to load scripts that will be available at all times the browser is open. Here's how you can modify your <code>manifest.json</code> file so that it loads a script called <code>background.js</code>:</p>
+<p>In your <code>manifest.json</code> file, you can declare scripts that will be added to an automatically-generated <span class="keyword">background</span> page. Chrome will create the page when it first starts up (or when you reload your extension) but will never show it. You can use the background page to load scripts that will be available at all times the browser is open. Here's how you can modify your <code>manifest.json</code> file so that it loads a script called <code>background.js</code>:</p>
 
 <pre class="revised">{
   "manifest_version": 2
@@ -343,7 +348,7 @@
 </figure>
 
 <h3>Debugging a background script</h3>
-<p>As you can see in Figure 9, abovo, when you reload your extension after adding a background script, you will see a new Inspect Views link in the Extension management panel, which allows you to open a Developer Tools Inspector window for the <code>background</code> page which Chrome has now created. When you activate your extension, your <code>popup.html</code> page should open in a new window. You'll see that the output of the <code>console.log()</code> command appears in the Console in the Inspector window for your <code>background</code> page.</p>
+<p>As you can see in Figure 9, abovo, when you reload your extension after adding a background script, you will see a new Inspect Views link in the Extension management panel, which allows you to open a Developer Tools Inspector window for the <span class="keyword">background</span> page which Chrome has now created. When you activate your extension, your <code>popup.html</code> page should open in a new window. You'll see that the output of the <code>console.log()</code> command appears in the Console in the Inspector window for your <span class="keyword">background</span> page.</p>
 
 <h3>The <code>chrome</code> object</h3>
 <p>It's time now to look closer at what your <code>background.js</code> script is doing, and especially at the following three lines:</p>
@@ -354,7 +359,7 @@
 
 <span class="red">chrome.browserAction.onClicked.addListener</span>(useExtension)</pre>
 
-All scripts running in Chrome have access to a  object named <code>chrome</code>. However, scripts running in a standard window and script running in the <code>background</code> have access to different objects that have the same name.
+All scripts running in Chrome have access to a  object named <code>chrome</code>. However, scripts running in a standard window and script running in the <span class="keyword">background</span> have access to different objects that have the same name.
 <figure>
 <img src="img/page_chrome.png" alt="page chrome object" />
 <figcaption>Figure 10. The <code>chrome</code> object available in standard windows</figcaption>
@@ -364,17 +369,17 @@ All scripts running in Chrome have access to a  object named <code>chrome</code>
 <img src="img/background_chrome.png" alt="background chrome object" />
 <figcaption>Figure 11. The <code>chrome</code> object available to background scripts</figcaption>
 </figure>
-<p>As you can see from Figure 11, the <code>chrome</code> object that is available to <code>background</code> scripts posseses a number of extension-specific properties:</p>
+<p>As you can see from Figure 11, the <code>chrome</code> object that is available to <span class="keyword">background</span> scripts posseses a number of extension-specific properties:</p>
 <ul>
 <li><code><a href="https://developer.chrome.com/extensions/browserAction">browserAction</a></code> </li>
 <li><code><a href="https://developer.chrome.com/extensions/extension">extension</a></code> </li>
-<li><code><a href="https://developer.chrome.com/extensions/i18n">i18n</a></code> (internationalization)</li>
+<li><code><a href="https://developer.chrome.com/extensions/i18n">i18n</a></code> (i<em>nternationalizatio</em>n)</li>
 <li><code><a href="https://developer.chrome.com/extensions/management">management</a></code> </li>
 <li><code><a href="https://developer.chrome.com/extensions/permissions">permissions</a></code> </li>
 <li><code><a href="https://developer.chrome.com/extensions/tabs">tabs</a></code> </li>
 <li><code><a href="https://developer.chrome.com/extensions/windows">windows</a></code> </li>
 </ul>
-<p>You will be using several of these to as you develop your extension.</p>
+<p>You will be using several of these background extension objects as you develop your extension, as well as the <code>chrome.runtime</code> object that is available in standard web pages.</p>
 <h4><code>chrome.extension</code></h4>
 <p>The <code>chrome.extension</code> API provides support for exchanging messages between extensions or between an extension and its content scripts that have been injected into the pages in a standard window.</p>
 <p>The <code><a href="https://developer.chrome.com/extensions/extension#method-getURL">chrome.extension.getURL()</a></code> method converts a relative path such as <code>"html/popup.html"</code> into a fully-qualified URL: <code>"chrome-extension://maabmcngoiolpokniappbcolnflbgopo/html/popup.html"</code> </p>
@@ -416,7 +421,7 @@ All scripts running in Chrome have access to a  object named <code>chrome</code>
   , audible: false
   , height: 682
   , highlighted: true
-  , <span class="red">id: 162</span>
+  , id: 162
   , incognito: false
   , index: 0
   , mutedInfo: Object
@@ -430,7 +435,7 @@ All scripts running in Chrome have access to a  object named <code>chrome</code>
 , type: "normal"
 , width: 400
 }</pre>
-<p>In <a href="">TODO</a>, you'll use the <code>id</code> of the only tab of this window as a filter. You want this custom window to update when you interact with other windows, but you want to prevent this window from reacting to itself.</p>
+
 <div class="aside next">In this section, you've set up a a background script to react to a click on the toolbar button for your extension, and you've used that action to open a custom window. You've also seen how to open a Developer Tools Inspector window, so that you can debug your background script.
 <p>In the <a href="#meteor">next section</a>, you'll see how to install and run a Meteor web server on your development computer, and you'll get your custom popup window to display the site running on your Meteor server.</p>
 </div>
@@ -556,14 +561,239 @@ meteor</pre>
 <figcaption>Figure 15. The default Meteor page in your extensions popup window</figcaption>
 </figure>
 
-<p>The default Meteor site doesn't do anything that you want it to do yet.</p>
+<p class="aside note">The default Meteor site doesn't do anything that you want it to do yet. If you've never used Meteor before you may want to follow the Learn Meteor links that are shown in the window, in order to gain an understanding of the Meteor development environment. However, this is not essential; this tutorial covers all the basics that you will need to know.</p>
 
 <div class="aside next">In this section, you've seen how simple it is to install Meteor and to launch a default web site. You've also seen how to get the popup window of your extension to display this Meteor web site.
-<p>Now that your extension can connect to your own server in the custom window, it's time to look at how to set up communications between pages displayed in the main window and your custom page.</p>
-<p>In the <a href="#actions">next section</a>, you'll see how to inject code into pages in the main window, and use them to detect user actions.</p>
+<p>In the <a href="#connection">next section</a>, you'll start modifying the Meteor NoteBook app and see how to get its page script to communicate with the extension's background script.</p>
 </div>
 
 <p class="aside support">If you have any difficulty anywhere in this tutorial, please <a href="https://github.com/lexogram/openbook/issues/new">tell us about it</a>, and we'll do our best to deal with it for you. Your questions and suggestions can help us make this tutorial better.
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#connection">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- CONNECTION -->
+<section id="connection">
+<h2>Creating a connection between the page script and the background</h2>
+<p>In this section, to check that the connection is working, you'll create a simple "ping" feature in your background script, and use this to increment a number in the NoteBook. Once this counting system is working, you can replace it with more useful features.</p>
+<div class="aside preview">Here's what you'll learn in this section:
+<ul>
+<li>How to allow a page script to communicate with your extension's background script</li>
+<li>How to open a two-way connection between a page script and your extension's background script</li>
+<li>How to send a messages between the page script and the background</li>
+</ul>
+<a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/04_connection.zip" target="source">Download the source files</a>
+</div>
+<p>When the Annotation extension is fully working, the following flow of actions will occur when you select a word or phrase in a web page that you visit:</p>
+
+<ol>
+<li>A <span class="keyword">content script</span> in the web page will tell the <span class="keyword">background script</span> about the selection</li>
+<li><strong>The <span class="keyword">background script</span> will forward information to a <span class="keyword">page script</span> in the NoteBook window</strong></li>
+<li>The <span class="keyword">client-side page script</span> in the NoteBook window will send a message to a <span class="keyword">server-side script</span> on the Meteor server</li>
+<li>The <span class="keyword">server-side script</span> will query a <span class="keyword">database</span></li>
+<li>The <span class="keyword">server-side script</span> will send the result of the database query back to the <span class="keyword">client-side page script</span> in the NoteBook window</li>
+<li>The NoteBook window will update</li> 
+<li><strong>The <span class="keyword">page script</span> in the NoteBook window will send some of the information it received to the <span class="keyword">background script</span></strong></li>
+<li>The <span class="keyword">background script</span> will forward the information to the <span class="keyword">content script</span> in the web page you are reading</li>
+<li>The display of the web page will update.</li>
+</ol>
+<p class="aside note">In this tutorial, the interactions with the database mentioned in steps 4 and 5 will be simulated. They will be covered in a <a href="../notebook/">separate tutorial</a>.</p>
+<p>This section deals with setting up the connections that you will need to deal with the two items shown in bold above.</p>
+
+<h3><code>manifest.json</code></h3>
+<p>As you've already seen, the <code>manifest.json</code> controls the files that your extension can use. For the sake of security, before your extension can accept a connection coming from a script in a web page, you must provide a filter to identify the web pages that should be allowed to connect.</p>
+<p>This is done with the <code><a href="https://developer.chrome.com/extensions/manifest/externally_connectable">"externally_connectable"</a></code> manifest property. To allow any page script from your Meteor site to connect with your extension's background script, you can provide as <code>"matches"</code> array, containing the pattern <code>"http://localhost:*/*"</code>. This will match with <code>"http://localhost:3000/"</code>, or any custom port number that you have set Meteor to run on.</p>
+<pre class="revised">{
+  "manifest_version": 2
+
+, "name": "Annotations"
+, "version": "1.0"
+, "description": "Helps you save and share notes about web pages."
+
+, "browser_action": {
+    "default_icon": "img/icon19.png"
+  }
+
+, "permissions": [
+    "activeTab"
+  ]
+
+, "icons": {
+    "16": "img/icon16.png"
+  , "48": "img/icon48.png"
+  , "128": "img/icon128.png"
+  }
+
+, "background": {
+    "scripts": [
+      "js/background.js"
+    ]
+  }
+
+<span class="new">, "externally_connectable": {
+    "matches": ["http://localhost:*/*"]
+  }</span>
+}</pre>
+
+<h3>The Meteor client files</h3>
+<p>The default Meteor app contains three files inside the <code>client</code> folder: <code>main.html</code>, <code>main.css</code> and <code>main.js</code>. These currently define the default Meteor app. You can edit them now, to start customizing the NoteBook.</p>
+
+<figure>
+<img src="img/meteor_client.png" alt="The three files inside the Meteor client folder" />
+<figcaption>Figure 16. The three files inside the Meteor client folder</figcaption>
+</figure>
+
+<h4><code>main.html</code></h4>
+<p>Delete everything inside <code>main.html</code> and replace it with this:</p>
+<pre>&lt;head&gt;
+  &lt;title&gt;NoteBook&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p id="selection"&gt;&lt;/p&gt;
+&lt;/body&gt;</pre>
+
+<h4><code>main.css</code></h4>
+<p>The <code>main.css</code> file is probably more or less empty. You can use this rule to make the <code>#selection</code> paragraph visible even if it's empty:</p>
+<pre>p#selection {
+  min-height: 2em;
+  width: 100%;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  border-bottom-color: #eee;
+  border-right-color: #eee;
+}</pre>
+
+<figure>
+<img src="img/notebook_00.png" alt="The new-look NoteBook" />
+<figcaption>Figure 17. The new-look NoteBook</figcaption>
+</figure>
+
+<h3>A two-way connection</h3>
+<p>To create a two-way connection between the page script of your Meteor app and the background script of your extension, you can use the <code><a href="https://developer.chrome.com/extensions/runtime#method-connect">chrome.runtime.connect</a></code> method. This command requires the unique <code>ID</code> of your extension. You can find this in the Chrome Extension management window:</p>
+
+<figure>
+<img src="img/extensionID.png" alt="Finding your extension ID" />
+<figcaption>Figure 18. Finding your extension ID</figcaption>
+</figure>
+
+<h4><code>main.js</code></h4>
+<p>Delete everything inside <code>main.js</code> and replace it with the following code. You'll get the change to edit it again before you're done.</p>
+<pre>Meteor.startup(function() {
+  var extensionID = "<em class="revised">use your own extension ID here</em>"
+  var port = chrome.runtime.connect(extensionID)
+  var message = { method: "startCounter" }
+
+  setTimeout(function () {
+    port.postMessage(message)
+  }, 1)
+})</pre>
+
+<div class="aside note">Notes on the <code>main.js</code> script
+<ul>
+<li><code><a href="https://docs.meteor.com/api/core.html#Meteor-startup">Meteor.startup()</a></code> is a function provided by Meteor that will run as soon as the DOM is ready. It's good to use it to wrap initializiation code.</li>
+<li>For <code>extensionID</code>, use the value that you can copy from the Chrome Extension management window, as shown in Figure 18. If you use the wrong value, nothing will happen.</li>
+<li>The <code><a href="https://developer.chrome.com/extensions/runtime#type-Port">port</a></code> object returned by <code>chrome.runtime.connect(extensionID)</code> provides a <code>postMessage</code> function, which you can use to send messages to the background script. In a moment, you'll also discover the port's <code>onMessage</code> object, which allows you to listen for incoming messages from the background.</li>
+<li>When <code>chrome.runtime.connect(extensionID)</code> is called, any listener function attached to the <code>chrome.runtime.onConnectExternal</code> object in the background script will be called, as you will see in a moment. The listener function will be passed its own <code>port object</code> which can be used to send and receive messages in the same way as in the page script.</li>
+<li>The call to <code>port.postMessage(message)</code> will be picked up by any listeners set on the background port's <code>onMessage</code> object.</li>
+<li>It helps to delay the call to <code>port.postMessage</code> slightly, presumably to give the <code>port</code> object time to initialize.</li>
+</ul>
+</div>
+<p class="aside tip">The code to set up a connection between a page script and a background script must be placed in the page script. If you need to initialize a connection to a page from a background script, you must do it via an injected <span class="keyword">content script</span>, as you will see in the next section: <a href="#actions">Detecting user actions</a>.</p>
+
+<p>The background script below sets up the <code>openConnection</code> function as a listener for <code><a href="https://developer.chrome.com/extensions/runtime#event-onConnectExternal">chrome.runtime.onConnectExternal</a></code>, which fires when a <code>runtime.connect</code> connection is made from another extension or, as in this case, from a page script. The <code>openConnection</code> function receives a <code>port</code> object as an argument, saves it for use later and sets up a listener on it for incoming messages.</p>
+
+<h4><code>background.js</code></h4>
+
+<pre class="revised">"use strict"
+
+;(function background(){
+
+  <span class="new">var timeout = 0
+  var port</span>
+
+  function useExtension() {
+    if (port) {
+      return
+    }
+    
+    var URL = "http://localhost:3000/"
+    var width = 300
+    var top = 0
+
+    var options = {
+      url: URL
+    , left: screen.availWidth - width
+    , top: top
+    , width: width
+    , height: screen.availHeight - top
+    , focused: false
+    , type: "popup"
+    }
+
+    chrome.windows.create(<span class="new">options</span>)
+  }
+
+  <span class="new">function openConnection(externalPort) {
+    port = externalPort
+    port.onMessage.addListener(incoming)
+  }
+
+  function incoming(message) {
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+    ping()
+  }
+
+  function ping() {
+    port.postMessage({ method: "ping", counter: timeout })
+    timeout = setTimeout(ping, 1000)
+  }
+
+  chrome.runtime.onConnectExternal.addListener(openConnection)</span>
+  chrome.browserAction.onClicked.addListener(useExtension)
+})()</pre>
+
+<p>After the <code>port</code> is set up, it waits for an incoming message. This is sent from <code>main.js</code> after a 1 ms timeout, and it is handled by the <code>incoming</code> listener function. The output of the <code>setTimeout</code> method is an incrementing integer, and for elegance, this is used as the counter that is sent every second to the NoteBook script.</p>
+
+<h3><code>main.js</code> revisited</h3>
+<p>In its current state, the Notebook page script knows nothing about the message that is sent to it. You can add a listener to the <code>port</code> object, and use this to update the <code>#selection</code> paragraph.</p>
+<pre>Meteor.Start(function() {
+  var extensionId = "<em class="revised">use your own extension ID here</em>"
+  var port = chrome.runtime.connect(extensionId)
+  var message = { method: "startCounter" }
+  <span class="new">var p = document.getElementById("selection")
+
+  function incoming(message) {
+    if (message.method === "ping") {
+      p.innerHTML = message.counter
+    }
+  }
+
+  port.onMessage.addListener(incoming)</span>
+
+  setTimeout(function () {
+    port.postMessage(message)
+  }, 1)
+})</pre>
+
+<figure>
+<img src="img/notebook_01.png" alt="The background script tells the page script to update the NoteBook" />
+<figcaption>Figure 19. The background script tells the page script to update the NoteBook</figcaption>
+</figure>
+
+<div class="aside next">In this section, you've set up a two-way messaging system between the Meteor NoteBook page script and the background script, and tested that it is working. However, it's not doing anything very useful yet.
+<p>In the <a href="#actions">next section</a>, you'll see how to inject a <span class="keyword">content script</span> into an arbitrary web page, and use that to pass information from the web page to your NoteBook window, via the background script.</p>
+</div>
 
   <footer>
     <ul class="nav">
@@ -581,11 +811,69 @@ meteor</pre>
 <h2>Detecting user actions in the main window</h2>
 <div class="aside preview">Here's what you'll learn in this section:
 <ul>
-<li>How to </li>
-<li>How to </li>
+<li>How to inject a "content" script into a third-party web page</li>
+<li>How to send messages from an arbitrary page to your NoteBook, via the background script</li>
 </ul>
 <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
 </div>
+
+<p>One of the main features of the Annotation extension is that it allows you to select an expression (a word or a phrase) in any web page you visit, and then use the NoteBook window to explore the meanings of the expression. To get this to work, you need to inject a script into the pages you visit in the main window that communicates with the NoteBook window to tell it what text is selected.</p>
+<p>Earlier, you added an entry to <code>manifest.json</code> to define a <span class="keyword">background</span> script. Now your can add an entry that will define a <a href="https://developer.chrome.com/extensions/content_scripts">content script</a>: a script that can be injected into every <span class="keyword">content</span> page that you visit. The structure of the definition is more complex, because Chrome requires you to create a filter for URLs, so that your script is only added to pages that match the filter.</p>
+
+<pre class="revised">{
+  "manifest_version": 2
+
+, "name": "Annotations"
+, "version": "1.0"
+, "description": "Helps you save and share notes about web pages."
+
+, "browser_action": {
+    "default_icon": "img/icon19.png"
+  }
+
+, "permissions": [
+    "activeTab"
+  ]
+
+, "icons": {
+    "16": "img/icon16.png"
+  , "48": "img/icon48.png"
+  , "128": "img/icon128.png"
+  }
+
+, "background": {
+    "scripts": [
+      "js/background.js"
+    ]
+  }
+
+, "externally_connectable": {
+    "matches": ["http://localhost:*/*"]
+  }
+
+<span class="new">, "content_scripts": [ {
+    "matches": ["&lt;all_urls&gt;"]
+  , "exclude_matches": ["http://localhost:*/*"]
+  , "js": [
+      "js/content.js"
+    ]
+  } ]</span>
+}</pre>
+
+<h3><code>content_scripts</code></h3>
+<p>The <code>content_scripts</code> property defines an array of objects. Each object must include:</p>
+<ul>
+<li>A <code>"matches"</code> property, whose value must be an array of <a href="https://developer.chrome.com/extensions/match_patterns">match patterns</a>. Since you want the Annotation extension to run anywhere, you can use the pattern <code class='pre'>"&lt;all_urls&gt;"</code>.</li>
+</ul>
+<p>The object should also include one or both of the following:</p>
+<ul>
+<li>A <code>"js"</code> property, whose value is an array of URLs for javascript files</li>
+<li>A <code>"css"</code> property, whose value is an array of URLs for CSS files</li>
+</ul>
+
+<p>For now, you don't need to inject any CSS, so it's enough to have the entry for <code>"js"</code>. Here's the JavaScript code for the <code>content.js</code> file:</p>
+
+<pre></pre>
 
 <div class="aside next">In this section, you've .
 <p>In the <a href="#messages">next section</a>, you'll .</p>

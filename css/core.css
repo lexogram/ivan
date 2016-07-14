@@ -509,6 +509,7 @@ font-style:oblique;
 }
 code{
 background-color: #f0f0f8;
+white-space: pre;
 }
 section.optional {
 background-color: #f8f8ff;
@@ -715,6 +716,9 @@ cite {
 display: block;
 color: #66c;
 font-style: normal;
+}
+.pre {
+white-space: pre;
 }
 
 @media print

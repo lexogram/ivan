@@ -3,7 +3,7 @@ TEXT
 - Link to install extension in section 1
 - Create image showing interaction between various extension components, and add it to section 3 
 - End of section 5: link to section which deals with the tab id of the popup window.
-- Renumber images 1 - 11 to 3 - 13
+- Add reference to Neo4j in section 6?
 
 JS
 - Remember scrollTop when navigating away from a page; restore scrollTop when returning to that page.
