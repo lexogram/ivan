@@ -23,7 +23,7 @@
         <li><a href="#meteor">Creating a Meteor site</a></li>
         <li><a href="#connection">Creating a connection</a></li>
         <li><a href="#actions">Detecting user actions</a></li>
-        <li><a href="#toolbar">Inserting a toolbar</a></li>
+        <li><a href="#call">Talking to the server</a></li>
         <li><a href="#messages">Sending messages</a></li>
         <li><a href="#server">Server-side with Meteor</a></li>
         <li><a href="#tbd">TBD</a></li>
@@ -437,6 +437,13 @@ All scripts running in Chrome have access to a  object named <code>chrome</code>
 }</pre>
 
 <div class="aside next">In this section, you've set up a a background script to react to a click on the toolbar button for your extension, and you've used that action to open a custom window. You've also seen how to open a Developer Tools Inspector window, so that you can debug your background script.
+<p>You've used the following expressions that are specific to Chrome extensions:</p>
+<ul>
+<li><code>"background"</code> </li>
+<li><code>chrome.extension.getURL()</code> </li>
+<li><code>chrome.windows.create()</code> </li>
+<li><code>chrome.browserAction.onClicked.addListener()</code></li>
+</ul>
 <p>In the <a href="#meteor">next section</a>, you'll see how to install and run a Meteor web server on your development computer, and you'll get your custom popup window to display the site running on your Meteor server.</p>
 </div>
 
@@ -767,7 +774,7 @@ meteor</pre>
 
 <h3><code>main.js</code> revisited</h3>
 <p>In its current state, the Notebook page script knows nothing about the message that is sent to it. You can add a listener to the <code>port</code> object, and use this to update the <code>#selection</code> paragraph.</p>
-<pre>Meteor.Start(function() {
+<pre>Meteor.startup(function() {
   var extensionId = "<em class="revised">use your own extension ID here</em>"
   var port = chrome.runtime.connect(extensionId)
   var message = { method: "startCounter" }
@@ -792,6 +799,19 @@ meteor</pre>
 </figure>
 
 <div class="aside next">In this section, you've set up a two-way messaging system between the Meteor NoteBook page script and the background script, and tested that it is working. However, it's not doing anything very useful yet.
+<p>You've used the following expressions that are specific to Chrome extensions:</p>
+<ul>
+<li><code>"externally_connectable"</code> </li>
+<li><code>"matches"</code> </li>
+<li><code>chrome.runtime.connect()</code> </li>
+<li><code>chrome.runtime.onConnectExternal.addListener()</code> </li>
+<li><code><em>port</em>.onMessage.addListener()</code></li>
+<li><code><em>port</em>.postMessage()</code> </li>
+</ul>
+<p>You've used the following expression that is specific to Meteor:</p>
+<ul>
+<li><code>Meteor.startup(function () {...})</code> </li>
+</ul>
 <p>In the <a href="#actions">next section</a>, you'll see how to inject a <span class="keyword">content script</span> into an arbitrary web page, and use that to pass information from the web page to your NoteBook window, via the background script.</p>
 </div>
 
@@ -817,8 +837,8 @@ meteor</pre>
 <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
 </div>
 
-<p>One of the main features of the Annotation extension is that it allows you to select an expression (a word or a phrase) in any web page you visit, and then use the NoteBook window to explore the meanings of the expression. To get this to work, you need to inject a script into the pages you visit in the main window that communicates with the NoteBook window to tell it what text is selected.</p>
-<p>Earlier, you added an entry to <code>manifest.json</code> to define a <span class="keyword">background</span> script. Now your can add an entry that will define a <a href="https://developer.chrome.com/extensions/content_scripts">content script</a>: a script that can be injected into every <span class="keyword">content</span> page that you visit. The structure of the definition is more complex, because Chrome requires you to create a filter for URLs, so that your script is only added to pages that match the filter.</p>
+<p>One of the main features of the Annotation extension is that it allows you to select an expression (a word or a phrase) in any web page you visit, and then use the NoteBook window to explore the meanings of the expression. To get this to work, you need to inject a script into the pages you visit in the main window, and get this to communicate with the background script. The background script can then forward messages to your NoteBook window, using the technique you saw in the <a href="#connection">last section</a>.</p>
+<p>As usual, the first step is to add a new manifest property to <code>manifest.json</code> to define a <a href="https://developer.chrome.com/extensions/content_scripts">content script</a>: a script that can be injected into every <span class="keyword">content</span> page that you visit. Or almost every page: you don't want to inject it into your NoteBook page. The structure of the definition is more complex than the ones you have seen so far, because Chrome requires you to create a filter for URLs, so that your script is only added to pages that match the filter.</p>
 
 <pre class="revised">{
   "manifest_version": 2
@@ -861,7 +881,7 @@ meteor</pre>
 }</pre>
 
 <h3><code>content_scripts</code></h3>
-<p>The <code>content_scripts</code> property defines an array of objects. Each object must include:</p>
+<p>The <a href="https://developer.chrome.com/extensions/content_scripts#registration"><code>content_scripts</code> manifest property</a> defines an array of map objects. Each object must include:</p>
 <ul>
 <li>A <code>"matches"</code> property, whose value must be an array of <a href="https://developer.chrome.com/extensions/match_patterns">match patterns</a>. Since you want the Annotation extension to run anywhere, you can use the pattern <code class='pre'>"&lt;all_urls&gt;"</code>.</li>
 </ul>
@@ -871,18 +891,160 @@ meteor</pre>
 <li>A <code>"css"</code> property, whose value is an array of URLs for CSS files</li>
 </ul>
 
-<p>For now, you don't need to inject any CSS, so it's enough to have the entry for <code>"js"</code>. Here's the JavaScript code for the <code>content.js</code> file:</p>
+<p>For now, you don't need to inject any CSS, so it's enough to have the entry for <code>"js"</code>. You'll find the JavaScript code for the <code>content.js</code> file below.</p>
 
-<pre></pre>
+<p>In this case, you want to prevent the content script from being injected into your NoteBook pages, so you can include an optional <code>"exclude_matches"</code> property:</p>
+<ul>
+<li>The <code>"exclude_matches"</code> property is an array of <a href="https://developer.chrome.com/extensions/match_patterns">match pattern</a> strings. In this case you should use the same pattern that you used as a "match" for the <code>"externally_connectable"</code> property in the last section: <code>"http://localhost:*/*"</code>.</li>
+</ul>
 
-<div class="aside next">In this section, you've .
-<p>In the <a href="#messages">next section</a>, you'll .</p>
+<h3><code>content.js</code></h3>
+<p>Now you can create a file in the <code>js/</code> folder, called <code>content.js</code>. Its role will be to detect when the selected text in the page changes, and to inform the background script.</p>
+
+<pre>"use strict"
+
+;(function content(){
+
+  var selectedText = ""
+
+  function checkSelection(event) {
+    var selection = document.getSelection()
+    var text = selection.toString()
+    var message
+
+    if (selectedText !== text) {
+      selectedText = text
+      message = {
+        method: "changeSelection"
+      , data: selectedText
+      }
+
+      chrome.runtime.sendMessage(message)
+    }
+  }
+
+  document.body.addEventListener("mouseup", checkSelection, false)
+  document.body.addEventListener("keyup", checkSelection, false)
+})()</pre>
+
+<p>This content script sets up the <code>checkSelection</code> function as a listener for <code>mouseup</code> and <code>keyup</code> events. If the text selected in the page has changed, a message object is created, with a <code>method</code> and a <code>data</code> property. This message is then sent to the background script using <code><a href="https://developer.chrome.com/extensions/runtime#method-sendMessage">chrome.runtime.sendMessage</a></code> </p>
+
+<div class="aside note">The <code>chrome.runtime.sendMessage</code> method is a simpler way of sending messages to the background script than setting up a port using <code>chrome.runtime.connect</code>, like you saw in the last section. It sets up a temporary connection for a single message and an optional response. A listener in the background script will receive three parameters:
+<ul>
+<li>The <code>request</code> object – in this case: <code>{ method: "changeSelection" , data: selectedText }</code></li>
+<li>A <code>sender</code> object, indicating which content script sent the message</li>
+<li>A <code>sendResponse</code> callback function that can be used to send a reply.</li>
+</ul>
+<p>In this case, no reply is needed, so <code>sender</code> and <code>sendResponse</code> is ignored in the background script below.</p></div>
+<h3>background.js</h3>
+<p>The two-way communication that you set up between the background script and your NoteBook page script in the last section only needs to work in one direction for now. In this section, the page script will still be initializing the connection, but it won't be sending any messages of its own to the background script, and the <code>ping</code> feature was just for testing, so you can remove it.</p>
+<p>To respond to the <code>chrome.runtime.sendMessage()</code> call that you make in the content script, you can add the <code>treatMessage</code> function as a listener to the <code>chrome.runtime.onMessage</code> object. The <code>treatMessage</code> function below checks for a <code>method</code> property in the incoming <code>request</code>, and calls the appropriate function. For now, it only has one method to handle: <code>changeSelection</code>. By using a <code>switch</code> statement, you will easily be able to handle more method requests in the future.</p>
+<p>The <code>changeSelection</code> function checks if the two-way port to the NoteBook page script is open, and if so, simply forwards the request.</p>
+<div class="optional tips">
+  <input type="checkbox" id="-details"/>
+  <label for="-details">Learn more about the chrome object</label>
+  <div>
+<p>Chrome does not allow you to send a message directly from one tab to another: you must always pass through your extension's background script. The <code>chrome</code> object accessible to content scripts has no knowledge of other tabs. Only the <code>chrome</code> object available in the background script has a <code>tabs</code> property.</p>
+<figure>
+<img src="img/content_chrome.png" alt="The chrome object in content scripts has no tabs property" />
+<figcaption>Figure 20. The <code>chrome</code> object in content scripts has no <code>tabs</code> property</figcaption>
+</figure>
+<p>Compare with the <code>chrome</code> objects you have already seen in other scopes:</p>
+<figure>
+<img src="img/page_chrome.png" alt="page chrome object" />
+<figcaption>Figure 10. The <code>chrome</code> object available in standard windows</figcaption>
+</figure> 
+
+<figure>
+<img src="img/background_chrome.png" alt="background chrome object" />
+<figcaption>Figure 11. The <code>chrome</code> object available to background scripts</figcaption>
+</figure>
+  </div>
+</div>
+<pre class="revised">"use strict"
+
+;(function background(){
+
+  var port
+
+  function useExtension() {
+    // code omitted for clarity
+  }
+
+  function openConnection(externalPort) {
+    port = externalPort
+    port.onMessage.addListener(incoming)
+  }
+
+  function incoming(message) {
+    <span class="new">// TODO</span>
+  }
+
+  <span class="new">function treatMessage(request, sender, sendResponse) {
+    switch (request.method) {
+      case "changeSelection":
+        changeSelection(request)
+      break
+    }
+  }
+
+  function changeSelection(request) {
+    if (!port) {
+      console.log("Request not treated:", request)
+      return
+    }
+
+    port.postMessage(request)
+  }
+
+  chrome.runtime.onMessage.addListener(treatMessage)</span>
+  chrome.runtime.onConnectExternal.addListener(openConnection)
+  chrome.browserAction.onClicked.addListener(useExtension)
+})()</pre>
+
+<h3>The NoteBook page script: <code>main.js</code></h3>
+<p>The background script now use the <code>port.sendMessage</code> function to send a message to the page script in your NoteBook window. You can use a <code>switch</code> statement in the <code>incoming</code> function to forward the request to the appropriate function. In this case, all the <code>changeSelection</code> function needs to do it to set the <code>innerHTML</code> of the <code>#selection</code> paragraph to the string of text that was initially selected in the main window.</p>
+
+<pre class="revised">Meteor.startup(function() {
+  var extensionId = "<em>use your own extension ID here</em>"
+  var port = chrome.runtime.connect(extensionId)
+  var p = document.getElementById("selection")
+
+  <span class="new">function incoming(request) {
+    switch (request.method) {
+      case "changeSelection":
+        changeSelection(request.data)
+      break
+    } 
+  }
+
+  function changeSelection(selection) {
+    p.innerHTML = selection
+  }</span>
+
+  port.onMessage.addListener(incoming)
+})</pre>
+
+<figure>
+<img src="img/selected_text.png" alt="Text selected in the main window is copied to the NoteBook window" />
+<figcaption>Figure 21. Text selected in the main window is copied to the NoteBook window</figcaption>
+</figure>
+
+<div class="aside next">In this section, you've used the <code>manifest.json</code> file to define a content script to inject into all third-party web pages. You've used <code>match</code> patterns to include and exclude the pages into which the content script is injected. You've used sent a one-off message to the background script, and used the two-way connection you created in the last section to forward it to your NoteBook window.
+<p>You've used the following expressions that are specific to Chrome extensions:</p>
+<ul>
+<li><code>"content_scripts"</code> </li>
+<li><code>"exclude_matches"</code> </li>
+<li><code>chrome.runtime.sendMessage()</code> </li>
+<li><code>chrome.runtime.onMessage.addListener()</code></li>
+</ul>
+<p>In the <a href="#call">next section</a>, you'll see how the client-side scripts in your Meteor NoteBook application can call methods on the Meteor server, and how to retrieve the result of the call.</p>
 </div>
 
   <footer>
     <ul class="nav">
     <li>
-    <a href="#messages">
+    <a href="#call">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>
@@ -890,9 +1052,9 @@ meteor</pre>
   </footer>
 </section>
 
-<!-- MESSAGES -->
-<section id="messages">
-<h2>Sending messages between tabs</h2>
+<!-- CALL -->
+<section id="call">
+<h2>Calling Meteor methods on the server</h2>
 <div class="aside preview">Here's what you'll learn in this section:
 <ul>
 <li>How to </li>
