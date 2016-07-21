@@ -285,11 +285,12 @@ padding: 0.5em;
 box-sizing: border-box;
 margin: 0.5em 0;
 border-width: 1px;
-border-style: outset;
 border-radius: 0.25em;
-}
-pre {
 border-style: inset;
+background: #eee;
+border-color: #ccc;
+border-right-color: #f4f4ff;
+border-bottom-color: #f4f4ff;
 }
 .preview {
 border: 1px solid #669;
@@ -371,12 +372,6 @@ background: #ecc;
 /*border-color: #669;
 border-right-color: #003;
 border-bottom-color: #003;*/
-}
-pre {
-background: #eee;
-border-color: #ccc;
-border-right-color: #f4f4ff;
-border-bottom-color: #f4f4ff;
 }
 .git pre{
 background: #ddc;
@@ -719,6 +714,16 @@ font-style: normal;
 }
 .pre {
 white-space: pre;
+}
+pre.wrap {
+white-space: normal;
+word-wrap: break-word;
+}
+
+.ymmv {
+font-weight: normal;
+color: #999;
+font-style: oblique;
 }
 
 @media print

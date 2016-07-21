@@ -14,13 +14,15 @@
 // TODO: Stabilize scrollTop when a disclosure triangle is toggled
 
   var sectionIds = getSectionIds()
+  var scrollMap = getScrollMap()
   var sectionDefault = sectionIds.length - 1 // last is in fact first
   var sectionIndex = getSectionIndex()
   var nav = document.querySelector("header .nav")
+  var article = document.querySelector("article")
   var navButtons
   var menuItems
 
-  if (nav) {
+  if (nav) {    
     navButtons = getNavButtonMap()
     menuItems = getNavMenuItemMap()
     refreshView()
@@ -28,14 +30,51 @@
 
   window.addEventListener("hashchange", hashHasChanged, false);
 
-  
+  ;(function interceptHardCodedLinks(){
+    var links = [].slice.call(document.querySelectorAll("footer a"))
+    links.push(document.querySelector("nav"))
 
+    var total = links.length
+    var ii
+    
+    for (ii = 0; ii < total; ii += 1) {
+      links[ii].addEventListener("click", saveSectionScroll, false)
+    }
+  })()
+
+  
   function getSectionIds() {
     var sections = [].slice.call(document.querySelectorAll("section"))
     var sectionIds = sections.map(function (section) {
       return section.id
     })
     return sectionIds
+  }
+
+  function getScrollMap() {
+    var scrollMap // = localStorage.getItem("scrollMap")
+    // try {
+    //   scrollMap = JSON.parse(scrollMap)
+    // } catch (error) {}
+
+    if (typeof scrollMap !== "object") {
+      scrollMap = {}
+    }
+
+    var total = sectionIds.length
+    var ii
+      , sectionId
+      , scroll
+    
+    for (ii = 0; ii < total; ii += 1) {
+      sectionId = sectionIds[ii]
+      scroll = scrollMap[sectionId]
+      if (typeof scroll !== "number") {
+        scrollMap[sectionId] = 0
+      }
+    }
+
+    return scrollMap
   }
 
   function getSectionIndex() {
@@ -53,7 +92,8 @@
     var next = nav.querySelector("[href='#next']")
     var back = nav.querySelector("[href='#back']")
 
-    back.onclick = next.onclick = navigate
+    back.addEventListener("click", navigate, false)
+    next.addEventListener("click", navigate, false)
     nav.classList.add("active")
 
     return {
@@ -94,6 +134,7 @@
     link = link.substring(link.lastIndexOf("#"))
 
     event.preventDefault() // don't update location.hash
+    saveSectionScroll()
 
     switch (link) {
       case "#back":
@@ -123,9 +164,18 @@
       window.location.hash = "#" + sectionIds[sectionIndex]
     }, 1)
   }
+
+  function saveSectionScroll() {
+    var hash = sectionIds[sectionIndex]
+    var scroll = article.scrollTop
+    scrollMap[hash] = scroll
+    // localStorage.setItem("scrollMap", JSON.stringify(scrollMap))
+  }
+
   function refreshView() {
     setNavButtonStates()
     highlightMenuItem()
+    setSectionScrollTop()
   }
 
   function setNavButtonStates() {
@@ -152,5 +202,14 @@
         menuItem.classList.remove("target")
       }
     }
+  }
+
+  function setSectionScrollTop() {
+    var hash = sectionIds[sectionIndex]
+    var scroll = scrollMap[hash]
+
+    setTimeout(function () {
+      article.scrollTop = scroll
+    }, 10)
   }
 })()
