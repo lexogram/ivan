@@ -42,7 +42,7 @@ vertical-align: middle;
 
 .sidebar nav {
 margin: 0;
-height: calc(100% - 50px);
+height: calc(100% - 50px - 6em);
 overflow: auto;
 box-sizing: border-box;
 background: #e4e7fd;
@@ -90,6 +90,14 @@ color: #ccc;
 .support a:hover,
 .support a:active  {
 color: #eee;
+}
+.warn a:link,
+.warn a:visited {
+color: #633;
+}
+.warn a:hover,
+.warn a:active  {
+color: #933;
 }
 nav ol {
 -webkit-padding-start: 0;
@@ -526,6 +534,22 @@ background-color: #dbb;
 .details label::before{
 color: #336;
 }
+.issue code,
+.issue pre{
+background-color: #dcb;
+}
+.issue pre{
+border-right-color: #ddd;
+border-bottom-color: #ddd;
+}
+.issue a,
+.issue a:visited{
+color: #642;
+}
+.issue a:hover,
+.issue a:active{
+color: #864;
+}
 /*#terminal .details {
 margin: 2em 0;
 }*/
@@ -719,11 +743,15 @@ pre.wrap {
 white-space: normal;
 word-wrap: break-word;
 }
-
 .ymmv {
 font-weight: normal;
 color: #999;
 font-style: oblique;
+}
+.sidebar .support {
+margin: 0;
+height: 6em;
+box-sizing: border-box;
 }
 
 @media print

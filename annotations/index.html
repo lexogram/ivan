@@ -25,12 +25,15 @@
         <li><a href="#actions">Detecting user actions</a></li>
         <li><a href="#server">A server-side script</a></li>
         <li><a href="#call">Talking to the server</a></li>
-        <li><a href="#template">Using a Blaze template</a></li>
+        <li><a href="#template">Using Blaze templates</a></li>
         <li><a href="#toolbar">Adding a toolbar</a></li>
-        <li><a href="#tbd">TBD</a></li>
+        <li><a href="#spans">Colouring each word</a></li>
+        <li><a href="#toggle">Toggling annotations</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
     </nav>
+
+    <p class="aside support">If you have any difficulty in this tutorial, please <a href="https://github.com/lexogram/openbook/issues/new">tell us about it</a>, and we will do our best to deal with it for you.</p>
   </div>
 
 <main>
@@ -137,22 +140,22 @@
   </dl>
   <h3>manifest.json</h3>
   <p>The <code>manifest.json</code> file is in <a href="http://www.json.org/">JSON</a> format. It can contain a wide range of information. The essential details are shown below.</p>
-  <pre>{
-    "manifest_version": 2
+<pre>{
+  "manifest_version": 2
 
-  , "name": "Annotations"
-  , "version": "alpha"
-  , "description": "Helps you save and share notes about web pages"
+, "name": "Annotations"
+, "version": "alpha"
+, "description": "Helps you save and share notes about web pages"
 
-  , "browser_action": {
-      "default_icon": "icon.png"
-    , "default_popup": "popup.html"
-    }
+, "browser_action": {
+    "default_icon": "icon.png"
+  , "default_popup": "popup.html"
+  }
 
-  , "permissions": [
-      "activeTab"
-    ]
-  }</pre>
+, "permissions": [
+    "activeTab"
+  ]
+}</pre>
   <div class="aside note">Notes on the essential fields used in manifest.json
     <ul>
     <li><code>manifest_version</code> must be <code>2</code> in order to ensure that all the features mentioned in this tutorial are available.</li>
@@ -173,12 +176,12 @@
 
   <h3>The default_popup file</h3>
   <p>For the Annotations extension, you will be opening a new window rather than using a popup, but to get started, you can create a file named <code>popup.html</code> with the following minimal content:</p>
-  <pre>&lt;!DOCTYPE html&gt;
-  &lt;body&gt;
-  &lt;h1&gt;Popup&lt;/h1&gt;
-  &lt;p&gt;More stuff can go here&lt;/p&gt;
-  &lt;/body&gt;
-  &lt;/html&gt;</pre>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;body&gt;
+&lt;h1&gt;Popup&lt;/h1&gt;
+&lt;p&gt;More stuff can go here&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
 
   <h3>Loading your extension</h3>
   <p>Place your <code>manifest.json</code>, <code>popup.html</code> and <code>icon.png</code> files in the same folder on your hard drive (or <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/01_basic_extension.zip" target="source">download the source files</a> and decompress them). Open Chrome and type <code>chrome://extensions</code> in the address omnibox, then press the Enter key.</p>
@@ -207,28 +210,28 @@
   </figure>
   <p>It's a good idea to create additional icons that will be used on the Extensions management page, in the Chrome Web Store, during the installation of your extension, and as the favicon of any browser pages your extension might create.</p>
   <p>You can <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/01a_additional_icons.zip" target="source">download the source files</a> for a slightly more complex extension which places all the icon files in the same <code>img</code> folder, and gives them names that indicate their sizes.</p>
-  <pre class="revised">{
-    "manifest_version": 2
+<pre class="revised">{
+  "manifest_version": 2
 
-  , "name": "Annotations"
-  , "version": "1.0"
-  , "description": "Helps you save and share notes about web pages."
+, "name": "Annotations"
+, "version": "1.0"
+, "description": "Helps you save and share notes about web pages."
 
-  , "browser_action": {
-      "default_icon": "<span class="new">img/</span>icon<span class="new">19</span>.png"
-    , "default_popup": "popup.html"
-    }
+, "browser_action": {
+    "default_icon": "<span class="new">img/</span>icon<span class="new">19</span>.png"
+  , "default_popup": "popup.html"
+  }
 
-  , "permissions": [
-      "activeTab"
-    ]
+, "permissions": [
+    "activeTab"
+  ]
 
-  <span class="new">, "icons": {
-      "16": "img/icon16.png"
-    , "48": "img/icon48.png"
-    , "128": "img/icon128.png"
-    }</span>
-  }</pre>
+<span class="new">, "icons": {
+    "16": "img/icon16.png"
+  , "48": "img/icon48.png"
+  , "128": "img/icon128.png"
+  }</span>
+}</pre>
   <p>If you use this version of the extension, you'll see a custom icon for your extension in the Extensions management page.</p>
   <figure>
   <img src="img/custom_icons.png" alt="custom icons" />
@@ -265,74 +268,74 @@
   <h3>Declaring a background script</h3>
   <p>In your <code>manifest.json</code> file, you can declare scripts that will be added to an automatically-generated <span class="keyword">background</span> page. Chrome will create the page when it first starts up (or when you reload your extension) but will never show it. You can use the background page to load scripts that will be available at all times the browser is open. Here's how you can modify your <code>manifest.json</code> file so that it loads a script called <code>background.js</code>:</p>
 
-  <pre class="revised">{
-    "manifest_version": 2
+<pre class="revised">{
+  "manifest_version": 2
 
-  , "name": "Annotations"
-  , "version": "1.0"
-  , "description": "Helps you save and share notes about web pages."
+, "name": "Annotations"
+, "version": "1.0"
+, "description": "Helps you save and share notes about web pages."
 
-  , "browser_action": {
-      "default_icon": "img/icon19.png"
-    }
+, "browser_action": {
+    "default_icon": "img/icon19.png"
+  }
 
-  , "permissions": [
-      "activeTab"
-    ]
+, "permissions": [
+    "activeTab"
+  ]
 
-  , "icons": {
-      "16": "img/icon16.png"
-    , "48": "img/icon48.png"
-    , "128": "img/icon128.png"
-    }
+, "icons": {
+    "16": "img/icon16.png"
+  , "48": "img/icon48.png"
+  , "128": "img/icon128.png"
+  }
 
-  <span class="new">, "background": {
-      "scripts": [
-        "js/background.js"
-      ]</span>
-    }
-  }</pre>
+<span class="new">, "background": {
+    "scripts": [
+      "js/background.js"
+    ]</span>
+  }
+}</pre>
 
   <h3>background.js</h3>
   <p>You can create a file called <code>background.js</code> with the following script. Notice that it refers to another file called <code>popup.html</code>; you can use the existing file with that name for now.</p>
   <p>Notice that the script uses a custom <code>notify()</code> method to both show an alert and log data in the console. You'll see shortly how to bring up the console where you can see the logged data. You'll also notice that this script makes calls to methods that are defined on a global <code>chrome</code> object.</p>
 
-  <pre>"use strict"
+<pre>"use strict"
 
-  ;(function background(){
+;(function background(){
 
-    function notify() {
-      console.log.apply(console, arguments)
-      alert(arguments[0])
+  function notify() {
+    console.log.apply(console, arguments)
+    alert(arguments[0])
+  }
+
+  function useExtension() {
+    notify ("useExtension triggered")
+
+    var URL = <span class="red">chrome.extension.getURL</span>("html/popup.html")
+    var width = 300
+    var top = 0
+
+    var options = {
+      url: URL
+    , left: screen.availWidth - width
+    , top: top
+    , width: width
+    , height: screen.availHeight - top
+    , focused: false
+    , type: "popup" // "normal"
     }
 
-    function useExtension() {
-      notify ("useExtension triggered")
+    <span class="red">chrome.windows.create</span>(options, callback)
 
-      var URL = <span class="red">chrome.extension.getURL</span>("html/popup.html")
-      var width = 300
-      var top = 0
-
-      var options = {
-        url: URL
-      , left: screen.availWidth - width
-      , top: top
-      , width: width
-      , height: screen.availHeight - top
-      , focused: false
-      , type: "popup" // "normal"
-      }
-
-      <span class="red">chrome.windows.create</span>(options, callback)
-
-      function callback(window_data) {
-        notify ("window opened", window_data)
-      }
+    function callback(window_data) {
+      notify ("window opened", window_data)
     }
+  }
 
-    <span class="red">chrome.browserAction.onClicked.addListener</span>(useExtension)
-    notify ("Background script loaded")
-  })()</pre>
+  <span class="red">chrome.browserAction.onClicked.addListener</span>(useExtension)
+  notify ("Background script loaded")
+})()</pre>
 
   <h3>Reloading your extension</h3>
   <p>Here's how your files should be organized now, so that the <code>manifest.json</code> file can find them all:</p>
@@ -354,11 +357,11 @@
   <h3>The <code>chrome</code> object</h3>
   <p>It's time now to look closer at what your <code>background.js</code> script is doing, and especially at the following three lines:</p>
 
-  <pre><span class="red">chrome.extension.getURL</span>("html/popup.html")
+<pre><span class="red">chrome.extension.getURL</span>("html/popup.html")
 
-  <span class="red">chrome.windows.create</span>(options, callback)
+<span class="red">chrome.windows.create</span>(options, callback)
 
-  <span class="red">chrome.browserAction.onClicked.addListener</span>(useExtension)</pre>
+<span class="red">chrome.browserAction.onClicked.addListener</span>(useExtension)</pre>
 
   All scripts running in Chrome have access to a  object named <code>chrome</code>. However, scripts running in a standard window and script running in the <span class="keyword">background</span> have access to different objects that have the same name.
   <figure>
@@ -410,32 +413,32 @@
 
   <h3>The <code>Window</code> object</h3>
   <p>When <code>chrome.windows.create(options, callback)</code> is run, it activates an optional callback, and sends a <code>Window</code> object as the argument:</p>
-  <pre>{ alwaysOnTop: false
-  , focused: false
-  , height: 777
-  , id: 161
+<pre>{ alwaysOnTop: false
+, focused: false
+, height: 777
+, id: 161
+, incognito: false
+, left: 880
+, state: "normal"
+, tabs: [
+    active: true
+  , audible: false
+  , height: 682
+  , highlighted: true
+  , id: 162
   , incognito: false
-  , left: 880
-  , state: "normal"
-  , tabs: [
-      active: true
-    , audible: false
-    , height: 682
-    , highlighted: true
-    , id: 162
-    , incognito: false
-    , index: 0
-    , mutedInfo: Object
-    , pinned: false
-    , selected: true
-    , status: "loading"
-    , width: 400
-    , windowId: 161
-    ]
-  , top: 23
-  , type: "normal"
+  , index: 0
+  , mutedInfo: Object
+  , pinned: false
+  , selected: true
+  , status: "loading"
   , width: 400
-  }</pre>
+  , windowId: 161
+  ]
+, top: 23
+, type: "normal"
+, width: 400
+}</pre>
 
   <div class="aside next">In this section, you've set up a a background script to react to a click on the toolbar button for your extension, and you've used that action to open a custom window. You've also seen how to open a Developer Tools Inspector window, so that you can debug your background script.
   <p>You've used the following expressions that are specific to Chrome extensions:</p>
@@ -484,27 +487,27 @@
   Password:•</pre>
   <p>Use the name of an administrator for your computer rather than <em>admin</em>, then type your password.</p></div>
   <p>In a Terminal window, type ...</p>
-  <pre>curl https://install.meteor.com/ | sh</pre>
-  <p>... and wait while the latest version of Meteor is automatically installed. The Terminal window will fill up with something like this:</p>
-  <pre class="revised">  %  Total  % Received  % Xferd  Average Speed    Time     Time
-                                   Dload  Upload    Total    Spent
-  100   7592  0     7592  0     0   5873       0  --:--:--  0:00:01 
-  Removing your existing Meteor installation.
-  Downloading Meteor distribution
-  ########################################################## 100.0%
-  Meteor 1.3.4 has been installed in your home directory (~/.meteor)
-  Writing a launcher script to /usr/local/bin/meteor for your
-  convenience.
-  This may prompt for your password.
-  Password:•
-  </pre>
+<pre>curl https://install.meteor.com/ | sh</pre>
+<p>... and wait while the latest version of Meteor is automatically installed. The Terminal window will fill up with something like this:</p>
+<pre class="revised">  %  Total  % Received  % Xferd  Average Speed    Time     Time
+                                 Dload  Upload    Total    Spent
+100   7592  0     7592  0     0   5873       0  --:--:--  0:00:01 
+Removing your existing Meteor installation.
+Downloading Meteor distribution
+########################################################## 100.0%
+Meteor 1.3.4 has been installed in your home directory (~/.meteor)
+Writing a launcher script to /usr/local/bin/meteor for your
+convenience.
+This may prompt for your password.
+Password:•
+</pre>
   <p>Enter your admin password when you see the prompt for it, to complete the installation. If you did not run the <code>curl</code> command as an administrator, this step may fail.</p>
 
   <h3>Creating the default Meteor web site</h3>
   <p>In the Terminal window, use the <code><a href="http://www.computerhope.com/unix/ucd.htm">cd</a></code> command to navigate to the directory where you want to create your Meteor web site, and enter the following commands:</p>
-  <pre>meteor create NoteBook
-  cd NoteBook
-  meteor</pre>
+<pre>meteor create NoteBook
+cd NoteBook
+meteor</pre>
   <p>The first command may take a few minutes, as Meteor performs all the actions necessary for populating the <code>notebook</code> folder. When all is done, your folder should contain five items, including two that may be invisible: <code>.gitignore</code> and <code>.meteor</code>.</p>
   <figure>
   <img src="img/meteor_folder.png" alt="Contents of the notebook folder" />
@@ -513,54 +516,54 @@
 
   <p>When you run the final <code>meteor</code> command, you'll see a series of actions logged to the Terminal window, as the Meteor application launches. Finally, you should see something like this:</p>
 
-  <pre>
-  [[[[[ <span class="ymmv">/Path/to/the/folder/NoteBook</span> ]]]]]
+<pre>
+[[[[[ <span class="ymmv">/Path/to/the/folder/NoteBook</span> ]]]]]
 
-  => Started proxy.                             
-  => Started MongoDB.
-  => Started your app.                          
+=> Started proxy.                             
+=> Started MongoDB.
+=> Started your app.                          
 
-  => App running at: http://localhost:3000/
-  </pre>
+=> App running at: http://localhost:3000/
+</pre>
   <p class="aside note">When you want to stop the Meteor app, press <code>Ctrl-C</code></p>
   <p class="aside note"><a href="https://www.mongodb.com/">MongoDB</a> is a free open-source cross-platform document-oriented database. It stores data in a JSON-like format, similar to the format of the <code>manifest.json</code> document you created earlier. (TODO: add reference to Neo4j?)</p>
 
   <h3>Displaying the Meteor web page in the popup window</h3>
   <p>You can test that the Meteor server is running by visiting <a href="http://localhost:3000/">http://localhost:3000/</a> in your browser. To get the Meteor page to show in your extensions popup window, you need to make some changes to your <code>background.js</code> script, as shown below.</p>
-  <pre class="revised">"use strict"
+<pre class="revised">"use strict"
 
-  ;(function background(){
+;(function background(){
 
-    <span class="new">var windowOpen = false</span>
+  <span class="new">var windowOpen = false</span>
 
-    function useExtension() {
-      <span class="new">if (windowOpen) {
-        return
-      }</span>
+  function useExtension() {
+    <span class="new">if (windowOpen) {
+      return
+    }</span>
 
-      var URL = <span class="new">"http://localhost:3000/"</span>
-      var width = 300
-      var top = 0
+    var URL = <span class="new">"http://localhost:3000/"</span>
+    var width = 300
+    var top = 0
 
-      var options = {
-        url: URL
-      , left: screen.availWidth - width
-      , top: top
-      , width: width
-      , height: screen.availHeight - top
-      , focused: false
-      , type: "popup"
-      }
-
-      chrome.windows.create(options, callback)
-
-      function callback(window_data) {
-        <span class="new">windowOpen = true</span>
-      }
+    var options = {
+      url: URL
+    , left: screen.availWidth - width
+    , top: top
+    , width: width
+    , height: screen.availHeight - top
+    , focused: false
+    , type: "popup"
     }
 
-    chrome.browserAction.onClicked.addListener(useExtension)
-  })()</pre>
+    chrome.windows.create(options, callback)
+
+    function callback(window_data) {
+      <span class="new">windowOpen = true</span>
+    }
+  }
+
+  chrome.browserAction.onClicked.addListener(useExtension)
+})()</pre>
   <p>The most important change is setting the <code>URL</code> to <code>"http://localhost:3000/"</code> so the window shows your Meteor site. The other changes ensure that the window is only opened once, the first time you click on the toolbar button.</p>
   <p class="aside note">Right now, if you close the popup window, then it will stay closed until you relaunch Google or reload your extension. In <a href="#">TODO</a>, you will be adding code that resets <code>windowOpen</code> to false when the window is closed.</p>
   <p>When you reload your extension and click on the toolbar button, you should see something like this:</p>
@@ -574,8 +577,6 @@
   <div class="aside next">In this section, you've seen how simple it is to install Meteor and to launch a default web site. You've also seen how to get the popup window of your extension to display this Meteor web site.
   <p>In the <a href="#connection">next section</a>, you'll start modifying the Meteor NoteBook app and see how to get its page script to communicate with the extension's background script.</p>
   </div>
-
-  <p class="aside support">If you have any difficulty anywhere in this tutorial, please <a href="https://github.com/lexogram/openbook/issues/new">tell us about it</a>, and we'll do our best to deal with it for you. Your questions and suggestions can help us make this tutorial better.
 
   <footer>
     <ul class="nav">
@@ -619,37 +620,37 @@
   <h3><code>manifest.json</code></h3>
   <p>As you've already seen, the <code>manifest.json</code> controls the files that your extension can use. For the sake of security, before your extension can accept a connection coming from a script in a web page, you must provide a filter to identify the web pages that should be allowed to connect.</p>
   <p>This is done with the <code><a href="https://developer.chrome.com/extensions/manifest/externally_connectable">"externally_connectable"</a></code> manifest property. To allow any page script from your Meteor site to connect with your extension's background script, you can provide as <code>"matches"</code> array, containing the pattern <code>"http://localhost:*/*"</code>. This will match with <code>"http://localhost:3000/"</code>, or any custom port number that you have set Meteor to run on.</p>
-  <pre class="revised">{
-    "manifest_version": 2
+<pre class="revised">{
+  "manifest_version": 2
 
-  , "name": "Annotations"
-  , "version": "1.0"
-  , "description": "Helps you save and share notes about web pages."
+, "name": "Annotations"
+, "version": "1.0"
+, "description": "Helps you save and share notes about web pages."
 
-  , "browser_action": {
-      "default_icon": "img/icon19.png"
-    }
+, "browser_action": {
+    "default_icon": "img/icon19.png"
+  }
 
-  , "permissions": [
-      "activeTab"
+, "permissions": [
+    "activeTab"
+  ]
+
+, "icons": {
+    "16": "img/icon16.png"
+  , "48": "img/icon48.png"
+  , "128": "img/icon128.png"
+  }
+
+, "background": {
+    "scripts": [
+      "js/background.js"
     ]
+  }
 
-  , "icons": {
-      "16": "img/icon16.png"
-    , "48": "img/icon48.png"
-    , "128": "img/icon128.png"
-    }
-
-  , "background": {
-      "scripts": [
-        "js/background.js"
-      ]
-    }
-
-  <span class="new">, "externally_connectable": {
-      "matches": ["http://localhost:*/*"]
-    }</span>
-  }</pre>
+<span class="new">, "externally_connectable": {
+    "matches": ["http://localhost:*/*"]
+  }</span>
+}</pre>
 
   <h3>The Meteor client files</h3>
   <p>The default Meteor app contains three files inside the <code>client</code> folder: <code>main.html</code>, <code>main.css</code> and <code>main.js</code>. These currently define the default Meteor app. You can edit them now, to start customizing the NoteBook.</p>
@@ -661,24 +662,24 @@
 
   <h4><code>main.html</code></h4>
   <p>Delete everything inside <code>main.html</code> and replace it with this:</p>
-  <pre>&lt;head&gt;
-    &lt;title&gt;NoteBook&lt;/title&gt;
-  &lt;/head&gt;
+<pre>&lt;head&gt;
+  &lt;title&gt;NoteBook&lt;/title&gt;
+&lt;/head&gt;
 
-  &lt;body&gt;
-    &lt;p id="selection"&gt;&lt;/p&gt;
-  &lt;/body&gt;</pre>
+&lt;body&gt;
+  &lt;p id="selection"&gt;&lt;/p&gt;
+&lt;/body&gt;</pre>
 
   <h4><code>main.css</code></h4>
   <p>The <code>main.css</code> file is probably more or less empty. You can use this rule to make the <code>#selection</code> paragraph visible even if it's empty:</p>
-  <pre>p#selection {
-    min-height: 2em;
-    width: 100%;
-    background-color: #ddd;
-    border: 1px solid #ccc;
-    border-bottom-color: #eee;
-    border-right-color: #eee;
-  }</pre>
+<pre>p#selection {
+  min-height: 2em;
+  width: 100%;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  border-bottom-color: #eee;
+  border-right-color: #eee;
+}</pre>
 
   <figure>
   <img src="img/notebook_00.png" alt="The new-look NoteBook" />
@@ -695,15 +696,15 @@
 
   <h4><code>main.js</code></h4>
   <p>Delete everything inside <code>main.js</code> and replace it with the following code. You'll get the change to edit it again before you're done.</p>
-  <pre>Meteor.startup(function() {
-    var extensionID = "<span class="ymmv">use your own extension ID here</span>"
-    var port = chrome.runtime.connect(extensionID)
-    var message = { method: "startCounter" }
+<pre>Meteor.startup(function() {
+  var extensionID = "<span class="ymmv">use your own extension ID here</span>"
+  var port = chrome.runtime.connect(extensionID)
+  var message = { method: "startCounter" }
 
-    setTimeout(function () {
-      port.postMessage(message)
-    }, 1)
-  })</pre>
+  setTimeout(function () {
+    port.postMessage(message)
+  }, 1)
+})</pre>
 
   <div class="aside note">Notes on the <code>main.js</code> script
   <ul>
@@ -721,78 +722,78 @@
 
   <h4><code>background.js</code></h4>
 
-  <pre class="revised">"use strict"
+<pre class="revised">"use strict"
 
-  ;(function background(){
+;(function background(){
 
-    <span class="new">var timeout = 0
-    var port</span>
+  <span class="new">var timeout = 0
+  var port</span>
 
-    function useExtension() {
-      if (port) {
-        return
-      }
-      
-      var URL = "http://localhost:3000/"
-      var width = 300
-      var top = 0
+  function useExtension() {
+    if (port) {
+      return
+    }
+    
+    var URL = "http://localhost:3000/"
+    var width = 300
+    var top = 0
 
-      var options = {
-        url: URL
-      , left: screen.availWidth - width
-      , top: top
-      , width: width
-      , height: screen.availHeight - top
-      , focused: false
-      , type: "popup"
-      }
-
-      chrome.windows.create(<span class="new">options</span>)
+    var options = {
+      url: URL
+    , left: screen.availWidth - width
+    , top: top
+    , width: width
+    , height: screen.availHeight - top
+    , focused: false
+    , type: "popup"
     }
 
-    <span class="new">function openConnection(externalPort) {
-      port = externalPort
-      port.onMessage.addListener(incoming)
-    }
+    chrome.windows.create(<span class="new">options</span>)
+  }
 
-    function incoming(message) {
-      if (timeout) {
-        clearTimeout(timeout)
-      }
-      ping()
-    }
+  <span class="new">function openConnection(externalPort) {
+    port = externalPort
+    port.onMessage.addListener(incoming)
+  }
 
-    function ping() {
-      port.postMessage({ method: "ping", counter: timeout })
-      timeout = setTimeout(ping, 1000)
+  function incoming(message) {
+    if (timeout) {
+      clearTimeout(timeout)
     }
+    ping()
+  }
 
-    chrome.runtime.onConnectExternal.addListener(openConnection)</span>
-    chrome.browserAction.onClicked.addListener(useExtension)
-  })()</pre>
+  function ping() {
+    port.postMessage({ method: "ping", counter: timeout })
+    timeout = setTimeout(ping, 1000)
+  }
+
+  chrome.runtime.onConnectExternal.addListener(openConnection)</span>
+  chrome.browserAction.onClicked.addListener(useExtension)
+})()</pre>
 
   <p>After the <code>port</code> is set up, it waits for an incoming message. This is sent from <code>main.js</code> after a 1 ms timeout, and it is handled by the <code>incoming</code> listener function. The output of the <code>setTimeout</code> method is an incrementing integer, and for elegance, this is used as the counter that is sent every second to the NoteBook script.</p>
 
   <h3><code>main.js</code> revisited</h3>
   <p>In its current state, the Notebook page script knows nothing about the message that is sent to it. You can add a listener to the <code>port</code> object, and use this to update the <code>#selection</code> paragraph.</p>
-  <pre>Meteor.startup(function() {
-    var extensionId = "<span class="ymmv">use your own extension ID here</span>"
-    var port = chrome.runtime.connect(extensionId)
-    var message = { method: "startCounter" }
-    <span class="new">var p = document.getElementById("selection")
+<pre>Meteor.startup(function() {
+  var extensionId = "<span class="ymmv">use your own extension ID here</span>"
+  var port = chrome.runtime.connect(extensionId)
+  var message = { method: "startCounter" }
+  <span class="new">var p = document.getElementById("selection")
 
-    function incoming(message) {
-      if (message.method === "ping") {
-        p.innerHTML = message.counter
-      }
+  function incoming(message) {
+    if (message.method === "ping") {
+      p.innerHTML = message.counter
     }
+  }
 
-    port.onMessage.addListener(incoming)</span>
+  port.onMessage.addListener(incoming)</span>
 
-    setTimeout(function () {
-      port.postMessage(message)
-    }, 1)
-  })</pre>
+  setTimeout(function () {
+    port.postMessage(message)
+  }, 1)
+})</pre>
 
   <figure>
   <img src="img/notebook_01.png" alt="The background script tells the page script to update the NoteBook" />
@@ -841,45 +842,45 @@
   <p>One of the main features of the Annotation extension is that it allows you to select an expression (a word or a phrase) in any web page you visit, and then use the NoteBook window to explore the meanings of the expression. To get this to work, you need to inject a script into the pages you visit in the main window, and get this to communicate with the background script. The background script can then forward messages to your NoteBook window, using the technique you saw in the <a href="#connection">last section</a>.</p>
   <p>As usual, the first step is to add a new manifest property to <code>manifest.json</code> to define a <a href="https://developer.chrome.com/extensions/content_scripts">content script</a>: a script that can be injected into every <span class="keyword">content</span> page that you visit. Or almost every page: you don't want to inject it into your NoteBook page. The structure of the definition is more complex than the ones you have seen so far, because Chrome requires you to create a filter for URLs, so that your script is only added to pages that match the filter.</p>
 
-  <pre class="revised">{
-    "manifest_version": 2
+<pre class="revised">{
+  "manifest_version": 2
 
-  , "name": "Annotations"
-  , "version": "1.0"
-  , "description": "Helps you save and share notes about web pages."
+, "name": "Annotations"
+, "version": "1.0"
+, "description": "Helps you save and share notes about web pages."
 
-  , "browser_action": {
-      "default_icon": "img/icon19.png"
-    }
+, "browser_action": {
+    "default_icon": "img/icon19.png"
+  }
 
-  , "permissions": [
-      "activeTab"
+, "permissions": [
+    "activeTab"
+  ]
+
+, "icons": {
+    "16": "img/icon16.png"
+  , "48": "img/icon48.png"
+  , "128": "img/icon128.png"
+  }
+
+, "background": {
+    "scripts": [
+      "js/background.js"
     ]
+  }
 
-  , "icons": {
-      "16": "img/icon16.png"
-    , "48": "img/icon48.png"
-    , "128": "img/icon128.png"
-    }
+, "externally_connectable": {
+    "matches": ["http://localhost:*/*"]
+  }
 
-  , "background": {
-      "scripts": [
-        "js/background.js"
-      ]
-    }
-
-  , "externally_connectable": {
-      "matches": ["http://localhost:*/*"]
-    }
-
-  <span class="new">, "content_scripts": [ {
-      "matches": ["&lt;all_urls&gt;"]
-    , "exclude_matches": ["http://localhost:*/*"]
-    , "js": [
-        "js/content.js"
-      ]
-    } ]</span>
-  }</pre>
+<span class="new">, "content_scripts": [ {
+    "matches": ["&lt;all_urls&gt;"]
+  , "exclude_matches": ["http://localhost:*/*"]
+  , "js": [
+      "js/content.js"
+    ]
+  } ]</span>
+}</pre>
 
   <h3><code>content_scripts</code></h3>
   <p>The <a href="https://developer.chrome.com/extensions/content_scripts#registration"><code>content_scripts</code> manifest property</a> defines an array of map objects. Each object must include:</p>
@@ -902,31 +903,31 @@
   <h3><code>content.js</code></h3>
   <p>Now you can create a file in the <code>js/</code> folder, called <code>content.js</code>. Its role will be to detect when the selected text in the page changes, and to inform the background script.</p>
 
-  <pre>"use strict"
+<pre>"use strict"
 
-  ;(function content(){
+;(function content(){
 
-    var selectedText = ""
+  var selectedText = ""
 
-    function checkSelection(event) {
-      var selection = document.getSelection()
-      var text = selection.toString()
-      var message
+  function checkSelection(event) {
+    var selection = document.getSelection()
+    var text = selection.toString()
+    var message
 
-      if (selectedText !== text) {
-        selectedText = text
-        message = {
-          method: "changeSelection"
-        , data: selectedText
-        }
-
-        chrome.runtime.sendMessage(message)
+    if (selectedText !== text) {
+      selectedText = text
+      message = {
+        method: "changeSelection"
+      , data: selectedText
       }
-    }
 
-    document.body.addEventListener("mouseup", checkSelection, false)
-    document.body.addEventListener("keyup", checkSelection, false)
-  })()</pre>
+      chrome.runtime.sendMessage(message)
+    }
+  }
+
+  document.body.addEventListener("mouseup", checkSelection, false)
+  document.body.addEventListener("keyup", checkSelection, false)
+})()</pre>
 
   <p>This content script sets up the <code>checkSelection</code> function as a listener for <code>mouseup</code> and <code>keyup</code> events. If the text selected in the page has changed, a message object is created, with a <code>method</code> and a <code>data</code> property. This message is then sent to the background script using <code><a href="https://developer.chrome.com/extensions/runtime#method-sendMessage">chrome.runtime.sendMessage</a></code> </p>
 
@@ -962,69 +963,69 @@
   </figure>
     </div>
   </div>
-  <pre class="revised">"use strict"
+<pre class="revised">"use strict"
 
-  ;(function background(){
+;(function background(){
 
-    var port
+  var port
 
-    function useExtension() {
-      // code omitted for clarity
+  function useExtension() {
+    // code omitted for clarity
+  }
+
+  function openConnection(externalPort) {
+    port = externalPort
+    port.onMessage.addListener(incoming)
+  }
+
+  function incoming(message) {
+    <span class="new">// TODO</span>
+  }
+
+  <span class="new">function treatMessage(request, sender, sendResponse) {
+    switch (request.method) {
+      case "changeSelection":
+        changeSelection(request)
+      break
+    }
+  }
+
+  function changeSelection(request) {
+    if (!port) {
+      console.log("Request not treated:", request)
+      return
     }
 
-    function openConnection(externalPort) {
-      port = externalPort
-      port.onMessage.addListener(incoming)
-    }
+    port.postMessage(request)
+  }
 
-    function incoming(message) {
-      <span class="new">// TODO</span>
-    }
-
-    <span class="new">function treatMessage(request, sender, sendResponse) {
-      switch (request.method) {
-        case "changeSelection":
-          changeSelection(request)
-        break
-      }
-    }
-
-    function changeSelection(request) {
-      if (!port) {
-        console.log("Request not treated:", request)
-        return
-      }
-
-      port.postMessage(request)
-    }
-
-    chrome.runtime.onMessage.addListener(treatMessage)</span>
-    chrome.runtime.onConnectExternal.addListener(openConnection)
-    chrome.browserAction.onClicked.addListener(useExtension)
-  })()</pre>
+  chrome.runtime.onMessage.addListener(treatMessage)</span>
+  chrome.runtime.onConnectExternal.addListener(openConnection)
+  chrome.browserAction.onClicked.addListener(useExtension)
+})()</pre>
 
   <h3>The NoteBook page script: <code>main.js</code></h3>
   <p>The background script now use the <code>port.sendMessage</code> function to send a message to the page script in your NoteBook window. You can use a <code>switch</code> statement in the <code>incoming</code> function to forward the request to the appropriate function. In this case, all the <code>changeSelection</code> function needs to do it to set the <code>innerHTML</code> of the <code>#selection</code> paragraph to the string of text that was initially selected in the main window.</p>
 
-  <pre class="revised">Meteor.startup(function() {
-    var extensionId = "<span class="ymmv">use your own extension ID here</span>"
-    var port = chrome.runtime.connect(extensionId)
-    var p = document.getElementById("selection")
+<pre class="revised">Meteor.startup(function() {
+  var extensionId = "<span class="ymmv">use your own extension ID here</span>"
+  var port = chrome.runtime.connect(extensionId)
+  var p = document.getElementById("selection")
 
-    <span class="new">function incoming(request) {
-      switch (request.method) {
-        case "changeSelection":
-          changeSelection(request.data)
-        break
-      } 
-    }
+  <span class="new">function incoming(request) {
+    switch (request.method) {
+      case "changeSelection":
+        changeSelection(request.data)
+      break
+    } 
+  }
 
-    function changeSelection(selection) {
-      p.innerHTML = selection
-    }</span>
+  function changeSelection(selection) {
+    p.innerHTML = selection
+  }</span>
 
-    port.onMessage.addListener(incoming)
-  })</pre>
+  port.onMessage.addListener(incoming)
+})</pre>
 
   <figure>
   <img src="img/selected_text.png" alt="Text selected in the main window is copied to the NoteBook window" />
@@ -1074,7 +1075,7 @@
   <li>Create a server-side script using JavaScript</li>
   <li>Read in a file on the server</li>
   </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/06_call.zip" target="source">Download the source files</a>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/06_server.zip" target="source">Download the source files</a>
   </div>
 
   <h3>JavaScript on the server</h3>
@@ -1095,41 +1096,41 @@
 
   <h3>Editing the server-side<code>main.js</code> script</h3>
   <p>You can edit the file <code>server/main.js</code> as shown below:</p>
-  <pre class="revised"><span class="new">"use strict"</span>
+<pre class="revised"><span class="new">"use strict"</span>
 
-  import { Meteor } from 'meteor/meteor'
+import { Meteor } from 'meteor/meteor'
 
-  Meteor.startup(() => {
-    <span class="new">readInWordsFile()</span>
-  });
+Meteor.startup(() => {
+  <span class="new">readInWordsFile()</span>
+});
 
-  <span class="new">function readInWordsFile() {
-    console.log('reading words.txt')
-    var fs = <span class="red">Npm.require('fs')</span>
-    var relative = '/../web.browser/app/data/words.txt'
-    var path = <span class="red">process.cwd()</span> + relative
+<span class="new">function readInWordsFile() {
+  console.log('reading words.txt')
+  var fs = <span class="red">Npm.require('fs')</span>
+  var relative = '/../web.browser/app/data/words.txt'
+  var path = <span class="red">process.cwd()</span> + relative
 
-    function fileReadCallback(error, data) {
-      if (error) {
-        console.log('Error: ' + error)
-        return
-      }
+  function fileReadCallback(error, data) {
+    if (error) {
+      console.log('Error: ' + error)
+      return
+    }
 
-      console.log(data)
-    } 
+    console.log(data)
+  } 
 
-    <span class="red">fs.readFile</span>(path, 'utf8', fileReadCallback)
-  }</span></pre>
+  <span class="red">fs.readFile</span>(path, 'utf8', fileReadCallback)
+}</span></pre>
 
   <p>When Meteor restarts, you should see something like this in the Terminal window:</p>
 
-  <pre>=> Started MongoDB.
-  <span class="ymmv">TIMESTAMP</span> reading words.txt
-  <span class="ymmv">TIMESTAMP</span> File read successful
-  => Started your app.
+<pre>=> Started MongoDB.
+<span class="ymmv">TIMESTAMP</span> reading words.txt
+<span class="ymmv">TIMESTAMP</span> File read successful
+=> Started your app.
 
-  => App running at: http://localhost:3000/
-  </pre>
+=> App running at: http://localhost:3000/
+</pre>
 
   <h3>The Node File System package</h3>
   <p>Meteor runs on Node.js and Node.js can be extended with <span class="keyword">packages</span> using <code>Npm</code>, the <span class="keyword">Node package manager</span>. To use JavaScript to read a file from the server you can use the <a href="https://nodejs.org/api/fs.html">fs</a> package. where "fs" stands for File System. You need to tell your Meteor application to use the <code>fs</code> package, and that's what the following line does:</p>
@@ -1162,61 +1163,61 @@
   <p>The <code>words.txt</code> file is only useful insofar as it shows you that your server-side script is working. For the purposes of this tutorial, a more useful file would contain information about the words that you select in the main browser window.</p>
   <p>In the <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/06_call.zip" target="source">downloadable source files for this section</a>, you can find a file named <code>words.json</code>. This contains frequency data for the 10,000 most commonly used words in journalistic English.</p>
 
-  <pre>{ "the": { "index": 1, "count": 56271872 }
-  , "of": { "index": 2, "count": 33950064 }
-  , "and": { "index": 3, "count": 29944184 }
-  , "to": { "index": 4, "count": 25956096 }
-  , "in": { "index": 5, "count": 17420636 }
-  <span class="ymmv">...</span>
-  , "cooperation": { "index": 9997, "count": 3924.81 }
-  , "sequel": { "index": 9998, "count": 3924.02 }
-  , "wench": { "index": 9999, "count": 3924.02 }
-  , "calves": { "index": 10000, "count": 3923.23 }
-  }
-  </pre>
+<pre>{ "the": { "index": 1, "count": 56271872 }
+, "of": { "index": 2, "count": 33950064 }
+, "and": { "index": 3, "count": 29944184 }
+, "to": { "index": 4, "count": 25956096 }
+, "in": { "index": 5, "count": 17420636 }
+<span class="ymmv">...</span>
+, "cooperation": { "index": 9997, "count": 3924.81 }
+, "sequel": { "index": 9998, "count": 3924.02 }
+, "wench": { "index": 9999, "count": 3924.02 }
+, "calves": { "index": 10000, "count": 3923.23 }
+}
+</pre>
 
   <p>You can place this in the <code>public/data/</code> folder, and then edit your <code>main.js</code> file in the <code>server</code> folder, as shown below:</p>
-  <pre class="revised">"use strict"
+<pre class="revised">"use strict"
 
-  import { Meteor } from 'meteor/meteor'
+import { Meteor } from 'meteor/meteor'
 
-  var wordFrequencies = {}
+var wordFrequencies = {}
 
-  Meteor.startup(() => {
-    readInWordsFile()
-  });
+Meteor.startup(() => {
+  readInWordsFile()
+});
 
-  function readInWordsFile() {
-    console.log('reading words.txt')
-    var fs = Npm.require('fs') 
-    var relative = '/../web.browser/app/data/words.<span class="new">json</span>'
-    var path = process.cwd() + relative
+function readInWordsFile() {
+  console.log('reading words.txt')
+  var fs = Npm.require('fs') 
+  var relative = '/../web.browser/app/data/words.<span class="new">json</span>'
+  var path = process.cwd() + relative
 
-    function fileReadCallback(error, data) {
-      if (error) {
-        console.log('Error: ' + error)
-        return
-      }
+  function fileReadCallback(error, data) {
+    if (error) {
+      console.log('Error: ' + error)
+      return
+    }
 
-      <span class="new">try {
-        wordFrequencies = JSON.parse(data)
-        console.log(wordFrequencies["the"])
-      } catch(err) {
-        console.log("data is not in JSON format:", err)     
-      }</span>
-    } 
+    <span class="new">try {
+      wordFrequencies = JSON.parse(data)
+      console.log(wordFrequencies["the"])
+    } catch(err) {
+      console.log("data is not in JSON format:", err)     
+    }</span>
+  } 
 
-    fs.readFile(path, 'utf8', fileReadCallback)
-  }</pre>
+  fs.readFile(path, 'utf8', fileReadCallback)
+}</pre>
 
-  <p>If all goes well, when Meteor restarts, you should now see something like:</p>
+  <p>If all goes well, when Meteor restarts, you should now see something like this:</p>
 
   <pre>=> App running at: http://localhost:3000/
-  <span class="ymmv">TIMESTAMP</span>  reading words.txt 
-  <span class="ymmv">TIMESTAMP</span>  { index: 1, count: 56271872 }
-  => Meteor server restarted</pre>
+<span class="ymmv">TIMESTAMP</span> reading words.txt 
+<span class="ymmv">TIMESTAMP</span> { index: 1, count: 56271872 }
+=> Meteor server restarted</pre>
 
-  <div class="aside next">In this section, you've written a server-side script that reads in and parses a JSON file from the server. You've used the following Meteor-specific methods:
+  <div class="aside next">In this section, you've written and tested a server-side script that reads in and parses a JSON file from the server. You've used the following Meteor-specific methods:
   <ul>
   <li>Npm.require()</li>
   <li>process.cwd()</li>
@@ -1242,212 +1243,203 @@
 <!-- CALL -->
 <section id="call">
   <h2>Talking to the server from the browser</h2>
+  <p>Now that you have JavaScript running on your server, it's time to use the power of Meteor to call a method on your server from the browser.</p>
   <div class="aside preview">In this section, you'll learn how to:
   <ul>
-  <li>Write a server-side method that uses the data from word.json</li>
-  <li>Delcare the server-side method so that Meteor can call it from the browser </li>
-  <li>Call the server-ide methed from your client-side NoteBook page</li>
+  <li>Write a server-side method that returns a value</li>
+  <li>Declare the server-side method so that Meteor can call it from the browser</li>
+  <li>Call the server-side method from your browser console and retrieve its return value</li>
+  <li>Use the data read in from <code>words.json</code> to analyze the text sent from the server</li>
+  <li>Display the analyzed data in the browser console</li>
   </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/04_toolbar.zip" target="source">Download the source files</a>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/07_call.zip" target="source">Download the source files</a>
   </div>
 
-  <h4><code>main.html</code></h4>
-  <pre class="revised">&lt;head&gt;
-    &lt;title&gt;NoteBook&lt;/title&gt;
-  &lt;/head&gt;
-
-  &lt;body&gt;
-    &lt;p id="selection"&gt;&lt;/p&gt;
-    
-    <span class="new">&lt;table border="1"&gt;
-      &lt;tr&gt;
-        &lt;th&gt;Word&lt;/th&gt;
-        &lt;th&gt;Index&lt;/th&gt;
-        &lt;th&gt;Count/Billion&lt;/th&gt;
-      &lt;/tr&gt;
-        {{&gt; rows}}
-    &lt;/table&gt;</span>
-  &lt;/body&gt;
-   
-  <span class="new">&lt;!-- TEMPLATES --&gt;
-
-  &lt;template name="rows"&gt;
-    {{#each rows}}
-      &lt;tr&gt;
-        &lt;td&gt;{{word}}&lt;/td&gt;
-        &lt;td&gt;{{index}}&lt;/td&gt;
-        &lt;td&gt;{{count}}&lt;/td&gt;
-      &lt;/tr&gt;
-    {{/each}}
-  &lt;/template&gt;</span></pre>
-
-  <h4><code>main.css</code></h4>
-  <pre class="revised">p#selection {
-    min-height: 2em;
-    width: 100%;
-    background-color: #ddd;
-    border: 1px solid #ccc;
-    border-bottom-color: #eee;
-    border-right-color: #eee;
-  }
-
-  <span class="new">table {
-    border: 1px solid #000;
-    border-collapse: collapse;
-    min-width: 200px;
-    width: 100%;
-  }
-  th {
-    background-color: #ccc;
-    padding: 0.1em 0.25em;
-  }
-  td {
-    padding: 0 0.25em;
-  }
-  td {
-    text-align: right;
-  }
-  td:first-child {
-    text-align: left;
-  }</span></pre>
-
-  <h4><code>main.js</code> (client)</h4>
-  <pre class="revised"><span class="new">import { Template } from 'meteor/templating' 
-
-  Session.set("rows", [])
-   
-  Template.rows.helpers({
-    rows: function rows() {
-      return Session.get("rows")
-    }
-  });</span>
-
-  Meteor.startup(function() {
-    var extensionId = "dfhlekkdciiblbidbchopphkalomlblf"
-    // Use your own extension id ^
-    var port = chrome.runtime.connect(extensionId)
-    var p = document.getElementById("selection")
-
-    function incoming(request) {
-      switch (request.method) {
-        case "changeSelection":
-          changeSelection(request.data)
-        break
-      } 
-    }
-
-    function changeSelection(selection) {
-      p.innerHTML = selection
-      <span class="new">Meteor.call("analyzeText", { data: selection }, updateTable)</span>
-    }
-
-    <span class="new">function updateTable(error, data) {
-      if (error) {
-
-      } else {
-        Session.set("rows", data)
-      }
-    }</span>
-
-    port.onMessage.addListener(incoming)
-  })</pre>
-
+  <p>Meteor is designed to make two-way communication between the browser and the server as simple as possible. However, for security reasons, you want to be sure that only authorized browser pages can call only the authorized methods on the server. To allow you to do this, Meteor provides a server-side <code>Meteor.methods</code> function which tells the Meteor app which server-side methods to open up to calls from the browser.</p>
+  <p>In your public server-side calls, you should check that the incoming data you receive is in the format you expect. The version of <code>main.js</code> below defines a method called <code>analyzeText</code>, which checks that it has received an argument with a structure like <code>{ data: "some string" }</code>. If so, it returns the value of the string (for now); if not, it returns a string describing the error.</p>
   <h4><code>main.js</code> (server)</h4>
-  <pre>"use strict"
+<pre class="revised">"use strict"
 
-  import { Meteor } from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor'
 
-  var wordFrequencies = {}
+var wordFrequencies = {}
 
-  Meteor.startup(function () {
-    defineMethods()
-    readInWordsFile()
+Meteor.startup(function () {
+  <span class="new">defineMethods()</span>
+  readInWordsFile()
+})
+
+<span class="new">function defineMethods() {
+  Meteor.methods({
+    analyzeText: analyzeText
+  })
+}</span>
+
+function readInWordsFile() {
+  console.log('reading words.json')
+  var fs = Npm.require('fs')
+  var relative = '/../web.browser/app/data/words.json'
+  var path = process.cwd() + relative
+
+  function fileReadCallback(error, data) {
+    if (error) {
+      console.log('Error: ' + error)
+      return
+    }
+
+    wordFrequencies = JSON.parse(data)
+    console.log(wordFrequencies["the"])
+  } 
+
+  fs.readFile(path, 'utf8', fileReadCallback)
+}
+
+<span class="new">function analyzeText(options) {
+  // options = { data: &lt;string&gt; }
+  var type = typeof options
+  var text
+
+  if (type !== "object" || options === null) {
+    return "Object expected in analyzeText: " + type
+
+  } else {
+    text = options.data
+    type = typeof text
+    if (type !== "string") {
+      return "String expected in analyzeText: " + type
+    }
+  }
+
+  return text
+}</span>
+</pre>
+
+<h3>Testing from the browser console</h3>
+<p>If you open the JavaScript Console for your NoteBook window, you can execute the following command. You'll see the output in Figure 24.</p>
+<pre><span class="red">Meteor.call</span>(
+  "analyzeText"
+, { data: "text to analyze" }
+, function (error, response) { 
+    if (error) {
+      console.log ("Error:", error)
+    } else {
+      console.log ("Response:", response)
+    }
+  }
+)</pre>
+
+<figure>
+<img src="img/meteor_call.png" alt="Using Meteor call from the browser console" />
+<figcaption>Figure 24. Using Meteor.call(...) from the browser console</figcaption>
+</figure>
+
+<h3><code>Meteor.call</code></h3>
+<p>Executed from a browser script, <code><a href="https://docs.meteor.com/api/methods.html#Meteor-call"></a>Meteor.call</code> takes any number of arguments.</p>
+<ul>
+<li>The first should be the name of a method that has been defined on the server with the <code>Meteor.methods()</code> function.</li>
+<li>The last can be a callback function that will called with the result sent from the server.</li>
+<li>The intervening arguments can be anything you want that can be converted to a string for transfer across the network. In this case, the object <code>{ data: "text to analyze" }</code> is stringified and sent in JSON format, then restored to an object on the server.</li>
+</ul>
+
+<h3><code>analyzeText</code></h3>
+<p>The script above just shows you how you can use <code>Meteor.call</code> to send data from the browser to the server, and receive a result from the call. The next step is to use the <code>wordFrequencies</code> data read in from the <code>words.json</code> file to perform a simple analysis of the text sent from the browser.</p>
+<p class="aside info">In the <a href="../notebook/">NoteBook tutorial</a>, you'll see how to interact with a Neo4j database, and return much more interesting data concerning the text that is sent to the server.</p>
+
+<p>You can edit your server-side <code>main.js</code> script so that the <code>analyseText</code> method appears as shown below.</p>
+
+<pre class="revised">"use strict"
+
+import { Meteor } from 'meteor/meteor'
+
+var wordFrequencies = {}
+
+<span class="ymmv">// Code trimmed for readability</span>
+
+function analyzeText(options) {
+  // options = { data: &lt;string&gt; }
+  var type = typeof options
+  var text
+
+  if (type !== "object" || options === null) {
+    return "Object expected in analyzeText: " + type
+
+  } else {
+    text = options.data
+    type = typeof text
+    if (type !== "string") {
+      return "String expected in analyzeText: " + type
+    }
+  }
+
+  <span class="new">var words = text.split(/\W/)
+  var output = []
+  var treated = []
+  var total
+    , ii
+    , word
+    , wordData
+    , count
+    , data
+
+  // Convert all words to lowercase
+  words = words.map(function toLowerCase(word) {
+    return word.toLowerCase()
   })
 
-  function defineMethods() {
-    Meteor.methods({
-      analyzeText: analyzeText
-    })
-  }
+  // Ignore unknown words, word fragments and duplicates
+  words = words.filter(function registeredWordsOnly(word, index) {
+    return !!wordFrequencies[word] &amp;&amp; words.indexOf(word) === index
+  })
 
-  function readInWordsFile() {
-    console.log('reading words.json')
-    var fs = Npm.require('fs')
-    // File is saved as public/data/words.json
-    var path = process.cwd() + '/../web.browser/app/data/words.json'
-
-    function fileReadCallback(error, data) {
-      if (error) {
-        console.log('Error: ' + error)
-        return
-      }
-
-      wordFrequencies = JSON.parse(data)
-      console.log(wordFrequencies["the"])
-    } 
-
-    fs.readFile(path, 'utf8', fileReadCallback)
-  }
-
-  function analyzeText(options) {
-    // options = { data: &lt;string&gt; }
-
-    var text = options.data
-    if (typeof text !== "string") {
-      return "String expected in analyzeText: " + options.data
+  words.sort(function byFrequency(word1, word2) {
+    var result = -1
+    if (wordFrequencies[word1].index&gt;wordFrequencies[word2].index){
+      result = 1
     }
 
-    var words = text.split(/\W/)
-    var output = []
-    var treated = []
-    var total
-      , ii
-      , word
-      , wordData
-      , count
-      , data
+    return result
+  })
 
-    // Convert all words to lowercase
-    words = words.map(function toLowerCase(word) {
-      return word.toLowerCase()
-    })
-
-    // Ignore unknown words and word fragments
-    words = words.filter(function registeredWordsOnly(word) {
-      return !!wordFrequencies[word]
-    })
-
-    words.sort(function byFrequency(word1, word2) {
-      return wordFrequencies[word1].index > wordFrequencies[word2].index
-    })
-
-    // Add all filtered words to the output, only once each
-    total = words.length  
-    for (ii = 0; ii &lt; total; ii += 1) {
-      word = words[ii]
-      if (treated.indexOf(word) &lt; 0) {
-        treated.push(word)
-
-        wordData = wordFrequencies[word]
-        data = { 
-          word: word
-        , index: wordData.index
-        , count: wordData.count
-        }
-
-        output.push(data)
-      }
+  // Add all filtered words to the output
+  total = words.length  
+  for (ii = 0; ii &lt; total; ii += 1) {
+    word = words[ii]
+    wordData = wordFrequencies[word]
+    data = { 
+      word: word
+    , index: wordData.index
+    , count: wordData.count
     }
 
-    return output
+    output.push(data)
   }
-  </pre>
 
-  <div class="aside next">In this section, you've ... You've used the following Meteor-specific methods:
+  return output</span>
+}</pre>
+
+<p>This function now filters out all unknown and duplicate words, arranges the known words in order from the most frequent to the least frequent, and then returns an array with the format:</p>
+<pre>[ { word: &lt;string&gt;, index: &lt;integer&gt;, count:  &lt;number&gt; }
+, ...
+]</pre>
+
+<p class="aside warn">The <code>analyzeText</code> function above will fail if you use it on text that is not written in a Latin script. This is because, in JavaScript, the <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a> <code>/\W/</code> <a href="http://stackoverflow.com/a/5596262/1927589">does not recognize word boundaries in non-Latin scripts</a>, like руский, ไอต or 日本語. As a workaround, you will need to use <a href="http://stackoverflow.com/questions/23458872/javascript-regex-word-boundary-b-issue">language-specific regular expressions</a>. For languages such as Thai, where words are not separated by spaces, the appropriate regular expression may be rather complex. Indeed, even in English, words like "won't" will not be treated correctly, because <code>/\W/</code> treats the apostrophe as a word boundary.</p>
+
+<p>You can save the edited <code>main.js</code> file and wait for the Meteor server to restart, and then you repeat the call to <code>analyzeText</code>. This time, the response should be an array of objects.</p>
+
+<figure>
+<img src="img/meteor_call2.png" alt="The browser console shown the response from the edited analyzeText method" />
+<figcaption>Figure 25. The browser console shown the response from the edited <code>analyzeText</code> method</figcaption>
+</figure>
+
+<p class="aside note">Notice that the word "analyze" is not included in the results, because it does not appear in the <code>word.json</code> document (although "analyzed" does appear there, because it is more common).</p>
+
+  <div class="aside next">In this section, you've declared a server-side method so that it can be called from the browser, and you've tested this feature from the browser's console.</p>
+  <p>You've also used the following Meteor-specific methods:
   <ul>
-  <li></li>
+  <li>Meteor.methods</li>
+  <li>Meteor.call</li>
   </ul>
-  <p>In the <a href="#template">next section</a>, you'll see how to .</p>
+  <p>In the <a href="#template">next section</a>, you'll see how to integrate this browser-server round-trip communication with the text selection detection that you worked on <a href="#actions">earlier</a>. You'll also discover how to use Meteor's <span class="keyword">Blaze</span> templates to create HTML elements whose contents updates automatically as new data is received from the server.</p>
   </div>
 
     <footer>
@@ -1468,22 +1460,220 @@
   <ul>
   <li>Create a reactive Meteor template using Blaze to display the results of the call</li>
   </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/04_toolbar.zip" target="source">Download the source files</a>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/08_template.zip" target="source">Download the source files</a>
   </div>
 
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#toolbar">next section</a>, you'll .</p>
+  <h3>Reactive programming in Meteor: Blaze, Angular and React</h3>
+  <p>Meteor 1.3 provides three different <span class="keyword">view layers</span>: <a href="https://guide.meteor.com/blaze.html">Blaze</a>, <a href="http://www.angular-meteor.com/">Angular</a> and <a href="https://guide.meteor.com/react.html">React</a>. Each of these allows you to create pages that update automatically as new information becomes available on the server, and each works in a radically different way. For this tutorial, I have chosen to use Meteor's proprietary Blaze templating system, but if you are more familiar with one of the others, you can adapt the code below to suit your preferred workflow.</p>
+  <h3>Blaze</h3>
+  <p>With Blaze, you write HTML pages that have a non-HTML feature: special <span class="keyword">spacebar</span> tags, using double curly brackets, like this: <code>{{&gt; templateName}}</code>. It uses these in conjunction with standard <a href="http://www.html5rocks.com/en/tutorials/webcomponents/template/">template tags</a>, which look like this: <code>&lt;template name="templateName"&gt; ... &lt;/template&gt;</code></li>
+  </ul>
+  <p>Thanks to Meteor, your custom HTML page is delivered to the browser along with a serious chunk of JavaScript, which gives you new powers. In particular, the Meteor JavaScript:</p>
+  <ul>
+  <li>Allows you to access the features of a global <code>Template</code> object, which can customize the data displayed in your <code>&lt;template&gt;</code> tags</li>
+  <li>Replaces your <code>{{spacebar}}</code> tags with the appropriate &lt;template&gt;</li>
+  </ul>
+  <p>Here's a revised version of the HTML for your Notebook page, so that you can see all this in action:</p>
+  <h4><code>main.html</code></h4>
+<pre class="revised">&lt;head&gt;
+  &lt;title&gt;NoteBook&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p id="selection"&gt;&lt;/p&gt;
+  
+  <span class="new">&lt;table border="1"&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Word&lt;/th&gt;
+      &lt;th&gt;Index&lt;/th&gt;
+      &lt;th&gt;Count/Billion&lt;/th&gt;
+    &lt;/tr&gt;
+      {{&gt; rows}}
+  &lt;/table&gt;</span>
+&lt;/body&gt;
+ 
+<span class="new">&lt;!-- TEMPLATES --&gt;
+
+&lt;template name="rows"&gt;
+  {{#each rows}}
+    &lt;tr&gt;
+      &lt;td&gt;{{word}}&lt;/td&gt;
+      &lt;td&gt;{{index}}&lt;/td&gt;
+      &lt;td&gt;{{count}}&lt;/td&gt;
+    &lt;/tr&gt;
+  {{/each}}
+&lt;/template&gt;</span></pre>
+
+<p>The first half of the new HTML markup creates a table with three columns, each with its own header. You can add some style to the table by editing the <code>main.css</code> file in <code>NoteBook/client/</code> folder inside your Meteor project:</p>  
+  <h4><code>main.css</code></h4>
+<pre class="revised">p#selection {
+  min-height: 2em;
+  width: 100%;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  border-bottom-color: #eee;
+  border-right-color: #eee;
+}
+
+<span class="new">table {
+  border: 1px solid #000;
+  border-collapse: collapse;
+  min-width: 200px;
+  width: 100%;
+}
+th {
+  background-color: #ccc;
+  padding: 0.1em 0.25em;
+}
+td {
+  padding: 0 0.25em;
+}
+td {
+  text-align: right;
+}
+td:first-child {
+  text-align: left;
+}</span></pre>
+
+<p>When Meteor finishes reloading your app, your NoteBook page should look like this:</p>
+<figure>
+<img src="img/empty_table.png" alt="The empty table in the NoteBook window" />
+<figcaption>Figure 26. The empty table in the NoteBook window</figcaption>
+</figure>
+<p>If you inspect the HTML markup, you will see that the <code>{{> rows}}</code> spacebars tag and the <code>&lt;template name="rows"&gt;</code> tag have not been rendered. To fill these rows, you'll need to modify the code in the <code>main.js</code> file in the <code>NoteBook/client/</code> folder, as shown below.</p>
+<div class="aside issue">Meteor uses <span class="keyword">packages</span> to extend its capabilities. The <code>main.js</code> code shown below will not run until you add the <a href="http://docs.meteor.com/api/session.html">Session package</a>. To do this, stop the Meteor app in the Terminal window, using the shortcut <code>ctrl-C</code> , then run <code>meteor add session</code>:
+<pre><span class="revised">=> App running at: http://localhost:3000/</span>
+<span class="new">^C</span>
+$ <span class="new">meteor add session</span>
+                                              
+Changes to your project's package version selections:
+                                              
+reactive-dict  added, version 1.1.8           
+session        added, version 1.1.6
+
+                                              
+session: Session variable</pre>
+<p>When the Session package has been installed, you can restart the Meteor app:</p>
+<pre>$ <span class="new">meteor run</span>
+[[[[[ <span class="ymmv">/Path/to/folder/for/NoteBook</span> ]]]]]
+
+=> Started proxy.                             
+=> Started MongoDB.
+=> Started your app.                          
+
+=> App running at: http://localhost:3000/<span class="new"></span></pre></div>
+  <h4><code>main.js</code> (client)</h4>
+<pre class="revised"><span class="new">import { Template } from 'meteor/templating'
+import { Session } from 'meteor/session' 
+
+<span class="red">Session</span>.set("rows", [])
+ 
+Template.rows.helpers({
+  rows: function rows() {
+    return Session.get("rows")
+  }
+});</span>
+
+Meteor.startup(function() {
+  var extensionId = "dfhlekkdciiblbidbchopphkalomlblf"
+  // Use your own extension id ^
+  var port = chrome.runtime.connect(extensionId)
+  var p = document.getElementById("selection")
+
+  function incoming(request) {
+    switch (request.method) {
+      case "changeSelection":
+        changeSelection(request.data)
+      break
+    } 
+  }
+
+  function changeSelection(selection) {
+    p.innerHTML = selection
+    <span class="new">Meteor.call("analyzeText", { data: selection }, updateTable)</span>
+  }
+
+  <span class="new">function updateTable(error, data) {
+    if (error) {
+      console.log(error)
+    } else {
+      <span class="red">Session</span>.set("rows", data)
+    }
+  }</span>
+
+  port.onMessage.addListener(incoming)
+})</pre>
+
+<h3>Session</h3>
+<p>The <a href="http://docs.meteor.com/api/session.html">Session package</a> creates a global object named <code>Session</code> which allows you to store <span class="keyword">reactive</span> data. Any time any reactive data is changed, the Blaze templates will update to display the new data.</p>
+<figure>
+<img src="img/filled_table.png" alt="The contents of the table changes as you change the selection" />
+<figcaption>Figure 26. The contents of the table changes as you change the selection</figcaption>
+</figure>
+
+<p>The <code>updateTable</code> callback function receives the array of objects that is sent back from the <code>analyzeText</code> server-side method, and tells the <code>Session</code> global to update the value of its <code>rows</code> property. After the selection made in Figure 26 above, <code> Session.get("rows")</code> will now return the array shown below (prettified for readability):</p>
+<pre>[ { count: 56271872,   index:    1, word: "the" }
+, { count: 25956096,   index:    4, word: "to" }
+, { count:  7557477,   index:   13, word: "is" }
+, { count:  2320022,   index:   48, word: "will" }
+, { count:  1665366,   index:   58, word: "any" }
+, { count:  1449681,   index:   69, word: "time" }
+, { count:   498040,   index:  175, word: "new" }
+, { count:    27765.6, index: 2788, word: "display" }
+, { count:    20722.9, index: 3542, word: "data" }
+, { count:    12952.4, index: 5098, word: "blaze" }
+]</pre>
+
+<h3><code>{{#each rows}}</code></h3>
+<p>In your <code>main.html</code> file, the template named <code>"rows"</code> is defined as</p>
+<pre>  {{#each <span class="red">rows</span>}}
+    &lt;tr&gt;
+      &lt;td&gt;{{word}}&lt;/td&gt;
+      &lt;td&gt;{{index}}&lt;/td&gt;
+      &lt;td&gt;{{count}}&lt;/td&gt;
+    &lt;/tr&gt;
+  {{/each}}</pre>
+<p>In your <code>main.js</code> file, you have defined a Template property called <code>rows</code> which returns the value of the <code> Session.get("rows")</code> array:</p>
+<pre>Template.rows.helpers({
+  <span class="red">rows</span>: function rows() {
+    return Session.get("rows")
+  }
+})</pre>
+<p>The second half of the new HTML markup defines the template that will be used to format the data to be displayed instead of the <code>{{> rows}}</code> spacebars tag. The <code>{{<a href="http://meteorcapture.com/spacebars/#each">#each</a> rows}}</code> spacebars tag tells Meteor to take each object in the array in turn, and insert the value of the appropriate key in place of the key, so that <code>{{word}}</code>, for the first item in the array, for example, becomes <code>the</code> in the table.</p>
+  <div class="aside next">In this section, you've used the power of Meteor's Blaze templating system to create a table in the NoteBook window that updates automatically each time you change the selection in the main browser page. To achieve this, you've used:
+  <ul>
+  <li>The <code>&lt;template&gt;</code> HTML tag</li>
+  <li>Blaze's custom spacebars <code>{{ ... }}</code> tags</li>
+  <li>Meteor's reactive Session package</li>
+  <li>Meteor's Template and Session globals</li>
+  <li>The <code>{{#each ...}}</code> spacebars syntax</li>
+  </ul>
+  <p>You've completed all the following steps, that were originally outlined in the <a href="#connection">Creating a connection</a> section:</p>
+  <ol>
+  <li>A content script< in the web page will tell the background script about the selection</li>
+  <li>The background script will forward information to a page script in the NoteBook window</li>
+  <li>The client-side page script in the NoteBook window will send a message to a server-side script on the Meteor server</li>
+  <li>The server-side script will <em>perform a simple operation on the incoming text and send the result</em> back to the client-side page script in the NoteBook window</li>
+  <li>The NoteBook window will update</li>
+  </ol>
+  <p>However, the following steps remain to be completed:</p>
+  <ol>
+  <li>The page script in the NoteBook window will send some of the information it received to the background script</li>
+  <li>The background script will forward the information to the content script in the web page you are reading</li>
+  <li>The display of the web page will update.</li>
+  </ol>
+  <p>In the <a href="#toolbar">next section</a>, you'll see how to inject HTML into the main content page, in preparation for setting the colour of each word to reflect the frequency of its use in English.</p>
   </div>
 
-    <footer>
-      <ul class="nav">
-      <li>
-      <a href="#toolbar">
-      <img src="../img/arrow.png" alt="next"/>
-      </a>
-      </li>
-      </ul>
-    </footer>
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#toolbar">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
 </section>
 
 <!-- TOOLBAR -->
@@ -1504,7 +1694,7 @@
   <footer>
     <ul class="nav">
     <li>
-    <a href="#tbd">
+    <a href="#spans">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>
@@ -1512,9 +1702,35 @@
   </footer>
 </section>
 
-<!-- TBD -->
-  <section id="tbd">
-  <h2>TBD</h2>
+<!-- SPANS -->
+  <section id="spans">
+  <h2>Colouring each word</h2>
+  <div class="aside preview">Here's what you'll learn in this section:
+  <ul>
+  <li>How to </li>
+  <li>How to </li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside next">In this section, you've .
+  <p>In the <a href="#end">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#toggle">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- TOGGLE -->
+  <section id="toggle">
+  <h2>Toggling annotations</h2>
   <div class="aside preview">Here's what you'll learn in this section:
   <ul>
   <li>How to </li>
@@ -1571,8 +1787,6 @@
   <img src="img/overview.png" alt="The Annotations extension in action" />
   <figcaption>Figure 1. The Annotations extension in action</figcaption>
   </figure>
-
-  <p class="aside support">If you have any difficulty anywhere in this tutorial, please <a href="https://github.com/lexogram/openbook/issues/new">tell us about it</a>, and we'll do our best to deal with it for you. Your questions and suggestions can help us make this tutorial better.
 
   <footer>
     <ul class="nav">
