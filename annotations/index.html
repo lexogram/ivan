@@ -13,22 +13,38 @@
       <a href="../"><img src="../img/logo.png" alt="openbook home" /></a>
     </div>
 
-    <nav>
+    <nav>    
+      <h3>Getting started</h3>
       <ol>
         <li><a href="#top">Overview</a></li>
         <li><a href="#waiver">Waiver</a></li>
         <li><a href="#intro">Introduction</a></li>
+      </ol>
+      <h3>The building blocks</h3>
+      <ol start="4">
         <li><a href="#basic">A basic extension</a></li>
         <li><a href="#window">A standalone window</a></li>
         <li><a href="#meteor">Creating a Meteor site</a></li>
+      </ol>
+      <h3>Connections</h3>
+      <ol start="7">
         <li><a href="#connection">Creating a connection</a></li>
-        <li><a href="#actions">Detecting user actions</a></li>
+        <li><a href="#actions">Detecting interactions</a></li>
         <li><a href="#server">A server-side script</a></li>
         <li><a href="#call">Talking to the server</a></li>
         <li><a href="#template">Using Blaze templates</a></li>
+      </ol>
+      <h3>Controls</h3>
+      <ol start="12">
         <li><a href="#toolbar">Adding a toolbar</a></li>
-        <li><a href="#spans">Colouring each word</a></li>
-        <li><a href="#toggle">Toggling annotations</a></li>
+        <li><a href="#toggle">Toggling the display</a></li>
+        <li><a href="#copy">Altering a copy</a></li>
+        <li><a href="#colouring">Colouring each word</a></li>
+        <li><a href="#activation">Explicit activation</a></li>
+      </ol>
+      <h3>Tidying up</h3>
+      <ol start="17">
+        <li><a href="#close">Closing the NoteBook</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
     </nav>
@@ -119,12 +135,12 @@
 <!-- BASIC EXTENSION -->
 <section id="basic">
   <h2>Creating a basic extension</h2>
-  <div class="aside preview">Here's what you'll learn in this section:
+  <div class="aside preview">In this section, you'll learn how to:
   <ul>
-  <li>How to create a manifest.json file to define your extension</li>
-  <li>How to create a button for the Chrome Toolbar</li>
-  <li>How to create a page to display when the button is pressed</li>
-  <li>How to activate your extension</li>
+  <li>Create a manifest.json file to define your extension</li>
+  <li>Create a button for the Chrome Toolbar</li>
+  <li>Create a page to display when the button is pressed</li>
+  <li>Activate your extension</li>
   </ul>
   <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/01_basic_extension.zip" target="source">Download the source files</a>
   </div>
@@ -255,12 +271,12 @@
 <!-- WINDOW -->
 <section id="window">
   <h2>A standalone window</h2>
-  <div class="aside preview">Here's what you'll learn in this section:
+  <div class="aside preview">In this section, you'll learn how to:
   <ul>
-  <li>How to create a background script that will be loaded as soon as Chrome is launched</li>
-  <li>How to call a method in the background script when the extensions toolbar button is clicked</li>
-  <li>How to tell Chrome to open a new window to display a specific URL</li>
-  <li>How to debug a background script</li>
+  <li>Create a background script that will be loaded as soon as Chrome is launched</li>
+  <li>Call a method in the background script when the extensions toolbar button is clicked</li>
+  <li>Tell Chrome to open a new window to display a specific URL</li>
+  <li>Debug a background script</li>
   </ul>
   <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/02_standalone_window.zip" target="source">Download the source files</a>
   </div>
@@ -465,10 +481,10 @@
 <!-- METEOR -->
 <section id="meteor">
   <h2>Creating a Meteor site</h2>
-  <div class="aside preview">Here's what you'll learn in this section:
+  <div class="aside preview">In this section, you'll learn how to:
   <ul>
-  <li>How to install Meteor on your development computer</li>
-  <li>How to view the default Meteor app in your extension popup window</li>
+  <li>Install Meteor on your development computer</li>
+  <li>View the default Meteor app in your extension popup window</li>
   </ul>
   <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
   <a href="https://www.meteor.com/install">Install Meteor</a>
@@ -593,11 +609,11 @@ meteor</pre>
 <section id="connection">
   <h2>Creating a connection between the page script and the background</h2>
   <p>In this section, to check that the connection is working, you'll create a simple "ping" feature in your background script, and use this to increment a number in the NoteBook. Once this counting system is working, you can replace it with more useful features.</p>
-  <div class="aside preview">Here's what you'll learn in this section:
+  <div class="aside preview">In this section, you'll learn how to:
   <ul>
-  <li>How to allow a page script to communicate with your extension's background script</li>
-  <li>How to open a two-way connection between a page script and your extension's background script</li>
-  <li>How to send a messages between the page script and the background</li>
+  <li>Allow a page script to communicate with your extension's background script</li>
+  <li>Open a two-way connection between a page script and your extension's background script</li>
+  <li>Send a messages between the page script and the background</li>
   </ul>
   <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/04_connection.zip" target="source">Download the source files</a>
   </div>
@@ -730,25 +746,27 @@ meteor</pre>
   var port</span>
 
   function useExtension() {
-    if (port) {
-      return
+    if (<span class="new">!port) {
+      openNoteBookWindow()</span>
     }
     
-    var URL = "http://localhost:3000/"
-    var width = 300
-    var top = 0
+    <span class="new">function openNoteBookWindow() {</span>
+      var URL = "http://localhost:3000/"
+      var width = 300
+      var top = 0
 
-    var options = {
-      url: URL
-    , left: screen.availWidth - width
-    , top: top
-    , width: width
-    , height: screen.availHeight - top
-    , focused: false
-    , type: "popup"
-    }
+      var options = {
+        url: URL
+      , left: screen.availWidth - width
+      , top: top
+      , width: width
+      , height: screen.availHeight - top
+      , focused: false
+      , type: "popup"
+      }
 
-    chrome.windows.create(<span class="new">options</span>)
+      chrome.windows.create(<span class="new">options</span>)
+    <span class="new">}</span>
   }
 
   <span class="new">function openConnection(externalPort) {
@@ -831,10 +849,10 @@ meteor</pre>
 <!-- ACTIONS -->
 <section id="actions">
   <h2>Detecting user actions in the main window</h2>
-  <div class="aside preview">Here's what you'll learn in this section:
+  <div class="aside preview">In this section, you'll learn how to:
   <ul>
-  <li>How to inject a "content" script into a third-party web page</li>
-  <li>How to send messages from an arbitrary page to your NoteBook, via the background script</li>
+  <li>Inject a "content" script into a third-party web page</li>
+  <li>Send messages from an arbitrary page to your NoteBook, via the background script</li>
   </ul>
   <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/05_content_script.zip" target="source">Download the source files</a>
   </div>
@@ -1456,7 +1474,7 @@ function analyzeText(options) {
 <!-- TEMPLATE -->
 <section id="template">
   <h2>Using a Blaze template</h2>
-  <div class="aside preview">Here's what you'll learn in this section:
+  <div class="aside preview">In this section, you'll learn how to:
   <ul>
   <li>Create a reactive Meteor template using Blaze to display the results of the call</li>
   </ul>
@@ -1679,42 +1697,312 @@ Meteor.startup(function() {
 <!-- TOOLBAR -->
 <section id="toolbar">
   <h2>Inserting a toolbar into the current tab</h2>
-  <div class="aside preview">Here's what you'll learn in this section:
+   <div class="aside preview">In this section, you'll learn how to:
   <ul>
-  <li>How to </li>
-  <li>How to </li>
+  <li>Inject HTML into third-party content pages</li>
+  <li>Use CSS to place a static toolbar at the top of the window</li>
   </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/04_toolbar.zip" target="source">Download the source files</a>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/08_toolbar.zip" target="source">Download the source files</a>
   </div>
+  <p>In the next five sections, you'll be developing a feature that uses a round-trip from a third-party content page, through the background script, through the page script in the NoteBook window, to the server, and then all the way back again.</p>
+  <p>The aim is to colour each word in the third-party page to reflect how common the word is. The most common words (like "the" and "of") will appear black, words that are not in the top 10,000 will be coloured bright red, and words in between will appear in an appropriately dark shade of red.</p>
+  <p class="aside info">When all the features of the Annotation extension and the NoteBook window are in place, including access to the Neo4j database, the colouring scheme will use different rules. Black words will be the words that you, personally, are most familiar with in the language you are learning; red words will be those the database thinks you have never seen before.</p>
+  <p>The first step will be to learn how to inject HTML and CSS into a third-party content page. You can start by adding a Toolbar at the top of the page, as shown if Figure 24 below. Initially, this will be just for show, but in later sections, you'll learn how to use buttons in the Toolbar to switch off the Annotation extension for a given page and to toggle between the annotated and original versions of the page.</p>
+ 
+  <figure>
+  <img src="img/toolbar.png" alt="The first version of the Toolbar injected into a third-party page" />
+  <figcaption>Figure 24. The first version of the Toolbar injected into a third-party page</figcaption>
+  </figure>
 
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#tbd">next section</a>, you'll .</p>
-  </div>
+  <h3>Injected Files</h3>
+  <p>You can create two new files <code>inject.html</code> and <code>inject.css</code> and save them in folders named <code>html</code> and <code>css</code> as shown below:</p>
+  <figure>
+  <img src="img/injected_files.png" alt="Saving inject.css and inject.html in your extension folder" />
+  <figcaption>Figure 25. Saving inject.css and inject.html in your extension folder</figcaption>
+  </figure>
+  <h4>inject.html</h4>
+  <p>Here's the HTML that you can use in your <code>inject.html</code> file. Notice that it adds a <code>section</code> element with a class of <code>lxo-toolbar</code>, a button, and a link. The link is attached to the character "HEAVY MULTIPLICATION X" &#10006; (<code>&amp;#10006;</code>) which looks good as a close icon.</p>
+<pre>&lt;section class="lxo-toolbar"&gt;
+  &lt;button type="button"&gt;Show original&lt;/button&gt;
+  &lt;a class="close" href="#close"&gt;&amp;#10006;&lt;/a&gt;
+&lt;/section&gt;</pre>
 
-  <footer>
-    <ul class="nav">
-    <li>
-    <a href="#spans">
-    <img src="../img/arrow.png" alt="next"/>
-    </a>
-    </li>
-    </ul>
-  </footer>
-</section>
+<h4>injected.css</h4>
+<p>Here are the CSS rules that you can use in your <code>inject.css</code> file. Notice that this creates a margin of 32 pixels above the body of the page, and a toolbar that is 31 + 1 pixels high, which is fixed in the space left by the body margin. It also provides colouring for the &#10006; close icon which changes when the mouse interacts with the link.</p>
+<pre>body {
+  margin-top: 32px !important;
+}
 
-<!-- SPANS -->
-  <section id="spans">
-  <h2>Colouring each word</h2>
-  <div class="aside preview">Here's what you'll learn in this section:
+section.lxo-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 31px;
+  min-height: 31px;
+  min-width: 350px;
+  width: 100%;
+  padding: 0;
+  background-color: #ccc;
+  border-bottom: 1px solid #999;
+}
+
+a.close {
+  text-decoration: none;
+  color: #999;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+a.close:hover,
+a.close:active {
+  color: #900;
+}</pre>
+<h3>Injecting the HTML file</h3>
+<p>In order to get Chrome to inject these files into a third-party content page, you're going to have to make changes to both the <code>background.js</code> and the <code>content.js</code> files. You can start with the <code>inject.html</code> file. The <code>background.js</code> code below makes two calls to methods in the <code>content.js</code> script (shown in <em>italics</em>), using <code>chrome.tabs.sendMessage</code>; you'll see the methods from the <code>content.js</code> file in a moment.</p>
+<pre class="revised">"use strict"
+
+;(function background(){
+
+  var port
+  <span class="new">var injectedHTML = <span class="red">chrome.extension.getURL</span>("html/inject.html")</span>
+
+  function useExtension() {
+    <span class="new"><span class="red">chrome.tabs.query</span>(
+    { active: true
+    , currentWindow: true
+    }
+  , checkPageStatus)</span>
+
+    if (!port) {
+      openNoteBookWindow()
+    }
+    
+    function openNoteBookWindow() {
+      // code omitted for clarity
+    }
+
+    <span class="new">function checkPageStatus(tabs) {
+      var id = tabs[0].id
+      var message = { 
+        method: "<em>extensionStatus</em>"
+      }
+      var html // set in customizeContentPage => stateChanged()
+
+      <span class="red">chrome.tabs.sendMessage</span>(id, message, checkExtensionStatus)
+
+      function checkExtensionStatus(response) {
+        if (!response.extensionIsActive) {
+          customizeContentPage()
+        }
+      }
+
+      function customizeContentPage() {
+        var xhr = new XMLHttpRequest()
+        xhr.open("GET", injectedHTML, true)
+        xhr.onreadystatechange = stateChanged
+        xhr.send()
+
+        function stateChanged() {
+          if (xhr.readyState === 4) {
+            html = xhr.responseText
+            insertToolbar()
+          }
+        }
+      }
+
+      function insertToolbar() {
+        var message = { 
+          method: "<em>insertToolbar</em>"
+        , html: html
+        }
+
+        function callback(response) {
+          console.log("toolbar inserted", response)
+        }
+
+        <span class="red">chrome.tabs.sendMessage</span>(id, message, callback)
+      }
+    }</span>
+  }
+
+  function openConnection(externalPort) {
+    // code omitted for clarity
+  }
+
+  chrome.runtime.onConnectExternal.addListener(openConnection)
+  chrome.browserAction.onClicked.addListener(useExtension)
+  chrome.runtime.onMessage.addListener(treatMessage)
+})()</pre>
+
+<h3>Step by step</h3>
+<p>The new code shown above takes four separate steps after the browser action button is clicked before it's ready to inject any HTML into the content page:</p>
+<ol>
+  <li>With <code>chrome.tabs.query({ active: true }, checkPageStatus)</code>, it asks Chrome for data concerning the tab where the browser action button has just been clicked, and to call the <code>checkPageStatus</code> when this information is available.</li>
+  <li>In <code>checkPageStatus</code>, it gets Chrome to ask this currently active tab if the extension is already active for this tab, using a call to an <code>extensionStatus</code> method in the content script which you will see shortly. It asks Chrome to call the <code>checkExtensionStatus</code> callback function with the result of this enquiry.</li>
+  <li>In the <code>checkExtensionStatus</code> callback, if the extension is not already active, a call to <code>customizeContentPage</code> is triggered. This starts an asynchronous AJAX request for the contents of the file <code>inject.html</code> that you created earlier. When this asynchronous call returns with the HTML to insert, the <code>insertToolbar</code> callback method is activated</li>
+  <li>The background script can't insert any new HTML directly into the content page, so it forwards the HTML string to a second <code>insertToolbar</code> method in the <code>content.js</code> script, and the job is done.</li>
+</ol>
+<h3>New Chrome methods</h3>
+<p>The code listing above uses 3 Chrome-specific methods:</p>
+<ul>
+<li>chrome.extension.getURL</li>
+<li>chrome.tabs.query</li>
+<li>chrome.tabs.sendMessage</li>
+</ul>
+<p>You've <a href="#window">already seen</a> <code><a href="https://developer.chrome.com/extensions/extension#method-getURL">chrome.extension.getURL</a></code>, when you first created your standalone NoteBook window, but the other two are new.</p>
+<p>The <code><a href="https://developer.chrome.com/extensions/tabs#method-query">chrome.tabs.query</a></code> asks Chrome for an array of tab objects that match the query. In this case, the array should return a single object corresponding to the active tab of the current window. The goal in this case is to retrieve the unique <code>id</code> of the active tab, so that messages can be sent from the background script to that particular tab, as described next.</p>
+<p>The <code><a href="https://developer.chrome.com/extensions/tabs#method-sendMessage">chrome.tabs.sendMessage</a></code> method will trigger any listeners to the <code>chrome.extension.onMessage</code> event in the content tab defined by the <code>id</code> argument. The result of the call can be handled by a callback. In this case, the message sent to <code>chrome.tabs.sendMessage</code> is an object with a <code>method property</code> and possibly other properties, but it could be any value.</p>
+
+<h3>Updating the <code>content.js</code> script</h3>
+<p>The <code>content.js</code> script needs to react to calls sent from the background script using <code>chrome.tabs.sendMessage</code>. This means creating a listener for the <code>chrome.extension.onMessage</code> event. The code below uses the <code>treatMessage</code> function for this. This assumes that the incoming request is an object, and checks for the value of its <code>request</code> property, and then dispatches the call to the appropriate method: <code>extensionStatus</code> or <code>insertToolbar</code>:</p>
+<pre class="revised">"use strict"
+
+;(function content(){
+
+  var selectedText = ""
+  <span class="new">var extensionIsActive = false</span>
+
+  document.body.addEventListener("mouseup", checkSelection, false)
+  document.body.addEventListener("keyup", checkSelection, false)
+
+  function checkSelection(event) {
+    <span class="new">if (!extensionIsActive) {
+      return
+    }</span>
+
+    var selection = document.getSelection()
+    var text = selection.toString()
+
+    if (selectedText !== text) {
+      selectedText = text
+
+      chrome.runtime.sendMessage({
+        method: "changeSelection"
+      , data: selectedText
+      })
+    }
+  }
+
+  <span class="new">function treatMessage(request, sender, sendResponse) {
+    switch (request.method) {
+      case "extensionStatus":
+        extensionStatus(request, sendResponse)
+      break
+      case "insertToolbar":
+        insertToolbar(request)
+      break
+    }   
+  }
+
+  function extensionStatus(request, sendResponse) {
+    sendResponse({ extensionIsActive: extensionIsActive })
+  }
+
+  function insertToolbar(request) {
+    </span>// request = {
+    //   method: "insertToolbar"
+    // , html: &lt;html string&gt;
+    // }
+      
+    <span class="new">var injectedDOM = parseAsElements(request.html)
+    appendSectionToBody(injectedDOM)
+    extensionIsActive = true
+
+    return "toolbar inserted"
+
+    function parseAsElements(htmlString) {
+      var parser = new DOMParser()
+      var tempDoc = parser.parseFromString(htmlString, "text/html")
+      return tempDoc.body.childNodes
+    }
+
+    function appendSectionToBody(children) {
+      var total = children.length
+      var body = document.body
+      
+      for (var ii = 0; ii < total; ii += 1) {
+        body.appendChild(children[0])
+      }
+    }
+  }
+
+  <span class="red">chrome.extension.onMessage.addListener</span>(treatMessage)</span>
+})()</span></pre>
+
+<h3>Extension status</h3>
+
+<p>The <code>extensionIsActive</code> flag serves two purposes. It starts off <code>false</code> and is set to <code>true</code> after the Toolbar section has been displayed. First, this ensures that the Toolbar section is added to the page only once, and second, thanks to the three lines of code added to the <code>checkSelection</code> function, it also ensures that no information is sent to the NoteBook window and on to the server unless the user has explicitly activated the Annotation extension for the current tab. In other words, the presence of the Toolbar informs the user that the Annotation extension is active. In the next section, you'll see how to close the Toolbar and de-activate the extension.</p>
+
+<h3><code>insertToolbar</code></h3>
+<p>The <code>insertToolbar</code> method is only triggered if the Toolbar section is not already present. The <code>request</code> object contains a property named <code>html</code> whose value is the string read in from the <code>inject.html</code> that you created at the beginning of this section. If you edit <code>inject.html</code> and reload your extension, then the Toolbar will display something different.</p>
+<div class="aside note">Note the use of the <code><a href="https://developer.mozilla.org/en/docs/Web/API/DOMParser">DOMParser</a></code> object to convert a string into DOM document.
+<p>The individual children of this temporary DOM document are then appended to the <code>body</code> of the document. As each child is appended to the document <code>body</code>, it is removed from the temporary DOM document, so thet next child to add will always be element <code>0</code> in the array of child nodes.</p>
+</div>
+<h3>inject.css</h3>
+<p>The Toolbar section is appended at the end of the <code>document.body</code>, but you want it to appear at the top, without covering up any other part of the page. To do this, you can inject a CSS file into the content page. This is much simpler than injecting HTML. A simple call in <code>background.js</code> to <code>chrome.tabs.insertCSS</code> with the appropriate tab <code>id</code> and file details is enough:</p>
+<pre class="revised">"use strict"
+
+;(function background(){
+
+  var port
+  var injectedHTML = chrome.extension.getURL("html/inject.html")
+  <span class="new">var injectedCSSFile = "css/inject.css" // no getURL() needed</span>
+
+  function useExtension() {
+    // code omitted for clarity
+  
+    function checkPageStatus(tabs) {
+      // code omitted for clarity
+
+      function customizeContentPage() {
+        var xhr = new XMLHttpRequest()
+        xhr.open("GET", injectedHTML, true)
+        xhr.onreadystatechange = stateChanged
+        xhr.send()
+
+        function stateChanged() {
+          if (xhr.readyState === 4) {
+            html = xhr.responseText
+            <span class="new">insertCSS()</span>
+            insertToolbar()
+          }
+        }
+      }
+
+      <span class="new">function insertCSS() {  
+        var cssDetails = {
+          file: injectedCSSFile
+        , runAt: "document_start"
+        }
+        <span class="red">chrome.tabs.insertCSS</span>(id, cssDetails, callback)
+
+        function callback() {
+          console.log("CSS injected")
+        }
+      }</span>
+
+      function insertToolbar() {
+        // code omitted for clarity
+      }
+    }
+  }
+
+  // code omitted for clarity
+})()</pre>
+<p class="aside note">If you want to inject CSS into <em>every</em> content page, you can do this via the <a href="https://developer.chrome.com/extensions/content_scripts#registration"><code>manifest.json</code></a> file.</p>
+
+  <div class="aside next">In this section, you've worked through all the hoops you need to inject HTML elements as-needed into a third-party content page. You've also seen how much simpler it is to inject CSS into a specific page.
+
+  <p>You've used the following expressions that are specific to Chrome extensions:</p>
   <ul>
-  <li>How to </li>
-  <li>How to </li>
+  <li><code>chrome.extension.getURL()</code> </li>
+  <li><code>chrome.tabs.query()</code> </li>
+  <li><code>chrome.tabs.sendMessage()</code> </li>
+  <li><code>chrome.tabs.insertCSS()</code></li>
   </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
-  </div>
 
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#end">next section</a>, you'll .</p>
+  <p>In the <a href="#toggle">next section</a>, you'll see how to close the Toolbar and de-activate the Annotation extension.</p>
   </div>
 
   <footer>
@@ -1730,11 +2018,115 @@ Meteor.startup(function() {
 
 <!-- TOGGLE -->
   <section id="toggle">
-  <h2>Toggling annotations</h2>
-  <div class="aside preview">Here's what you'll learn in this section:
+  <h2>Toggling the display</h2>
+  <div class="aside preview">In this section, you'll learn how to:
   <ul>
-  <li>How to </li>
-  <li>How to </li>
+  <li>X</li>
+  <li>Y</li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside next">In this section, you've .
+  <p>In the <a href="#close">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#close">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- SPANS -->
+  <section id="copy">
+  <h2>Altering a copy</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+  <ul>
+  <li>X</li>
+  <li>Y</li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside next">In this section, you've .
+  <p>In the <a href="#colouring">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#colouring">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- COLOURING -->
+  <section id="colouring">
+  <h2>Colouring each word</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+  <ul>
+  <li>X</li>
+  <li>Y</li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside next">In this section, you've .
+  <p>In the <a href="#end">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#activation">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- ACTIVATION -->
+  <section id="activation">
+  <h2>Explicit activation for each page</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+  <ul>
+  <li>X</li>
+  <li>Y</li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside next">In this section, you've .
+  <p>In the <a href="#close">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#close">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- CLOSE -->
+  <section id="close">
+  <h2>Closing the NoteBook window</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+  <ul>
+  <li>X</li>
+  <li>Y</li>
   </ul>
   <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
   </div>
@@ -1759,10 +2151,10 @@ Meteor.startup(function() {
   <h2>Conclusion</h2>
   <div class="aside preview">Here's what you've learnt:
   <ul>
-  <li>How to create a Chrome extension</li>
-  <li>How to modify the DOM of the main page</li>
-  <li>How to communicate between different pages</li>
-  <li>How to interact with your own server</li>
+  <li>Create a Chrome extension</li>
+  <li>Modify the DOM of the main page</li>
+  <li>Communicate between different pages</li>
+  <li>Interact with your own server</li>
   </ul>
   </div>
 
