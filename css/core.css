@@ -761,6 +761,10 @@ box-sizing: border-box;
 border: none;
 border-radius: 0;
 }
+.nul {
+list-style-type: none;
+padding: 0;
+}
 
 @media print
 {

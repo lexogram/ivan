@@ -6,7 +6,7 @@ TEXT
 - Add reference to Neo4j in section 6?
 
 JS
-- Remember scrollTop when navigating away from a page; restore scrollTop when returning to that page.
+✓ Remember scrollTop when navigating away from a page; restore scrollTop when returning to that page.
 
 CSS
 <printing>
@@ -14,9 +14,29 @@ CSS
 - Number sections
 - Avoid splitting images on page breaks
 - Hide sidebar if page is too narrow
+<encapsulation>
+- Ensure CSS for Toolbar is independent on CSS for page
 
 MISC
 - Zoom scaled-down images to full size when clicked
+- Find text in all sections
+- Display as single page
 
 TESTING
 - Check that Tip disclosure triangles work correctly now in all major browsers
+✓ Is inject.css added multiple times?
+- What happens to the Toolbar and extensionIsActive when you navigate to a different page within the same tab?
+
+POPUP WINDOW
+- Menu
+  - Open
+  - Close
+  - Show original | annotations
+  - Register / Log in
+  - Log out
+  - Manage automatic activation
+    - Specific languages
+    - Specific pages
+    - Specific pages to ignore
+- Icon
+  - Appearance depends on page language and activation state

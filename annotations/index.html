@@ -34,17 +34,21 @@
         <li><a href="#call">Talking to the server</a></li>
         <li><a href="#template">Using Blaze templates</a></li>
       </ol>
-      <h3>Controls</h3>
+      <h3>Toolbar</h3>
       <ol start="12">
         <li><a href="#toolbar">Adding a toolbar</a></li>
-        <li><a href="#toggle">Toggling the display</a></li>
+        <li><a href="#close">Closing the toolbar</a></li>
+        <li><a href="#navigate">Navigating</a></li>
+      </ol>
+      <h3>Customizing the page</h3>
+      <ol start="15">
         <li><a href="#copy">Altering a copy</a></li>
         <li><a href="#colouring">Colouring each word</a></li>
-        <li><a href="#activation">Explicit activation</a></li>
+        <li><a href="#toggle">Toggling the display</a></li>
       </ol>
-      <h3>Tidying up</h3>
-      <ol start="17">
-        <li><a href="#close">Closing the NoteBook</a></li>
+      <h3>Delivery</h3>
+      <ol start="18">
+        <li><a href="#sharing">Sharing your extension</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
     </nav>
@@ -1680,7 +1684,7 @@ Meteor.startup(function() {
   <li>The background script will forward the information to the content script in the web page you are reading</li>
   <li>The display of the web page will update.</li>
   </ol>
-  <p>In the <a href="#toolbar">next section</a>, you'll see how to inject HTML into the main content page, in preparation for setting the colour of each word to reflect the frequency of its use in English.</p>
+  <p>In the <a href="#toolbar">next section</a>, you'll see how to inject HTML into the main content page, in order to create a Toolbar that indicates that your Annotation extension is active.</p>
   </div>
 
   <footer>
@@ -1702,12 +1706,10 @@ Meteor.startup(function() {
   <li>Inject HTML into third-party content pages</li>
   <li>Use CSS to place a static toolbar at the top of the window</li>
   </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/08_toolbar.zip" target="source">Download the source files</a>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/09_toolbar.zip" target="source">Download the source files</a>
   </div>
-  <p>In the next five sections, you'll be developing a feature that uses a round-trip from a third-party content page, through the background script, through the page script in the NoteBook window, to the server, and then all the way back again.</p>
-  <p>The aim is to colour each word in the third-party page to reflect how common the word is. The most common words (like "the" and "of") will appear black, words that are not in the top 10,000 will be coloured bright red, and words in between will appear in an appropriately dark shade of red.</p>
-  <p class="aside info">When all the features of the Annotation extension and the NoteBook window are in place, including access to the Neo4j database, the colouring scheme will use different rules. Black words will be the words that you, personally, are most familiar with in the language you are learning; red words will be those the database thinks you have never seen before.</p>
-  <p>The first step will be to learn how to inject HTML and CSS into a third-party content page. You can start by adding a Toolbar at the top of the page, as shown if Figure 24 below. Initially, this will be just for show, but in later sections, you'll learn how to use buttons in the Toolbar to switch off the Annotation extension for a given page and to toggle between the annotated and original versions of the page.</p>
+  <p>Your users will probably not be working with your Annotation extension all the time. They will want it available only on pages in the language(s) they are learning, and the will want to see when it is active and when it is not, and they will want to Deactivate it when they no longer need it.</p>
+  <p>You can provide this functionality through a Toolbar at the top of the page, as shown if Figure 24 below. In the next section, you'll learn how to use the Toolbar to switch off the Annotation extension for the current page; in section 17: <a href="#toggle">Toggling the display</a> you'll see how to toggle between the annotated and original versions of the page.</p>
  
   <figure>
   <img src="img/toolbar.png" alt="The first version of the Toolbar injected into a third-party page" />
@@ -1727,10 +1729,21 @@ Meteor.startup(function() {
   &lt;a class="close" href="#close"&gt;&amp;#10006;&lt;/a&gt;
 &lt;/section&gt;</pre>
 
+<p class="aside note">The &#10006; icon and the <code>Show original</code> button won't do anything yet. You'll be adding code for these in sections 13: <a href="#toggle">Closing the toolbar</a> and 17: <a href="#toggle">Toggling the display</a>.</p>
+<div class="aside tip">You might also find that the following special characters can work well as close icons in your own projects:
+<ul class="nul">
+<li>&#9746;&nbsp;&nbsp;&amp;#9746;</li>
+<li>&#10005;&nbsp;&nbsp;&amp;#10005;</li>
+<li>&#10007;&nbsp;&nbsp;&amp;#10007;</li>
+<li>&#10008;&nbsp;&nbsp;&amp;#10008;</li>
+<li>&#10062;&nbsp;&nbsp;&amp;#10062;</li>
+</ul>
+</div>
+
 <h4>injected.css</h4>
 <p>Here are the CSS rules that you can use in your <code>inject.css</code> file. Notice that this creates a margin of 32 pixels above the body of the page, and a toolbar that is 31 + 1 pixels high, which is fixed in the space left by the body margin. It also provides colouring for the &#10006; close icon which changes when the mouse interacts with the link.</p>
-<pre>body {
-  margin-top: 32px !important;
+<pre>body.lxo-annotations {
+  margin-top: 32px;
 }
 
 section.lxo-toolbar {
@@ -1861,7 +1874,8 @@ a.close:active {
 ;(function content(){
 
   var selectedText = ""
-  <span class="new">var extensionIsActive = false</span>
+  <span class="new">var extensionIsActive = false
+  var cssInjected = false</span>
 
   document.body.addEventListener("mouseup", checkSelection, false)
   document.body.addEventListener("keyup", checkSelection, false)
@@ -1896,7 +1910,10 @@ a.close:active {
   }
 
   function extensionStatus(request, sendResponse) {
-    sendResponse({ extensionIsActive: extensionIsActive })
+    sendResponse({
+      extensionIsActive: extensionIsActive
+    , cssInjected: cssInjected
+    })
   }
 
   function insertToolbar(request) {
@@ -1905,8 +1922,10 @@ a.close:active {
     // , html: &lt;html string&gt;
     // }
       
-    <span class="new">var injectedDOM = parseAsElements(request.html)
+    <span class="new">var body = document.body
+    var injectedDOM = parseAsElements(request.html)
     appendSectionToBody(injectedDOM)
+    body.classList.add("lxo-annotations")
     extensionIsActive = true
 
     return "toolbar inserted"
@@ -1919,7 +1938,6 @@ a.close:active {
 
     function appendSectionToBody(children) {
       var total = children.length
-      var body = document.body
       
       for (var ii = 0; ii < total; ii += 1) {
         body.appendChild(children[0])
@@ -1931,14 +1949,22 @@ a.close:active {
 })()</span></pre>
 
 <h3>Extension status</h3>
-
-<p>The <code>extensionIsActive</code> flag serves two purposes. It starts off <code>false</code> and is set to <code>true</code> after the Toolbar section has been displayed. First, this ensures that the Toolbar section is added to the page only once, and second, thanks to the three lines of code added to the <code>checkSelection</code> function, it also ensures that no information is sent to the NoteBook window and on to the server unless the user has explicitly activated the Annotation extension for the current tab. In other words, the presence of the Toolbar informs the user that the Annotation extension is active. In the next section, you'll see how to close the Toolbar and de-activate the extension.</p>
-
+<p>There are now two new variables in <code>content.js</code>:</p>
+<ul>
+<li><code>extensionIsActive</code> </li>
+<li><code>cssInjected</code></li>
+</ul>
+<p>The <code>extensionIsActive</code> flag serves two purposes. It starts off <code>false</code> and is set to <code>true</code> after the Toolbar section has been displayed. First, this ensures that the Toolbar section is added to the page only once, and second, thanks to the three lines of code added to the <code>checkSelection</code> function, it also ensures that no information is sent to the NoteBook window and on to the server unless the user has explicitly activated the Annotation extension for the current tab. In other words, the presence of the Toolbar informs the user that the Annotation extension is active. In the next section, you'll see how to close the Toolbar and Deactivate the extension.</p>
+<p>The <code>cssInjected</code> flag is set to <code>true</code> at the same time as <code>extensionIsActive</code>, but it is never switched back to <code>false</code>. As you will see below, once <code>chrome.tabs.insertCSS</code> has been called from the <code>background.js</code> script, the inserted CSS cannot be removed. The <code>cssInjected</code> flag is used to ensure that the extension's custom CSS rules are not inserted twice.</p>
 <h3><code>insertToolbar</code></h3>
-<p>The <code>insertToolbar</code> method is only triggered if the Toolbar section is not already present. The <code>request</code> object contains a property named <code>html</code> whose value is the string read in from the <code>inject.html</code> that you created at the beginning of this section. If you edit <code>inject.html</code> and reload your extension, then the Toolbar will display something different.</p>
+<p>The <code>insertToolbar</code> method is only triggered if the Toolbar section is not already present. The <code>request</code> object contains a property named <code>html</code> whose value is the string read in from the <code>inject.html</code> that you created at the beginning of this section. If you edited <code>inject.html</code> and reload your extension, then the Toolbar would display something different.</p>
 <div class="aside note">Note the use of the <code><a href="https://developer.mozilla.org/en/docs/Web/API/DOMParser">DOMParser</a></code> object to convert a string into DOM document.
-<p>The individual children of this temporary DOM document are then appended to the <code>body</code> of the document. As each child is appended to the document <code>body</code>, it is removed from the temporary DOM document, so thet next child to add will always be element <code>0</code> in the array of child nodes.</p>
+<p>The individual children of this temporary DOM document are then appended to the <code>body</code> of the document. As each child is appended to the document <code>body</code>, it is removed from the temporary DOM document, so the next child to add will always be element <code>0</code> in the array of child nodes.</p>
 </div>
+
+<h3>Setting the class of the body</h3>
+<p>The <code>inject.css</code> file uses two classes with a custom <code>lxo-</code> prefix: one for the document <code>body</code>, one for the toolbar section. In the <code>appendSectionToBody</code> method, the class <code>lxo-annotations</code> is added to the body to activate the rule <code>margin-top: 32px;</code>; when the Toolbar is removed, so this className is also removed from the body to restore the original <code>margin-top</code>.</p>
+
 <h3>inject.css</h3>
 <p>The Toolbar section is appended at the end of the <code>document.body</code>, but you want it to appear at the top, without covering up any other part of the page. To do this, you can inject a CSS file into the content page. This is much simpler than injecting HTML. A simple call in <code>background.js</code> to <code>chrome.tabs.insertCSS</code> with the appropriate tab <code>id</code> and file details is enough:</p>
 <pre class="revised">"use strict"
@@ -1947,15 +1973,27 @@ a.close:active {
 
   var port
   var injectedHTML = chrome.extension.getURL("html/inject.html")
-  <span class="new">var injectedCSSFile = "css/inject.css" // no getURL() needed</span>
+  <span class="new">var injectedCSSFile = "css/inject.css"</span> // no getURL() needed
 
   function useExtension() {
     // code omitted for clarity
   
     function checkPageStatus(tabs) {
-      // code omitted for clarity
+      var id = tabs[0].id
+      var message = { 
+        method: "extensionStatus"
+      }
+      var html // set in customizeContentPage => stateChanged()
 
-      function customizeContentPage() {
+      chrome.tabs.sendMessage(id, message, checkExtensionStatus)
+
+      function checkExtensionStatus(response) {
+        if (!response.extensionIsActive) {
+          customizeContentPage(<span class="new">response.cssInjected</span>)
+        }
+      }
+
+      function customizeContentPage(<span class="new">cssInjected</span>) {
         var xhr = new XMLHttpRequest()
         xhr.open("GET", injectedHTML, true)
         xhr.onreadystatechange = stateChanged
@@ -1964,7 +2002,9 @@ a.close:active {
         function stateChanged() {
           if (xhr.readyState === 4) {
             html = xhr.responseText
-            <span class="new">insertCSS()</span>
+            <span class="new">if (!cssInjected) {
+              insertCSS()
+            }</span>
             insertToolbar()
           }
         }
@@ -1990,7 +2030,8 @@ a.close:active {
 
   // code omitted for clarity
 })()</pre>
-<p class="aside note">If you want to inject CSS into <em>every</em> content page, you can do this via the <a href="https://developer.chrome.com/extensions/content_scripts#registration"><code>manifest.json</code></a> file.</p>
+<p>When the Annotation extension is first activated for the current tab, your custom CSS file is inserted by <code>chrome.tabs.insertCSS</code>. However, at the time of writing, Chrome provides no way to un-insert a CSS file. All your custom rules will remain available to the page until the user navigates away. If the extension is Deactivated (see <a href="#close">next section</a>), then reactivated again, you don't want your custom CSS file to be inserted a second time. The <code>cssInjected</code> flag, retrieved by the <code>checkExtensionStatus</code> callback from the script on the content page, ensures that this does not happen.</p>
+<p class="aside tip">If you want to inject CSS automatically into every content page as it is loaded, you can do this via the <a href="https://developer.chrome.com/extensions/content_scripts#registration"><code>manifest.json</code></a> file.</p>
 
   <div class="aside next">In this section, you've worked through all the hoops you need to inject HTML elements as-needed into a third-party content page. You've also seen how much simpler it is to inject CSS into a specific page.
 
@@ -2002,33 +2043,7 @@ a.close:active {
   <li><code>chrome.tabs.insertCSS()</code></li>
   </ul>
 
-  <p>In the <a href="#toggle">next section</a>, you'll see how to close the Toolbar and de-activate the Annotation extension.</p>
-  </div>
-
-  <footer>
-    <ul class="nav">
-    <li>
-    <a href="#toggle">
-    <img src="../img/arrow.png" alt="next"/>
-    </a>
-    </li>
-    </ul>
-  </footer>
-</section>
-
-<!-- TOGGLE -->
-  <section id="toggle">
-  <h2>Toggling the display</h2>
-  <div class="aside preview">In this section, you'll learn how to:
-  <ul>
-  <li>X</li>
-  <li>Y</li>
-  </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
-  </div>
-
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#close">next section</a>, you'll .</p>
+  <p>In the <a href="#close">next section</a>, you'll see how to close the Toolbar and Deactivate the Annotation extension.</p>
   </div>
 
   <footer>
@@ -2042,9 +2057,183 @@ a.close:active {
   </footer>
 </section>
 
+<!-- CLOSE -->
+  <section id="close">
+  <h2>Closing the Toolbar</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+  <ul>
+  <li>Deactivate the Annotation extension for the current tab by clicking on the &#10006; close icon</li>
+  <li>Deactivate the Annotation extension for all tabs by closing the NoteBook popup window</li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/10_close.zip" target="source">Download the source files</a>
+  </div>
+
+  <h3>Activating the &#10006; close icon</h3>
+  <p>The code listing for <code>content.js</code> below shows how to add a <code>"click"</code> event listener to the &#10006; close icon, and how to use this to remove the toolbar and deactivate the Annotation extension for the current tab. But it also does a little bit more: it adds an entry to the <code>switch</code> statement in the <code>treatMessage</code> method, so that the Toolbar can be closed by a call sent from the <code>background.js</code> script. The <code>removeToolbar</code> function also has a check for <code>extensionIsActive</code>, so that a <code>removeToolbar</code> message can be safely sent to any tab, regardless of whether the Annotation extension is currently active for that tab.</p>
+
+<h4><code>content.js</code></h4>
+  <pre class="revised">"use strict"
+
+;(function content(){
+
+  // code omitted for clarity
+
+  function treatMessage(request, sender, sendResponse) {
+    switch (request.method) {
+      case "extensionStatus":
+        extensionStatus(request, sendResponse)
+      break
+      case "insertToolbar":
+        insertToolbar(request)
+      break
+      <span class="new">case "removeToolbar":
+        removeToolbar()
+      break</span>
+    }   
+  }
+
+  // code omitted for clarity
+
+  function insertToolbar(request) {
+    var body = document.body
+    var injectedDOM = parseAsElements(request.html)
+    appendSectionToBody(injectedDOM)
+    body.classList.add("lxo-annotations")
+    extensionIsActive = true
+    cssInjected = true
+
+    <span class="new">var close = document.querySelector(".lxo-toolbar a.close")
+    close.addEventListener("click", removeToolbar, false)</span>
+
+    return "toolbar inserted"
+
+    // code omitted for clarity
+  }
+
+  <span class="new">function removeToolbar() {
+    if (!extensionIsActive) {
+      return
+    }
+
+    var toolbar = document.querySelector("section.lxo-toolbar")
+    toolbar.parentNode.removeChild(toolbar)
+    document.body.classList.remove("lxo-annotations")
+    extensionIsActive = false
+    </span>// cssInjected remains true<span class="new">
+  }</span>
+
+  chrome.extension.onMessage.addListener(treatMessage)
+})()</pre>
+
+<p class="aside note">Note that <code>extensionIsActive</code> is set to <code>false</code> when the Toolbar is removed, so that changes in the selected text are no longer forwarded to the NoteBook window. However, <code>cssInjected</code> is left as <code>true</code>, so that the <code>background.js</code> script will not use <code>chrome.tabs.insertCSS</code> a second time for this tab.</p>
+
+<h3>Deactivating the extension when the NoteBook window is closed</h3>
+<p>If the user closes the NoteBook window, then there's no point keeping the Annotation extension active in any tabs. When the NoteBook window is closed, a <code>onbeforeunload</code> event will be triggered in the window; you can intercept this and use the event to tell your extension's <code>background.js</code> script to close any Annotation toolbar that is currently open, and to destroy the connection between itself and the NoteBook window.</p>
+
+<h4>Meteor's <code>client/main.js</code></h4>
+<pre class="revised">import { Template } from 'meteor/templating'
+import { Session } from 'meteor/session'
+
+// code omitted for clarity
+
+Meteor.startup(function() {
+  // code omitted for clarity
+
+  <span class="new">function disableExtension() {
+    <span class="red">port.postMessage</span>({ method: "disableExtension" })
+  }
+
+  window.onbeforeunload = disableExtension</span>
+  port.onMessage.addListener(incoming)
+})</pre>
+
+<h4><code>background.js</code></h4>
+<pre class="revised">"use strict"
+
+;(function background(){
+
+  // code omitted for clarity
+
+  function incoming(message) {
+    <span class="new">switch (message.method) {
+      case "disableExtension":
+        disableExtension()
+      break
+    }</span>
+  }
+
+  <span class="new">function disableExtension() {
+    <span class="red">chrome.tabs.query</span>({}, callAllTabs)
+
+    function callAllTabs(tabs) {
+      var message = { method: "removeToolbar" }
+      var total = tabs.length
+      var ii
+      
+      for (ii = 0; ii < total; ii += 1) {
+        <span class="red">chrome.tabs.sendMessage</span>(tabs[ii].id, message)
+      }
+
+      port = null
+    }
+  }</span>
+
+  // code omitted for clarity
+})()</pre>
+<p>Since <code>port</code> is set to <code>null</code>, the next time you click on the browser action button in the Chrome toolbar, the NoteBook window will be told to re-open.</p>
+
+  <div class="aside next">In this section, you've added code to close the Toolbar at the top of the current tab when the close icon &#10006; is clicked, and for all tabs when the NoteBook window is closed. You've re-used the following Chrome-specific calls that you discovered earlier:
+  <ul>
+  <li><code>port.postMessage(...)</code></li>
+  <li><code>chrome.tabs.query(...)</code></li>
+  <li><code>chrome.tabs.sendMessage(...)</code></li>
+  </ul>
+  <p>In the <a href="#navigate">next section</a>, you'll see how to keep the Toolbar active as you navigate from one page to another in the current tab.</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#navigate">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- NAVIGATE -->
+  <section id="navigate">
+  <h2>Navigating to  other pages in the tab</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+  <ul>
+  <li>X</li>
+  <li>Y</li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside next">In this section, you've .
+  <p>In the <a href="#end">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#end">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
 <!-- SPANS -->
   <section id="copy">
-  <h2>Altering a copy</h2>
+  <h2>Altering a copy</h2>  
+  <p>In the next two sections, you'll be developing a feature that uses a round-trip from a third-party content page, through the background script, through the page script in the NoteBook window, to the server, and then all the way back again.</p>
+  <p>The aim is to colour each word in the third-party page to reflect how common the word is. The most common words (like "the" and "of") will appear black, words that are not in the top 10,000 will be coloured bright red, and words in between will appear in an appropriately dark shade of red.</p>
+  <p class="aside info">When all the features of the Annotation extension and the NoteBook window are in place, including access to the Neo4j database, the colouring scheme will use different rules. Black words will be the words that you, personally, are most familiar with in the language you are learning; red words will be those the database thinks you have never seen before.</p>
   <div class="aside preview">In this section, you'll learn how to:
   <ul>
   <li>X</li>
@@ -2080,13 +2269,13 @@ a.close:active {
   </div>
 
   <div class="aside next">In this section, you've .
-  <p>In the <a href="#end">next section</a>, you'll .</p>
+  <p>In the <a href="#toggle">next section</a>, you'll .</p>
   </div>
 
   <footer>
     <ul class="nav">
     <li>
-    <a href="#activation">
+    <a href="#toggle">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>
@@ -2094,9 +2283,9 @@ a.close:active {
   </footer>
 </section>
 
-<!-- ACTIVATION -->
-  <section id="activation">
-  <h2>Explicit activation for each page</h2>
+<!-- TOGGLE -->
+  <section id="toggle">
+  <h2>Toggling the display mode</h2>
   <div class="aside preview">In this section, you'll learn how to:
   <ul>
   <li>X</li>
@@ -2106,13 +2295,13 @@ a.close:active {
   </div>
 
   <div class="aside next">In this section, you've .
-  <p>In the <a href="#close">next section</a>, you'll .</p>
+  <p>In the <a href="#sharing">next section</a>, you'll .</p>
   </div>
 
   <footer>
     <ul class="nav">
     <li>
-    <a href="#close">
+    <a href="#sharing">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>
@@ -2120,9 +2309,9 @@ a.close:active {
   </footer>
 </section>
 
-<!-- CLOSE -->
-  <section id="close">
-  <h2>Closing the NoteBook window</h2>
+<!-- SHARING -->
+  <section id="sharing">
+  <h2>Sharing your extension</h2>
   <div class="aside preview">In this section, you'll learn how to:
   <ul>
   <li>X</li>
