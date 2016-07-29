@@ -1,3 +1,11 @@
+REINSTATE parseAsElements() as a separate function in 11:navigate, and rebuild ZIP
+
+Words within tags (<span> or <a>, or whatever) don't have spaces after the end of the original span in the annotated version. (Visible on http://lx/openbook/annotations/#connection)
+
+Track changes to DOM in real time, and annotate the changes as they occur.
+
+Use Shadow DOM to show text-frequency colours.
+
 TEXT
 - Image of completed extension, for section 1
 - Link to install extension in section 1
