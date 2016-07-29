@@ -21,6 +21,8 @@ MISC
 - Zoom scaled-down images to full size when clicked
 - Find text in all sections
 - Display as single page
+- Restore display for active tab when switching tabs
+- Add "Lock" button to prevent automatically updating on tab switch
 
 TESTING
 - Check that Tip disclosure triangles work correctly now in all major browsers
@@ -40,3 +42,41 @@ POPUP WINDOW
     - Specific pages to ignore
 - Icon
   - Appearance depends on page language and activation state
+
+——————————
+
+The background script receives the browserAction event, as `useExtension`. It immediately calls `chrome.tabs.query()` to get the `id` of the active tab. By the time the `checkPageStatus` callback is called, it does not need to ask the tab itself if it is showing the extension Toolbar: it can decide for itself:
+- if map[id] === true then do nothing (it's already active)
+- if map[id] === false it was open: injectToolbar()
+- if map[id] === undefined then injectCSS(), injectToolbar()
+
+When a page is loaded, the content.js script is triggered. This can call getExtensionStatus() in background.js. This will look up map{}:
+- if map[id] === true then injectCSS(), injectToolbar()
+- if map[id] !== true, then set it to undefined, so that a browserAction click will injectCSS.
+
+When using `chrome.runtime.sendMessage`, the `url` is sent both as a property of the `sender` object and of the `sender.tab` object. It can thus be passed through a filter to determine if the Toolbar should automatically be shown.
+{ id: "uniquestringofsomeconsiderablelength"
+, frameId: <integer>
+, url: <string>
+, tab: {
+    active: <boolean>
+  , audible: <boolean>
+  , favIconUrl: <string>
+  , height: <integer>
+  , highlighted: <boolean>
+  , id: <integer>
+  , incognito: <boolean>
+  , index: <integer>
+  , mutedInfo: { ... }
+  , pinned: <boolean>
+  , selected: <boolean>
+  , status: <"loading" | ... >
+  , title: <string>
+  , url: <same as ../url?>
+  , width: <integer>
+  , windowId: <integer>
+  }
+}
+
+Open NoteBook automatically
+Test why it doesn't reopen

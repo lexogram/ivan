@@ -48,7 +48,7 @@
       </ol>
       <h3>Delivery</h3>
       <ol start="18">
-        <li><a href="#sharing">Sharing your extension</a></li>
+        <li><a href="#sharing">Sharing the extension</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
     </nav>
@@ -2205,22 +2205,365 @@ Meteor.startup(function() {
 <!-- NAVIGATE -->
   <section id="navigate">
   <h2>Navigating to  other pages in the tab</h2>
+  <p>Previously, before you added the Toolbar, the Annotations extension would remain active as you navigated to other pages. Now, when you navigate to a different page, the page loads without the Toolbar and, as a result, the extension no longer communicates between the content page and the NoteBook window.</p>
   <div class="aside preview">In this section, you'll learn how to:
   <ul>
-  <li>X</li>
-  <li>Y</li>
+  <li>Remember which tabs should show the Toolbar</li>
+  <li>Reload the Toolbar automatically for each page change</li>
+  <li>Load the Toolbar automatically for certain URLs</li>
   </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/11_navigate.zip" target="source">Download the source files</a>
+  <p class="aside info">This section introduces a significant reorganization of the <code>background.js</code> and <code>content.js</code> files. Specifically, the background code now creates an <code>extension</code> object and the contents code creates a <code>toolbar</code> object, in order to make things neater and easier to maintain. It's a good idea to download the source code and work from there, to ensure that you have no continuity issues.</p>
   </div>
 
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#end">next section</a>, you'll .</p>
+<h3><code>background.js</code>: the central hub</h3>
+<p>Your <code>background.js</code> script is loaded when Chrome is launched. You've set it up to listen for events from three different sources:</p>
+<ol>
+<li>A click on your extension's browserAction icon in the Chrome toolbar</li>
+<li>Messages sent using <code>chrome.runtime.sendMessage()</code> from the <code>content.js</code> script that is added to every page you open</li>
+<li>Messages sent using <code>port.postMessage()</code> from the page script of the NoteBook</li>
+</ol>
+<p>The source HTML for the Toolbar is read in from the file at <code>html/inject.html</code> by the background script. A newly-loaded page cannot show the Toolbar without first asking the background script for the Toolbar HTML. If the Toolbar is to be loaded into the current page following a click on the browserAction icon, then again, the background script is implicated.</p>
+<p>It therefore makes sense to get the background script to keep track of which tabs are showing the Toolbar. This has an added advantage: in the future you could add a feature that shows the Toolbar automically for certain URLs; the extension could save your favourite URLs in local storage, and activate the Annotation extension automatically for these pages.</p>
+
+<h3>The new <code>background.js</code> script</h3>
+<p>To keep track of which tabs are actively showing the extension toolbar, you can use an <code>tabMap</code> object. In the code listing below, this is created as a property of the new <code>extension</code> object.</p>
+<h4><code>background.js</code></h4>
+<pre class="revised">"use strict"
+
+;(function background(){
+
+  <span class="new">var extension = {</span>
+    port<span class="new">: null
+  , meteorURL: </span>"http://localhost:3000/"
+  <span class="new">,</span> injectedHTML<span class="new">:</span> chrome.extension.getURL("html/inject.html")
+  <span class="new">,</span> injectedCSSFile<span class="new">: </span>"css/inject.css"
+  <span class="new">, <span class="red">tabMap: {}</span>
+
+  , initialize: function initialize() {</span>
+      var xhr = new XMLHttpRequest()
+      xhr.open("GET", this.injectedHTML, true)
+      xhr.onreadystatechange = stateChanged
+      xhr.send()
+
+      <span class="new">return this</span>
+
+      function stateChanged() {
+        if (xhr.readyState === 4) {
+          <span class="new">extension.injectedHTML</span> = xhr.responseText
+        }
+      }
+    <span class="new">}
+
+  <span class="ymmv">, openConnection: function () {}
+  , useExtension: function () {}
+  , changeSelection: function () {}
+  , disableExtension: function () {}</span>
+  }.initialize()</span>
+
+  function openConnection(externalPort) {
+    <span class="new">extension.openConnection.call(extension, externalPort)</span>
+  }
+
+  function useExtension() {
+    <span class="new">extension.useExtension.call(extension)</span>
+  }
+
+  function treatMessage(request, sender, sendResponse) {
+    <span class="new">var method = extension[request.method]
+    if (typeof method === "function") {
+      method.call(extension, request, sender, sendResponse)
+    }</span>
+  }
+  
+  chrome.runtime.onConnectExternal.addListener(openConnection)
+  chrome.browserAction.onClicked.addListener(useExtension)
+  chrome.runtime.onMessage.addListener(treatMessage)
+})()</pre>
+
+<h3>Writing maintainable code</h3>
+<p>Using an <code>extension</code> object to encapsulate all the main functions makes the code easier to maintain.</p>
+<p>In particular, the <code>treatMessage</code> function can now simply test if the <code>extension</code> object possesses a given function, and then call it directly. The <code>switch</code> statement is gone. Any new functions can be added directly to the <code>extension</code> object and the <code>treatMessage</code> function will remain unchanged.</p>
+<p>The <code>initialize</code> method now reads in the contents of the <code>html/inject.html</code> file and stores it as the <code>injectedHTML</code> property of the <code>extension</code> object. This means that it is now immediately available for any content page that needs it.</p>
+<p>The <code>openConnection</code>, <code>useExtension</code>, <code>changeSelection</code> and <code>disableExtension</code> methods can now refer to the properties of the <code>extension</code> object, as shown below:</p>
+</div>
+<h4><code>background.js</code> continued</h4>
+<pre class="revised">...
+
+  <span class="new">, openConnection:</span> function openConnection(externalPort) {
+      <span class="new">this.</span>port = externalPort
+      <span class="new">this.</span>port.onMessage.addListener(<span class="new">treatMessage</span>)
+    }
+  
+  <span class="new">, useExtension:</span> function useExtension() {
+      <span class="new">this.<span class="red">ensureNoteBookWindowIsOpen</span>()</span>
+
+      chrome.tabs.query(
+        { active: true
+        , currentWindow: true
+        }
+      <span class="new">, function (tabs) {
+          extension.<span class="red">showToolbarIfRequired</span>.call(extension, tabs)
+        }</span>
+      )
+    }
+
+  <span class="new">, changeSelection:</span> function changeSelection(request) {
+      if (!<span class="new">this.</span>port) {
+        console.log("NoteBook inactive. Request not treated:", request)
+        return
+      }
+
+      <span class="new">this.</span>port.postMessage(request)
+    }
+
+  <span class="new">, disableExtension:</span> function disableExtension() {
+      <span class="new">this.</span>port = null
+      chrome.tabs.query({}, callAllTabs)
+
+      function callAllTabs(tabs) {
+        var message = { method: "removeToolbar" }
+        var total = tabs.length
+        var ii
+        
+        for (ii = 0; ii < total; ii += 1) {
+          chrome.tabs.sendMessage(tabs[ii].id, message)
+        }
+      }
+    }
+
+  ...</pre>
+</div>
+
+<h3>Making the code more generic</h3>
+<p>The <code>openConnection</code> method now calls the new generic <code>treatMessage</code> rather than the specific <code>incoming</code> function, which is no longer needed.</p>
+<p>The <code>useExtension</code> method now works slightly differently. It no longer checks if the communications <code>port</code> with the NoteBook window is open; it delegates that task to the <code>ensureNoteBookWindowIsOpen</code> method, whose name is new but whose code is mostly familiar.</p>
+<p>In a similar way, it no longer activates a <code>checkPageStatus</code> function as a callback for <code>chrome.tabs.query</code> (which obtains the id of the active tab); instead it calls an new <code>showToolbarIfRequired</code> method, which you will discover shortly.</p>
+<h4><code>background.js</code> continued</h4>
+<pre class="revised">...
+
+  <span class="new">, ensureNoteBookWindowIsOpen:</span>
+    function <span class="new">ensureNoteBookWindowIsOpen</span>() {
+      <span class="new">if (this.port) {
+        return
+      }</span>
+
+      var width = 300
+      var top = 0
+
+      var options = {
+        url: <span class="new">this.meteorURL</span>
+      , left: screen.availWidth - width
+      , top: top
+      , width: width
+      , height: screen.availHeight - top
+      , focused: false
+      , type: "popup"
+      }
+
+      chrome.windows.create(options)
+    }
+
+   <span class="new">, showToolbarIfRequired:</span> function <span class="new">showToolbarIfRequired</span>(tabs){
+      var id = tabs[0].id
+      <span class="new">var extensionIsActive = <span class="red">this.tabMap</span>[id]
+
+      switch (extensionIsActive) {
+        default:
+          this.insertCSS(id)
+        case false:
+          this.insertToolbar(id)
+          <span class="red">this.tabMap</span>[id] = true
+        case true:
+          // do nothing: the Toolbar is already active
+      }</span>
+    }
+
+...</pre>
+
+<h3><code>showToolbarIfRequired</code></h3>
+<p>All the rearrangements that you have seen so far in this section have been leading up to this now major change: the use of the <code>tabMap</code> object to remember which tabs are using the Annotation extension.</p>
+<p>Instead of asking the content script of the current page whether the Toolbar is already showing, <code>showToolbarIfRequired</code> checks if the <code>id</code> of the tab where the page appears is a key in the <code>tabMap</code> object. There are three possible cases:</p>
+<ul>
+<li>There is no entry for the current tab <code>id</code> in <code>tabMap</code>. In other words, the Annotation extension has never been activated for this tab. In this case, both <code>inject.css</code> and <code>inject.html</code> need to be injected into the new page.</li>
+<li>The <code>tabMap</code> entry for the <code>id</code> of the current tab has been explicitly set to <code>false</code>. As you will see, this will happen when the user clicks on the &#10006; close icon to deactivate the extension; <code>inject.css</code> will not need to be injected again.</li>
+<li>The <code>tabMap</code> entry for the <code>id</code> of the current tab has been explicitly set to <code>true</code>. In other words, the Annotation Toolbar is already showing, and nothing needs to be done.</li>
+</ul>
+<p>The <code>switch</code> statement has been written in a tricky fashion, starting with the <code>default</code> case and ending with a case for <code>true</code> where nothing happens. In particular, it contains no <code>break</code> statements: everything depends on which line of the <code>switch</code> statement is the first to be executed by the current case. All the remaining lines are then automatically executed.</p>
+<p>If <code>extensionIsActive</code> is not <code>true</code> then it the Toolbar will be activated and <code>this.tabMap[id]</code> will be set to <code>true</code>, for future reference.</p>
+
+<h3>Navigating to a new page in a tab</h3>
+<p>There are two new methods to add to the <code>extension</code> object:</p>
+<ul>
+<li><code>getExtensionStatus</code></li>
+<li><code>forgetExtension</code></li>
+</ul>
+<p>These will be called (via the newly generic <code>treatMessage</code> function) from the content script, so it makes sense to look at the revised version of <code>content.js</code> first.</p>
+
+<h3>The revised <code>content.js</code> script</h3>
+<p>In the new version of the <code>content.js</code> script, the <code>insertToolbar</code>, <code>removeToolbar</code> and <code>checkSelection</code> methods have been moved to the new <code>toolbar</code> object. This means that the <code>treatMessage</code> function can be simplified in the same way as in <code>background.js</code>. (You'll see the full code for these methods shortly).</p>
+<p>The key change in the code listing below is that a call to <code>chrome.runtime.sendMessage( { method: "getExtensionStatus" }, ...)</code> is made as soon as the <code>content.js</code> script has been loaded. Significantly, it is the result of this call, returned from the <code>background.js</code> script, that determines the value of <code>extensionIsActive</code>.</p>
+<pre class="revised">"use strict"
+
+;(function content(){
+
+  <span class="new">var toolbar = {</span>
+    selectedText<span class="new">:</span> ""
+  <span class="new">, </span>extensionIsActive<span class="new">:</span> false
+
+  <span class="new">, initialize: function initialize() {</span>
+      chrome.runtime.sendMessage(
+        { method: "getExtensionStatus" }
+      , updateStatus
+      )
+
+      <span class="new">return this</span>
+
+      function updateStatus(result) {
+        <span class="new">toolbar.</span>extensionIsActive = result.extensionIsActive
+      }
+    <span class="new">}
+
+  <span class="ymmv">, insertToolbar: function () {}
+  , removeToolbar: function () {}
+  , checkSelection: function () {}</span>
+  }.initialize()</span>
+
+  function checkSelection(event) {
+    <span class="new">toolbar.checkSelection.call(toolbar)</span>
+  }
+
+  document.body.addEventListener("mouseup", checkSelection, false)
+  document.body.addEventListener("keyup", checkSelection, false)
+
+  function treatMessage(request, sender, sendResponse) {
+    <span class="new">var method = toolbar[request.method]
+
+    if (typeof method === "function") {
+      method.call(toolbar, request, sender, sendResponse)
+    }</span>
+  }
+
+  chrome.extension.onMessage.addListener(treatMessage)
+})()</pre>
+
+<h3>Checking whether to activate the extension in the new page</h3>
+<p>When a new page opens in a tab, there are two possibilities: either the Annotation Toolbar was active, or it was not. If it was not active, it does not make a difference whether it had been active earlier, because the <code>inject.css</code> file will automatically have been unloaded in order to replace the previous page.</p>
+<p>However, there is a third possibility that you might like to consider: perhaps the user has made a list of URLs for which the Annotation extension should be activated automatically. To allow for this idea to be expanded on in the future, you'll find a call to a placeholder <code>checkUrlForMatch</code> method in the code listing below. If you have this version of your extension enabled, you'll see that the Toolbar will open automatically for any page found on <a href="http://lexogram.github.io/openbook/">http://lexogram.github.io/openbook/</a>.</p>
+<h4><code>background.js</code>, the sequel</h4>
+<pre>...
+
+  , getExtensionStatus:
+    function getExtensionStatus(request, sender, sendResponse) {
+      var id = sender.tab.id
+      var extensionIsActive = <span class="red">this.tabMap</span>[id] // true | !true
+
+      if (!extensionIsActive) {
+        extensionIsActive = <span class="ymmv">this.checkUrlForMatch</span>(sender.url)
+        // true | false
+      }
+
+      if (extensionIsActive) {
+        this.ensureNoteBookWindowIsOpen()
+        this.insertCSS(id)
+        this.insertToolbar(id)
+        <span class="red">this.tabMap</span> = true
+        // if added by checkUrlForMatch()
+      } else {
+        // ensure that tabMap[id] is undefined for when 
+        // showToolbarIfRequired() is called next     
+        delete this.tabMap[id]
+      }
+
+      sendResponse({ extensionIsActive: extensionIsActive })
+    }
+
+  , forgetExtension: function forgetExtension(request, sender) {
+      <span class="red">this.tabMap</span>[sender.tab.id] = false
+    }
+
+  <span class="ymmv">, checkUrlForMatch: function checkUrlForMatch(url) {
+      var regex = /http:\/\/lexogram\.github\.io\/openbook\//
+      return !!regex.exec(url)
+    }</span>
+
+...</pre>
+
+<p>When the page is loading, if the Annotation Toolbar is to be shown, then both <code>inject.css</code> and <code>inject.html</code> need to be injected, and <code>this.tabMap</code> needs to be updated to ensure that the <code>id</code> for the current tab is associated with <code>true</code>.</p>
+<p>If, on the other hand, the Toolbar is not to be shown, then any value for the <code>id</code> of the current tab in <code>this.tabMap</code> needs to be removed, to ensure that <code>inject.css</code> <em>will</em> be injected if the user later clicks on the browserAction icon.</p>
+<p>You'll notice that the other new method – <code>forgetExtension</code> – also makes changes to <code>this.tabMap</code>. When the user clicks on the &#10006; close icon, <code>forgetExtension</code> is called to tell <code>this.tabMap</code> to set the value for the current tab's <code>id</code> from <code>true</code> to <code>false</code>. This is shorthand for saying: "inject.css is already loaded, but the Toolbar is no longer visible.</p>
+
+<h3>The remaining changes to <code>content.js</code></h3>
+<p>In the code listing below, you'll see how the <code>insertToolbar</code>, <code>removeToolbar</code> and <code>checkSelection</code> methods have been modified so that they integrate with the new <code>toolbar</code> object. In particular, you'll see that the <code>removeToolbar</code> method makes a call to <code>chrome.runtime.sendMessage({ method: "forgetExtension" })</code>, triggering the <code>forgetExtension</code> method in the background script, as described above.</p>
+<h4><code>content.js</code> again</h4>
+<pre class="revised">...
+
+  <span class="new">, insertToolbar:</span> function insertToolbar(request) {
+      var body = document.body
+      appendToBody(request.html)
+      body.classList.add("lxo-annotations")
+      <span class="new">this.</span>extensionIsActive = true
+
+      var close = document.querySelector(".lxo-toolbar a.close")
+      close.addEventListener("click", <span class="new">function () {
+        toolbar.</span>removeToolbar<span class="new">.call(toolbar)
+      }</span>, false)
+
+      function appendToBody(htmlString) {
+        var parser = new DOMParser()
+        var tempDoc = parser.parseFromString(htmlString, "text/html")
+        var children = tempDoc.body.childNodes
+        var total = children.length
+        
+        for (var ii = 0; ii < total; ii += 1) {
+          body.appendChild(children[0])
+        }
+      }
+    }
+
+  <span class="new">, removeToolbar:</span>
+  function removeToolbar() {
+      if (<span class="new">!this.</span>extensionIsActive) {
+        return
+      }
+
+      var toolbar = document.querySelector("section.lxo-toolbar")
+      toolbar.parentNode.removeChild(toolbar)
+      document.body.classList.remove("lxo-annotations")
+
+      <span class="new"><span class="red">chrome.runtime.sendMessage({ method: "forgetExtension" })</span></span>
+
+      this.extensionIsActive = false
+    }
+
+  <span class="new">, checkSelection:</span> function checkSelection() {
+      if (!<span class="new">this.</span>extensionIsActive) {
+        return
+      }
+
+      var selection = document.getSelection()
+      var text = selection.toString()
+
+      if (<span class="new">this.</span>selectedText !== text) {
+        <span class="new">this.</span>selectedText = text
+
+        chrome.runtime.sendMessage({
+          method: "changeSelection"
+        , data: <span class="new">this.</span>selectedText
+        })
+      }
+    }
+
+...</pre>
+
+  <div class="aside next">In this section, you've seen how to convert procedural code to object-oriented code, to make it more robust and easy to maintain. You've also seen how the background script can manage the enabled state of the Annotation extension in each individual tab, so that it remains active when you navigate to a new page in a tab where the Toolbar is open.
+  <p>In the <a href="#copy">next section</a>, you'll start building a round-trip system that will colour every word in the content page you are visiting, depending on the frequency of its usage in English.</p>
   </div>
 
   <footer>
     <ul class="nav">
     <li>
-    <a href="#end">
+    <a href="#copy">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>
@@ -2231,7 +2574,7 @@ Meteor.startup(function() {
 <!-- SPANS -->
   <section id="copy">
   <h2>Altering a copy</h2>  
-  <p>In the next two sections, you'll be developing a feature that uses a round-trip from a third-party content page, through the background script, through the page script in the NoteBook window, to the server, and then all the way back again.</p>
+  <p>In the next three sections, you'll be developing a feature that uses a round-trip from a third-party content page, through the background script, through the page script in the NoteBook window, to the server, and then all the way back again.</p>
   <p>The aim is to colour each word in the third-party page to reflect how common the word is. The most common words (like "the" and "of") will appear black, words that are not in the top 10,000 will be coloured bright red, and words in between will appear in an appropriately dark shade of red.</p>
   <p class="aside info">When all the features of the Annotation extension and the NoteBook window are in place, including access to the Neo4j database, the colouring scheme will use different rules. Black words will be the words that you, personally, are most familiar with in the language you are learning; red words will be those the database thinks you have never seen before.</p>
   <div class="aside preview">In this section, you'll learn how to:
@@ -2311,7 +2654,7 @@ Meteor.startup(function() {
 
 <!-- SHARING -->
   <section id="sharing">
-  <h2>Sharing your extension</h2>
+  <h2>Sharing the extension</h2>
   <div class="aside preview">In this section, you'll learn how to:
   <ul>
   <li>X</li>
