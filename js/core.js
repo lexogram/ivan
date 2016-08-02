@@ -11,7 +11,6 @@
 ;(function domLoaded() {
 
 // TODO: Intercept "#overlay-..." links(?)
-// TODO: Stabilize scrollTop when a disclosure triangle is toggled
 
   var sectionIds = getSectionIds()
   var scrollMap = getScrollMap()

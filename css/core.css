@@ -754,6 +754,21 @@ font-weight: normal;
 color: #999;
 font-style: oblique;
 }
+.comment {
+font-weight: normal;
+color: #aaa;
+font-style: oblique;
+}
+.incomplete {
+font-weight: normal;
+color: #999;
+font-style: oblique;
+}
+.omit {
+font-weight: lighter;
+color: #99c;
+font-style: oblique;
+}
 .sidebar .support {
 margin: 0;
 height: 5.5em;

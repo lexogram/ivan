@@ -42,9 +42,9 @@
       </ol>
       <h3>Customizing the page</h3>
       <ol start="15">
-        <li><a href="#copy">Altering a copy</a></li>
-        <li><a href="#colouring">Colouring each word</a></li>
+        <li><a href="#spans">Adding span tags</a></li>
         <li><a href="#toggle">Toggling the display</a></li>
+        <li><a href="#colour">Colour by numbers</a></li>
       </ol>
       <h3>Delivery</h3>
       <ol start="18">
@@ -59,7 +59,7 @@
 <main>
 <header>
   <a href="https://github.com/lexogram/openbook/blob/master/LICENSE" class="cc">&#59409;</a>
-  <h1>Annotations : a Chrome extension</h1>
+  <h1 onclick="alert('Alert: ' + this.textContent)">Annotations : a Chrome extension</h1>
   <ul class="nav">
     <li>
       <a href="#back"><img src="../img/arrow.png" alt="back" /></a>
@@ -992,7 +992,7 @@ meteor</pre>
   var port
 
   function useExtension() {
-    // code omitted for clarity
+    <span class="omit">// code omitted for clarity</span>
   }
 
   function openConnection(externalPort) {
@@ -1190,7 +1190,7 @@ Meteor.startup(() => {
 , "and": { "index": 3, "count": 29944184 }
 , "to": { "index": 4, "count": 25956096 }
 , "in": { "index": 5, "count": 17420636 }
-<span class="ymmv">...</span>
+<span class="omit">...</span>
 , "cooperation": { "index": 9997, "count": 3924.81 }
 , "sequel": { "index": 9998, "count": 3924.02 }
 , "wench": { "index": 9999, "count": 3924.02 }
@@ -1375,7 +1375,7 @@ import { Meteor } from 'meteor/meteor'
 
 var wordFrequencies = {}
 
-<span class="ymmv">// Code trimmed for readability</span>
+<span class="omit">// code omitted for clarity</span>
 
 function analyzeText(options) {
   // options = { data: &lt;string&gt; }
@@ -1455,7 +1455,7 @@ function analyzeText(options) {
 
 <p class="aside note">Notice that the word "analyze" is not included in the results, because it does not appear in the <code>word.json</code> document (although "analyzed" does appear there, because it is more common).</p>
 
-  <div class="aside next">In this section, you've declared a server-side method so that it can be called from the browser, and you've tested this feature from the browser's console.</p>
+  <div class="aside next">In this section, you've declared a server-side method so that it can be called from the browser, and you've tested this feature from the browser's console.
   <p>You've also used the following Meteor-specific methods:
   <ul>
   <li>Meteor.methods</li>
@@ -1488,8 +1488,7 @@ function analyzeText(options) {
   <h3>Reactive programming in Meteor: Blaze, Angular and React</h3>
   <p>Meteor 1.3 provides three different <span class="keyword">view layers</span>: <a href="https://guide.meteor.com/blaze.html">Blaze</a>, <a href="http://www.angular-meteor.com/">Angular</a> and <a href="https://guide.meteor.com/react.html">React</a>. Each of these allows you to create pages that update automatically as new information becomes available on the server, and each works in a radically different way. For this tutorial, I have chosen to use Meteor's proprietary Blaze templating system, but if you are more familiar with one of the others, you can adapt the code below to suit your preferred workflow.</p>
   <h3>Blaze</h3>
-  <p>With Blaze, you write HTML pages that have a non-HTML feature: special <span class="keyword">spacebar</span> tags, using double curly brackets, like this: <code>{{&gt; templateName}}</code>. It uses these in conjunction with standard <a href="http://www.html5rocks.com/en/tutorials/webcomponents/template/">template tags</a>, which look like this: <code>&lt;template name="templateName"&gt; ... &lt;/template&gt;</code></li>
-  </ul>
+  <p>With Blaze, you write HTML pages that have a non-HTML feature: special <span class="keyword">spacebar</span> tags, using double curly brackets, like this: <code>{{&gt; templateName}}</code>. It uses these in conjunction with standard <a href="http://www.html5rocks.com/en/tutorials/webcomponents/template/">template tags</a>, which look like this: <code>&lt;template name="templateName"&gt; ... &lt;/template&gt;</code>
   <p>Thanks to Meteor, your custom HTML page is delivered to the browser along with a serious chunk of JavaScript, which gives you new powers. In particular, the Meteor JavaScript:</p>
   <ul>
   <li>Allows you to access the features of a global <code>Template</code> object, which can customize the data displayed in your <code>&lt;template&gt;</code> tags</li>
@@ -1672,7 +1671,7 @@ Meteor.startup(function() {
   </ul>
   <p>You've completed all the following steps, that were originally outlined in the <a href="#connection">Creating a connection</a> section:</p>
   <ol>
-  <li>A content script< in the web page will tell the background script about the selection</li>
+  <li>A content script in the web page will tell the background script about the selection</li>
   <li>The background script will forward information to a page script in the NoteBook window</li>
   <li>The client-side page script in the NoteBook window will send a message to a server-side script on the Meteor server</li>
   <li>The server-side script will <em>perform a simple operation on the incoming text and send the result</em> back to the client-side page script in the NoteBook window</li>
@@ -1792,7 +1791,7 @@ a.close:active {
     }
     
     function openNoteBookWindow() {
-      // code omitted for clarity
+      <span class="omit">// code omitted for clarity</span>
     }
 
     <span class="new">function checkPageStatus(tabs) {
@@ -1840,7 +1839,7 @@ a.close:active {
   }
 
   function openConnection(externalPort) {
-    // code omitted for clarity
+    <span class="omit">// code omitted for clarity</span>
   }
 
   chrome.runtime.onConnectExternal.addListener(openConnection)
@@ -1875,6 +1874,7 @@ a.close:active {
 
   var selectedText = ""
   <span class="new">var extensionIsActive = false
+  var parser = new DOMParser()
   var cssInjected = false</span>
 
   document.body.addEventListener("mouseup", checkSelection, false)
@@ -1917,36 +1917,36 @@ a.close:active {
   }
 
   function insertToolbar(request) {
-    </span>// request = {
+    <span class="comment">// request = {
     //   method: "insertToolbar"
     // , html: &lt;html string&gt;
-    // }
+    // }</span>
       
     <span class="new">var body = document.body
-    var injectedDOM = parseAsElements(request.html)
-    appendSectionToBody(injectedDOM)
+    var nodes = parseAsElements(request.html)
+    appendSectionToBody(nodes)
     body.classList.add("lxo-annotations")
     extensionIsActive = true
 
     return "toolbar inserted"
 
-    function parseAsElements(htmlString) {
-      var parser = new DOMParser()
-      var tempDoc = parser.parseFromString(htmlString, "text/html")
-      return tempDoc.body.childNodes
-    }
-
-    function appendSectionToBody(children) {
-      var total = children.length
-      
-      for (var ii = 0; ii < total; ii += 1) {
-        body.appendChild(children[0])
+    function appendSectionToBody(nodes) {
+      var node
+        
+      for (var ii=0, total=nodes.length; ii < total; ii += 1) {
+        node = nodes[0]
+        body.appendChild(node)
       }
     }
   }
 
+  function parseAsElements(htmlString) {
+    var tempDoc = parser.parseFromString(htmlString, "text/html")
+    return tempDoc.body.childNodes
+  }
+
   <span class="red">chrome.extension.onMessage.addListener</span>(treatMessage)</span>
-})()</span></pre>
+})()</pre>
 
 <h3>Extension status</h3>
 <p>There are now two new variables in <code>content.js</code>:</p>
@@ -1976,7 +1976,7 @@ a.close:active {
   <span class="new">var injectedCSSFile = "css/inject.css"</span> // no getURL() needed
 
   function useExtension() {
-    // code omitted for clarity
+    <span class="omit">// code omitted for clarity</span>
   
     function checkPageStatus(tabs) {
       var id = tabs[0].id
@@ -2023,12 +2023,12 @@ a.close:active {
       }</span>
 
       function insertToolbar() {
-        // code omitted for clarity
+        <span class="omit">// code omitted for clarity</span>
       }
     }
   }
 
-  // code omitted for clarity
+  <span class="omit">// code omitted for clarity</span>
 })()</pre>
 <p>When the Annotation extension is first activated for the current tab, your custom CSS file is inserted by <code>chrome.tabs.insertCSS</code>. However, at the time of writing, Chrome provides no way to un-insert a CSS file. All your custom rules will remain available to the page until the user navigates away. If the extension is Deactivated (see <a href="#close">next section</a>), then reactivated again, you don't want your custom CSS file to be inserted a second time. The <code>cssInjected</code> flag, retrieved by the <code>checkExtensionStatus</code> callback from the script on the content page, ensures that this does not happen.</p>
 <p class="aside tip">If you want to inject CSS automatically into every content page as it is loaded, you can do this via the <a href="https://developer.chrome.com/extensions/content_scripts#registration"><code>manifest.json</code></a> file.</p>
@@ -2076,7 +2076,7 @@ a.close:active {
 
 ;(function content(){
 
-  // code omitted for clarity
+  <span class="omit">// code omitted for clarity</span>
 
   function treatMessage(request, sender, sendResponse) {
     switch (request.method) {
@@ -2092,12 +2092,12 @@ a.close:active {
     }   
   }
 
-  // code omitted for clarity
+  <span class="omit">// code omitted for clarity</span>
 
   function insertToolbar(request) {
     var body = document.body
-    var injectedDOM = parseAsElements(request.html)
-    appendSectionToBody(injectedDOM)
+    var nodes = parseAsElements(request.html)
+    appendSectionToBody(nodes)
     body.classList.add("lxo-annotations")
     extensionIsActive = true
     cssInjected = true
@@ -2107,7 +2107,7 @@ a.close:active {
 
     return "toolbar inserted"
 
-    // code omitted for clarity
+    <span class="omit">// code omitted for clarity</span>
   }
 
   <span class="new">function removeToolbar() {
@@ -2134,10 +2134,10 @@ a.close:active {
 <pre class="revised">import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session'
 
-// code omitted for clarity
+<span class="omit">// code omitted for clarity</span>
 
 Meteor.startup(function() {
-  // code omitted for clarity
+  <span class="omit">// code omitted for clarity</span>
 
   <span class="new">function disableExtension() {
     <span class="red">port.postMessage</span>({ method: "disableExtension" })
@@ -2152,7 +2152,7 @@ Meteor.startup(function() {
 
 ;(function background(){
 
-  // code omitted for clarity
+  <span class="omit">// code omitted for clarity</span>
 
   function incoming(message) {
     <span class="new">switch (message.method) {
@@ -2170,7 +2170,7 @@ Meteor.startup(function() {
       var total = tabs.length
       var ii
       
-      for (ii = 0; ii < total; ii += 1) {
+      for (ii = 0; ii &lt; total; ii += 1) {
         <span class="red">chrome.tabs.sendMessage</span>(tabs[ii].id, message)
       }
 
@@ -2178,7 +2178,7 @@ Meteor.startup(function() {
     }
   }</span>
 
-  // code omitted for clarity
+  <span class="omit">// code omitted for clarity</span>
 })()</pre>
 <p>Since <code>port</code> is set to <code>null</code>, the next time you click on the browser action button in the Chrome toolbar, the NoteBook window will be told to re-open.</p>
 
@@ -2255,7 +2255,7 @@ Meteor.startup(function() {
       }
     <span class="new">}
 
-  <span class="ymmv">, openConnection: function () {}
+  <span class="incomplete">, openConnection: function () {}
   , useExtension: function () {}
   , changeSelection: function () {}
   , disableExtension: function () {}</span>
@@ -2286,7 +2286,6 @@ Meteor.startup(function() {
 <p>In particular, the <code>treatMessage</code> function can now simply test if the <code>extension</code> object possesses a given function, and then call it directly. The <code>switch</code> statement is gone. Any new functions can be added directly to the <code>extension</code> object and the <code>treatMessage</code> function will remain unchanged.</p>
 <p>The <code>initialize</code> method now reads in the contents of the <code>html/inject.html</code> file and stores it as the <code>injectedHTML</code> property of the <code>extension</code> object. This means that it is now immediately available for any content page that needs it.</p>
 <p>The <code>openConnection</code>, <code>useExtension</code>, <code>changeSelection</code> and <code>disableExtension</code> methods can now refer to the properties of the <code>extension</code> object, as shown below:</p>
-</div>
 <h4><code>background.js</code> continued</h4>
 <pre class="revised">...
 
@@ -2326,14 +2325,13 @@ Meteor.startup(function() {
         var total = tabs.length
         var ii
         
-        for (ii = 0; ii < total; ii += 1) {
+        for (ii = 0; ii &lt; total; ii += 1) {
           chrome.tabs.sendMessage(tabs[ii].id, message)
         }
       }
     }
 
   ...</pre>
-</div>
 
 <h3>Making the code more generic</h3>
 <p>The <code>openConnection</code> method now calls the new generic <code>treatMessage</code> rather than the specific <code>incoming</code> function, which is no longer needed.</p>
@@ -2410,6 +2408,7 @@ Meteor.startup(function() {
   <span class="new">var toolbar = {</span>
     selectedText<span class="new">:</span> ""
   <span class="new">, </span>extensionIsActive<span class="new">:</span> false
+  <span class="new">, </span>parser<span class="new">:</span> new DOMParser()
 
   <span class="new">, initialize: function initialize() {</span>
       chrome.runtime.sendMessage(
@@ -2424,7 +2423,7 @@ Meteor.startup(function() {
       }
     <span class="new">}
 
-  <span class="ymmv">, insertToolbar: function () {}
+  <span class="incomplete">, insertToolbar: function () {}
   , removeToolbar: function () {}
   , checkSelection: function () {}</span>
   }.initialize()</span>
@@ -2500,7 +2499,8 @@ Meteor.startup(function() {
 
   <span class="new">, insertToolbar:</span> function insertToolbar(request) {
       var body = document.body
-      appendToBody(request.html)
+      var nodes = <span class="new">this.</span>parseAsElements(request.html)
+      appendToBody(nodes)
       body.classList.add("lxo-annotations")
       <span class="new">this.</span>extensionIsActive = true
 
@@ -2509,16 +2509,20 @@ Meteor.startup(function() {
         toolbar.</span>removeToolbar<span class="new">.call(toolbar)
       }</span>, false)
 
-      function appendToBody(htmlString) {
-        var parser = new DOMParser()
-        var tempDoc = parser.parseFromString(htmlString, "text/html")
-        var children = tempDoc.body.childNodes
-        var total = children.length
+      function appendToBody(nodes) {
+        var node
         
-        for (var ii = 0; ii < total; ii += 1) {
-          body.appendChild(children[0])
+        for (var ii=0, total=nodes.length; ii < total; ii += 1) {
+          node = nodes[0]
+          body.appendChild(node)
+          toolbar.ignore.push(node)
         }
       }
+    }
+
+  <span class="new">, parseAsElements:</span> function parseAsElements(html) {
+      var tempDoc = <span class="new">this.</span>parser.parseFromString(html, "text/html")
+      return tempDoc.body.childNodes
     }
 
   <span class="new">, removeToolbar:</span>
@@ -2572,10 +2576,11 @@ Meteor.startup(function() {
 </section>
 
 <!-- SPANS -->
-  <section id="copy">
-  <h2>Altering a copy</h2>  
+  <section id="spans">
+  <h2>Adding a <code>&lt;span&gt;</code> tag around each word</h2>  
   <p>In the next three sections, you'll be developing a feature that uses a round-trip from a third-party content page, through the background script, through the page script in the NoteBook window, to the server, and then all the way back again.</p>
   <p>The aim is to colour each word in the third-party page to reflect how common the word is. The most common words (like "the" and "of") will appear black, words that are not in the top 10,000 will be coloured bright red, and words in between will appear in an appropriately dark shade of red.</p>
+  <p>In this section, you'll simply be testing that the colouring system is working by making the words of the content page appear in alternating shades of red. In the next section, you'll see how to toggle this feature on and off, and in the third section, you'll create the connection all the way through to the server and back, to get the appropriate colours for each word.</p>
   <p class="aside info">When all the features of the Annotation extension and the NoteBook window are in place, including access to the Neo4j database, the colouring scheme will use different rules. Black words will be the words that you, personally, are most familiar with in the language you are learning; red words will be those the database thinks you have never seen before.</p>
   <div class="aside preview">In this section, you'll learn how to:
   <ul>
@@ -2587,34 +2592,270 @@ Meteor.startup(function() {
   <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/12_spans.zip" target="source">Download the source files</a>
   </div>
 
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#colouring">next section</a>, you'll .</p>
-  </div>
+  <p>Below is the full listing for a revised version of <code>content.js</code>. The most obvious change is the addition of a method called <code>addSpansToTree</code>, which wraps as <code>&lt;span class="lxo-<span class="ymmv">?</span>"&gt; ... &lt;span&gt;</code> tag around every word in the content page.</p>
+  <h4><code>content.js</code></h4>
+  <pre class="revised">"use strict"
 
-  <footer>
-    <ul class="nav">
-    <li>
-    <a href="#colouring">
-    <img src="../img/arrow.png" alt="next"/>
-    </a>
-    </li>
-    </ul>
-  </footer>
-</section>
+;(function content(){
 
-<!-- COLOURING -->
-  <section id="colouring">
-  <h2>Colouring each word</h2>
-  <div class="aside preview">In this section, you'll learn how to:
-  <ul>
-  <li>X</li>
-  <li>Y</li>
-  </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
-  </div>
+  var toolbar = {
+    selectedText: ""
+  , extensionIsActive: false
+  , parser: new DOMParser()
+  <span class="new">, regex: /(\w+)/g
+  , ignore: []</span>
 
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#toggle">next section</a>, you'll .</p>
+  , initialize: function initialize() {
+      chrome.runtime.sendMessage(
+        { method: "getExtensionStatus" }
+      , updateStatus
+      )
+
+      return this
+
+      function updateStatus(result) {
+        toolbar.extensionIsActive = result.extensionIsActive
+      }
+    } 
+
+  , insertToolbar: function insertToolbar(request) {
+      var body = document.body
+      var nodes = this.parseAsElements(request.html)
+      appendToBody(nodes)
+      body.classList.add("lxo-annotations")
+
+      this.extensionIsActive = true
+
+      <span class="new">this.addSpansToTree(body)</span>
+ 
+      function appendToBody(nodes) {
+        var node
+        
+        for (var ii=0, total=nodes.length; ii &lt; total; ii += 1) {
+          node = nodes[0]
+          body.appendChild(node)
+          <span class="new">toolbar.ignore.push(node)</span>
+        }
+      }
+
+      var close = document.querySelector(".lxo-toolbar a.close")
+      close.addEventListener("click", function () {
+        toolbar.removeToolbar.call(toolbar)
+      }, false)
+    }
+
+  , parseAsElements: function parseAsElements(html) {
+      var tempDoc = this.parser.parseFromString(html, "text/html")
+      return tempDoc.body.childNodes
+    }
+
+  , removeToolbar:function removeToolbar() {
+      if (!this.extensionIsActive) {
+        return
+      }
+
+      var toolbar = document.querySelector("section.lxo-toolbar")
+      toolbar.parentNode.removeChild(toolbar)
+      document.body.classList.remove("lxo-annotations")
+
+      chrome.runtime.sendMessage({ method: "forgetExtension" })
+
+      this.extensionIsActive = false
+    }
+
+  , checkSelection: function checkSelection() {
+      if (!this.extensionIsActive) {
+        return
+      }
+
+      var selection = document.getSelection()
+      var text = selection.toString()
+
+      if (this.selectedText !== text) {
+        this.selectedText = text
+
+        chrome.runtime.sendMessage({
+          method: "changeSelection"
+        , data: this.selectedText
+        })
+      }
+    }
+
+  
+  <span class="new">, addSpansToTree: function addSpansToTree(element) {
+      var childNodes = element.childNodes
+      var ii = childNodes.length
+
+      if (ii) {
+        <span class="comment">// Work backwards, because .childNodes is a live
+        // collection, and so its length increases as new &lt;span&gt;
+        // nodes are added.</span>
+        while (ii--) {
+          if (this.ignore.indexOf(element) &lt; 0) {
+            addSpansToTree.call(this, childNodes[ii])
+          }
+        }
+      } else if (applicable(element)) {
+        replaceWithWordSpans(element)
+      }
+
+      function applicable (element) {
+        var applicable = element.nodeType !== 8 <span class="comment">// not a comment</span>
+
+        if (applicable) {
+          applicable = element.tagName !== "SCRIPT"
+        }
+
+        return applicable
+      }
+
+      function replaceWithWordSpans(element) {
+        var textContent = element.textContent
+        var altered = false
+        var htmlString = ""
+        var start = 0
+        <span class="red">var odd = 0</span>
+        var end
+          , word
+          , result
+          , className
+          , elements
+          , index
+          , nextSibling
+          , parentNode
+          , div
+
+        while (result = toolbar.regex.exec(textContent)) {
+          <span class="comment">// [ 0: &lt;word&gt;
+          // , 1: &lt;word&gt;
+          // , index: &lt;integer&gt;
+          // , input: string
+          // , length: 2
+          // ]</span>
+          altered = true
+
+          end = result.index
+          word = result[0]
+          htmlString += textContent.substring(start, end)
+          start = end + word.length
+          <span class="red">className = "lxo-w" + (odd = (odd + 1) % 2)</span>
+          htmlString +=
+            "&lt;span class='"+className+"'&gt;"+word+"&lt;/span&gt;"
+        }
+
+        if (altered) {
+          end = textContent.length
+          htmlString += textContent.substring(start, end)
+          <span class="comment">// &lt;HACK:
+          // Leading whitespace is ignored. Without this hack,
+          // there would be no space between the end of an inline
+          // element, such as a link, and the text that follows.</span>
+          htmlString = "&lt;br/&gt;" + htmlString
+          <span class="comment">// HACK&gt;</span>
+          elements = toolbar.parseAsElements(htmlString)
+          index = elements.length - 1
+
+          parentNode = element.parentNode
+          <span class="comment">// Replace current text node with the last span ...</span>      
+          nextSibling = elements[index]
+          parentNode.replaceChild(nextSibling, element)
+          <span class="comment">// ... then place the other elements in reverse order</span>
+          while (1 < index--) { <span class="comment">// 1 < because of earlier &lt;HACK&gt;</span>
+            element = elements[index]
+            parentNode.insertBefore(element, nextSibling)         
+            nextSibling = element
+          }
+        }
+      }
+    }</span>
+  }.initialize()
+
+  // LISTENERS // LISTENERS // LISTENERS // LISTENERS // LISTENERS
+
+  function checkSelection(event) {
+    toolbar.checkSelection.call(toolbar)
+  }
+
+  document.body.addEventListener("mouseup", checkSelection, false)
+  document.body.addEventListener("keyup", checkSelection, false)
+
+  function treatMessage(request, sender, sendResponse) {
+    var method = toolbar[request.method]
+
+    if (typeof method === "function") {
+      method.call(toolbar, request, sender, sendResponse)
+    } 
+  }
+
+  chrome.extension.onMessage.addListener(treatMessage)
+})()</pre>
+
+<h3>Selecting words: a placeholder solution</h3>
+<p>The code listing above uses a Regular Expression <code>/(\w+)/g</code> to detect all the words in the page. This is a cheap and cheerful solution for now: it only works for Latin languages, and even then, it breaks words like "it's" into pieces. Every language will need a specific Regular Expression to break text into words correctly.</p>
+
+<h3>Leaving the Toolbar unchanged</h3>
+<p>You don't want the words in the Toolbar to be affected by the text-colouring feature. One simple way to deal with this is to</p>
+<ul>
+<li>Declare an <code>ignore</code> array in the <code>toolbar</code> object</li>
+<li>Add the toolbar elements to the <code>ignore</code> array inside the <code>appendToBody</code> function: <code>toolbar.ignore.push(node)</code></li>
+<li>In the <code>addSpansToTree</code> method, explicitly check if the current element is in the ignore list:
+<pre>          if (this.ignore.indexOf(element) < 0) {
+            <span class="new">addSpansToTree.call(this, childNodes[ii])</span>
+          }</pre></li>
+</ul>
+
+<h3>The <code>addSpansToTree</code> method</h3>
+<p>The <code>addSpansToTree</code> method traverses the DOM tree, starting with <code>document.body</code> and calling itself recursively, to work its way down through the hierarchy. It works its way backwards through all the children of each element, using the <code>replaceWithWordSpans</code> function to replace any <code>textContent</code> with a series of spans, one for each word. The number of children of each element therefore increases; by starting with the last element, the index numbers of earlier elements remain unchanged.</p>
+<p>For now, the variable <code>odd</code>, whose initial value is 0, and the line <code>className = "lxo-w" + (odd = (odd + 1) % 2)</code> (shown in red) ensure that the className of the spans alternate.</p>
+
+<h3>Simple colours</h3>
+<p>In the version of the <code>content.js</code> script above, the class of the spans alternates between <code>lxo-w0</code> and <code>lxo-w1</code>. If you add a couple of rules to your <code>inject.css</code> file, as shown below, the words will be alternately displayed in red and dark red</p><h4><code>inject.css</code></h4>
+<pre class="revised">body.lxo-annotations {
+  margin-top: 32px;
+}
+
+section.lxo-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 31px;
+  min-height: 31px;
+  min-width: 350px;
+  width: 100%;
+  padding: 0;
+  background-color: #ccc;
+  border-bottom: 1px solid #999;
+  z-index: 99999;
+}
+
+a.close {
+  text-decoration: none;
+  color: #999;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+a.close:hover,
+a.close:active {
+   color: #900;
+}
+
+<span class="new">span.lxo-w0 {
+  color: #f00;
+}
+
+span.lxo-w1 {
+  color: #900;
+}</span></pre>
+
+<p>When you make the changes above to your extension files and reload the extension, you should see the effect in the colour of the text.</p>
+<figure>
+<img src="img/colours.png" alt="Using addSpansToTree to colour each word" />
+<figcaption>Figure 26. Using <code>addSpansToTree</code> to colour each word</figcaption>
+</figure>
+  <div class="aside next">In this section, you've seen how to use the <code>content.js</code> script to modify the HTML in a third-party content page, so that you can highlight specific words.
+  <p>In the <a href="#toggle">next section</a>, you'll see how to reverse the process, so that you can toggle between the annotated and original versions of the page.</p>
   </div>
 
   <footer>
@@ -2647,6 +2888,32 @@ Meteor.startup(function() {
     <ul class="nav">
     <li>
     <a href="#sharing">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- COLOUR -->
+  <section id="colour">
+  <h2>Colouring by numbers</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+  <ul>
+  <li>X</li>
+  <li>Y</li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside next">In this section, you've .
+  <p>In the <a href="#toggle">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#toggle">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>
