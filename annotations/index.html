@@ -2515,7 +2515,6 @@ Meteor.startup(function() {
         for (var ii=0, total=nodes.length; ii < total; ii += 1) {
           node = nodes[0]
           body.appendChild(node)
-          toolbar.ignore.push(node)
         }
       }
     }
@@ -2561,13 +2560,13 @@ Meteor.startup(function() {
 ...</pre>
 
   <div class="aside next">In this section, you've seen how to convert procedural code to object-oriented code, to make it more robust and easy to maintain. You've also seen how the background script can manage the enabled state of the Annotation extension in each individual tab, so that it remains active when you navigate to a new page in a tab where the Toolbar is open.
-  <p>In the <a href="#copy">next section</a>, you'll start building a round-trip system that will colour every word in the content page you are visiting, depending on the frequency of its usage in English.</p>
+  <p>In the <a href="#spans">next section</a>, you'll start building a round-trip system that will colour every word in the content page you are visiting, depending on the frequency of its usage in English.</p>
   </div>
 
   <footer>
     <ul class="nav">
     <li>
-    <a href="#copy">
+    <a href="#spans">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>
@@ -2791,7 +2790,7 @@ Meteor.startup(function() {
 })()</pre>
 
 <h3>Selecting words: a placeholder solution</h3>
-<p>The code listing above uses a Regular Expression <code>/(\w+)/g</code> to detect all the words in the page. This is a cheap and cheerful solution for now: it only works for Latin languages, and even then, it breaks words like "it's" into pieces. Every language will need a specific Regular Expression to break text into words correctly.</p>
+<p>The code listing above uses a <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a> <code>/(\w+)/g</code> to detect all the words in the page. This is a cheap and cheerful solution for now: it only works for Latin languages, and even then, it breaks words like "it's" into pieces. Every language will need a specific regular expression to break text into words correctly.</p>
 
 <h3>Leaving the Toolbar unchanged</h3>
 <p>You don't want the words in the Toolbar to be affected by the text-colouring feature. One simple way to deal with this is to</p>
@@ -2872,22 +2871,192 @@ span.lxo-w1 {
 <!-- TOGGLE -->
   <section id="toggle">
   <h2>Toggling the display mode</h2>
+  <p>When you are using the Annotations extension, you may prefer to see the page in its original form, while still taking advantage of all the features that will be available in the NoteBook window.</p>
   <div class="aside preview">In this section, you'll learn how to:
   <ul>
-  <li>X</li>
-  <li>Y</li>
+  <li>Remove all the additional mark-up that was added in the previous section after a click on the Show Original button</li>
+  <li>Remove the additional mark-up automatically when closing the Toolbar or the NoteBook window</li>
   </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/13_toggle.zip" target="source">Download the source files</a>
   </div>
 
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#sharing">next section</a>, you'll .</p>
+  <h3>Removing spans</h3>
+  <p>The code listing below uses a new <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a> – <code>/lxo-w\d+</code> – to identify HTML spans with a class such as "lxo-w0". It saves this as the <code>removex</code> property of the <code>toolbar</code> object. It also saves the word "annotations" as the default value for the <code>mode</code> property. The value for <code>mode</code> will switch between "annotations" and "original", and will be used to update the name of the button in the Toolbar. Clicking on this button will either trigger <code>removeSpansFromTree</code> or <code>addSpansToTree</code>, depending on the value of <code>mode</code>.</p>
+  <p>The <code>removeSpansFromTree</code> method is described in more detail below.</p>
+  <h4><code>content.js</code></h4>
+  <pre class="revised">"use strict"
+
+;(function content(){
+
+  var toolbar = {
+    selectedText: ""
+  , extensionIsActive: false
+  , parser: new DOMParser()
+  , ignore: []
+  , regex: /(\w+)/g
+  <span class="new">, removex: /lxo-w\d+/
+  , mode: "annotations"</span>
+
+  , initialize: function initialize() {
+      <span class="omit">// code omitted for clarity</span>
+    } 
+
+  , insertToolbar: function insertToolbar(request) {
+      <span class="omit">// code omitted for clarity</span>
+
+      <span class="new">;(function activateToolbarButtons() {</span>
+        var close = document.querySelector(".lxo-toolbar a.close")
+        <span class="new">var toggle = document.querySelector(".lxo-toolbar button")</span>
+
+        close.addEventListener("click", function () {
+          toolbar.removeToolbar.call(toolbar)
+        }, false)
+
+        <span class="new">toggle.addEventListener("click", function (event) {
+          toolbar.toggleMode.call(toolbar, event)
+        }, false)
+      })()</span>
+    }
+
+  <span class="new">, toggleMode: function toggleMode(event) {
+      var button = event.target
+      var body = document.body
+      var hash = window.location.hash
+      button.textContent = "Show " + this.mode
+ 
+      switch (this.mode) {
+        case "original":
+          this.addSpansToTree(body)
+          this.mode = "annotations"
+        break
+        case "annotations":        
+          this.removeSpansFromTree(body)
+          this.mode = "original"
+        break
+      }
+    }</span>
+  
+
+  , parseAsElements: function parseAsElements(html) {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , removeToolbar:function removeToolbar() {
+      if (!this.extensionIsActive) {
+        return
+      }
+
+      <span class="new">if (this.mode === "annotations") {
+        this.removeSpansFromTree(document.body)
+      }</span>
+
+      var toolbar = document.querySelector("section.lxo-toolbar")
+      toolbar.parentNode.removeChild(toolbar)
+      document.body.classList.remove("lxo-annotations")
+
+      chrome.runtime.sendMessage({ method: "forgetExtension" })
+
+      this.extensionIsActive = false
+    }
+
+  , checkSelection: function checkSelection() {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , addSpansToTree: function addSpansToTree(element) {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  <span class="new">, removeSpansFromTree: function removeSpansFromTree(element) {
+      var childNodes = element.childNodes 
+      var ii = childNodes.length
+
+      if (!ii) {
+        return
+      }
+
+      var textArray = []
+      var nodesToReplace = []
+      var treating = false
+      var childNode
+        , treat
+        , isTextNode
+
+      while (ii--) {
+        childNode = childNodes[ii]
+        isTextNode = childNode.nodeType === 3
+        treat = (childNode.tagName === "SPAN"
+         &amp;&amp; this.removex.exec(childNode.className))
+
+        if (treat || treating &amp;&amp; isTextNode) {
+          nodesToReplace.push(childNode)
+          textArray.unshift(childNode.textContent)
+          treating = true
+        } else {
+          if (treating) {
+            treating = false
+            replaceSpansWithTextContent()
+          }
+
+          this.removeSpansFromTree(childNode)
+        }
+      }
+
+      if (treating) {
+        replaceSpansWithTextContent()
+      }
+
+      function replaceSpansWithTextContent() {
+        var ii = nodesToReplace.length
+        var textNode
+
+        if (ii) {
+          textNode = document.createTextNode(textArray.join(""))
+          
+          while (<span class="red">--ii</span>) { 
+            element.removeChild(nodesToReplace.pop())
+          }
+          
+          element.replaceChild(textNode, nodesToReplace.pop())
+          textArray.length = 0
+        }
+      }
+    }</span>
+  }.initialize()
+
+  <span class="omit">// code omitted for clarity</span>
+})()
+</pre>
+
+  <h3>The <code>removeSpansFromTree</code> method</h3>
+  <p>The <code>removeSpansFromTree</code> method works in two stages:</p>
+  <ul>
+  <li>It traverses the DOM tree by calling itself recursively on each child node of the document body, in reverse order</li>
+  <li>It checks each child node to see if it is a <span class="keyword">textNode</span> (with a <code>nodeType</code> of <code>3</code>) or a span with a class like "lxo-wX" (where X is any number)</li>
+  <li>If so, it adds the <code>textContent</code> of the current element to an array called <code>textArray</code> </li>
+  <li>When it encounters a node that is not a textNode, it calls the <code>replaceSpansWithTextContent</code> function</li>
+  </ul>
+
+  <h3><code>replaceSpansWithTextContent</code></h3>
+  <p>The <code>replaceSpansWithTextContent</code> function:</p>
+  <ul>
+  <li>Creates a textNode from the contents of <code>textArray</code>, now joined into a single string</li>
+  <li>Removes all but one of the HTML elements that was used to populate the <code>textArray</code></li>
+  <li>Replaces that last HTML element with the new textNode</li>
+  <li>Empties <code>textArray</code> so that the process can start again</li>
+  </ul>
+
+  <p class="aside note">Note the use of <code>while (--ii) { <span class="omit">...</span> }</code> to count down until <code>ii</code> has a value of 1, to ensure that one child of <code>element</code> remains, to be the element that is replaced.</p>
+
+  <p>If you integrate the changes shown above into your <code>content.js</code> script, save the file and reload your extension from the <a href="chrome://extensions">Chrome Extension Management</a> page, you will now be able to show and hide the text colouring by toggling the Show Original | Show Annotations button.</p>
+  <div class="aside next">In this section, you've seen how to use the content.js script to undo the changes that you made to the HTML in a third-party content page, in the previous section.
+  <p>In the <a href="#colour">next section</a>, you'll see how to get the Meteor server to provide you with data that will set the colour of each word to reflect its frequency of usage in English.</p>
   </div>
 
   <footer>
     <ul class="nav">
     <li>
-    <a href="#sharing">
+    <a href="#colour">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>
@@ -2903,17 +3072,17 @@ span.lxo-w1 {
   <li>X</li>
   <li>Y</li>
   </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/14_colour.zip" target="source">Download the source files</a>
   </div>
 
   <div class="aside next">In this section, you've .
-  <p>In the <a href="#toggle">next section</a>, you'll .</p>
+  <p>In the <a href="#sharing">next section</a>, you'll .</p>
   </div>
 
   <footer>
     <ul class="nav">
     <li>
-    <a href="#toggle">
+    <a href="#sharing">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>

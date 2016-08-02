@@ -3,6 +3,11 @@ REINSTATE parseAsElements() as a separate function in 11:navigate, and rebuild Z
 
 Click on X close icon jumps to #close section
 
+Remind readers to rebuild the extension and reload it.
+
+Save "Show annotations" status in background.js
+Remember Active and Annotate status per site (per URL)
+
 ✓ Words within tags (<span> or <a>, or whatever) don't have spaces after the end of the original span in the annotated version. (Visible on http://lx/openbook/annotations/#connection)
 
 Track changes to DOM in real time, and annotate the changes as they occur.
