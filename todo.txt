@@ -8,6 +8,17 @@ Remind readers to rebuild the extension and reload it.
 Save "Show annotations" status in background.js
 Remember Active and Annotate status per site (per URL)
 
+Show progress bar while frequencyData is loading
+
+Refine RegExp
+- Include words like "I'll" as complete words
+- Consider numbers as level 0
+
+Create profile sets for learners, following Oxford (and other) word lists for beginners
+- Words at different levels are tagged in the database
+- A request to the database includes a reference to the corpus
+- The user can set a starting level locally: all words at that level and lower will appear black
+
 ✓ Words within tags (<span> or <a>, or whatever) don't have spaces after the end of the original span in the annotated version. (Visible on http://lx/openbook/annotations/#connection)
 
 Track changes to DOM in real time, and annotate the changes as they occur.

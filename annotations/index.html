@@ -44,10 +44,19 @@
       <ol start="15">
         <li><a href="#spans">Adding span tags</a></li>
         <li><a href="#toggle">Toggling the display</a></li>
+        <li><a href="#frequency">Frequency Data</a></li>
         <li><a href="#colour">Colour by numbers</a></li>
       </ol>
+      <h3>Database</h3>
+      <ol start="19">
+      <li><a href="#neo4j">Installing Neo4j</a></li>
+      <li><a href="#data">Priming the database</a></li>
+      <li><a href="#meteo4j">Meteor and Neo4j</a></li>
+      <li><a href="#cypher">Cypher queries</a></li>
+      <li><a href="#round">Round trip connection</a></li>
+      </ol>
       <h3>Delivery</h3>
-      <ol start="18">
+      <ol start="24">
         <li><a href="#sharing">Sharing the extension</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
@@ -3050,13 +3059,213 @@ span.lxo-w1 {
 
   <p>If you integrate the changes shown above into your <code>content.js</code> script, save the file and reload your extension from the <a href="chrome://extensions">Chrome Extension Management</a> page, you will now be able to show and hide the text colouring by toggling the Show Original | Show Annotations button.</p>
   <div class="aside next">In this section, you've seen how to use the content.js script to undo the changes that you made to the HTML in a third-party content page, in the previous section.
-  <p>In the <a href="#colour">next section</a>, you'll see how to get the Meteor server to provide you with data that will set the colour of each word to reflect its frequency of usage in English.</p>
+  <p>In the <a href="#frequency">next section</a>, you'll see how to get the Meteor server to provide you with data that will set the colour of each word to reflect its frequency of usage in English.</p>
   </div>
 
   <footer>
     <ul class="nav">
     <li>
-    <a href="#colour">
+    <a href="#frequency">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- FREQUENCY -->
+  <section id="frequency">
+  <h2>Arranging words by frequency</h2>
+  <p>Now that you can show each word in a different colour in a third-party content page, you are ready to create a meaning for each colour.</p>
+  <div class="aside preview">In this section, you'll learn how to modify the <code>server/main.js</code> script in your Meteor installation to make it:
+  <ul>
+  <li>Create an array of numbers according to a logarithmic scale</li>
+  <li>Create an array of unique words and numbers that appear in a given text</li>
+  <li>Separate these unique words into 15 frequency bands</li>
+  <li>Return these words as an array of arrays to the client-side script in your NoteBook window.</li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/14_frequency.zip" target="source">Download the source files</a>
+  </div>
+
+  <h3>Zipf's Law</h3>
+  <p>The frequency of usage of individual words in any natural language tends to follow a logarithmic curve. This state of affairs is described by <a href="https://blogemis.com/2015/09/26/zipfs-law-and-the-math-of-reason/">Zipf's Law</a> (<a href="https://en.wikipedia.org/wiki/Zipf%27s_law#Motivation">Wikipedia</a>). You can see this in the data in the <code>words.json</code> file that you used earlier, which lists the 10,000 most common words in journalistic English and gives the frequency of each one, per billion words. Here's an edited excerpt, with the layout arranged for readability:</p>
+  <pre>{ "the":    { "index":     1, "count": 56271872 }
+, "of":     { "index":     2, "count": 33950064 }
+<span class="omit">...</span>
+, "he":     { "index":    10, "count":  8397205 }
+<span class="omit">...</span>
+, "men":    { "index":   100, "count":   923053 }
+<span class="omit">...</span>
+, "names":  { "index":  1000, "count":    79367 }
+<span class="omit">...</span>
+, "calves": { "index": 10000, "count":     3923 }
+}</pre>
+  <p>You can take advantage of this to divide the words in a given text into bands, according to frequency. In your <code>main.js</code> script in the <code>server</code> folder in your Meteor installation, you can add a function that will create an array of index numbers to divide the numbers from 1 to 10,000 into 15 bands: 1-46, 47-68, 69-100 and so on. Later in this section, you will be using this array to separate the words of a given text into an array of arrays, according the the <code>index</code> number for each word in <code>words.json</code> </p>
+
+  <h4><code>NoteBook/server/main.js</code></h4>
+<pre class="revised">"use strict"
+
+import { Meteor } from 'meteor/meteor'
+
+var wordFrequencies = {}
+<span class="new">var frequencyBands = (function getFrequencyBands(){
+  var bands = []
+  <span class="comment">// [                   46,   68,   100
+  // , 147,  215,  316,  464,  681,  1000
+  // , 1468, 2154, 3162, 4642, 6813, 10000]</span>
+  
+  var rate = Math.log(100000)
+  var chunks = 30
+  var min = 10
+  var ii = 15
+  while(ii--) {
+    bands[ii] = Math.round(Math.exp(rate / chunks * (ii + min)))
+  }
+
+  return bands
+})()</span>
+
+...</pre>
+
+<div class="aside note">Notes on the <code>frequencyBands</code> array
+<ul>
+<li>It would have been much simpler to rewrite this without the <code>getFrequencyBands</code> function: <pre>var frequencyBands = [46, 68, 100, 147, 215, 316, 464, 681,
+    1000, 1468, 2154, 3162, 4642, 6813, 10000]</pre></li> 
+<li>Using the function shows explicitly how the values were chosen, and allows you to adjust the values automatically by modifying the figures used for the calculation</li>
+<li>The current calculation models English as a language with  100,000 unique words, divides these words into 30 bands, and considers bands 10 - 25 as being of interest for the current purpose.</li>
+<li>Starting the array at 46 is an arbitrary choice. The most common noun in English ("time") appears at the 69th position, at the beginning of band 3.</li>
+</ul></div>
+
+<h3>Creating an array of unique words and numbers</h3>
+<p>The <code>getFrequencyData</code> function shown below is based on the <code>analyzeText</code> function that you wrote earlier. In the code listings below, the differences between the two functions are shown in <span class="red">red</span>. One particular difference is that the <code>getFrequencyData</code> function also handles numbers that do not appear in <code>words.json</code>. Numbers will be treated as "totally familiar" words (like "and" and "my").</p>
+
+<h4><code>NoteBook/server/main.js</code> continued</h4>
+<pre class="revised">...
+
+Meteor.startup(function () {
+  defineMethods()
+  readInWordsFile()
+})
+
+function defineMethods() {
+  Meteor.methods({
+    analyzeText: analyzeText
+  <span class="new">, getFrequencyData: getFrequencyData</span>
+  })
+}
+
+function readInWordsFile() {
+  <span class="omit">// code omitted for clarity</span>
+}
+
+function analyzeText(options) {
+  <span class="omit">// code omitted for clarity</span>
+}
+
+<span class="new">function getFrequencyData(options) {
+  <span class="comment">// options = { data: &lt;string&gt; }</span>
+  var type = typeof options
+  var text
+
+  if (type !== "object" || options === null) {
+    return "Object expected in getFrequencyData: " + type
+
+  } else {
+    text = options.data
+    type = typeof text
+    if (type !== "string") {
+      return "String expected in getFrequencyData: " + type
+    }
+  }
+
+  var words = text.split(/\W/)
+  <span class="red">var output = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]</span>
+  var ii
+    , word
+    , data
+    <span class="red">, band</span>
+
+  <span class="comment">// Convert all words to lowercase</span>
+  words = words.map(function toLowerCase(word) {
+    return word.toLowerCase()
+  })
+
+  <span class="comment">// Remove unknown words, word fragments and duplicates while
+  // retaining all numbers</span>
+  words = words.filter(function knownWordsAndNumbers(word, index) {    
+    <span class="red">var isListed = !!wordFrequencies[word]
+    var isNumber = /^\d+$/.test(word)
+    var isFirstOccurrence = words.indexOf(word) === index
+    return (isListed || isNumber) &amp;&amp; isFirstOccurrence</span>
+  })</span>
+...</pre>
+
+<p>The entries in the <code>words</code> array are now unique, and either words listed in <code>words.json</code> or numbers. Numbers and words must be treated differently in the <code>while</code> loop below. "Words" which represent umbers may not have an entry in the <code>wordFrequencies</code> map, so <code>{ index : 0 }</code> will be used instead.</p>
+<p>The <code>getBand</code> function checks the <code>frequencyBands</code> array for the first value that is greater than or equal to the <code>index</code> argument, and returns the position of that value. In other words, the word "time", which has an <code>index</code> value of 69 will be given a <code>band</code> value of 2, since the first 2 values in <code>frequencyBands</code> (46 and 68) are smaller than 69, but the next value (100) is greater or equal.</p>
+<h4><code>NoteBook/server/main.js</code> continued</h4>
+<pre class="revised">...
+
+  <span class="new"><span class="red"><span class="comment">// Add all filtered input to the appropriate band in the output</span>
+  ii = words.length  
+  while(ii--) {
+    word = words[ii]
+    data = wordFrequencies[word] || { index: 0 } <span class="comment">// for numbers</span>
+    band = getBand(data.index)
+    output[band].push(word)
+  }</span>
+
+  return output
+
+  <span class="red">function getBand(index) {
+    var band = 0
+    frequencyBands.every(function(bandValue) {
+       if (bandValue < index) {
+        band += 1
+        return true
+      }
+    })
+    return band
+  }</span>
+}</pre>
+
+<h3>Testing from the NoteBook window console</h3>
+<p>You can integrate the changes above into the <code>server/main.js</code> file in your Meteor installation, save your file and let the Meteor app restart the server. In the NoteBook window which should be running at <a href="http://localhost:3000/"></a>, you can open a Console window, and enter the following command:</p>
+<h4>NoteBook Console</h4>
+  <pre>Meteor.call(
+  "getFrequencyData"
+, { data: "Here are 11 words and numbers of dummy text for testing" }
+, function (error, result) {
+    console.log(error || JSON.stringify(result))
+  }
+)</pre>
+<p>The output should look something like this:</p>
+<h4>Prettified output</h4>
+<pre class="output">&gt; [ ["for", "of", "and", "11", "are"]
+  , []
+  , []
+  , ["here"]
+  , []
+  , ["words"]
+  , []
+  , []
+  , []
+  , ["numbers"]
+  , ["text"]
+  , []
+  , []
+  , []
+  , []
+  ]</pre>
+
+<p>You'll notice that the words "dummy" and "testing" are not included in the output, because they don't appear in the list of the top 10,000 words in English, according to <code>words.json</code>. However, "11" has been included in the 0th array of the most common words. </p>
+  <div class="aside next">In this section, you've written a server-side method that accepts a string of text as an input and returns a 15-item array of arrays, containing the words of the text categorized by frequency band. You've tested this works by making a call from the NoteBook console.
+  <p>In the <a href="#neo4j">next section</a>, you'll create a chain of communication starting from the third-party content page all the way to the server and back, that results in the words in the content page being coloured according to the frequency band they are found in.</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#neo4j">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>
@@ -3066,23 +3275,155 @@ span.lxo-w1 {
 
 <!-- COLOUR -->
   <section id="colour">
-  <h2>Colouring by numbers</h2>
+  <h2>Colour by numbers</h2>
+  <p>When you have finished this section, activating the Annotation extension will colour the text on a third-party content page, to show words in a range of shades of red. The most common words will appear in <strong>black</strong>, the least common in <span class="crimson">bright red</span>, and all others in a shade <span class="red">somewhere in  between</span>.</p>
+  <p>A single glance at a page will give you an idea about how complex the text on that page will be.</p>
   <div class="aside preview">In this section, you'll learn how to:
   <ul>
   <li>X</li>
   <li>Y</li>
   </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/14_colour.zip" target="source">Download the source files</a>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
   </div>
 
   <div class="aside next">In this section, you've .
-  <p>In the <a href="#sharing">next section</a>, you'll .</p>
+  <p>In the <a href="#data">next section</a>, you'll .</p>
   </div>
 
   <footer>
     <ul class="nav">
     <li>
-    <a href="#sharing">
+    <a href="#data">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- NEO4J -->
+  <section id="neo4j">
+  <h2>Installing Neo4j</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+  <ul>
+  <li>X</li>
+  <li>Y</li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside next">In this section, you've .
+  <p>In the <a href="#data">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#data">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- DATA -->
+  <section id="data">
+  <h2>Priming the Database</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+  <ul>
+  <li>X</li>
+  <li>Y</li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside next">In this section, you've .
+  <p>In the <a href="#meteo4j">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#meteo4j">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- METEOR&NEO4J -->
+  <section id="meteo4j">
+  <h2>Connecting Meteor and Neo4j</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+  <ul>
+  <li>X</li>
+  <li>Y</li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside next">In this section, you've .
+  <p>In the <a href="#cypher">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#cypher">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- CYPHER -->
+  <section id="cypher">
+  <h2>The Cypher database query language</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+  <ul>
+  <li>X</li>
+  <li>Y</li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside next">In this section, you've .
+  <p>In the <a href="#round">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#round">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- ROUND TRIP -->
+  <section id="round">
+  <h2>Round Trip: from third-party content page to Neo4j</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+  <ul>
+  <li>X</li>
+  <li>Y</li>
+  </ul>
+  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside next">In this section, you've .
+  <p>In the <a href="#end">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#end">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>

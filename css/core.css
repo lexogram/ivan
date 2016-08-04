@@ -399,7 +399,7 @@ background: #e0e0f4;
 border-right-color: #eef;
 border-bottom-color: #eef;*/
 }
-.note>pre{
+.note pre{
 background: #f4f4e0;
 /*border-color: #eed;
 border-right-color: #ffe;
@@ -702,6 +702,10 @@ color: #000;
 font-weight: bold;
 color: #900;
 }
+.crimson {
+font-weight: bold;
+color: #f00;
+}
 .green {
 font-weight: bold;
 color: #090;
@@ -757,6 +761,11 @@ font-style: oblique;
 .comment {
 font-weight: normal;
 color: #aaa;
+font-style: oblique;
+}
+.output {
+font-weight: normal;
+color: #999;
 font-style: oblique;
 }
 .incomplete {
