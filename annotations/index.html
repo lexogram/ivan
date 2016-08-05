@@ -17,17 +17,17 @@
       <h3>Getting started</h3>
       <ol>
         <li><a href="#top">Overview</a></li>
-        <li><a href="#waiver">Waiver</a></li>
+        <!-- <li><a href="#waiver">Waiver</a></li> -->
         <li><a href="#intro">Introduction</a></li>
       </ol>
       <h3>The building blocks</h3>
-      <ol start="4">
+      <ol start="3">
         <li><a href="#basic">A basic extension</a></li>
         <li><a href="#window">A standalone window</a></li>
         <li><a href="#meteor">Creating a Meteor site</a></li>
       </ol>
       <h3>Connections</h3>
-      <ol start="7">
+      <ol start="6">
         <li><a href="#connection">Creating a connection</a></li>
         <li><a href="#actions">Detecting interactions</a></li>
         <li><a href="#server">A server-side script</a></li>
@@ -35,29 +35,21 @@
         <li><a href="#template">Using Blaze templates</a></li>
       </ol>
       <h3>Toolbar</h3>
-      <ol start="12">
+      <ol start="11">
         <li><a href="#toolbar">Adding a toolbar</a></li>
         <li><a href="#close">Closing the toolbar</a></li>
         <li><a href="#navigate">Navigating</a></li>
       </ol>
       <h3>Customizing the page</h3>
-      <ol start="15">
+      <ol start="14">
         <li><a href="#spans">Adding span tags</a></li>
         <li><a href="#toggle">Toggling the display</a></li>
         <li><a href="#frequency">Frequency Data</a></li>
         <li><a href="#colour">Colour by numbers</a></li>
       </ol>
-      <h3>Database</h3>
-      <ol start="19">
-      <li><a href="#neo4j">Installing Neo4j</a></li>
-      <li><a href="#data">Priming the database</a></li>
-      <li><a href="#meteo4j">Meteor and Neo4j</a></li>
-      <li><a href="#cypher">Cypher queries</a></li>
-      <li><a href="#round">Round trip connection</a></li>
-      </ol>
       <h3>Delivery</h3>
-      <ol start="24">
-        <li><a href="#sharing">Sharing the extension</a></li>
+      <ol start="18">
+        <li><a href="#distribute">Distribution</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
     </nav>
@@ -80,7 +72,7 @@
 
 <article>
 <!-- WAIVER -->
-<section id="waiver">
+<!-- <section id="waiver">
   <div class="aside warn"><span class="h2">Waiver</span>
     <p>To weave its magic, the Annotations extension makes permanent records of your actions in a database on the server at lexogram.com.</p>
     <ul>
@@ -103,7 +95,7 @@
     </li>
     </ul>
   </footer>
-</section>
+</section> -->
 
 <!-- INTRODUCTION -->
 <section id="intro">
@@ -122,7 +114,7 @@
    <div class="aside preview">In this tutorial, you will see how to use these techniques to:
    <ul>
   <li>Add a toolbar at the top of the main page</li>
-  <li>Replace the <code>body</code> of the page with a modified copy, so that you can change the colour of individual words</li>
+  <li>Modify the <code>body</code> of the page, so that you can set the colour of individual words</li>
   <li>Display a reactive <a href="https://www.meteor.com/" class="plain">Meteor</a> web site in the custom window</li>
   <li>Tell your Meteor server about the user's actions in a third-party web page</li>
   <li>Use information that you retrieve from your server to update the Notebook window and to customize the appearance of the third-party page</li>
@@ -2586,7 +2578,7 @@ Meteor.startup(function() {
 <!-- SPANS -->
   <section id="spans">
   <h2>Adding a <code>&lt;span&gt;</code> tag around each word</h2>  
-  <p>In the next three sections, you'll be developing a feature that uses a round-trip from a third-party content page, through the background script, through the page script in the NoteBook window, to the server, and then all the way back again.</p>
+  <p>In the next four sections, you'll be developing a feature that uses a round-trip from a third-party content page, through the background script, through the page script in the NoteBook window, to the server, and then all the way back again.</p>
   <p>The aim is to colour each word in the third-party page to reflect how common the word is. The most common words (like "the" and "of") will appear black, words that are not in the top 10,000 will be coloured bright red, and words in between will appear in an appropriately dark shade of red.</p>
   <p>In this section, you'll simply be testing that the colouring system is working by making the words of the content page appear in alternating shades of red. In the next section, you'll see how to toggle this feature on and off, and in the third section, you'll create the connection all the way through to the server and back, to get the appropriate colours for each word.</p>
   <p class="aside info">When all the features of the Annotation extension and the NoteBook window are in place, including access to the Neo4j database, the colouring scheme will use different rules. Black words will be the words that you, personally, are most familiar with in the language you are learning; red words will be those the database thinks you have never seen before.</p>
@@ -3234,7 +3226,7 @@ function analyzeText(options) {
   <pre>Meteor.call(
   "getFrequencyData"
 , { data: "Here are 11 words and numbers of dummy text for testing" }
-, function (error, result) {
+, function treatFrequencyData(error, result) {
     console.log(error || JSON.stringify(result))
   }
 )</pre>
@@ -3280,20 +3272,392 @@ function analyzeText(options) {
   <p>A single glance at a page will give you an idea about how complex the text on that page will be.</p>
   <div class="aside preview">In this section, you'll learn how to:
   <ul>
-  <li>X</li>
-  <li>Y</li>
+  <li>Grab the entire text of a third-party HTML page</li>
+  <li>Send this text from the content script to the background script</li>
+  <li>Forward the text from the background script to the page script of the NoteBook window</li>
+  <li>Call a server-side Meteor script from the NoteBook window, forwarding the third-party text</li>
+  <li>Use a client-side callback from the <code>Meteor.call</code> to send a message back to the background script containing the frequency data array that is the output of the call</li>
+  <li>Forward that result from the background script to the content script in the originating third-party page</li>
+  <li>Modify the <code>addSpansToTree</code> method in the <code>toolbar</code> object so that it applies the appropriate class to each word span, according to the relative frequency of the word.</li>
   </ul>
   <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
   </div>
 
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#data">next section</a>, you'll .</p>
+  <p>You'll be making changes to four different files:</p>
+  <ul>
+  <li><code>content.js</code></li>
+  <li><code>background.js</code></li>
+  <li><code>client/main.js</code> in the Meteor application</li> 
+  <li><code>inject.css</code></li>
+  </ul>
+  <p>In particular, you'll be doing some housekeeping in <code>client/main.js</code>, rearranging the code in an object-oriented fashion, as you have already done for <code>content.js</code> and <code>background.js</code>.</p>
+  <p>The journey starts and ends in <code>content.js</code>. You can start by dealing with the communications change, there and back, and finish with the changes to the <code>addSpansToTree</code> method that use the data retrieved from the server.</p>
+
+  <h3>Getting the word frequency data list</h3>
+  <p>In the code listing below, the <code>populateFrequencyMap</code> method starts a chain of messages that will end up with a call to <code>treatFrequencyData</code>, which will receive an argument: an object with a <code>data</code> property whose value will be an array of arrays, like the one you worked with in the <a href="#frequency">last section</a>.</p>
+  <p>This array is in a fairly compressed format, and cannot be used as is. The <code>treatFrequencyData</code> method makes a call to the <code>process</code> function, and this modifies the <code>frequencyMap</code> object, property of the toolbar object.</p>
+  <p>To take the example used in the <a href="#frequency">last section</a>, the <code>process</code> function would take a frequency array like this ...</p>
+  <pre>[ ["for", "of", "and", "11", "are"]
+, []
+, []
+, ["here"]
+, []
+, ["words"]
+, []
+, []
+, []
+, ["numbers"]
+, ["text"]
+, []
+, []
+, []
+, []
+]</pre>
+  <p>... and produce a <code>frequencyMap</code> object like this:</p>
+  <pre>{ "for":     "lxo-w0"
+, "of":      "lxo-w0"
+, "and":     "lxo-w0"
+, "11":      "lxo-w0"
+, "are":     "lxo-w0"
+, "here":    "lxo-w3"
+, "words":   "lxo-w5"
+, "numbers": "lxo-w9"
+, "text":    "lxo-w10"
+}</pre>
+<p>The value for each entry in <code>frequencyMap</code> correspondsto the class that will be applied to the corresponding word. First you can follow the message chain to the server and back, and then you can see how these classes will be applied.</p>
+
+  <h4><code>content.js</code></h4>
+  <pre class="revised">"use strict"
+
+;(function content(){
+
+  var toolbar = {
+    selectedText: ""
+  , extensionIsActive: false
+  , parser: new DOMParser()
+  , ignore: []
+  , regex: /(\w+)/g
+  , removex: /lxo-w\d+/
+  , mode: "original"
+  <span class="new">, <span class="red">frequencyMap</span>: {}</span>
+
+  , initialize: function initialize() {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , insertToolbar: function insertToolbar(request) {
+      var body = document.body
+      var nodes = this.parseAsElements(request.html)
+      appendToBody(nodes)
+      body.classList.add("lxo-annotations")
+
+      this.extensionIsActive = true
+      this.mode = "annotations"
+      <span class="delete">// this.addSpansToTree(body)</span>
+      <span class="new">this.populateFrequencyMap()</span>
+
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+    <span class="omit">// code omitted for clarity</span>
+
+  <span class="new">, populateFrequencyMap: function populateFrequencyMap() {
+      var textContent = document.body.textContent
+
+      chrome.runtime.sendMessage(
+        { method: "getFrequencyData"
+        , data: textContent }
+      )    
+    }   
+
+  , treatFrequencyData: function treatFrequencyData(request) {     
+      <span class="comment">// { method: "treatFrequencyData"
+      // , data: &lt;array of word frequencies&gt;
+      // , id: &lt;id of this tab&gt; }</span>
+
+      var <span class="red">frequencyMap</span> = this.frequencyMap
+      process(request.data)
+
+      if (this.mode === "annotations") {
+        this.addSpansToTree(document.body)
+      }
+
+      function process(frequencyData) {
+        var total = frequencyData.length
+        var array
+          , className
+          , index
+
+        for (var ii = 0, total; ii < total; ii += 1) {
+          array = frequencyData[ii]
+          index = array.length
+          className = "lxo-w" + ii
+
+          while (index--) {
+            <span class="red">frequencyMap</span>[array[index]] = className
+          }
+        }
+      }
+    }</span>
+  }.initialize()
+
+  <span class="omit">// code omitted for clarity</span>
+})()</pre>
+
+<p class="aside note">Note that <code>addSpansToTree</code> is no longer called as soon as the toolbar is initialized. With this new version of the Annotation extension, the <code>frequencyMap</code> information that <code>addSpansToTree</code> will need to apply will not be available until after the round-trip to the server and back is complete. The <code>addSpansToTree</code> method is now called from <code>treatFrequencyData</code>, after the information has been made available.</p>
+
+<h3>From <code>background.js</code> to the NoteBook's <code>main.js</code></h3>
+<p>The <code>background.js</code> and <code>client/main.js</code> scripts just act as relays between the <code>content.js</code> script and the server, but way the relay works is different in each. In <code>background.js</code>, on the outgoing (<code>getFrequencyData</code>) leg, it's possible that the the NoteBook window will only have just started opening, and that there the communication <code>port</code> between the background and the NoteBook will not have been set up yet. For this reason, the <code>getFrequencyData</code> method in <code>background.js</code> contains an immediately-invoked function expression – <code>postMessageWhenPortIsOpen</code> – which checks if the port is open, and keeps calling itself on a regular basis until the port is ready.</p>
+<p>To ensure that the background script will send a message back to the initiating content page, the <code>getFrequencyData</code> method in <code>background.js</code> also adds the <code>id</code> of the initiating tab to the message that is sent on: <code>request.id = sender.tab.id</code> </p>
+<p>For the return journey (<code>treatFrequencyData</code>), the incoming request is simply sent as a message to the appropriate tab.</p>
+<h4><code>background.js</code></h4>
+<pre class="revised">"use strict"
+
+;(function background(){
+
+  var extension = {
+    port: null
+    <span class="omit">// code omitted for clarity</span>
+
+  , initialize: function initialize() {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+    <span class="omit">// code omitted for clarity</span>
+
+  <span class="new">, getFrequencyData: function getFrequencyData(request, sender) {
+      <span class="comment">// { method: "getFrequencyData"
+      // , data: textContent }</span>
+      request.id = sender.tab.id
+
+      ;(function postMessageWhenPortIsOpen(){
+        if (extension.port) {
+          extension.port.postMessage(request)
+        } else {
+          setTimeout(postMessageWhenPortIsOpen, 10)
+        }
+      })()
+    }
+
+  , treatFrequencyData: function treatFrequencyData(request) {     
+      <span class="comment">// { method: "treatFrequencyData"
+      // , data: &lt;array of word frequencies&gt;
+      // , id: &lt;original sender id&gt; }</span>
+
+      chrome.tabs.sendMessage(request.id, request)
+    }</span>
+
+    <span class="omit">// code omitted for clarity</span>
+  }.initialize()
+
+  <span class="omit">// code omitted for clarity</span>
+})()</pre>
+
+<h3>NoteBook client to Meteor server</h3>
+<p>You haven't touched the <code>client/main.js</code> script since you added the table to the NoteBook in section <a href="#template">11: Using Blaze templates</a>. Since you'll be adding more complexity now, it makes sense to reorganize the script like you did for <code>content.js</code> and <code>background.js</code>, in an object-oriented fashion. In the code listing below, the house-keeping changes are shown in <span class="new">black</span> and the feature additions are shown in <span class="red">red</span>.</p>
+
+<h4><code>client/main.js</code></h4>
+<pre class="revised">import { Template } from 'meteor/templating'
+Template.rows.helpers({
+  rows: function rows() {
+    return Session.get("rows")
+  }
+})
+
+import { Session } from 'meteor/session'
+
+Session.set("rows", [])
+ 
+Meteor.startup(function() {
+  var  extensionId = "gmbnkljadedkmfafkecdhfjknjgnoacb"
+  // Use your own extension id ^
+
+  <span class="new">var connections = {</span>
+    port<span class="new">: null</span>
+  <span class="new">,</span> p<span class="new">:</span> document.getElementById("selection")
+
+  <span class="new">, initialize: function initialize() {
+      this.port = chrome.runtime.connect(extensionId)
+      this.port.onMessage.addListener(treatMessage)
+
+      return this
+    }</span>
+
+  <span class="new">, changeSelection:</span> function changeSelection(<span class="new">request</span>) {
+      <span class="new">var selection = request.data</span>
+      <span class="new">this.</span>p.innerHTML = selection
+      Meteor.call("analyzeText", {data: selection}, updateTable)
+
+      function updateTable(error, data) {
+        if (error) {
+
+        } else {
+          Session.set("rows", data)
+        }
+      }
+    }
+
+  <span class="new"><span class="red">, getFrequencyData: function getFrequencyData(request){
+      <span class="comment">// { method: "getFrequencyData"
+      // , data: textContent
+      // , id: &lt;tab id where call originated&gt; }</span>
+      Meteor.call("getFrequencyData",request,treatFrequencyData)
+
+      function treatFrequencyData(error, data) {
+        if (error) {
+          console.log("treatFrequencyData", error)
+
+        } else {
+          connections.port.postMessage({ 
+            method: "treatFrequencyData"
+          , data: data
+          , id: request.id
+          })
+        }
+      }
+    }</span></span>
+
+  <span class="new">, disableExtension: function disableExtension() {
+      this.port.postMessage({ method: "disableExtension" })
+    }
+  }.initialize()</span>
+
+  <span class="comment">// LISTENERS //LISTENERS //LISTENERS //LISTENERS //LISTENERS //</span>
+
+  <span class="new">function treatMessage(request) {
+    var method = connections[request.method]
+    if (typeof method === "function") {
+      method.call(connections, request)
+    }
+  }</span>
+
+  function disableExtension() {
+    <span class="new">treatMessage({ method: "disableExtension" })</span>
+  }
+
+  window.onbeforeunload = disableExtension
+})</span></pre>
+
+<p>The <code>getFrequencyData</code> method uses the same <code>Meteor.call</code> technique you tested in the NoteBook console at the end of the <a href="#template">last section</a>. This time, instead of simply printing out the results of the call into the Console, the <code>treatFrequencyData</code> callback sends a message back to the background script, using the communication port. This will trigger the <code>treatFrequencyData</code> method that you saw in the code listing for <code>background.js</code> earlier. It will provide the data retrieved from the Meteor server-side script and the <code>id</code> of the tab to call back to, and this will in turn trigger the <code>treatFrequencyData</code> method in the initiating <code>content</code> script, which will process the data and use it to populate the <code>frequencyMap</code>.</p>
+
+<h3>Creating coloured spans</h3>
+<p>It's now time to revise the <code>addSpansToTree</code> method of <code>content.js</code>. In fact, it takes only a change to one single line of code to apply a custom class to the span that wraps each word:</p>
+<pre class="revised">"use strict"
+
+;(function content(){
+
+  var toolbar = {
+    selectedText: ""
+    <span class="omit">// code omitted for clarity</span>
+  , frequencyMap: {}
+
+  <span class="omit">// code omitted for clarity</span>
+
+  , addSpansToTree: function addSpansToTree(element) {
+      <span class="omit">// code omitted for clarity</span>
+
+      function replaceWithWordSpans(element) {
+        <span class="omit">// code omitted for clarity</span>
+
+        while (result = toolbar.regex.exec(textContent)) {
+          altered = true
+
+          end = result.index
+          word = result[0]
+          htmlString += textContent.substring(start, end)
+          start = end + word.length
+          <span class="delete">// className = "lxo-w" + (odd = (odd + 1) % 2 )</span>
+          <span class="new">className = toolbar.frequencyMap[word.toLowerCase()]
+                   || "lxo-w15"</span>        
+          htmlString += 
+            "&lt;span class='"+className+"'&gt;"+word+"&lt;/span&gt;"
+        }
+
+        <span class="omit">// code omitted for clarity</span>
+      }
+    }
+
+    <span class="omit">// code omitted for clarity</span>
+  }.initialize()
+
+  <span class="omit">// code omitted for clarity</span>
+})()</pre>
+
+<h3>Custom CSS for custom classes</h3>
+<p>All that remains is to edit <code>inject.css</code> to provide new rules for colouring the text inside each of these new classes.</p>
+<pre class="revised">body.lxo-annotations {
+  margin-top: 32px;
+}
+
+<span class="omit">/* rules omitted for clarity */</span>
+
+a.close:hover,
+a.close:active {
+   color: #900;
+}
+
+span.lxo-w0 {
+  <span class="new">color: #000;</span>
+}
+span.lxo-w1 {
+  <span class="new">color: #100;</span>
+}
+<span class="new">span.lxo-w2 {
+  color: #200;
+}
+span.lxo-w3 {
+  color: #300;
+}
+span.lxo-w4 {
+  color: #400;
+}
+span.lxo-w5 {
+  color: #500;
+}
+span.lxo-w6 {
+  color: #600;
+}
+span.lxo-w7 {
+  color: #700;
+}
+span.lxo-w8 {
+  color: #800;
+}
+span.lxo-w9 {
+  color: #900;
+}
+span.lxo-w10 {
+  color: #a00;
+}
+span.lxo-w11 {
+  color: #b00;
+}
+span.lxo-w12 {
+  color: #c00;
+}
+span.lxo-w13 {
+  color: #d00;
+}
+span.lxo-w14 {
+  color: #e00;
+}
+span.lxo-w15 {
+  color: #f00;
+}</span></pre>
+
+<p>You can save all your changes, reload your extension, wait for the Meteor server to restart, and then activate the latest version of your extension. Now, you should see every word of text displayed in the appropriate colour.</p>
+<figure>
+<img src="img/colour.png" alt="Each word coloured according to its frequency" />
+<figcaption>Figure 27. Each word coloured according to its frequency</figcaption>
+</figure>
+  <div class="aside next">In this section, you've completed the round-trip from the third-content page, through the background script and all the way to the server and back. This completes the functionality of this prototype Annotations extension.
+  <p>In the <a href="#distribute">next section</a>, you'll see how you can package your extension for distribution to others.</p>
   </div>
 
   <footer>
     <ul class="nav">
     <li>
-    <a href="#data">
+    <a href="#distribute">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>
@@ -3301,150 +3665,62 @@ function analyzeText(options) {
   </footer>
 </section>
 
-<!-- NEO4J -->
-  <section id="neo4j">
-  <h2>Installing Neo4j</h2>
+<!-- DISTRIBUTE -->
+  <section id="distribute">
+  <h2>Distributing your extension</h2>
   <div class="aside preview">In this section, you'll learn how to:
   <ul>
-  <li>X</li>
-  <li>Y</li>
+  <li>Create a <code>.crx</code> file to send to others</li>
+  <li>Explore more official distribution channels</li>
   </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
   </div>
 
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#data">next section</a>, you'll .</p>
-  </div>
+  <h3>Official distribution</h3>
+  <p>To protect innocent users from Chrome extensions written with bad intentions, Google is continually tightening its security. The only official way to distribute a Chrome extension is through the <a href="https://chrome.google.com/webstore/category/apps">Chrome Web Store</a>. This requires you to create an account with Google, pay a nominal $5 fee to prove your identity, and to upload your extension to the online store. You can find the latest details of the process on the <a href="https://developer.chrome.com/extensions/hosting">Chrome Developer</a> site.</p>
 
-  <footer>
-    <ul class="nav">
-    <li>
-    <a href="#data">
-    <img src="../img/arrow.png" alt="next"/>
-    </a>
-    </li>
-    </ul>
-  </footer>
-</section>
+  <h3>Unofficial distribution</h3>
+  <p>Currently, your extension is an early alpha version. It contains only enough features for you to feel comfortable with the development process, but not enough to count as a <a href="https://en.wikipedia.org/wiki/Minimum_viable_product">Minimum Viable Product</a>. To share your progress with a few close friends or colleagues, you can simply package your extension and pass it on via email, Dropbox, USB key, or any other ad hoc transfer system..</p>
 
-<!-- DATA -->
-  <section id="data">
-  <h2>Priming the Database</h2>
-  <div class="aside preview">In this section, you'll learn how to:
-  <ul>
-  <li>X</li>
-  <li>Y</li>
-  </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
-  </div>
+  <h3>Step by step</h3>
+  <ol><li>At the  <a href="chrome://extensions">Chrome Extensions</a> management page, click on the Pack Extension button
+  <figure>
+  <img src="img/pack.png" alt="Pack the extension as a .crx file" />
+  <figcaption>Figure 28. Pack the extension as a .crx file</figcaption>
+  </figure></li>
+  <li>In the dialogue window that opens click Browse to select the folder where your Chrome extension is stored.
+  <figure>
+  <img src="img/browse.png" alt="Locate the folder where the extension is stored then click Pack Extension" />
+  <figcaption>Figure 29. Locate the folder where the extension is stored then click Pack Extension</figcaption>
+  </figure></li>
+  <li>This will create two files in the parent folder, alongside the folder that stores your extension: a <code>.crx</code> file and a <code>.pem</code> file. The <code>.pem</code> file contains the unique ID that will be used for your packaged extension. This <strong>will be different</strong> from the ID of your development version.
+  <figure>
+  <img src="img/crx_pem.png" alt="The .crx and .pem files alongside your extension folder" />
+  <figcaption>Figure 30. The .crx and .pem files alongside your extension folder</figcaption>
+  </figure></li>
+  <li>You can now drag the <code>.crx</code> file into the <a href="chrome://extensions">Chrome Extensions management tab</a> of any copy of Chrome, in order to install it.
+  <figure>
+  <img src="img/drop.png" alt="Drop the .crx file onto the Chrome Extensions management tab" />
+  <figcaption>Figure 31. Drop the .crx file onto the Chrome Extensions management tab</figcaption>
+  </figure></li>
+  <li>You'll be warned about the permissions that your extension will be granted, and asked to confirm.
+  <figure>
+  <img src="img/permissions.png" alt="Confirm the permissions that you will be granting to the extension" />
+  <figcaption>Figure 32. Confirm the permissions that you will be granting to the extension</figcaption>
+  </figure></li>
+  <li>The extension will be added to Chrome. Note that its ID will be unique and different from the ID of your development version.
+  <figure>
+  <img src="img/added.png" alt="The extension is added with its own unique ID" />
+  <figcaption>Figure 33. The extension is added with its own unique ID</figcaption>
+  </figure></li>
+  </ol>
 
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#meteo4j">next section</a>, you'll .</p>
-  </div>
-
-  <footer>
-    <ul class="nav">
-    <li>
-    <a href="#meteo4j">
-    <img src="../img/arrow.png" alt="next"/>
-    </a>
-    </li>
-    </ul>
-  </footer>
-</section>
-
-<!-- METEOR&NEO4J -->
-  <section id="meteo4j">
-  <h2>Connecting Meteor and Neo4j</h2>
-  <div class="aside preview">In this section, you'll learn how to:
-  <ul>
-  <li>X</li>
-  <li>Y</li>
-  </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
-  </div>
-
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#cypher">next section</a>, you'll .</p>
-  </div>
-
-  <footer>
-    <ul class="nav">
-    <li>
-    <a href="#cypher">
-    <img src="../img/arrow.png" alt="next"/>
-    </a>
-    </li>
-    </ul>
-  </footer>
-</section>
-
-<!-- CYPHER -->
-  <section id="cypher">
-  <h2>The Cypher database query language</h2>
-  <div class="aside preview">In this section, you'll learn how to:
-  <ul>
-  <li>X</li>
-  <li>Y</li>
-  </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
-  </div>
-
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#round">next section</a>, you'll .</p>
-  </div>
-
-  <footer>
-    <ul class="nav">
-    <li>
-    <a href="#round">
-    <img src="../img/arrow.png" alt="next"/>
-    </a>
-    </li>
-    </ul>
-  </footer>
-</section>
-
-<!-- ROUND TRIP -->
-  <section id="round">
-  <h2>Round Trip: from third-party content page to Neo4j</h2>
-  <div class="aside preview">In this section, you'll learn how to:
-  <ul>
-  <li>X</li>
-  <li>Y</li>
-  </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
-  </div>
-
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#end">next section</a>, you'll .</p>
-  </div>
-
-  <footer>
-    <ul class="nav">
-    <li>
-    <a href="#end">
-    <img src="../img/arrow.png" alt="next"/>
-    </a>
-    </li>
-    </ul>
-  </footer>
-</section>
-
-<!-- SHARING -->
-  <section id="sharing">
-  <h2>Sharing the extension</h2>
-  <div class="aside preview">In this section, you'll learn how to:
-  <ul>
-  <li>X</li>
-  <li>Y</li>
-  </ul>
-  <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/03_meteor.zip" target="source">Download the source files</a>
-  </div>
-
-  <div class="aside next">In this section, you've .
-  <p>In the <a href="#end">next section</a>, you'll .</p>
-  </div>
+  <h3>Unique ID</h3>
+  <p>The <code>client/main.js</code> file needs to know the unique ID of your extension. If you decide to distribute your extension, and you plan to update it from time to time, you will need to ensure that each new <code>.crx</code> file uses the same unique ID. To do this, load your original <code>.pem</code> file using for the Private Key File (Optional) field in the Pack Extension dialogue.</p>
+  <figure>
+  <img src="img/pem.png" alt="Reload the .pem file to ensure that the same ID is used for updates" />
+  <figcaption>Figure 34. Reload the <code>.pem</code> file to ensure that the same ID is used for updates</figcaption>
+  </figure>
+  <p>You may be able to find more up-to-date information on distributing the alpha version of your extension in <a href="http://stackoverflow.com/questions/12452817/is-it-possible-to-create-a-chrome-extension-for-private-distribution-outside-chr">user forums.</a></p>
 
   <footer>
     <ul class="nav">
@@ -3460,16 +3736,30 @@ function analyzeText(options) {
 <!-- CONCLUSION -->
 <section id="end">
   <h2>Conclusion</h2>
-  <div class="aside preview">Here's what you've learnt:
+  <div class="aside next">Here's what you've learnt:
   <ul>
   <li>Create a Chrome extension</li>
-  <li>Modify the DOM of the main page</li>
+  <li>Create and launch a basic Meteor server</li>
+  <li>Read files on the server</li>
   <li>Communicate between different pages</li>
-  <li>Interact with your own server</li>
+  <li>Modify the DOM of a third-party web page</li>
+  <li>Communicate between a third-party web page and your server</li>
   </ul>
   </div>
+  <p>There is plenty more functionality to be added to the project as a whole:</p>
+  <ul>
+  <li>Create a popup settings pane for the extension</li>
+  <li>Add panes in the NoteBook window, to connect to third-party language-oriented sites</li>
+  <li>Use a database to store user-generated information</li>
+  <li>Allow users to register, so that they can use multiple devices to connect and cultivate their own personal learning environment</li>
+  <li>Fine-tune the detection of word boundaries in English</li>
+  <li>Recogize multi-word phrases</li>
+  <li>Extend the Annotations system to work in other languages and with other writing systems</li>
+  <li>Deploy to a domain accessible from anywhere</li>
+  </ul>
+  <p>However, these new features will either be built on the Meteor NoteBook or will require the development of other features before they can be meaningfully integrated into the Annotations extension.</p>
 
-  <p>Well done! Now you're ready to add features to your Meteor server, to make the service provided by the extension even more valuable. Time for a <a href="../notebook/">new tutorial</a>.</p>
+  <p>Well done! Now you're ready to add features to your Meteor server, to make the service provided by the extension even more valuable. You can find additional tutorials on <a href="../notebook/">integrating a graph database</a> and <a href="../apis/">connecting to third-party language-oriented sites</a>.</p>
 </section>
 
 <!-- OVERVIEW -->
@@ -3487,14 +3777,14 @@ function analyzeText(options) {
   </div>
 
   <figure>
-  <img src="img/overview.png" alt="The Annotations extension in action" />
-  <figcaption>Figure 1. The Annotations extension in action</figcaption>
+  <img src="img/overview.png" alt="An alpha version of the Annotations extension in action" />
+  <figcaption>Figure 1. An alpha version of the Annotations extension in action</figcaption>
   </figure>
 
   <footer>
     <ul class="nav">
     <li>
-    <a href="#waiver">
+    <a href="#intro">
     <img src="../img/arrow.png" alt="next"/>
     </a>
     </li>

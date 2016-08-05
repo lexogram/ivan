@@ -1,3 +1,6 @@
+Refine CSS for printing the page so that images are not broken between pages and sections start on a new page.
+
+Deal elegantly with the situation where the Meteor server is not available.
 
 REINSTATE parseAsElements() as a separate function in 11:navigate, and rebuild ZIP
 

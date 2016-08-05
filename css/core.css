@@ -778,6 +778,10 @@ font-weight: lighter;
 color: #99c;
 font-style: oblique;
 }
+.delete {
+text-decoration: line-through;
+color: #900;
+}
 .sidebar .support {
 margin: 0;
 height: 5.5em;
