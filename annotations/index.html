@@ -1709,7 +1709,7 @@ Meteor.startup(function() {
   <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/09_toolbar.zip" target="source">Download the source files</a>
   </div>
   <p>Your users will probably not be working with your Annotation extension all the time. They will want it available only on pages in the language(s) they are learning, and the will want to see when it is active and when it is not, and they will want to Deactivate it when they no longer need it.</p>
-  <p>You can provide this functionality through a Toolbar at the top of the page, as shown if Figure 24 below. In the next section, you'll learn how to use the Toolbar to switch off the Annotation extension for the current page; in section 17: <a href="#toggle">Toggling the display</a> you'll see how to toggle between the annotated and original versions of the page.</p>
+  <p>You can provide this functionality through a Toolbar at the top of the page, as shown if Figure 24 below. In the next section, you'll learn how to use the Toolbar to switch off the Annotation extension for the current page; in section <a href="#toggle">Toggling the display</a> you'll see how to toggle between the annotated and original versions of the page.</p>
  
   <figure>
   <img src="img/toolbar.png" alt="The first version of the Toolbar injected into a third-party page" />
@@ -1729,7 +1729,7 @@ Meteor.startup(function() {
   &lt;a class="close" href="#close"&gt;&amp;#10006;&lt;/a&gt;
 &lt;/section&gt;</pre>
 
-<p class="aside note">The &#10006; icon and the <code>Show original</code> button won't do anything yet. You'll be adding code for these in sections 13: <a href="#toggle">Closing the toolbar</a> and 17: <a href="#toggle">Toggling the display</a>.</p>
+<p class="aside note">The &#10006; icon and the <code>Show original</code> button won't do anything yet. You'll be adding code for these in sections <a href="#toggle">Closing the toolbar</a> and <a href="#toggle">Toggling the display</a>.</p>
 <div class="aside tip">You might also find that the following special characters can work well as close icons in your own projects:
 <ul class="nul">
 <li>&#9746;&nbsp;&nbsp;&amp;#9746;</li>
@@ -2580,7 +2580,7 @@ Meteor.startup(function() {
   <h2>Adding a <code>&lt;span&gt;</code> tag around each word</h2>  
   <p>In the next four sections, you'll be developing a feature that uses a round-trip from a third-party content page, through the background script, through the page script in the NoteBook window, to the server, and then all the way back again.</p>
   <p>The aim is to colour each word in the third-party page to reflect how common the word is. The most common words (like "the" and "of") will appear black, words that are not in the top 10,000 will be coloured bright red, and words in between will appear in an appropriately dark shade of red.</p>
-  <p>In this section, you'll simply be testing that the colouring system is working by making the words of the content page appear in alternating shades of red. In the next section, you'll see how to toggle this feature on and off, and in the third section, you'll create the connection all the way through to the server and back, to get the appropriate colours for each word.</p>
+  <p>In this section, you'll simply be testing that the colouring system is working by making the words of the content page appear in alternating shades of red. In the next section, you'll see how to toggle this feature on and off. In the third section, you'll test a new server-side method, and in the fourth section, you'll create the connection all the way through to the server and back, to get the appropriate colours for each word.</p>
   <p class="aside info">When all the features of the Annotation extension and the NoteBook window are in place, including access to the Neo4j database, the colouring scheme will use different rules. Black words will be the words that you, personally, are most familiar with in the language you are learning; red words will be those the database thinks you have never seen before.</p>
   <div class="aside preview">In this section, you'll learn how to:
   <ul>
@@ -3454,7 +3454,7 @@ function analyzeText(options) {
 })()</pre>
 
 <h3>NoteBook client to Meteor server</h3>
-<p>You haven't touched the <code>client/main.js</code> script since you added the table to the NoteBook in section <a href="#template">11: Using Blaze templates</a>. Since you'll be adding more complexity now, it makes sense to reorganize the script like you did for <code>content.js</code> and <code>background.js</code>, in an object-oriented fashion. In the code listing below, the house-keeping changes are shown in <span class="new">black</span> and the feature additions are shown in <span class="red">red</span>.</p>
+<p>You haven't touched the <code>client/main.js</code> script since you added the table to the NoteBook in the section <a href="#template">Using Blaze templates</a>. Since you'll be adding more complexity now, it makes sense to reorganize the script like you did for <code>content.js</code> and <code>background.js</code>, in an object-oriented fashion. In the code listing below, the house-keeping changes are shown in <span class="new">black</span> and the feature additions are shown in <span class="red">red</span>.</p>
 
 <h4><code>client/main.js</code></h4>
 <pre class="revised">import { Template } from 'meteor/templating'
