@@ -1,3 +1,12 @@
+Notice when wikiTab or GoogleTab closes
+Strip leading and trailing white space on each line
+Use iFrames and toggle the {display: ;} of them to show one at a time
+
+Define native language and target language
+Use tld as a fallback if lang is not defined
+
+Use custom CSS to hide parts of the page in order to focus on the main bits.
+
 Refine CSS for printing the page so that images are not broken between pages and sections start on a new page.
 
 Deal elegantly with the situation where the Meteor server is not available.
@@ -15,7 +24,7 @@ Show progress bar while frequencyData is loading
 
 Refine RegExp
 - Include words like "I'll" as complete words
-- Consider numbers as level 0
+✓ Consider numbers as level 0
 
 Create profile sets for learners, following Oxford (and other) word lists for beginners
 - Words at different levels are tagged in the database
@@ -108,3 +117,31 @@ When using `chrome.runtime.sendMessage`, the `url` is sent both as a property of
 
 ——————————
 
+DATABASE
+Calculate a complexity score for each visited page, based on the number of uncommon words. 
+Calculate a jargon score, based on the number of words associated with certain topics
+
+Save text of page shattered into its component morphemes
+Search for sentences with a given set of words (key word with one word either side, in any position before or after)
+Use a Bescherel or equivalent to link all inflections to their lemmas
+(Inflections available through Wiktionary)
+
+——————————
+
+translate.google.com will not allow itself to be embedded in an iFrame. In order to disply Google Translate in the NoteBook window, it must be at the top level, displacing all other content. We can inject a toolbar at the top which will allow switching between GT, Wiktionary and Lexogram. We can inject CSS which applies to the GT content, and inject Wiktionary and Lexogram as iFrames on the same page.
+
+The connection with Meteor needs to be done through a Meteor page, which must be constantly present. It can be invisible in an iFrame in the Toolbar, but this means that it gets reloaded each time a switch to GTr is made.
+
+The CSS for GTr can make it:
+* Collapse completely
+* Show just the translation
+* Fill the page
+
+The CSS for the injected iFrames can do the same
+
+But each time a new phrase is loaded, the page will reload, with all its iFrames. Solution:
+* open GTr in its own tab
+* update that tab
+* grab the contents of the #result_box span
+* show this translation in the NoteBook window
+* provide a button to bring the GTr tab to the front

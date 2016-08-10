@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta charset="utf-8">
+<title>Language Reference</title>
+<link rel="stylesheet" href="../css/core.css" />
+<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <a href="../"><img src="../img/logo.png" alt="openbook home" /></a>
+    </div>
+
+    <nav>
+      <ol>
+        <li><a href="#top">Overview</a></li>
+        <!-- <li><a href="#waiver">Waiver</a></li> -->
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#iframe">Using an iframe</a></li>
+        <li><a href="#end">Conclusion</a></li>
+      </ol>
+    </nav>
+
+    <p class="aside support">If you have any difficulty in this tutorial, please <a href="https://github.com/lexogram/openbook/issues/new">tell us about it</a>, and we will do our best to deal with it for you.</p>
+  </div>
+
+<main>
+<header>
+  <a href="https://github.com/lexogram/openbook/blob/master/LICENSE" class="cc">&#59409;</a>
+  <h1>Connecting to third-party language reference sites</h1>
+  <ul class="nav">
+    <li>
+      <a href="#back"><img src="../img/arrow.png" alt="back" /></a>
+    </li><li>
+      <a href="#next"><img src="../img/arrow.png" alt="next" /></a>
+    </li>
+  </ul>
+</header>
+
+<article class="un-inverted">
+<!-- WAIVER -->
+<!-- <section id="waiver">
+  <div class="aside warn"><span class="h2">Waiver</span>
+    <p>To weave its magic, the Annotations extension makes permanent records of your actions in a database on the server at lexogram.com.</p>
+    <ul>
+      <li>It records the IP address that is assigned to you at the moment when you start using the Annotations extension</li>
+      <li>It records what pages you have visited, and on what dates</li>
+      <li>It stores a copy of the text of each page you visit</li>
+      <li>It stores the personal notes that you make, and, with your permission, may share these notes anonymously with other people</li>
+    </ul>
+     <p>From this information, the server generates a profile of your language skills which may become more and more accurate the more you use the Annotations extensions and the Lexogram service.</p>
+     <p>You may register with Lexogram using a unique username and password, so that you can keep track of your learning on different computers and share the same computer with different learners. You may provide an email address or a cell phone number, in order to reset your password. If you do so, then it will be technically possible to connect the activity associated with your account to you personally. Even if you don't register, your IP address may provide enough information to identify you.</p>
+     <p>Lexogram uses this data only to provide you with a service that we hope you will find valuable. Lexogram does not provide any information concerning your activities to any third parties. Lexogram does its best to keep its servers secure from malicious attacks. However, Lexogram cannot guarantee that your personal use of the Annotations extension and the Lexogram infrastructure will remain private forever. By using the Annotations extension, you agree to refrain from any activity that you might regret, and never to hold Lexogram responsible in any way for anything that happens as a result of your use of the services that Lexogram provides.</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#intro">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section> -->
+
+<!-- INTRODUCTION -->
+<section id="intro">
+  <h2>Introduction to embedding data from third-party sites</h2>
+  <p>There are several ways to obtain data from a server run by a third-party, such as Google, the Wikimedia Foundation: iframe, AJAX request and helper tabs. Each has its own strengths an limitations.</p>
+  <h3>iframe</h3>
+  <p>You can use an <code>&lt;iframe&gt;</code> tag to display certain third-party web pages inside your own web page.</p>
+  <h4>Strengths</h4>
+  <ul>
+  <li>The entire interactive web page from the third-party site is embedded in your page.</li>
+  </ul>
+  <h4>Limitations</h4>
+  <ul>
+  <li>Certain pages, like <a href="https://translate.google.com">Google Translate</a> are designed for display only in their own tab; attempting to embed such a page in an <code>iframe</code> will fail.</li>
+  <li>It's not possible to modify the CSS of a page displayed in an <code>iframe</code>. In particular, this means your page needs to adapt itself to the space requirements of the embedded page.</li>
+  <li>You need to be aware of the potential <a href="https://developer.mozilla.org/en-US/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies#Security_concerns">security concerns</a> of allowing third-party pages to enter your own pages.</li>
+  <li>You must be sure not to <a href="http://law.stackexchange.com/a/5137">infringe</a> on intellectual property or trademark issues.</li>
+  </ul>
+
+  <h3>AJAX request</h3>
+  <p>If the third-party server allows it, you may be able to make an <a href="https://developer.mozilla.org/en-US/docs/AJAX/Getting_Started">AJAX</a> call to retrieve raw HTML from the server, which you can then insert into the native HTML of your page.</p>
+  <h4>Strengths</h4>
+  <ul>
+  <li>You can manipulate the HTML as you see fit, cherry-picking the parts you want and inserting them where you want in your page.</li>
+  <li>You can apply your own custom CSS to all the inserted HTML.</li>
+  </ul>
+  <h4>Limitations</h4>
+  <ul>
+  <li>When the user clicks on a link in the inserted HTML, your page may be replaced by a new page from the third-party server. You will need to intercept the clicks and convert them into custom AJAX calls.</li>
+  <li>Certain AJAX APIs, such as the <a href="https://cloud.google.com/translate/docs/">Google Translate API</a> are provided as pay-per-use services. If your web site is still at the development stage, you may prefer a cost-free solution.</li>
+  </ul>
+
+  <h3>Helper tab</h3>
+  <p>You can open the source web page in its own tab, and then use the <a href="https://developer.chrome.com/extensions/content_scripts">content script</a> of your Chrome extension to query the page for the information you need, and transfer it to your own web page.</p>
+  <h4>Strengths</h4>
+  <ul>
+  <li>You can retrieve just the information you want to show in your page.</li>
+  <li>You can format it in any way you want.</li>
+  <li>The user can consult the helper tab at any time, to see all the information provided by the source server.</li>
+  </ul>
+  <h4>Limitations</h4>
+  <ul>
+  <li>The structure of the third-party page may change without notice, so the query selectors that you use to retrieve the desired information may break at any time.</li>
+  </ul>
+
+  <p class="aside next">The simplest technique is to embed a third-party web page inside your own, using an <code>&lt;iframe&gt;</code> tag. In the <a href="#iframe">next section</a>, you'll see how to do this with pages from <a href="https://www.wiktionary.org/">Wiktionary.org</a>.</p>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#iframe">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- IFRAME -->
+<section id="iframe">
+  <h2>Using an iframe to embed a third-party page</h2>
+  <div class="aside preview">In this section, you will see how to :
+    <ul>
+      <li></li>
+    </ul>
+  </div>
+
+  <div class="aside preview">Here's what you've learnt:
+  <ul>
+    <li>X</li>
+    <li>Y</li>
+  </ul>
+  </div>
+
+  <div class="aside next">In this section, you've 
+    <p>In the <a href="#next">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#next">
+          <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- NEXT -->
+<section id="next">
+  <h2>NEXT</h2>
+  <div class="aside preview">In this section, you will see how to :
+    <ul>
+      <li></li>
+    </ul>
+  </div>
+
+  <div class="aside preview">Here's what you've learnt:
+    <ul>
+      <li>X</li>
+      <li>Y</li>
+    </ul>
+  </div>
+
+  <div class="aside next">In this section, you've 
+    <p>In the <a href="#end">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#end">
+          <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- CONCLUSION -->
+<section id="end">
+<h2>Conclusion</h2>
+<div class="aside preview">Here's what you've learnt:
+<ul>
+<li>98% of good stuff</li>
+<li>2% salt</li>
+</ul>
+</div>
+
+<p>Well done!</p>
+</section>
+
+<!-- OVERVIEW : SECTION 0 -->
+<section id="top">
+  <h2>Overview</h2>
+  <p class="top">Lexogram is an online language-learning environment consisting of a Chrome extension and a <a href="../notebook/">reactive web site</a> built with  <a href="https://www.meteor.com/">Meteor</a>. Lexogram helps you make notes about web pages that you visit in the language that you are learning.</p>
+  <p>This tutorial shows you how to create a web page that can display information from third-party language reference sites, such as <a href="translate.google.com">Google Translate</a> and <a href="https://www.wiktionary.org/">Wiktionary</a>. It follows on from an <a href="../annotations/">earlier tutorial</a> which shows you how to create a Chrome extension and communicate with a Meteor site running on your local server. For simplicity, the Meteor-specific elements have been commented out for this tutorial. This means that the web page you create can be hosted on any HTML server.</p>
+
+  <div class="aside preview">In particular, you will be learning to:
+    <ul>
+      <li>Query Wiktionary for information on a word in any language</li>
+      <li>Query Google Translate for a machine translation of a multi-word phrase</li>
+    </ul>
+  </div>
+
+  <footer>
+    <ul class="nav">
+    <li>
+    <a href="#intro">
+    <img src="../img/arrow.png" alt="next"/>
+    </a>
+    </li>
+    </ul>
+  </footer>
+</section>
+</article>
+</main>
+
+<script src="../js/core.js"></script>
+</body>
+</html>
