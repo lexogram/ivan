@@ -19,6 +19,8 @@
         <!-- <li><a href="#waiver">Waiver</a></li> -->
         <li><a href="#intro">Introduction</a></li>
         <li><a href="#iframe">Using an iframe</a></li>
+        <li><a href="#helper">Using a helper tab</a></li>
+        <li><a href="#next">Next (Placeholder)</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
     </nav>
@@ -126,27 +128,293 @@
 <!-- IFRAME -->
 <section id="iframe">
   <h2>Using an iframe to embed a third-party page</h2>
-  <div class="aside preview">In this section, you will see how to :
+
+  <p class="aside warn">This tutorial follows on from a tutorial on creating the prototype <a href="../annotations">Annotations extension</a> for Chrome. If you haven't just completed that tutorial, the best way to get started here will be to <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/15_colour.zip" target="source">download the source files</a> for the final section of that tutorial and work from there.</p>
+
+  <div class="aside preview">In this section, you will learn how to :
     <ul>
-      <li></li>
+      <li>Modify the Meteor web pages used for the NoteBook window, so you don't can deliver it from an Apache server.</li>
+      <li>Create an <code>&lt;iframe&gt;</code> in your NoteBook page</li>
+      <li>Set the <code>src</code> attribute of the <code>&lt;iframe&gt;</code> element when you select a word on a page in your browser.</li>
     </ul>
+    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/16_wiktionary.zip" target="source">Download the source files</a>
   </div>
 
-  <div class="aside preview">Here's what you've learnt:
-  <ul>
-    <li>X</li>
-    <li>Y</li>
-  </ul>
-  </div>
+  <h3>Un-Meteorizing the NoteBook</h3>
+  <p>Because this tutorial does not rely on any of the features of Meteor, you can simplify the files in your Meteor <code>client</code> folder as shown below:</p>
 
-  <div class="aside next">In this section, you've 
-    <p>In the <a href="#next">next section</a>, you'll .</p>
+  <h4>Meteor <code>client/main.html</code></h4>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang=en&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;NoteBook&lt;/title&gt;
+  &lt;link rel="stylesheet" type="text/css" href="main.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p id="selection"&gt;&lt;/p&gt;
+  &lt;iframe src="" id="wiktionary"&gt;&lt;/iframe&gt;
+  &lt;script src="main.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+<span class="delete">&lt;!-- &lt;head&gt;
+  &lt;title&gt;NoteBook&lt;/title&gt;
+&lt;/head&gt; --&gt;
+
+&lt;!-- &lt;body&gt;
+  &lt;p id="selection"&gt;&lt;/p&gt;
+  
+  &lt;table border="1"&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Word&lt;/th&gt;
+      &lt;th&gt;Index&lt;/th&gt;
+      &lt;th&gt;Count/Billion&lt;/th&gt;
+    &lt;/tr&gt;
+      {{&gt; rows}}
+  &lt;/table&gt;
+&lt;/body&gt; --&gt;
+
+&lt;!-- TEMPLATES --&gt;
+
+&lt;!-- &lt;template name="rows"&gt;
+  {{#each rows}}
+    &lt;tr&gt;
+      &lt;td&gt;{{word}}&lt;/td&gt;
+      &lt;td&gt;{{index}}&lt;/td&gt;
+      &lt;td&gt;{{count}}&lt;/td&gt;
+    &lt;/tr&gt;
+  {{/each}}
+&lt;/template&gt; --&gt;</span></pre>
+
+  <h4>Meteor <code>client/main.js</code></h4>
+<pre><span class="delete">// import { Template } from 'meteor/templating'
+// Template.rows.helpers({
+//   rows: function rows() {
+//     return Session.get("rows")
+//   }
+// })
+
+// import { Session } from 'meteor/session'
+
+// Session.set("rows", [])
+
+// Meteor.startup(function() {</span>
+  
+<span class="new">;(function startUpWithoutMeteor(){</span>
+  var  extensionId = "bjgdcgpomeengebjdjliaedpiboaildf"
+  // Use your own extension id ^
+
+  var connections = {
+    port: null
+  , p: document.getElementById("selection")
+  <span class="new">, wiktionary: document.getElementById("wiktionary")
+  , wikiURL: [
+      "https://en.wiktionary.org/w/index.php?title="
+    , "&printable=no"
+    ]</span>
+
+  , initialize: function initialize() {
+      this.port = chrome.runtime.connect(extensionId)
+      this.port.onMessage.addListener(treatMessage)
+
+      return this
+    }
+
+  , changeSelection: function changeSelection(request) {
+      var selection = request.data
+      this.p.innerHTML = selection
+      <span class="delete">// Meteor.call("analyzeText", {data: selection}, updateTable)</span>
+
+      <span class="delete">// function updateTable(error, data) {</span>
+      <span class="delete">//   if (error) {</span>
+
+      <span class="delete">//   } else {</span>
+      <span class="delete">//     Session.set("rows", data)</span>
+      <span class="delete">//   }</span>
+      <span class="delete">// }</span>
+      
+      <span class="new">this.showInWikiTab(selection)</span>
+    }
+
+  <span class="new">, showInWikiTab: function showInWikiTab(word) {
+      var word = word.substr(0, word.indexOf(" ")) || word
+
+      if (!word) {
+        return
+      }
+      
+      var url = this.wikiURL[0] + word + this.wikiURL[1]
+      wiktionary.src = url
+    }</span>
+
+  , getFrequencyData: function getFrequencyData(request) {
+      <span class="comment">// { method: "getFrequencyData"
+      // , data: textContent
+      // , id: &lt;tab id where call originated&gt; }</span>
+      <span class="delete">// Meteor.call("getFrequencyData",request,treatFrequencyData)</span>
+
+      function treatFrequencyData(error, data) {
+        if (error) {
+          console.log("treatFrequencyData", error)
+
+        } else {
+          connections.port.postMessage({ 
+            method: "treatFrequencyData"
+          , data: data
+          , id: request.id
+          })
+        }
+      }
+    }
+
+  , disableExtension: function disableExtension() {
+      if (this.port) {
+        this.port.postMessage({ method: "disableExtension" })
+        this.port = null
+      }
+    }
+  }.initialize()
+
+  // LISTENERS //LISTENERS //LISTENERS //LISTENERS //LISTENERS //
+
+  function treatMessage(request) {
+    var method = connections[request.method]
+    if (typeof method === "function") {
+      method.call(connections, request)
+    }
+  }
+
+  function disableExtension() {
+    treatMessage({ method: "disableExtension" })
+  }
+
+  window.onbeforeunload = disableExtension
+})()<span class="new">// remove iife () when Meteor.startup() is restored</span></pre>
+
+  <p>You'll also have to make a small change the <code>background.js</code> script of your extension, to make the new version of the <code>client/main.html</code> file open without using Meteor as the server.</p>
+  <h4><code>background.js</code></h4>
+  <pre class="revised">"use strict"
+
+;(function background(){
+
+  var extension = {
+    port: null
+<span class="new">//, meteorURL: "http://localhost:3000/"
+  , meteorURL: "http://localhost/NoteBook/main.html"
+  // use your own local URL ^</span>
+  , injectedHTML: chrome.extension.getURL("html/inject.html")
+  , injectedCSSFile: "css/inject.css"
+  , tabMap: {}
+
+  <span class="omit">// code omitted for clarity</span>
+})()</pre>
+
+  <div class="aside note">This assumes that you know how to set up an Apache server on your development machine, and that you know how to edit the <code>hosts</code> and <code>httpd.conf</code> files to point the Apache server at the Meteor client folder. If that's not the case, then just don't comment out the lines of code in <span class="delete">red</span> above, and keep your Meteor server running.
+  <p>The advantage of using Apache instead of Meteor is that you can more easily host your files online, and get your friends and colleagues to test your extension without running their own Meteor servers.</p></div>
+
+  <h3>Adding CSS for the <code>iframe</code></h3>
+  <p>By default, the dimensions of the <code>iframe</code> will be set to something like 300 x 150 pixels, which is not nearly big enough to show the contents of the Wiktionary page. You can fix this by adding the following rule to your <code>main.css</code> file:</p>
+  <h4>Meteor <code>mais.css</code></h4>
+  <pre class="revised">p#selection {
+  min-height: 2em;
+  width: 100%;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  border-bottom-color: #eee;
+  border-right-color: #eee;
+}
+
+table {
+  border: 1px solid #000;
+  border-collapse: collapse;
+  min-width: 200px;
+  width: 100%;
+}
+th {
+  background-color: #ccc;
+  padding: 0.1em 0.25em;
+}
+td {
+  padding: 0 0.25em;
+}
+td {
+  text-align: right;
+}
+td:first-child {
+  text-align: left;
+}
+
+<span class="new">iframe#wiktionary {
+  width: 888px;
+  height: 555px;
+}</span></pre>
+
+  <h3>Setting the <code>src</code> for the <code>iframe</code></h3>
+  <p>The edited <code>main.html</code> file now includes an <code> &lt;iframe&gt;</code> tag with an id of <code>#wiktionary</code>. The <code>changeSelection</code> method in the <code>main.js</code> script now calls a <code>showInWikiTab</code> method, which creates a URL of the form ...</p>
+  <pre>"https://en.wiktionary.org/w/index.php?title=" +
+<span class="ymmv">WORD_TO_LOOK_UP</span>
++ "&amp;printable=no"</pre>
+  <p>... which it uses to set the <code>src</code> of the <code>iframe</code>.</p>
+  <p>Now, when you make a selection in the main content window, the Wiktionary page for the first word in the selection (or for the lowercase version of that word) will be shown in the NoteBook window. You may have to resize the window to see enough of the page.</p>
+
+  <figure>
+  <img src="img/wiktionary.png" alt="The Wiktionary page appears in the iframe" />
+  <figcaption>Figure 1. The Wiktionary page appears in the <code>iframe</code></figcaption>
+  </figure>
+
+  <div class="aside next">In this section, you've:
+    <ul>
+      <li>Simplified the files in the Meteor <code>client</code> folder, so that you have a NoteBook page which is easy to run from a remote web server</li>
+      <li>Modified the <code>client/main.js</code> script so that your NoteBook displays the appropriate page from the English version of Wiktionary for the first selected word.</li>
+    </ul> 
+    <p>However, there are a number of issues with this.</p>
+    <ul>
+      <li>Most people learning a foreign language will not have English as their native language, so you need to provide the possibility of choosing which language Wiktionary is displayed in.</li>
+      <li>The Wiktionary page includes a wide sidebar on the left, and a toolbar at the top, which many users will not need to see.</li>
+      <li>The page may include data about languages that the user is not currently learning.</li>
+    </ul>
+    <p>In later sections, we'll deal with each of these issues, but in the <a href="#helper">next section</a>, you'll see a different way to get data from a third-party site, using a helper tab.</p>
   </div>
 
   <footer>
     <ul class="nav">
       <li>
-        <a href="#next">
+        <a href="#helper">
+          <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- HELPER TAB -->
+<section id="helper">
+  <h2>Using a helper tab to display a translation from Google</h2>
+  <div class="aside preview">In this section, you will see how to :
+    <ul>
+      <li></li>
+    </ul>
+
+    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/17_helper.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside preview">In this section, you'll learn how to:
+    <ul>
+      <li>X</li>
+      <li>Y</li>
+    </ul>
+  </div>
+
+  <div class="aside next">In this section, you've 
+    <p>In the <a href="#end">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#end">
           <img src="../img/arrow.png" alt="next"/>
         </a>
       </li>
@@ -161,9 +429,11 @@
     <ul>
       <li></li>
     </ul>
+
+    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/next.zip" target="source">Download the source files</a>
   </div>
 
-  <div class="aside preview">Here's what you've learnt:
+  <div class="aside preview">In this section, you'll learn how to:
     <ul>
       <li>X</li>
       <li>Y</li>
