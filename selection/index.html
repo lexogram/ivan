@@ -18,6 +18,7 @@
         <li><a href="#top">Overview</a></li>
         <li><a href="#intro">Introduction</a></li>
         <li><a href="#discover">Discovering Selections</a></li>
+        <li><a href="#whole_word">Selecting whole words</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
     </nav>
@@ -66,7 +67,7 @@
       <li>See how text can be made unselectable</li>
       <li>Learn how to select unselectable text</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/01_discover.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/03_discover.zip" target="source">Download the source files</a>
   </div>
 
   <h3>A test page</h3>
@@ -140,10 +141,10 @@
 &lt;/body&gt;
 &lt;/html&gt;</pre>
 
-<p>Now you can create a folder named <code>js</code> alongside your <code>index.html</code> file, create a file named <code>selection.js</code> inside this new folder, enter the JavaScript code as shown below, and save your file. The methods and properties of the <code>Selection</code> and <code>Range</code> objects are shown in red.</p>
+  <p>Now you can create a folder named <code>js</code> alongside your <code>index.html</code> file, create a file named <code>selection.js</code> inside this new folder, enter the JavaScript code as shown below, and save your file. The methods and properties of the <code>Selection</code> and <code>Range</code> objects are shown in red.</p>
 
-<h4><code>js/selection.js</code></h4>
-<pre>"use strict"
+  <h4><code>js/selection.js</code></h4>
+  <pre>"use strict"
 
 ;(function selection(){
   var pOutput = document.getElementById("output")
@@ -159,8 +160,12 @@
       text = '"' + selection.anchorNode.textContent + '"'
       output += "&lt;br /&gt;anchorNode: " + text
 
+      output += "&lt;br /&gt;anchorOffset: " + <span class="red">selection.anchorOffset</span>
+
       text = '"' + <span class="red">selection.focusNode</span>.textContent + '"'
       output += "&lt;br /&gt;focusNode: " + text
+
+      output += "&lt;br /&gt;focusOffset: " + <span class="red">selection.focusOffset</span>
     }
 
     if (selection.rangeCount) {
@@ -169,14 +174,18 @@
       text =  '"' + <span class="red">range.startContainer</span>.textContent + '"'
       output += "&lt;br /&gt;range.startContainer: " + text
 
+      output += "&lt;br /&gt;range.startOffset: " + <span class="red">range.startOffset</span>
+
       text =  '"' + <span class="red">range.endContainer</span>.textContent + '"'
       output += "&lt;br /&gt;range.endContainer: " + text
+
+      output += "&lt;br /&gt;range.endOffset: " + <span class="red">range.endOffset</span>
 
       text = '"' + <span class="red">range.toString()</span> + '"'
       output += "&lt;br /&gt;range.toString(): " + text
     }
 
-    text = '"' + <span class="red">selection.toString(),</span> + '"'
+    text = '"' + <span class="red">selection.toString()</span> + '"'
     output += "&lt;br /&gt;selection.toString(): " + text
 
     pOutput.innerHTML = output
@@ -198,9 +207,9 @@
   <figcaption>Figure 2. Displaying the properties of the Selection object in the Console</figcaption>
   </figure>
 
-  <p>The <code>isCollapsed</code> and <code>type</code> properties give the same information in two different ways. If the insertion point is between two characters, like <img src="img/this.gif" alt="blinking cursor" style="position: relative;top: 3px"/>, then <code>isCollapsed</code> will be <code>true</code> and <code>type</code> will be <code>"Caret"</code>. If the one or more characters are selected, like <span class="select">this</span>, then <code>isCollapsed</code> will be <code>false</code> and <code>type</code> will be <code>"Range"</code>.</p>
+  <p>The <code>isCollapsed</code> property indicates if a selection is visible or not. It will be <code>true</code> if there is no current selection. If the one or more characters are selected, like <span class="select">this</span>, then <code>isCollapsed</code> will be <code>false</code>.</p>
 
-  <p class="aside note">The <code>baseNode</code>, <code>baseOffset</code>, <code>extendNode</code> and <code>extendOffset</code> properties may not be present in your browser. In Chrome, they are aliases for the <code>anchor...</code> and <code>focus...</code> properties.</p>
+  <p class="aside note">The <code>baseNode</code>, <code>baseOffset</code>, <code>extendNode</code> and <code>extendOffset</code> properties may not be present in your browser. In Chrome, they are aliases for the <code>anchor...</code> and <code>focus...</code> properties. The <code>type</code> property is also non-standard. In Webkit browsers, if <code>isCollapsed</code> is true, it can take the values "None" (before any selection is made), "Caret" (if there is no current visible selection); if <code>isCollapsed</code> is false, it will take the value "Range".</p>
 
   <h3><code>showSelection</code></h3>
   <p>The custom <code>showSelection</code> calls itself every 250 milliseconds, in order to update the contents of the <code>p#output</code> element in real time, as you modify the selection. Click somewhere on the page and drag the mouse, to see feedback from the <code>Selection</code> object.</p>
@@ -238,7 +247,7 @@
   <p class="aside warn">Older browsers may not support the <code>Range</code> object. If you need to support older browsers then you might prefer to abandon this tutorial and start <a href="http://www.quirksmode.org/dom/range_intro.html">exploring on your own</a>.</p>
 
   <p>Before you click on a freshly loaded page, the <code>Selection</code> object will contain no <code>Range</code> objects, and the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/rangeCount"><code>selection.rangeCount</code></a> will return 0. When you click the first time, a <code>Range</code> object will be created, and <code>selection.rangeCount</code> will become <code>1</code>, even if no selection is visible.</p>
-  <p class="aside tip">It's thus important to check whether <code>selection.rangeCount</code> is greater than zero before using <code>.var range = selection.<a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/getRangeAt">getRangeAt(0)</a></code> to obtain the <code>Range</code> object. Using an invalid index for the <code>.getRangeAt(...)</code> call will provoke an error.</p>
+  <p class="aside note">It's thus important to check whether <code>selection.rangeCount</code> is greater than zero before using <code>var range = selection.<a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/getRangeAt">getRangeAt(0)</a></code> to obtain the <code>Range</code> object. Using an invalid index for the <code>.getRangeAt(...)</code> call will provoke an error.</p>
   <p>By default, the <code>Selection</code> object normally only contains a single <code>Range</code>. However, as you will see, you can use JavaScript to add other ranges to the user-created selection.</p>
 
   <h3>The <code>toString()</code> method</h3>
@@ -292,9 +301,62 @@ Natural Selection.&lt;/p&gt;
 
   <div class="aside next">In this section, you've seen the basics about how text selections are treated in JavaScript.
     <ul>
-      <li>The Selection object</li>
-      <li>The Range object</li>
+      <li>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection">Selection</a> object</li>
+      <ul>
+        <li><span class="ymmv">window.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/getSelection">getSelection()</a></li>
+        <li><span class="ymmv">selection.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/anchorNode">anchorNode</a></li>
+        <li><span class="ymmv">selection.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/anchorOffset">anchorOffset</a></li>
+        <li><span class="ymmv">selection.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/focusNode">focusNode</a></li>
+        <li><span class="ymmv">selection.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/focusOffset">focusOffset</a></li>
+        <li><span class="ymmv">selection.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/rangeCount">rangeCount</a></li>
+        <li><span class="ymmv">selection.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/getRangeAt">getRangeAt()</a></li>
+        <li><span class="ymmv">selection.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/toString">toString()</a></li>
+        <li><span class="ymmv">selection.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/isCollapsed">isCollapsed</a></li>
+      </ul>
+
+      <li>The <a href="">Range</a> object</li>
+      <ul>
+        <li><span class="ymmv">range.</span><a href="">startContainer</a></li>
+        <li><span class="ymmv">range.</span><a href="">startOffset</a></li>
+        <li><span class="ymmv">range.</span><a href="">endContainer</a></li>
+        <li><span class="ymmv">range.</span><a href="">endContainer</a></li>
+        <li><span class="ymmv">range.</span><a href="">endOffset</a></li>
+        <li><span class="ymmv">range.</span><a href="">toString()</a></li>
+      </ul>
       <li>How a text selection is expressed in terms of its start and end points.</li>
+
+    </ul>
+    <p>In the <a href="#whole_word">next section</a>, you'll see how to extend a selection so that a single click can be used to select a whole word.</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#whole_word">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- WHOLE WORD -->
+<section id="whole_word">
+  <h2>Selecting the whole word</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+    <ul>
+      <li>Do stuff</li>
+    </ul>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
+  </div>
+
+  <h3>Subsection</h3>
+  <p>Stuff goes here</p>
+
+  <div class="aside next">In this section, you've ...
+    <ul>
+      <li>Done things</li>
+      <li>Learnt ideas</li>
     </ul>
     <p>In the <a href="#end">next section</a>, you'll ....</p>
   </div>
@@ -317,7 +379,7 @@ Natural Selection.&lt;/p&gt;
     <ul>
       <li>Do stuff</li>
     </ul>
-    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
   </div>
 
   <h3>Subsection</h3>

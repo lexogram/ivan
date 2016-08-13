@@ -765,6 +765,9 @@ font-weight: normal;
 color: #999;
 font-style: oblique;
 }
+.next .ymmv {
+  color: #9b9;
+}
 .comment {
 font-weight: normal;
 color: #aaa;

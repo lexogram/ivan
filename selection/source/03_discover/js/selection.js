@@ -14,8 +14,12 @@
       text = '"' + selection.anchorNode.textContent + '"'
       output += "<br />anchorNode: " + text
 
+      output += "<br />anchorOffset: " + selection.anchorOffset
+
       text = '"' + selection.focusNode.textContent + '"'
       output += "<br />focusNode: " + text
+
+      output += "<br />focusOffset: " + selection.focusOffset
     }
 
     if (selection.rangeCount) {
@@ -24,8 +28,12 @@
       text =  '"' + range.startContainer.textContent + '"'
       output += "<br />range.startContainer: " + text
 
+      output += "<br />range.startOffset: " + range.startOffset
+
       text =  '"' + range.endContainer.textContent + '"'
       output += "<br />range.endContainer: " + text
+
+      output += "<br />range.endOffset: " + range.endOffset
 
       text = '"' + range.toString() + '"'
       output += "<br />range.toString(): " + text
