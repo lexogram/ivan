@@ -1,17 +1,18 @@
 Notice when wikiTab or GoogleTab closes
-Strip leading and trailing white space on each line
-Use iFrames and toggle the {display: ;} of them to show one at a time
+Strip leading and trailing white space on each line of text to check
 
-Define native language and target language
+✓ Use Session.get("nativeCode") in wiktionary call
+Open Google Translate behind other tabs
+
+✓ Define native language and target language
 Use tld as a fallback if lang is not defined
 
 Use custom CSS to hide parts of the page in order to focus on the main bits.
 
+Tutorial:
 Refine CSS for printing the page so that images are not broken between pages and sections start on a new page.
 
 Deal elegantly with the situation where the Meteor server is not available.
-
-REINSTATE parseAsElements() as a separate function in 11:navigate, and rebuild ZIP
 
 Click on X close icon jumps to #close section
 

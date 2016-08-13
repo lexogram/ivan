@@ -19,6 +19,7 @@
         <!-- <li><a href="#waiver">Waiver</a></li> -->
         <li><a href="#intro">Introduction</a></li>
         <li><a href="#iframe">Using an iframe</a></li>
+        <li><a href="#settings">Language settings</a></li>
         <li><a href="#helper">Using a helper tab</a></li>
         <li><a href="#next">Next (Placeholder)</a></li>
         <li><a href="#end">Conclusion</a></li>
@@ -71,7 +72,7 @@
 <!-- INTRODUCTION -->
 <section id="intro">
   <h2>Introduction to embedding data from third-party sites</h2>
-  <p>There are several ways to obtain data from a server run by a third-party, such as Google, the Wikimedia Foundation: iframe, AJAX request and helper tabs. Each has its own strengths an limitations.</p>
+  <p>There are several ways to obtain data from a server run by a third-party, such as Google, the Wikimedia Foundation: iframe, AJAX request and helper tabs. Each has its own strengths and limitations.</p>
   <h3>iframe</h3>
   <p>You can use an <code>&lt;iframe&gt;</code> tag to display certain third-party web pages inside your own web page.</p>
   <h4>Strengths</h4>
@@ -372,16 +373,49 @@ td:first-child {
     <p>However, there are a number of issues with this.</p>
     <ul>
       <li>Most people learning a foreign language will not have English as their native language, so you need to provide the possibility of choosing which language Wiktionary is displayed in.</li>
-      <li>The Wiktionary page includes a wide sidebar on the left, and a toolbar at the top, which many users will not need to see.</li>
       <li>The page may include data about languages that the user is not currently learning.</li>
+      <li>The Wiktionary page includes a wide sidebar on the left, and a toolbar at the top, which many users will not need to see.</li>
     </ul>
-    <p>In later sections, we'll deal with each of these issues, but in the <a href="#helper">next section</a>, you'll see a different way to get data from a third-party site, using a helper tab.</p>
+    <p>To deal with the first two of these issues, in the <a href="#settings">next section</a>, you'll start creating a Settings pane, where users can choose their native and target languages.</p>
   </div>
 
   <footer>
     <ul class="nav">
       <li>
-        <a href="#helper">
+        <a href="#settings">
+          <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- SETTINGS -->
+<section id="settings">
+  <h2>A settings pane to choose native and target languages</h2>
+  <div class="aside preview">In this section, you will see how to :
+    <ul>
+      <li></li>
+    </ul>
+
+    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/17_helper.zip" target="source">Download the source files</a>
+  </div>
+
+  <div class="aside preview">In this section, you'll learn how to:
+    <ul>
+      <li>X</li>
+      <li>Y</li>
+    </ul>
+  </div>
+
+  <div class="aside next">In this section, you've 
+    <p>In the <a href="#end">next section</a>, you'll .</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#end">
           <img src="../img/arrow.png" alt="next"/>
         </a>
       </li>

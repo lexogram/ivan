@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta charset="utf-8">
+<title>Text Selection</title>
+<link rel="stylesheet" href="../css/core.css" />
+<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <a href="../"><img src="../img/logo.png" alt="openbook home" /></a>
+    </div>
+
+    <nav>
+      <ol>
+        <li><a href="#top">Overview</a></li>
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#discover">Discovering Selections</a></li>
+        <li><a href="#end">Conclusion</a></li>
+      </ol>
+    </nav>
+
+    <p class="aside support">If you have any difficulty in this tutorial, please <a href="https://github.com/lexogram/openbook/issues/new">tell us about it</a>, and we will do our best to deal with it for you.</p>
+  </div>
+
+<main>
+<header>
+  <a href="https://github.com/lexogram/openbook/blob/master/LICENSE" class="cc">&#59409;</a>
+  <h1>Text Selection</h1>
+  <ul class="nav">
+    <li>
+      <a href="#back"><img src="../img/arrow.png" alt="back" /></a>
+    </li><li>
+      <a href="#next"><img src="../img/arrow.png" alt="next" /></a>
+    </li>
+  </ul>
+</header>
+
+<article>
+
+<!-- INTRODUCTION -->
+<section id="intro">
+  <h2>Introduction</h2>
+  <p>More details to go here</p>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#end">
+          <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- DISCOVER -->
+<section id="discover">
+  <h2>Discovering the <code>Selection</code> and <code>Range</code> objects</h2>
+  <div class="aside preview">In this section, you'll create test HTML page in order to:
+    <ul>
+      <li>Learn about the <code>Selection</code> object and its properties and methods</li>
+      <li>Learn about the <code>Range</code> object and its properties and methods</li>
+      <li>See how text can be made unselectable</li>
+      <li>Learn how to select unselectable text</li>
+    </ul>
+    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
+  </div>
+
+  <h3>A test page</h3>
+  <p>You can start by creating a simple HTML page with a little JavaScript code to show what happens behind the scenes when you select text. You can see what your page will look in Figure 1 below.</p>
+
+  <figure>
+  <img src="img/testing.png" alt="Testing a text selection across nodes" />
+  <figcaption>Figure 1. Testing a text selection across nodes</figcaption>
+  </figure>
+
+  <p>There are a number of things to notice here:</p>
+  <ul>
+   <li>The HTML includes nodes of different types: <code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;span&gt;</code> and <code>&lt;em&gt;</code> tags</li>
+   <li>The text uses different writing scripts: Cyrillic, Latin and Thai. In Thai, spaces indicate the end of clauses or sentences (like <code>,</code> and <code>.</code> characters in English). In other words, spaces do not indicate the ends of words. In order to select "the word under the mouse" in Thai (and many other writing scripts) you'll have to learn a technique that doesn't depend on spaces.</li>
+   <li>One span in the text is intended to be "unselectable", but when you create a selection that starts before and finishes after this span, it is included in the selection.</li>
+   <li>The text of the <code>p#output</code> element at the bottom cannot be selected, to prevent an endless loop where it would try to display the contents of itself inside itself.</li>
+   </ul>
+
+   <p>To test this yourself, create a file named <code>index.html</code> in the folder of your choice, enter the HTML code shown below, and save your file.</p>
+
+  <h4><code>index.html</code></h4>
+  <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Selection&lt;/title&gt;
+  &lt;style&gt;
+    .box {
+      width: 80%;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      border-top-color: #666;
+      border-left-color: #666;
+      background-color: #f8f8f8;
+      padding: 0.5em;
+    }
+    span {
+      color: #c00;
+    }
+    .unselectable {
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none;   /* Chrome/Safari/Opera */
+      -khtml-user-select: none;    /* Konqueror */
+      -moz-user-select: none;      /* Firefox */
+      -ms-user-select: none;       /* Internet Explorer/Edge */
+      user-select: none;  
+      color: #999;
+    }
+  }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p lang="ru"&gt;Вим ед путант альбюкиюс прёнкипыз, квюо
+  эи выльёт аэтырно бландит, видэ фабыллас майыжтатйж прё экз.&lt;/p&gt;
+
+  &lt;div class="box" lang="la"&gt;
+    &lt;span&gt;Lorem ipsum dolor sit amet, consectetur adipiscing
+    elit.&lt;/span&gt;
+    In nunc ipsum, tristique in convallis non, ultrices sed eros.
+    &lt;span class="unselectable"&gt;This span has
+    &lt;em&gt;user-select: none;&lt;/em&gt; applied to it.&lt;/span&gt;
+    &lt;span&gt;Integer eu dignissim justo, eu facilisis est.&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;p lang="th"&gt;คนึงครวญคร่ำถวิลกินระกำ ระกำกินถวิลคร่ำครวญคนึง&lt;/p&gt;
+
+  &lt;p id="output" class="unselectable"&gt;&lt;/p&gt;
+
+  &lt;script src="js/selection.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<p>Now you can create a folder named <code>js</code> alongside your <code>index.html</code> file, create a file named <code>selection.js</code> inside this new folder, enter the JavaScript code as shown below, and save your file. The methods and properties of the <code>Selection</code> and <code>Range</code> objects are shown in red.</p>
+
+<h4><code>js/selection.js</code></h4>
+<pre>"use strict"
+
+;(function selection(){
+  var pOutput = document.getElementById("output")
+
+  var selection = <span class="red">window.getSelection()</span>
+
+  ;(function showSelection(){
+    var output = "rangeCount: " + <span class="red">selection.rangeCount</span>
+    var range
+    var text
+
+    if (<span class="red">selection.anchorNode</span>) {
+      text = '"' + selection.anchorNode.textContent + '"'
+      output += "&lt;br /&gt;anchorNode: " + text
+
+      text = '"' + <span class="red">selection.focusNode</span>.textContent + '"'
+      output += "&lt;br /&gt;focusNode: " + text
+    }
+
+    if (selection.rangeCount) {
+      range = <span class="red">selection.getRangeAt(0)</span>
+
+      text =  '"' + <span class="red">range.startContainer</span>.textContent + '"'
+      output += "&lt;br /&gt;range.startContainer: " + text
+
+      text =  '"' + <span class="red">range.endContainer</span>.textContent + '"'
+      output += "&lt;br /&gt;range.endContainer: " + text
+
+      text = '"' + <span class="red">range.toString()</span> + '"'
+      output += "&lt;br /&gt;range.toString(): " + text
+    }
+
+    text = '"' + <span class="red">selection.toString(),</span> + '"'
+    output += "&lt;br /&gt;selection.toString(): " + text
+
+    pOutput.innerHTML = output
+
+    setTimeout(showSelection, 250)
+  })()
+})()</pre>
+
+  <p class="aside info">You can test a working version <a href="source/01_discover/">here</a>.</p>
+
+  <h3><code>window.getSelection()</code></h3>
+  <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/getSelection"><code>getSelection()</code></a> method is global: you don't actually need to use <code>window.</code> before you use it. This command returns a live <code>Selection</code> object. The values stored in the <code>Selection</code> object update in real time as you drag the mouse to change your selection.</p>
+
+  <h3>The <code>Selection</code> object</h3>
+  <p>You can see all the properties of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection"><code>Selection</code></a> object by typing the command <code>getSelection()</code> in the Developer Tools' Console window:</p>
+
+  <figure>
+  <img src="img/getSelection.png" alt="Displaying the properties of the Selection object in the Console" />
+  <figcaption>Figure 2. Displaying the properties of the Selection object in the Console</figcaption>
+  </figure>
+
+  <p>The <code>isCollapsed</code> and <code>type</code> properties give the same information in two different ways. If the insertion point is between two characters, like <img src="img/this.gif" alt="blinking cursor" style="position: relative;top: 3px"/>, then <code>isCollapsed</code> will be <code>true</code> and <code>type</code> will be <code>"Caret"</code>. If the one or more characters are selected, like <span class="select">this</span>, then <code>isCollapsed</code> will be <code>false</code> and <code>type</code> will be <code>"Range"</code>.</p>
+
+  <p class="aside note">The <code>baseNode</code>, <code>baseOffset</code>, <code>extendNode</code> and <code>extendOffset</code> properties may not be present in your browser. In Chrome, they are aliases for the <code>anchor...</code> and <code>focus...</code> properties.</p>
+
+  <h3><code>showSelection</code></h3>
+  <p>The custom <code>showSelection</code> calls itself every 250 milliseconds, in order to update the contents of the <code>p#output</code> element in real time, as you modify the selection. Click somewhere on the page and drag the mouse, to see feedback from the <code>Selection</code> object.</p>
+
+  <h3><code>anchorNode</code> and <code>focusNode</code></h3>
+  <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/anchorNode"><code>anchorNode</code></a> is a pointer to the HTML node where you click the mouse to start your selection. The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/focusNode"><code>focusNode</code></a> is a pointer to the HTML element under the mouse while you are dragging. This may be the same as <code>anchorNode</code>.</p>
+  <p class="aside note">In the <code>p#output</code> element, it's the <code>textContent</code> property of these nodes that is shown, not the HTML node object itself.</p>
+
+  <h3>Unselectable text</h3>
+  <p>You can apply a CSS rule to any HTML element to make its contents unselectable. The <code>.unselectable</code> class has this rule, which copes with most browsers in existence.</p>
+<pre>.unselectable {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;  
+}</pre>
+  <p>If you're targetting recent browsers (from IE10 and later) then you can probably get away with just using:</p>
+<pre>.unselectable {
+  user-select: none;  
+}</pre>
+  <p>This class is applied to the sentence that says "<span class="aaa">This span has <em>user-select: none</em> applied to it,</span>". Note what happens if you click on this sentence and drag the mouse upwards or downwards.</p>
+  <dl>
+    <dt>Click on <span class="aaa"><em>none</em></span> and drag up:</dt>
+    <dd>The <code>anchorNode</code> will be the one containing "<span class="aaa"> applied to it</span>", not the <code>&lt;em&gt;</code> element that you initially clicked on. The <code>focusNode</code> will be the HTML node under the mouse.</dd>
+    <dt>Click on <span class="aaa"><em>none</em></span> and drag down:</dt>
+    <dd>The <code>anchorNode</code> will be the <code>textNode</code> containing the space between "<span class="aaa">it.</span>" and "Integer". In other words: the first selectable node that follows the unselectable node.</dd>
+    <dt>Click on <span class="aaa"><em>none</em></span> and drag over the unselectable phrase:</dt>
+    <dd>Both the <code>anchorNode</code> and the <code>focusNode</code> will be the <code>textNode</code> containing the space following the unselectable node.</dd>
+  </dl>
+
+  <h3>The <code>Range</code> object</h3>
+  <p>The <code>Range</code> object is now the official way to deal with multiple arbitrary chunks of an HTML page.</p>
+  <p class="aside warn">Older browsers may not support the <code>Range</code> object. If you need to support older browsers then you might prefer to abandon this tutorial and start <a href="http://www.quirksmode.org/dom/range_intro.html">exploring on your own</a>.</p>
+
+  <p>Before you click on a freshly loaded page, the <code>Selection</code> object will contain no <code>Range</code> objects, and the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/rangeCount"><code>selection.rangeCount</code></a> will return 0. When you click the first time, a <code>Range</code> object will be created, and <code>selection.rangeCount</code> will become <code>1</code>, even if no selection is visible.</p>
+  <p class="aside tip">It's thus important to check whether <code>selection.rangeCount</code> is greater than zero before using <code>.var range = selection.<a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/getRangeAt">getRangeAt(0)</a></code> to obtain the <code>Range</code> object. Using an invalid index for the <code>.getRangeAt(...)</code> call will provoke an error.</p>
+  <p>By default, the <code>Selection</code> object normally only contains a single <code>Range</code>. However, as you will see, you can use JavaScript to add other ranges to the user-created selection.</p>
+
+  <h3>The <code>toString()</code> method</h3>
+  <p>Both the <code>Selection</code> object and the <code>Range</code> object have a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/toString"><code>toString()</code></a> method which returns the text content of the selected chunk referred to by the object. When a selection has only one range, then both will return exactly the same string.</p>
+  <p>Note that you can include "unselectable" text in a selection, by sandwiching the unselectable text with text from selectable nodes.</p>
+  <dl>
+    <dt>Click on the first word in the box (Lorem) and drag to the last word in the box (est)</dt>
+    <dd>The <code>anchorNode</code> and <code>focusNode</code> will be what you should expect, but the values returned by <code>.toString()</code> will include the unselectable text.</dd>
+    
+  </dl>
+
+  <h3>The <code>startContainer</code> and <code>endContainer</code> properties</h3>
+  <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range/startContainer"><code>startContainer</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range/endContainer"><code>endContainer</code></a> properties of a range are similar to the <code>anchorNode</code> and <code>focusNode</code> properties of the <code>Selection</code> object, except they are always set in the order in which the text appears in the source HTML.</p>
+  <dl>
+    <dt>Click on the last word in the box (est) and drag to the last word in the box (Lorem)</dt>
+    <dd>This time, you are starting at the end and dragging backwards: the <code>range.startContainer</code> will contain a pointer to the earlier <code>focusNode</code> and the <code>range.endContainer</code> will contain a pointer to the later <code>anchorNode</code>. This means that you can be sure of the order of the words on the page in your selection.</dd>
+  </dl>
+
+  <h3>The <code>...Offset</code> properties</h3>
+  <p>The <code>anchorNode</code>, <code>focusNode</code>, <code>startContainer</code> and <code>endContainer</code> properties all have their associated <code>...Offset</code> proprties, which indicate where the boundary between non-selection and selection occurs in the particular HTML node. Below, you'll find links where you can read about these in furthur detail:</p>
+  <ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/anchorOffset">anchorOffset</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection/focusOffset">focusOffset</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Range/startOffset">startOffset</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Range/endOffset">endOffset</a></li>
+  </ul>
+  <p>You'll get a chance to work with these properties in the coming sections.</p>
+  
+  <h3>Putting it all together</h3>
+  <p>Imagine the following HTML:</p>
+<pre>&lt;blockquote&gt;&lt;p&gt;I have called this principle &lt;span&gt;...&lt;/span&gt; 
+Natural Selection.&lt;/p&gt;
+&lt;footer&gt;Charles Darwin&lt;/footer&gt;&lt;/blockquote&gt;</pre>
+  <p>Imagine that you click between the "D" and the "a" of "Darwin" and drag your mouse upwards and release it between the two "ll"s of "called", to make the selection shown below:</p>
+  <figure>
+  <img src="img/natural.png" alt="The properties of a Selection" />
+  <figcaption>Figure 3. The properties of a Selection</figcaption>
+  </figure>
+  <p>Here are the values that you will obtain:</p>
+  <ul>
+  <li><code>anchorNode.textContent</code>: "Charles Darwin"</li>
+  <li><code>anchorNode</code>: 9</li>
+  <li><code>focusNode.textContent</code>: "I have called this principle"</li>
+  <li><code>focusOffset</code>: 11</li>
+  <br />
+  <li><code><span class="ymmv">range</span>.startContainer.textContent</code>: "I have called this principle"</li>
+  <li><code><span class="ymmv">range</span>.startOffset</code>: 11</li>
+  <li><code><span class="ymmv">range</span>.endContainer.textContent:</code> "Charles Darwin"</li>
+  <li><code><span class="ymmv">range</span>.endOffset</code>: 9</li>
+  </ul>
+
+  <div class="aside next">In this section, you've seen the basics about how text selections are treated in JavaScript.
+    <ul>
+      <li>The Selection object</li>
+      <li>The Range object</li>
+      <li>How a text selection is expressed in terms of its start and end points.</li>
+    </ul>
+    <p>In the <a href="#end">next section</a>, you'll ....</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#end">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- NEXT -->
+<section id="next">
+  <h2>Title of section</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+    <ul>
+      <li>Do stuff</li>
+    </ul>
+    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
+  </div>
+
+  <h3>Subsection</h3>
+  <p>Stuff goes here</p>
+
+  <div class="aside next">In this section, you've ...
+    <ul>
+      <li>Done things</li>
+      <li>Learnt ideas</li>
+    </ul>
+    <p>In the <a href="#end">next section</a>, you'll ....</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#end">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- CONCLUSION -->
+<section id="end">
+  <h2>Conclusion</h2>
+  <div class="aside preview">Here's what you've learnt:
+    <ul>
+      <li>98% of good stuff</li>
+      <li>2% salt</li>
+    </ul>
+  </div>
+
+  <p>Well done!</p>
+</section>
+
+<!-- OVERVIEW : SECTION 0 -->
+<section id="top">
+  <h2>Overview</h2>
+  <p class="top">This tutorial teaches you how to use JavaScript to control the selection of text in a web page.</p>
+
+  <div class="aside preview">In particular, you will be learning about:
+    <ul>
+      <li>The <code>Selection</code> object</li>
+      <li>The <code>Range</code> object</li>
+      <li>Selecting the word under the cursor as the user drags the mouse</li>
+      <li>Creating <span class="select">discontigous</span> word <span class="select">selections</span></li>
+      <li>Working with text in a variety of writing scripts</li>
+    </ul>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#intro">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+</article>
+</main>
+
+<script src="../js/core.js"></script>
+</body>
+</html>

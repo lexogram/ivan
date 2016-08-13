@@ -632,7 +632,10 @@ background-color: #cfc;
 
 dt {
 font-weight: bold;
-margin: 0.25em ;
+margin: 0.75em ;
+}
+dd {
+  margin-left: 1.5em;
 }
 dd p {
 margin: 0;
@@ -753,6 +756,10 @@ pre.wrap {
 white-space: normal;
 word-wrap: break-word;
 }
+.aaa {
+font-weight: normal;
+color: #aaa;
+}
 .ymmv {
 font-weight: normal;
 color: #999;
@@ -792,6 +799,9 @@ border-radius: 0;
 .nul {
 list-style-type: none;
 padding: 0;
+}
+.select {
+  background-color: #aed4fe;
 }
 
 @media print
