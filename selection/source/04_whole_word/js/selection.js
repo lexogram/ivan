@@ -44,18 +44,17 @@
   function selectWholeWords() {
     if (selection.rangeCount) {
       var range = selection.getRangeAt(0)
+      
       var container = range.startContainer
       var string = container.textContent     
       var length = string.length
-      var offset = range.startOffset
-
-      offset = container.textContent.lastIndexOf(" ", offset+1)
+      var offset = string.lastIndexOf(" ", range.startOffset + 1)
       range.setStart(container, offset + 1)     
 
       container = range.endContainer
       string = container.textContent     
       length = string.length
-      offset = container.textContent.indexOf(" ", range.endOffset)
+      offset = string.indexOf(" ", range.endOffset)
       if (offset < 0) {
         offset = length
       }
