@@ -8,6 +8,7 @@
   // 1. Match a whole range of non-word characters pairs possibly 
   //    including a ' or a - (found in the range !-/)
   var regex = "[\\s!-@\\[-`\\{-~]{2,}"
+  //var regex = "[\\s!-/:-@\\[-`\\{-~]{2,}"
   // 2. Match a whole range of non-word characters, excluding ' and -,
   //    on their own
   regex += "|[\\s!-&\\(-,.-@\\[-`\\{-~]"
