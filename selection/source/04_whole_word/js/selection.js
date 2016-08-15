@@ -62,7 +62,12 @@
 
   document.body.onmouseup = selectWholeWords
 
-  function selectWholeWords() {
+  function selectWholeWords(event) {
+    if (event.detail === 3) {
+      // Let triple-clicks take control of the selection
+      return
+    }
+
     if (selection.rangeCount) {
       var range = selection.getRangeAt(0)
 

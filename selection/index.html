@@ -20,6 +20,7 @@
         <li><a href="#discover">Discovering Selections</a></li>
         <li><a href="#whole_word">Selecting whole words</a></li>
         <li><a href="#dictionary">Using a dictionary</a></li>
+        <li><a href="#arrow">Jump to next word</a></li>
         <li><a href="#box">Limiting to one element</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
@@ -386,7 +387,12 @@ Natural Selection.&lt;/p&gt;
 
   <span class="new">document.body.onmouseup = selectWholeWords
 
-  function selectWholeWords() {
+  function selectWholeWords(event) {
+    if (event.detail === 3) {
+      <span class="comment">// Let triple-clicks take control of the selection</span>
+      return
+    }
+
     if (selection.rangeCount) {
       var range = selection.getRangeAt(0)
       
@@ -466,6 +472,8 @@ Natural Selection.&lt;/p&gt;
 
   <p>As you can see in Figure 4 above, this solution is not yet perfect. Punctuation is selected along with words, and the last word in an HTML element may not be selected in full, because it is not followed by a space.</p>
 
+  <p class="aside note">In many browsers, a triple-click will select an entire HTML element, before the <code>selectWholeWords</code> function is called. Rather than fight this, the code above uses <code>if (event.<a href="https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail">detail</a> === 3) { return }</code> so that it doesn't interfere with the browser's intentions.</p>
+
   <h3>Revising the word boundary regular expression</h3>
   <p>In English, both hyphens and apostrophes may appear in the middle of a word such as in the name of the plant "mother-in-law's tongue". However the same symbol that is used for an apostrophe may be used as a single quotation mark, which is not a part of a word. An intermediate case may occur when an apostrophe indicating possession appears at the end of a word, such as in the expression "the twins' beds".</p>
   <p>Creating a regular expression that deals rigourously with all these cases is quite complex. Each language may require a different set of patterns. If you ignore the case of the trailing apostrophe in "twins'" for now, you can consider that:</p>
@@ -503,7 +511,12 @@ Natural Selection.&lt;/p&gt;
 
   document.body.onmouseup = selectWholeWords
 
-  function selectWholeWords() {
+  function selectWholeWords(event) {
+    if (event.detail === 3) {
+      <span class="comment">// Let triple-clicks take control of the selection</span>
+      return
+    }
+
     if (selection.rangeCount) {
       var range = selection.getRangeAt(0)
 

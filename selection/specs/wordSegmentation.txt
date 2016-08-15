@@ -1,0 +1,59 @@
+Get the lang of the current textNode.
+If it is one of the following switch cases, do something special to find the beginning or the end of the word
+Otherwise, look for English-style word boundaries
+
+In Thai, we have position in a string.
+We know that the longest word is x characters long
+We want a greedy match: if a longer word works, use it
+
+Create a trie from the dictionary
+Starting at the beginning, find all the words
+
+ตาก(expose)ลม(wind)
+is preferred to ตา(eye) กลม(round)
+
+{ a: {0: 0, n: {0: 0, t: {ler: {0: 0, s: 0}}}}
+
+Here, there is an ant on a deer's antler.
+
+ether
+ton
+here
+her
+there
+i
+is
+a
+an
+ant
+on
+deer
+deer's
+antler
+antlers
+
+Could start:
+* her ether eisananton...
+* here there is an ant...
+
+herethereisanantonadeer'santler
+herethereisatinyantonadeer'santler
+            ^^^^
+herethereisasmallantonadeer'santler
+            ^^
+heretherisanantonadeer'santler
+
+
+What if your dictionary is not complete? 
+
+Start at first character. Keep moving forward as you find letters to form a word. Each time you find a complete word, save it as a possible starting place for the next word.
+
+When there is no longer word, save the longest word you've found and continue from the next letter.
+
+If you reach the end of the string, you've got a list of words in the string. Assume that it is the only valid list.
+
+If you reach a point where there are no valid words, save the current attempt, and try the next longest unencumbered path. If you get to the end, ignore other started efforts
+
+If all attempts fail, consider that there is an unknown word. Start with the longest chain found so far, and skip a letter. If that fails, try the next longest chain. 
+
+If all chains fail, skip another letter
