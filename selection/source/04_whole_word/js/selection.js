@@ -1,23 +1,28 @@
 "use strict"
 
-;(function selection(){
+// Tweak to make a double-click select words with hyphens
+// 
+// As of 2016-0816, None of the major Mac browser selects whole words
+// with hyphens, like "ad-lib". This tweak fixes the hypen issue.
+// 
+// Note: Firefox 48.0 doesn't automatically select whole words with 
+// apostrophes like "doesn't". This tweak also fixes that.
+
+;(function selectWholeWordsWithHyphens(){
   var pOutput = document.getElementById("output")
   var selection = window.getSelection()
-  // RegExp to detect word boundaries but to allow ' and - in
-  // the middle of words
-  // 1. Match a whole range of non-word characters pairs possibly 
-  //    including a ' or a - (found in the range !-/)
-  var regex = "[\\s!-@\\[-`\\{-~]{2,}"
-  // 2. Match a whole range of non-word characters, excluding ' and -,
-  //    on their own
-  regex += "|[\\s!-&\\(-,.-@\\[-`\\{-~]"
-
-  // 3a. Match sequence of single-quotes or hyphens at the beginning
-  var startRegex = new RegExp("^['-]+|" + regex, "g")
-  // 3b. Match  end of the string if there is no other boundary first;
-  //     ignore trailing apostrophe/quote marks
-  var endRegex = new RegExp(regex + "|['-]*$")
-
+  // Regex designed to find a word+hyphen before the selected word.
+  // Example: ad-|lib|
+  // It finds the last chunk with no non-word characters (except for
+  // ' and -) before the first selected character. 
+  var startRegex = /(?:\w+['-]*)+['-](?:\w+(?:['-]\w+)*|$)*/g
+  // Regex designed to find a hyphen+word after the selected word.
+  // Example: |ad|-lib
+  var endRegex = /^[\w']*['-]\w+('?-?\w+)*/
+  // Edge case: to check if the selection contains no word
+  // characters. If so, then don't do anything to extend it.
+  var edgeRegex = /\w/
+  
   ;(function showSelection(){
     var output = "rangeCount: " + selection.rangeCount
     var range
@@ -60,47 +65,60 @@
     setTimeout(showSelection, 250)
   })()
 
-  document.body.onmouseup = selectWholeWords
+  document.body.ondblclick = selectHyphenatedWords
 
-  function selectWholeWords(event) {
-    if (event.detail === 3) {
-      // Let triple-clicks take control of the selection
+  function selectHyphenatedWords(event) {
+    if (!selection.rangeCount) {
+      return
+    }
+    var range = selection.getRangeAt(0)
+    var container = range.startContainer
+    var string = container.textContent
+    var selectionUpdated = false
+
+    if (string.substring(range.startOffset, range.endOffset)
+              .search(edgeRegex) < 0) {
+      // There are no word characters selected
       return
     }
 
-    if (selection.rangeCount) {
-      var range = selection.getRangeAt(0)
+    extendSelectionBackBeforeHypen(string, range.startOffset)
+    extendSelectionForwardAfterHyphen(string, range.endOffset)
 
-      var container = range.startContainer
-      var string = container.textContent 
-      var offset=searchBackwards(
-        string
-      , range.startOffset
-      , startRegex
-      )
-      range.setStart(container, offset)     
-
-      container = range.endContainer
-      string = container.textContent
-      offset = range.endOffset
-      offset += string.substring(offset).search(endRegex)
-      range.setEnd(container, offset)
-
+    if (selectionUpdated) {
       selection.removeAllRanges()
       selection.addRange(range)
     }
 
-    function searchBackwards(string, offset, regex) {
-      var adjust = 0
+    function extendSelectionBackBeforeHypen(string, offset) {
+      var lastIndex = 0
       var result
+        , index
       string = string.substring(0, offset)
 
-      while (result = regex.exec(string)) {
-        offset = result.index
-        adjust = result[0].length
+      while (result = startRegex.exec(string)) {
+        index = result.index
+        lastIndex = startRegex.lastIndex
       }
 
-      return adjust ? offset + adjust : 0
+      if (lastIndex === offset) {
+        range.setStart(container, index)
+        selectionUpdated = true
+      }
+    }
+
+    function extendSelectionForwardAfterHyphen(string, offset) { 
+      if (!offset) {
+        return
+      }
+
+      string = string.substring(offset)
+      var result = endRegex.exec(string)
+
+      if (result) {
+        range.setEnd(container, offset + result[0].length)
+        selectionUpdated = true
+      }
     }
   }
 })()

@@ -19,7 +19,17 @@
   // 3b. Match  end of the string if there is no other boundary first;
   //     ignore trailing apostrophe/quote marks
   var endRegex = new RegExp(regex + "|['-]*$")
-  var offset = {}
+  var special = {
+    
+    enx: {
+      method: useWordSegments
+      cache: {} // "unsegmentedstring": ["unsegmented", "string""]
+    }
+  , th: {
+      method: useWordSegments
+      cache: {}
+    }
+  }
 
   ;(function showSelection(){
     var output = "rangeCount: " + selection.rangeCount
@@ -73,10 +83,21 @@
 
     if (selection.rangeCount) {
       var range = selection.getRangeAt(0)
-      if (selection.collapseToEnd) {
-        selection.collapseToEnd()
-      }
+      getWordOffsets(range, setSelection)
+    }
 
+    function setSelection(error, offsets) {
+      // if (!error) {
+        range.setStart(range.startContainer, offsets.start)
+        range.setEnd(range.endContainer, offsets.end)
+      // }
+    }
+
+    function getWordOffsets(range) {
+      var texts = []
+      var container =
+      var lang = getLang(range.startContainer)
+      var textContent = 
       var offset = getStartOffset(range)
       range.setStart(range.startContainer, offset)     
 
@@ -101,7 +122,7 @@
 
     function getStartOffset(range) {
       var container = range.startContainer
-      var offset = range.startOffset // SIC
+      var offset = range.startOffset
       var lang = getLang(container)
 
       console.log("start", offset)

@@ -502,6 +502,7 @@ text-align: center;
 margin: 1em 0;
 }
 figcaption {
+text-align: center;
 margin-top: 1em;
 font-size: 0.85em;
 font-weight: bold;

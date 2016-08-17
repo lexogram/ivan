@@ -13,6 +13,7 @@ var dico = {}
       , "exposed": 0
       , "eye": 0
       , "for": 0
+      , "forane": 0 // nonsense word for testing
       , "gold": 0
       , "in": 0
       , "is": 0
@@ -21,7 +22,6 @@ var dico = {}
       , "or": 0
       , "pence": 0
       , "sea": 0
-      , "sear": 0
       , "look": 0
       , "round": 0
       , "silence": 0
@@ -267,4 +267,8 @@ var dico = {}
   }.initialize()
 })()
 
-console.log(dico.splitIntoWords("งมเข็มในมหาสมุทร พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง ตา&#8203;กลม ตาก&#8203;ลม", "th"))
+console.log(dico.splitIntoWords("งมเข็มในมหาสมุทร พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง ตา&#8203;กลม ตากลม", "th"))
+
+
+
+console.log(JSON.stringify(dico.tries.enx))

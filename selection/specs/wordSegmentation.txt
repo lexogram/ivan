@@ -1,3 +1,16 @@
+A wordBreakMap stores
+  { "lower-case text": {
+      segments: ["lower-case", " ", "text"]
+    , isWord: [1 ,0, 1]
+  }
+All languages can be mixed together, because word-breaks should not depend on language but on writing script.
+
+If the text appears in wordBreakMap, use it. Otherwise, call the server to get the map. If the user changes the selection, we will still want the map. If the user changes the selection within the same text, we will not want to call for the map again: we just want to wait until it arrives.
+
+We could update the wordBreakMap when the page is loaded. We can look for lang codes that require a map, and check for elements with those lang settings.
+
+
+———————
 Get the lang of the current textNode.
 If it is one of the following switch cases, do something special to find the beginning or the end of the word
 Otherwise, look for English-style word boundaries
