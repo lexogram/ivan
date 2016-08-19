@@ -18,9 +18,7 @@
         <li><a href="#top">Overview</a></li>
         <li><a href="#intro">Introduction</a></li>
         <li><a href="#discover">Discovering Selections</a></li>
-        <li><a href="#whole_word">Selecting whole words</a></li>
-        <li><a href="#dictionary">Using a dictionary</a></li>
-        <li><a href="#async">An asynchronous call</a></li>
+        <li><a href="#hyphens">Hyphenated words</a></li>
         <li><a href="#jump">Jump to next word</a></li>
         <li><a href="#box">Limiting to one element</a></li>
         <li><a href="#end">Conclusion</a></li>
@@ -196,7 +194,7 @@
   })()
 })()</pre>
 
-  <p class="aside info">You can test a working version <a href="source/03_discover/">here</a>.</p>
+  <p class="aside tip">You can test a working version <a href="source/03_discover/">here</a>.</p>
 
   <h3><code>window.getSelection()</code></h3>
   <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/getSelection"><code>getSelection()</code></a> method is global: you don't actually need to use <code>window.</code> before you use it. This command returns a live <code>Selection</code> object. The values stored in the <code>Selection</code> object update in real time as you drag the mouse to change your selection.</p>
@@ -330,13 +328,13 @@ Natural Selection.&lt;/p&gt;
       <li>How a text selection is expressed in terms of its start and end points.</li>
 
     </ul>
-    <p>In the <a href="#whole_word">next section</a>, you'll see how to extend a selection so that a single click can be used to select a whole word.</p>
+    <p>In the <a href="#hyphens">next section</a>, you'll see how to extend a selection so that a single click can be used to select the whole of a hyphenated word.</p>
   </div>
 
   <footer>
     <ul class="nav">
       <li>
-        <a href="#whole_word">
+        <a href="#hyphens">
          <img src="../img/arrow.png" alt="next"/>
         </a>
       </li>
@@ -345,252 +343,211 @@ Natural Selection.&lt;/p&gt;
 </section>
 
 <!-- WHOLE WORD -->
-<section id="whole_word">
+<section id="hyphens">
   <h2>Selecting the whole word</h2>
+  <p>As of August 2016, none of the major browsers (Chrome, Firefox, IE, Opera, Safari) allow you to select a hyphenated word with a double-click. The default behaviour is to select only the word that was clicked, or the hypen.</p>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
-      <li>Ensure that when you make a selection, only complete words are selected</li>
+      <li>Ensure that when you double-click to make a selection, hyphenated words are fully selected</li>
       <li>Modify the selection by manipulating the <code>Range</code> object and its <code>startOffset</code> and <code>endOffset</code> properties.</li>
-      <li>Use a regular expression to detect word boundaries</li>
+      <li>Use a simple regular expression to detect word boundaries</li>
       <li>Search backwards with a regular expression</li>
-      <li>Refine the regular expression to exclude unwanted punctuation</li>
+      <li>Refine your regular expression so that it works with all European languages.</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/04_hyphens.zip" target="source">Download the source files</a>
   </div>
 
-  <h3>Setting the start and end points of a selection</h3>
-  <p>By default, a click on a browser page will create an anchor point for a selection; if you drag the mouse, you can extend the selection forwards or backwards form the anchor point. With this default technique, selecting a whole word requires a composite precision action. If your interface is designed for selecting whole words, you can convert a click into a 'whole word selection' action and save your users time and reduce their risk of carpal tunnel syndrome.</p>
-  <p>The trick is to extend the current selection backwards to the preceding word boundary and forwards to the next word boundary. This poses two questions:</p>
+  <h3>Modifying a <code>Range</code></h3>
+  <p>As soon as you click on a web page, the window's <code>Selection</code> object will possess a <code>Range</code> object. You can manipulate the <code>startOffset</code> of the Range's <code>startContainer</code> and the <code>endOffset</code> of its <code>endContainer</code>, to move them out to nearest word boundaries, but simply modifying the <code>Range</code> object will not be enough to change the visible selection on the page: you will also have to remove the <code>Range</code> object from the <code>Selection</code> and then add it back again, so that the <code>Selection</code> object becomes aware that it has changed.</p>
+
+  <h3>Defining the problem</h3>
+  <p>By default, a click on a browser page will create an anchor point for a selection; if you drag the mouse, you can extend the selection forwards or backwards form the anchor point. If you double-click, you switch to "whole word mode"; as you drag your mouse, the selection will select whole words and the whole non-word spaces between them. With this default technique, selecting a hyphenated word requires a composite action: a (double-)click followed by a drag and release. If it makes sense for your users to select hyphenated words whole by default, you can add a patch that will  save your users time and reduce their risk of carpal tunnel syndrome.</p>
+  <p>The trick is to:</p>
   <ul>
+   <li>Detect if the current word contains a hyphen</li>
+   <li>If so, extend the current selection backwards to the preceding word boundary and forwards to the next word boundary.</li>
+  </ul>
+  <p>This poses three questions:</p>
+  <ul>
+  <li>How do you detect that a word contains a hyphen?</li>
   <li>How do you define a word boundary?</li>
   <li>How do you extend a selection?</li>
   </ul>
 
-  <p>Finding word boundaries with Regular Expressions</p>
+  <h3>Using Regular Expressions</h3>
   <p>Regular Expressions are designed to let you search for a particular pattern in a string of text. If you're not familiar with Regular Expressions, you might like to work through a <a href="http://regexone.com/">beginner's tutorial</a> so that the explanations below make more sense to you.</p>
-  <p>You can start with a very simple pattern that will be a good approximation for a word boundary: <code>/\s/g</code>. This means: any space, anywhere in your text. You can refine this later, to exclude unwanted punctuation, but it will do for now.</p>
+  <p>The example below uses three regular expressions. Here's the simplest: <code>/\w/</code>. This means "match the first <span class="keyword">word character</span> in the string". According to the <a href="</span>  ">JavaScript specifications</a>, a word character is any of the following:</p>
+  <pre>0123456789_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
+</pre>
+  <p>That's fine if you're working in English and not using any of them fancy foreign words with accents, like "déjà vu" or "mañana". You can use this simple expression for now, for testing the logic of your code, and then create a more generic regular expression when you've got everything working in plain vanilla English.</p>
 
-  <h3>Modifying a <code>Range</code></h3>
-  <p>As soon as you click on a web page, the window's <code>Selection</code> object will possess a <code>Range</code> object. You can manipulate the <code>startOffset</code> of the Range's <code>startContainer</code> and the <code>endOffset</code> of its <code>endContainer</code>, to move them out to nearest word boundaries, but simply modifying the <code>Range</code> object will not be enough to change the visible selection on the page: you will also have to remove the <code>Range</code> object from the <code>Selection</code> and then add it back again, so that the <code>Selection</code> object becomes aware that it has changed.</p>
+  <p>The other two regular expressions used are more complicated. For example:</p>
+  <pre>var endRegex = /^-('?-?\w+)+/</pre>
+  <p>Here's what it means</p>
+  <dl>
+    <dt><code>^</code></dt>
+    <dd>Starting from the beginning of the string ...</dd>
+    <dt><code>-</code></dt>
+    <dd>... find one a hypen ...</dd>
+    <dt><code>(<span class="ymmv">...</span>)+</code></dt>
+    <dd>... followed by one or more sequences ...</dd>
+   <dt><code>'?-?\w+</code></dt>
+    <dd>... of optional apostrophes and hyphens and ending with one of more word characters</dd>
+  </dl>
+  <p>In summary, this means: <em>look for the longest chunk like "-to-day" or "-friend's", that starts with a hyphen, may include more hyphens and apostrophes, and ends with a letter or a number.</em> If the string you are searching in starts with "no hyphens", then nothing will match.</p>
+  <p>The other regex you can use for now is:</p>
+  <pre>/(\w+'?-?)+-$/g</pre>
+  <p>This uses similar techniques to say: <em>look for the longest chunk that starts with a word character, may include some hyphens and apostrophes, and ends with a hyphen</em>. The final <code>g</code> means: after you've found this pattern, keep looking for more.</p>
+
+  <p class="aside warn">It's easy to create a regular expression that matches everywhere, in which case the <code>while</code> statement in the code listing below will never stop being <code>true</code>, and the browser will freeze. This shouldn't happen with the regular expressions used in this tutorial. If you change the <code>startRegex</code> expression and the browser stops responding, then the best solution is to force quit your browser, and restart it without restoring the previous session. Fix your script before you reload your page.</p>
+
   <p>Below, you'll find new code to add to your <code>js/selection.js</code> file:</p>
 
   <h4><code>js/selection.js</code></h4>
-  <pre class="revised">"use strict"
+  <pre><span class="revised">"use strict"
 
-;(function selection(){
-  var pOutput = document.getElementById("output")
+;(function showSelection(){
+  <span class="omit">// code omitted for clarity</span>
+})()</span>
+
+
+;(function selectWholeWordsWithHyphens(){
   var selection = window.getSelection()
-  <span class="new">var regex = /\s/g</span>
+  <span class="comment">// Regex designed to find a word+hyphen before the selected word.
+  // Example: ad-|lib|
+  // It finds the last chunk with no non-word characters (except for
+  // ' and -) before the first selected character.</span> 
+  var startRegex = /(\w+'?-?)+-$/g
+  <span class="comment">// Regex designed to find a hyphen+word after the selected word.
+  // Example: |ad|-lib</span>
+  var endRegex = /^-('?-?\w+)+/
+  <span class="comment">// Edge case: check if the selection contains no word characters.
+  // If so, then don't do anything to extend it.</span>
+  var edgeRegex = /\w/
 
-  ;(function showSelection(){
-    <span class="omit">// code omitted for clarity</span>
-  })()
+  document.body.ondblclick = selectHyphenatedWords
 
-  <span class="new">document.body.onmouseup = selectWholeWords
+  function selectHyphenatedWords(event) {
+    if (!selection.rangeCount) {
+      return
+    }
+    var range = selection.getRangeAt(0)
+    var container = range.startContainer
+    var string = container.textContent
+    var selectionUpdated = false
 
-  function selectWholeWords(event) {
-    if (event.detail === 3) {
-      <span class="comment">// Let triple-clicks take control of the selection</span>
+    if (string.substring(range.startOffset, range.endOffset)
+              .search(edgeRegex) < 0) {
+      <span class="comment">// There are no word characters selected</span>
       return
     }
 
-    if (selection.rangeCount) {
-      var range = selection.getRangeAt(0)
-      
-      var container = range.startContainer
-      var string = container.textContent 
-      var offset = searchBackwards(
-        string
-      , range.startOffset
-      , regex
-      )
-      <span class="red">range.setStart</span>(container, offset)
+    extendSelectionBackBeforeHypen(string, range.startOffset)
+    extendSelectionForwardAfterHyphen(string, range.endOffset)
 
-      container = range.endContainer
-      string = container.textContent
-      offset = range.endOffset
-      offset += <span class="red">string</span>.substring(offset)<span class="red">.search</span>(regex)
-      <span class="red">range.setEnd</span>(container, offset)
-
-      <span class="red">selection.removeAllRanges</span>()
-      <span class="red">selection.addRange</span>(range)
-    }
-
-    function searchBackwards(string, offset, regex) {
-      var adjust = 0
-      var result
-      string = string.substring(0, offset)
-
-      while (result = <span class="red">regex.exec</span>(string)) {
-        offset = <span class="red">result.index</span>
-        adjust = <span class="red">result[0].length</span>
-      }
-
-      return adjust ? offset + adjust : 0
-    }
-  }</span>
-})()</pre>
-
-  <h3>Searching with a Regular Expression</h3>
-  <p>Regular Expressions are designed to start at the beginning of a string and work forward. It is therefore much easier to find the first space <em>after</em> the end of current selection than to find the last space before the selection begins.</p>
-  <p>The <code>string.search(regex)</code> method of strings returns the position where the Regular Expression pattern is first found in the string. If you start searching from the <code>endOffset</code> point, you will find how many characters you need to move to get to the first following space.</p>
-  <pre>      container = range.endContainer
-      string = container.textContent
-      offset = range.endOffset
-      offset += string.substring(offset).search(regex)
-      range.setEnd(container, offset)</pre>
-
-  <h3>Searching backwards</h3>
-  <p>To search backwards using an ordinary string as the search term, you can use <code><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/lastIndexOf">lastIndexOf()</a></code> string method. However, if your search term is a regular expression, you need to be use a more roundabout technique. One efficient technique is to find all the occurrence of the pattern, and then choose the last one:</p>
-
-<pre>function searchBackwards(string, offset, regex) {
-  var adjust = 0
-  var result
-  string = string.substring(0, offset)
-
-  while (result = regex.exec(string)) {
-    offset = result.index
-    adjust = result[0].length
-  }
-
-  return adjust ? offset + adjust : 0
-}</pre>
-
-  <h3><code><span class="ymmv">regex.</span>exec</code></h3>
-  <p>The <code>exec</code> method of regular expressions looks for the next match for the regular expression pattern in the string. If there is a match, it returns an array that has two special properties: <code>index</code> and <code>input</code>. The first item in the array is the string of matched characters, while the <code>index</code> property gives the position of the beginning of the match. You can calculate the position of the end of the match, <code>result.index + result[0].length</code>.</p>
-
-  <p>If there is no match for the regular expression pattern, the value of <code>adjust</code> will still be <code>0</code> and this function will return this zero, indicating the beginning of the string. If there is a match, then in the last line, <code>offset</code> and <code>adjust</code> will hold the values for the last match found: their sum will give the position of the end of the match.</p>
-
-  <p class="aside warn">It's easy to create a regular expression that matches everywhere, in which case the <code>while</code> statement will never stop being <code>true</code>, and the browser will freeze. This shouldn't happen with the regular expressions used in this tutorial.</p>
-
-  <h3>Testing</h3>
-  <p>You can save the changes that you have made to <code>selection.js</code> and relaunch the page in your browser. Try clicking on words and on blank spaces between words, to see what happens.</p>
-
-  <figure>
-  <img src="img/spaces.png" alt="Punctuation may be selected along with words when spaces are used as word boundaries" />
-  <figcaption>Figure 4. Punctuation may be selected along with words when spaces are used as word boundaries</figcaption>
-  </figure>
-
-  <p>As you can see in Figure 4 above, this solution is not yet perfect. Punctuation is selected along with words, and the last word in an HTML element may not be selected in full, because it is not followed by a space.</p>
-
-  <p class="aside note">In many browsers, a triple-click will select an entire HTML element, before the <code>selectWholeWords</code> function is called. Rather than fight this, the code above uses <code>if (event.<a href="https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail">detail</a> === 3) { return }</code> so that it doesn't interfere with the browser's intentions.</p>
-
-  <h3>Revising the word boundary regular expression</h3>
-  <p>In English, both hyphens and apostrophes may appear in the middle of a word such as in the name of the plant "mother-in-law's tongue". However the same symbol that is used for an apostrophe may be used as a single quotation mark, which is not a part of a word. An intermediate case may occur when an apostrophe indicating possession appears at the end of a word, such as in the expression "the twins' beds".</p>
-  <p>Creating a regular expression that deals rigourously with all these cases is quite complex. Each language may require a different set of patterns. If you ignore the case of the trailing apostrophe in "twins'" for now, you can consider that:</p>
-  <ul>
-  <li>If a hyphen or apostrophe appear with another non-word character, then the hyphen or an apostrophe should be considered a word boundary</li>
-  <li>If the hyphen or apostrophe appear with a letter character on either side, they should be considered a part of the word</li>
-  <li>If any other non-word character appears between two letter characters, it should be considered a word boundary</li>
-  <li>The first and last character in a string are word boundaries.</li>
-  </ul>
-
-  <p>You can make the following change to your <code>selection.js</code> script. Note that this uses a different regular expression for finding the start of the word than for finding the end. The details of the <code>regex</code> are described below.</p>
-<pre><span  class="revised">"use strict"
-
-;(function selection(){
-  var pOutput = document.getElementById("output")
-  var selection = window.getSelection()</span>
-  // RegExp to detect word boundaries but to allow ' and - in
-  // the middle of words
-  // 1. Match a whole range of non-word characters pairs possibly 
-  //    including a ' or a - (found in the range !-/)
-  var regex = <span class="new">"[\\s!-@\\[-`\\{-~]{2,}"</span>
-  // 2. Match a whole range of non-word characters, excluding ' 
-  //    and -, on their own
-  <span class="new">regex += "|[\\s!-&amp;\\(-,.-@\\[-`\\{-~]"</span>
-
-  // 3a. Match sequence of single-quotes or hyphens at start
-  <span class="new">var startRegex = new RegExp("^['-]+|" + regex, "g")</span>
-  // 3b. Match end of string if there is no other boundary first;
-  //     ignore trailing apostrophe/quote marks
-  <span class="new">var endRegex = new RegExp(regex + "|['-]*$")</span>
-
-  <span class="revised">;(function showSelection(){
-    <span class="omit">// code omitted for clarity</span>
-  })()
-
-  document.body.onmouseup = selectWholeWords
-
-  function selectWholeWords(event) {
-    if (event.detail === 3) {
-      <span class="comment">// Let triple-clicks take control of the selection</span>
-      return
-    }
-
-    if (selection.rangeCount) {
-      var range = selection.getRangeAt(0)
-
-      var container = range.startContainer
-      var string = container.textContent 
-      var offset = searchBackwards( 
-        string
-      , range.startOffset
-      , </span><span class="new">startRegex</span><span class="revised">
-      )
-      range.setStart(container, offset)     
-
-      container = range.endContainer
-      string = container.textContent
-      offset = range.endOffset
-      offset += string.substring(offset).search</span>(</span><span class="new">endRegex</span><span class="revised">)
-      range.setEnd(container, offset)
-
+    if (selectionUpdated) {
       selection.removeAllRanges()
       selection.addRange(range)
     }
 
-    function searchBackwards(string, offset, regex) {
-      <span class="omit">// code omitted for clarity</span>
+    function extendSelectionBackBeforeHypen(string, offset) {
+      var lastIndex = 0
+      var result
+        , index
+      string = string.substring(0, offset)
+
+      while (result = startRegex.exec(string)) {
+        index = result.index
+        lastIndex = startRegex.lastIndex
+      }
+
+      if (lastIndex === offset) {
+        range.setStart(container, index)
+        selectionUpdated = true
+      }
+    }
+
+    function extendSelectionForwardAfterHyphen(string, offset) { 
+      if (!offset) {
+        return
+      }
+
+      string = string.substring(offset)
+      var result = endRegex.exec(string)
+
+      if (result) {
+        range.setEnd(container, offset + result[0].length)
+        selectionUpdated = true
+      }
     }
   }
-})()</span></pre>
+})()</pre>
 
-  <h3>Explaining the <code>regex</code></h3>
-  <p>In JavaScript, a regular expression can be created in two ways:
-  </p>
+  <h3>All in one place</h3>
+  <p>Because this function is triggered by a double-click, you can be sure that the click occurred with no movement, so the <code>range.startContainer</code> and <code>range.endContainer</code> will be the same. The browser will already have selected the item under the mouse. This might in fact be a space, a punctuation character, or a "word" in English or some other language.</p>
+  <p>If something other than a word is selected, there is no point in searching for a hypen in the non-word. The first check is therefore to see if there are any word characters included in the selectionA if not, there is no need to go any further:</p>
+  <pre>if (string.substring(range.startOffset, range.endOffset)
+          .search(edgeRegex) < 0) {
+  return
+}</pre>
+
+  <h3>Extending the selection</h3>
+  <p>If you click on a word, there are four possibilities:</p>
   <ul>
-  <li><code>/regular expression/</code></li>
-  <li><code>new RegExp("regular expression")</code></li>
+  <li>The word contains no hyphens: there is nothing more to do</li>
+  <li>You double-clicked on the hyphen itself and selected it. To simplify this tutorial, you can ignore this possibility.</li>
+  <li>You clicked after the first hyphen in a word, so only the part of the word before the hyphen is selected: you need to extend the selection back to the beginning of the word.</li>
+  <li>You clicked before a hyphen in a word, so only the part of the word before the hyphen is selected: you need to extend the selection to the end of the word</li>
   </ul>
-  <p>When the <code>new RegExp()</code> constructor is used, any <code>\</code> backslash characters needed to be escaped with another <code>\</code> backslash character. In other words <code>new RegExp("[\\s!-@\\[-`\\{-~]{2,}")</code> will create a regular expression that looks like this: <code>/[\s!-@\[-`\{-~]{2,}/</code></p>
-  <p>This means:</p>
-  <dl>
-    <dt><code>[<span class="ymmv">...</span>]</code></dt>
-    <dd>Any one of the characters described within the square brackets. As you will see, these are all the printable characters with a <code>charCode</code> less than 128, which are neither uppercase or lowercase letters: all the non-word characters for English.</dd>
-    <dt><code>\s</code></dt>
-    <dd>A white-space character such as a space, a non-breaking space, a tab, a carriage return or a line-feed character</dd>
-    <dt><code>!-/</code></dt>
-    <dd>Any character between <code>!</code> and <code>/</code> in their order in the <a href="">ascii</a> table. To be exact, the characters <code>! " # $ % &amp; <span class="red">'</span> ( ) * + , <span class="red">-</span> . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @</code>. Notice that this includes the characters <code>'</code> and <code>-</code> that create a special case.</dd>
-    <dt><code>\[-`</code></dt>
-    <dd>All the characters between <code>[</code> and <code>`</code> inclusive. Note that <code>[</code> has a special meaning in regular expressions, so it needs to be escaped with a <code>\</code> backslash character</dd>
-    <dt><code>\{-~</code></dt>
-    <dd>All the characters between <code>{</code> and <code>~</code> inclusive. Note that <code>[</code> has a special meaning in regular expressions, so it needs to be escaped with a <code>\</code> backslash character</dd>
-    <dt>{2,}</dt>
-    <dd>Two or more of the characters described in the preceding <code>[<span class="ymmv">...</span>]</code></dd>
-  </dl>
-  <p>In other words, if a <code>'</code> and <code>-</code> character appears beside another non-word character, it will be considered a word boundary.</p>
-  <p>In between each of these sections of non-word characters, the ascii table has sections for:</p>
-  <ul>
-  <li>A-Z (between <code>@</code> and <code>[</code>)</li>
-  <li>a-z (between <code>{</code> and <code>~</code>)</li>
-  </ul>
-  <p>The second section of the <code>regex</code> starts with the <code>|</code> character, which means OR. There are two differences between what follows and the part you have already seen:</p>
-  <ul>
-  <li>The <code>'</code> and <code>-</code> characters are excluded</li>
-  <li>Only one of any of the other characters is needed to create a word boundary</li>
-  </ul>
-  <p>In other words, the second part of the <code>regex</code> considers all non-word characters on their own <em>except</em> <code>'</code> and <code>-</code> as word boundaries.</p>
+  <p>In a word like "day-to-day", if you double-click on "to", then your code needs to extend the selection both forwards and backwards.</p>
 
-  <h3><code>startRegex</code> and <code>endRegex</code></h3>
-  <p>The first character of an HTML node may be an opening single quote, or possibly a hyphen, to indicate a list. If these initial characters were included in <code>endRegex</code>, then a click on an apostrophe or a hyphen in the middle of a word would prevent that character and the remainder of the word from being chosen. The <code>startRegex</code> needs to be applied multiple times, in order to find the last occurrence, so the <code>g</code> global flag is required.</p>
-  <p>The last character in an HTML element may be a closing single quote, not followed by any other non-word character. The word might also end with no punctuation to follow it, so the <code>$</code> end of string character is also considered a word boundary. If this were included in <code>startRegex</code> then  a click on an apostrophe or a hyphen in the middle of a word would prevent that character and the beginning of the word from being chosen.</p>
+  <h3>Extending the selection to the end of the word</h3>
+  <p>Extending from the end of the current selection to end of the word is the easier problem to solve, so you can start by looking at that. The technique is to  remove all the characters in the <code>textContent</code> string before the end of the current selection, then check if the remaining characters start with a <code>-</code> followed by an apostrophe or a word character, as defined in <code>endRegex</code>: <code>/^-('?-?\w+)+/</code></p>
 
-  <h3>Testing the refined regular expression</h3>
-  <p>You can now test whether the new regular expression will correctly detect punctuation and words at the end of an element, as well as embedded hyphens and apostrophes. You might like to add a (rather contrived) sentence to your test page, so thet you can check that everything is working as expected.</p>
+  <pre>function extendSelectionForwardAfterHyphen(string, offset) { 
+  string = string.substring(offset)
+  var result = endRegex.exec(string)
 
-  <h4><code>index.html</code></h4>
+  if (result) {
+    range.setEnd(container, offset + result[0].length)
+    selectionUpdated = true
+  }
+}</pre>
+
+  <p>If there is a match, <code>result</code> will be an array containing the matching string. The <code>length</code> of this string determines the distance from the end of the current selection (<code>offset</code>) to the end of the hyphenated word.</p>
+  <p>You can use <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range/setEnd"><code>range.setEnd</code></a> to move the end of the selection, but this is not enough to update the selection on the screen. Setting the <code>selectionUpdated</code> flag to <code>true</code> will tell your code to perform a necessary second step in just a moment.</p>
+
+  <h3>Extending the selection back to the beginning of the word</h3>
+  <p>Finding the beginning of a hyphenated word is not quite so simple, because in JavaScript, regular expressions can only look forwards, not backwards. A good workaround is to look for <em>all</em> the matches for a string like "xxx-" that occur before the beginning of the current selection, then to test if the <em>last</em> of these matches ends exactly at the selection point. If so, the beginning of that last match indicates the beginning of the hyphenated word.</p>
+  <p>When a regular expression object, such as <code>startRegex</code>, is first created, its <code>lastIndex</code> property is set to <code>0</code>. Each time its <code>exec</code> method is called  and a match is found, <code>lastIndex</code> is updated to reflect the position of the end of the match. The next time <code>exec</code> is called, it will start searching for a new match from that point. If the last value of <code><span class="ymmv">regex.</span>lastIndex</code> is <code>offset</code> , then the <code>index</code> property of the <code>results</code> array gives the starting point of the hyphenated word. In this case, you can use the <code><span class="ymmv">range.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Range/setStart">setStart</a></code> method to move the begining of the selection to the beginning of the word:</p>
+  <pre>function extendSelectionBackBeforeHypen(string, offset) {
+  var lastIndex = 0
+  var result
+    , index
+  string = string.substring(0, offset)
+
+  while (result = startRegex.exec(string)) {
+    index = result.index
+    lastIndex = startRegex.lastIndex
+  }
+
+  if (lastIndex === offset) {
+    range.setStart(container, index)
+    selectionUpdated = true
+  }
+}</pre>
+
+  <p>If <code>selectionUpdate</code> is set to <code>true</code>,  because the selection has been extended either forwards or backwards or both, then the <code>Selection</code> range needs to be updated:</p>
+  <pre>if (selectionUpdated) {
+  selection.removeAllRanges()
+  selection.addRange(range)
+}</pre>
+
+  <h3>Testing</h3>
+  <p>Your current <code>index.html</code> page contains hyphenated words only in the unselectable section. To test your new function, you can add the following to your HTML file:</p>
+
   <pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
   <span class="omit">// HTML omitted for clarity</span>
@@ -599,29 +556,91 @@ Natural Selection.&lt;/p&gt;
 &lt;body&gt;
   <span class="omit">// HTML omitted for clarity</span>
 
-  &lt;p lang="th"&gt;คนึงครวญคร่ำถวิลกินระกำ ระกำกินถวิลคร่ำครวญคนึง&lt;/p&gt;
+  <span class="new">&lt;p&gt;-Double-click to test- 'Use A4-size paper.'
+  It's a three-o'clock meet-up. An O'Brian-style decision.
+  Я — программист. «Ты говоришь по-русски? Скажи что-нибудь.»&lt;/p&gt;</span>
 
-  <span class="new">&lt;p&gt;'Created 2016-08-14:' This'll let you -see- how - the
-  word-detection 'works'&lt;/p&gt;</span>
+  &lt;p lang="th"&gt;งมเข็มในมหาสมุทร พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง
+  ตากลม ตา&#8203;กลม&lt;/p&gt;
 
-  &lt;p id="output" class="unselectable"&gt;&lt;/p&gt;
+  &lt;p id="output" class="unselectable">&lt;/p&gt;
 
-  &lt;script src="js/selection.js"&gt;&lt;/script&gt;
+  &lt;script src="js/selection.js">&lt;/script&gt;
 &lt;/body&gt;
-&lt;/html&gt;</pre>
-
-  <p>This word detection technique works with English, Latin and Russian, and indeed all the languages that use spaces and standard English-style punctuation. For the Thai text, however, it selects an entire sentence rather than a single word.</p>
-
+&lt;/html&gt;</span></pre>
+  <p>You can save the changes that you have made to <code>selection.js</code> and <code>index.html</code> and relaunch the page in your browser. Try clicking on hyphenated words, on hyphens and other punctuation, and on blank spaces between words, to see what happens.</p>
+  <p class="aside tip">You can test a working version <a href="source/04_hyphens_w/">here</a>.</p>
   <figure>
-  <img src="img/boundaries.png" alt="Words with embedded hyphens and apostrophes are selected whole" />
-  <figcaption>Figure 5. Words with embedded hyphens and apostrophes are selected whole</figcaption>
+  <img src="img/selection.png" alt="Composite image showing 3 selections. Hyphenated words in English are selected whole." />
+  <figcaption>Figure 4. Composite image showing 3 selections. Hyphenated words in English are selected whole.</figcaption>
   </figure>
 
-  <p class="aside info">You can test a working version <a href="source/04_whole_word/">here</a>.</p>
+  <p>As you can see in Figure 4 above, this solution is not yet perfect. Hyphens in words in other writing scripts (Russian in the example) are not treated the same way as hyphenated words in English.</p>
+
+  <h3>Revising the "word character" regular expression</h3>
+  <p>The simple regular expression <code>/\w/</code>, meaning "word character" works well for most text in English, but it fails in languages that use accented Roman characters and in non-Roman scripts. In JavaScript, it is a shorthand for <code>/[0-9A-Za-z_]/</code>. When working in other languages, what you need is an expression that means "any printable character in the ASCII table that is not (not a letter or a number)". Here are all the printable ASCII characters:</p>
+  <pre>! " # $ % &amp; ' ( ) * + , - . / 
+0 1 2 3 4 5 6 7 8 9 
+: ; < = > ? @ 
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 
+[ \ ] ^ _ ` 
+a b c d e f g h i j k l m n o p q r s t u v w x y z 
+{ } ~</pre>
+  <figcaption>Figure 5: The printable ASCII characters</figcaption>
+  <p>To refer to a range of characters for a regular expression pattern, such as "all the letters from A to Z" you can use a pattern like <code><span class="ymmv">/[</span>A-Z<span class="ymmv">]/</span></code>. Some characters, such as <code>/</code> have a special meaning in regular expressions, so to refer to that character as a character, you need to <span class="keyword">esape</span> it by placing a <code>\</code> in front of it. The expression <code>/[!-\/]/</code> will match all the characters from <code>!</code> to <code>/</code> (which needs to be escaped). This corresponds to the top line in the character set shown in Figure 5 above. You can put several ranges one after the other inside the square brackets, so the expression <code>/[!-\/:-@[-`{-~]/</code> will match any printable ASCII character other than a letter or a number.</p>
+  <p>You can use the <code>^</code> special character to say "not any of the following characters". So <code>/[^!-\/:-@[-`{-~]</code></code> means "any character that is not one of the following: !"#$%&amp;'()*+,-./:;<=>?@[\]^_`{}~"</p>
+
+  <h3>Unicode characters for punctuation</h3>
+  <p>Even in English, characters outside the ASCII range, such as
+  <code>“ ” ‘ ’ …</code> are often used for punctuation. In Russian, quoted speech is shown with guillemets characters: <code>« »</code>. These sets of punctuation marks are contained in two different Unicode blocks: <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin-1_Supplement">Latin-1 Supplement</a> and <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters#Unicode_symbols">Unicode Symbols</a> . The Latin-1 supplements block starts with the non-breaking space, which you might know in HTML terms as <code>&amp;nbsp;</code> and which you can('t) see here: <code>&nbsp;</code>. Putting a blank space in your regular expression can make it difficult to understand, so you might prefer to use the Unicode control code: <code>\u00A0</code> Indeed, you might want to use Unicode control characters to show that you are selecting a whole Unicode block. You can add these two Unicode blocks to your "non word character" expression like this:</p>
+  <pre>/[!-\/:-@[-`{-~<span class="new">\u00A0-\u00BF\u2013-\u204A</span>]/</pre>
+  <p>... or ...</p>
+  <pre>/[!-\/:-@[-`{-~<span class="new">\u00A0-¾―-⁊</span>]/</pre>
+
+  <h3>Matching whitespace</h3>
+  <p>All the ASCII characters that create a space on the page but which do not print can be expressed in a regular expression as <code>\s</code>. These characters include:</p>
+  <ul>
+  <li>space</li>
+  <li>carriage return</li>
+  <li>line feed</li>
+  <li>tab</li>
+  </ul>
+  <p>To say "all characters except those from European languages that are never found in European words" you can write:</p>
+  <pre>/[^\s!-\/:-@[-`{-~\u00A0-\u00BF\u2013-\u204A]/</pre>
+  or
+  <pre>/[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
+  <p class="aside note">To be applicable to all languages, even outside Europe, a rigorous regular expression would need to include all the punctuation and other non-word characters in any script, such as <code>๏ ๛ 。</code>. In practice, it would make more sense to generate a language-specific regular expression, to match just the languages you expect to encounter.</p>
+
+  <pre class="revised">"use strict"
+
+;(function showSelection(){
+  <span class="omit">// code omitted for clarity</span>
+
+;(function selectWholeWordsWithHyphens(){
+  var selection = window.getSelection()
+  // Regex designed to find a word+hyphen before the selected word.
+  // Example: ad-|lib|
+  // It finds the last chunk with no non-word characters (except for
+  // ' and -) before the first selected character. 
+  var startRegex = /(<span class="new">[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]</span>+'?-?)+['-]$/g
+  // Regex designed to find a hyphen+word after the selected word.
+  // Example: |ad|-lib
+  var endRegex = /^['-]('?-?<span class="new">[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]</span>+)+/
+  // Edge case: check if the selection contains no word characters.
+  // If so, then don't do anything to extend it.
+  var edgeRegex = /<span class="new">[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]</span>/
+
+  <span class="omit">// code omitted for clarity</span>
+})()</span></pre>
+
+  <h3>Testing the refined regular expression</h3>
+  <p>You can now test whether the new regular expression will correctly detect words with hyphens in Russian as well as English.</p>
+
+  <p class="aside tip">You can test a working version with the revised regular expression<a href="source/04_hyphens/">here</a>.</p>
 
   <div class="aside next">In this section, you've:
     <ul>
-      <li>Seen how to use a regular expression to define word boundaries for English. </li>
+      <li>Seen how to find the beginning and end of words that contain a hyphen.</li>
       <li>Manipulated a <code>Range</code> object to modify the current selection</li>
     </ul>
     <p>In particular you have seen:</p>
@@ -645,381 +664,7 @@ Natural Selection.&lt;/p&gt;
       </ul>
     </li>
     </ul>
-    <p>One standard technique for finding whole words in Chinese, Japanese, Thai or Khmer is to use a word dictionary. You'll see how to do that using a mini Thai dictionary in the <a href="#dictionary">next section</a>.</p>
-  </div>
-
-  <footer>
-    <ul class="nav">
-      <li>
-        <a href="#end">
-         <img src="../img/arrow.png" alt="next"/>
-        </a>
-      </li>
-    </ul>
-  </footer>
-</section>
-
-<!-- DICTIONARY -->
-<section id="dictionary">
-  <h2>Using a dictionary to find word boundaries</h2>
-  <p>Not all languages use spaces to separate words. Chinese, Japanese, Thai and Khmer, for instance, use the internal structure of the language to indicate where word boundaries are. The computer algorithms for detecting these boundaries are complex, because they cannot take into account the meaning of the words. Where, for example, would you put the word boundaries in the domain name "speedofart.com"?</p>
-  <div class="aside preview">In this section, you'll learn how to:
-    <ul>
-      <li>Use a simple dictionary approach to identify words</li>
-      <li>Identify situations where the dictionary approach fails</li>
-      <li>Practise word detection on a string in English withnospaces</li>
-      <li>Add word detection to the Thai sentences on your test page</li>
-    </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_dictionary.zip" target="source">Download the source files</a>
-  </div>
-
-  <p class="aside tip">If you are not concerned about supporting languages that use non-European writing scripts, you can skip this section.</p>
-
-  <h3>Creating a dictionary</h3>
-  <p>The Thai sentences that you have seen so far can be translated as</p>
-  <blockquote>lookforaneedleinthesea talkisworthtuppence silenceisworthgold exposedtotheair roundeye</blockquote>
-  <p>The last two Thai expressions look identical: ตากลม can be broken up as ตาก ลม (exposedto air) or ตา กลม (eye round). (You might be familiar with the <a href="https://www.youtube.com/watch?v=Cz2-ukrd2VQ">"Four Candles" sketch</a> by the Two Ronnies that plays on just this kind of ambiguity.)</p>
-  <<p>Before getting you to work with Thai (where perhaps the character shapes have no meaning to you), you can create a simulation of Thai, using the sentences of runtogetherwords in English above.</p>
-  <p>To keep the code for selecting words separate from the language in which they are selected, you can create a new script called <code>dictionaries.js</code> and save it in your <code>js/</code> folder:</p>
-
-<pre>"use strict"
-
-var dico = {}
-
-;(function addDictionaries() {
-  dico = {
-
-    dictionaries: {
-      enx: {
-        " ": 0
-      , "a": 0
-      , "air": 0
-      , "exposed": 0
-      , "eye": 0
-      , "for": 0
-      , "forane": 0 <span class="comment">// nonsense word for testing</span>
-      , "gold": 0
-      , "in": 0
-      , "is": 0
-      , "need": 0
-      , "needle": 0
-      , "or": 0
-      , "pence": 0
-      , "sea": 0
-      , "look": 0
-      , "round": 0
-      , "silence": 0
-      , "talk": 0
-      , "the": 0
-      , "these": 0
-      , "to": 0
-      , "tup": 0
-      , "tuppence": 0
-      , "up": 0
-      , "worth": 0
-      }
-    }
-
-  , tries: {}
-
-  , initialize: function createTries(){
-      for (var languageCode in this.dictionaries) {
-        this.tries[languageCode] = 
-          this.createTrie(this.dictionaries[languageCode])
-      }
-
-      return this
-    }
-
-  , createTrie: function createTrie(languageMap) {
-      var trie = {}
-      var end = "$"
-      var word
-        , ii
-        , length
-        , last
-        , chars
-        , char
-        , path
-        , place
-
-
-      for (word in languageMap) {
-        chars = word.split("")
-        path = trie
-   
-        for (ii = 0, length = word.length, last = length - 1;
-          ii < length; ii += 1 ) {
-
-          char = chars[ii]
-          place = path[char]
-   
-          if (!place) {
-            place = {}
-            path[char] = place
-          }
-          path = place
-        }
-        path[end] = true
-      }
-
-      return trie
-    }
-  }.initialize()
-})()
-
-console.log(JSON.stringify(dico.tries.enx))</pre>
-
-  <p>This code does two main things:</p>
-  <ul>
-  <li>It creates a dictionary object that includes all the English words that appear somewhere in the runtogetherstrings. For testing purposes, this uses the non-standard language code <code>enx</code>.</li>
-  <li>It uses this dictionary to create a <a href="https://en.wikipedia.org/wiki/Trie">trie</a> of all these words.</li>
-  </ul>
-  <p>For your viewing pleasure, the trie is printed out into the console, where it will look something like this:</p>
-
-<pre>{" ":{"$":true}
-,"a":{"$":true
-     ,"i":{"r":{"$":true}}}
-,"e":{"x":{"p":{"o":{"s":{"e":{"d":{"$":true}}}}}}
-     ,"y":{"e":{"$":true}}}
-,"f":{"o":{"r":{"$":true}}}
-,"g":{"o":{"l":{"d":{"$":true}}}}
-,"i":{"n":{"$":true}
-     ,"s":{"$":true}}
-,<span class="red">"n":{"e":{"e":{"d"</span>:{"$":true,<span class="red">"l":{"e"</span>:{"$":true}}}}}}
-,"o":{"r":{"$":true}}
-,"p":{"e":{"n":{"c":{"e":{"$":true}}}}}
-,"s":{"e":{"a":{"$":true}}
-     ,"i":{"l":{"e":{"n":{"c":{"e":{"$":true}}}}}}}
-,"l":{"o":{"o":{"k":{"$":true}}}}
-,"r":{"o":{"u":{"n":{"d":{"$":true}}}}}
-,<span class="red">"t"</span>:{"a":{"l":{"k":{"$":true}}}
-     ,"h":{"e":{"$":true
-               ,"s":{"e":{"$":true}}}}
-     ,"o":{"$":true}
-     ,<span class="red">"u":{"p"</span>:{"$":true
-               ,<span class="red">"p":{"e":{"n":{"c":{"e"</span>:{"$":true}}}}}}}}
-,"u":{"p":{"$":true}}
-,"w":{"o":{"r":{"t":{"h":{"$":true}}}}}}</pre>
-<figcaption>Figure 6: A slightly prettified rendering of the Console log of the trie of English words</figcaption>
-
-  <h3>The leaves on a trie</h3>
-  <p>The word "trie" in French means "sort, filter". In computing, a trie is an efficient way of story words for operations like auto-complete. As you can see in Figure 6 above, words that start with the same string of letters, like "need" and "needles", or "talk" and "tuppence" are stored in a series of nested object maps. Each character is the key to a sub-map, except for the character "$" whose property is always <code>true</code>. Tunneling down into the trie, following an arbitrary path will always end with an entry of <code>{"$":true}</code>, indicating the end of a word.</p>
-  <p class="aside note">The dictionary also contains an entry for <code>" "</code>, as there may be spaces in the text. In a production setting, you would want to include all the possible non-word characters, but for this demonstration, only spaces are used.</p>
-
-  <h3>Using a dictionary to find words</h3>
-  <p>An industrial strength algorithm for finding grammatically correct word boundaries in languages like Thai is beyond the scope of this tutorial. Below, you is a new method <code>splitIntoWords</code> method that you can add to your <code>dictionaries.js</code> file.</p>
-  <pre class="revised">"use strict"
-
-var dico = {}
-
-;(function addDictionaries() {
-  dico = {
-
-    dictionaries: {
-      <span class="omit">// code omitted for clarity</span>
-    }
-
-  , tries: {}
-
-  , initialize: function createTries(){
-      <span class="omit">// code omitted for clarity</span>
-    }
-
-  , createTrie: function createTrie(languageMap) {
-      <span class="omit">// code omitted for clarity</span>
-    }
-
-  <span class="new">, splitIntoWords: function splitIntoWords(string, languageCode) {
-      var trie = this.tries[languageCode]
-      var alternatives = []
-      var path = trie
-      var words = []
-      var word = ""
-      var found = false
-      var char
-        , next
-        , alternative
-
-      words.index = 0
-
-      for (var ii = 0, total = string.length; ii < total ; ii += 1) {
-        char = string[ii]
-        next = path[char]
-
-        if (next) { <span class="comment">// { "$": 0, "a": { ... }. ...}</span>
-          word += char
-
-          if (next.$) {
-            if (found) {
-              <span class="comment">// We've already added a shorter word to the list.
-              // Push the list with the shorter word onto the
-              // alternatives array and continue with the longer word</span>
-              alternative = words.slice(0)
-              alternative.index = words.index
-              alternatives.push(alternative)
-
-              words.index -= words.pop().length // remove shorter word
-            }
-            <span class="comment">// Add this whole word to the list</span>
-            words.push(word)
-            words.index += word.length
-            found = true
-          }
-
-          path = next
-
-        } else if (found) {
-          <span class="comment">// !next, but we have a complete word already.
-          // This character could be the start of a new word.</span>
-          word = char
-          path = trie[char]
-          if (!path) {
-            <span class="comment">// It's imposible to start a word with this letter</span>
-            backtrack("Initial letter absent: " + char)
-
-          } else if (path.$) {
-            <span class="comment">// This is a one-letter word: found remains true</span>
-            words.push(word)
-            words.index += word.length
-
-          } else {
-            found = false
-          }
-
-        } else {
-          <span class="comment">// !next &and;&and; !found: stop trying to complete this word</span>
-          backtrack("Word fragment: " + word)
-        }
-      }
-
-      if (!next || !next.$) {
-        backtrack("Fail – Unknown word: ", word)
-      }
-
-      return words
-
-      function backtrack(reason) {
-        console.log(reason)
-
-        <span class="comment">// Try the longest earlier alternative ...</span>
-        words = alternatives.pop()
-        <span class="comment">// ... if one exists ...</span>
-        if (!words) {
-          console.log("Failed to segment")
-          ii = total
-          return
-        }
-        <span class="comment">// ... and see if all the remaining characters can be
-        // segmented into words</span>
-        ii = words.index - 1
-        path = trie
-        word = ""
-        found = false
-      }
-    }</span>
-  }.initialize()
-})()
-
-<span class="new">console.log(dico.splitIntoWords("lookforaneedleinthesea", "enx"))</span>
-</pre>
-
-  <h3><code>splitIntoWords</code></h3>
-  <p>The <code>splitIntoWords</code> method accepts a string of text and a language code. It uses the language code to select the appropriate language trie. It then takes the first character in the string and looks for it at the top level of the trie, then takes the second letter, and looks for it in the branch of the trie defined by the previous letter, adding it to its <code>word</code> variable as it goes. It will continue to do this until one of three things happens:</p>
-  <ul>
-  <li>It meets an object with a <code>"$": true</code> key/value pair</li>
-  <li>It finds an object which contains no key for the letter in the string that it is currently looking at</li>
-  <li>It reaches the end of the text</li>
-  </ul>
-
-  <h3>Adding words</h3>
-  <p>The algorithm will step through the string and tunnel into the trie until it has created the string "look". At this point, it will encounter a {"$": true} object. This tells it to add the word "look" to its current <code>words</code> list, and to set a flag to say that at least one word has been found. Since an array is special kind of object, it can add a property to the array: it adds an <code>index</code> key with a value equal to the length of the string read so far. You'll see in a moment how this is used.</p>
-
-  <h3>Preparing alternatives</h3>
-  <p>The <code>splitIntoWords</code> algorithm is greedy: it will keep looking for the longest word that fits, and this may lead it into a blind alley. To test this, you'll find the nonsense word "forane" in the dictionary. After finding "look", the algorithm keeps moving forward. When it has read "for", it will find an object with both a <code>"$": true</code> key pair and the key "a", with a submap that it can continue to follow.</p>
-  <p>It adds the word "for" to the <code>words</code> array, and updates the <code>index</code> of the array: <code>index</code> is now the sum of the lengths of the word in the array.</p>
-  <p>The process continues until the <code>{"$": true}</code> object indicating the end of the nonsense word "forane" is found. This time, however, there is already a word that uses the letters "for" in the <code>words</code> array. The <code>splitIntoWords</code> function first uses <code>words.slice(0)</code> to copy the array, and also copies the value of <code>index</code>, to create a full clone. This clone is added to the <code>alternatives</code> array. In the original <code>words</code> array, the last word ("for") is removed and replaced with "forane", and the <code>index</code> value is corrected.</p>
-  <p>A new word now begins, starting with the letter "e", but at the next iteration, no sub-map of <code>trie</code> is found that corresponds to the word fragment "ed". The <code>splitIntoWords</code> function has reached the end of a blind alley: it calls the <code>backtrack</code> function. This drops the current <code>words</code> array and replaces it with the longest array in <code>alternatives</code>: <code>["look", "for"]</code>, with its <code>index</code> value of 7. It resets the <code>ii</code> iterator so that the next iteration starts building a new word from position <code>ii = 7</code>: the index of the next letter after "lookfor". This time, it finds the words "a" and "need", which is soon replaced by "needle", and continues to read "these", and "a". This is a complete word and the final letter in the string, so the process stopes there</p>
-
-  <div class="aside issue ">The algorithm has no grammatical "intelligence" built in, so it has no reason to reject "these", "a" and replace it with "the", "sea". It's greediness has led it into error. Refusing to be greedy could lead it to make different wrong choices. A different solution is needed to solve this problem, and that is outside the scope of this tutorial. (It relies on the statistical probablity of finding the combination "these a", compared to that of finding "the sea" in a large corpus of English, and even so a small number of errors may still occur.)</p>
-  <p>This simple solution has another shortcoming: it will fail if it encounters any word not in the dictionary.
-  <p>It's not feasible to load into the browser all the possible words in every language that might need to be treated. Instead, it would make sense to make a call to the server, where a database can provide a more efficient solution.</p>
-  <p>A call to the server would need to be asynchonous: you can see how this could be done in the <a href="#async">next section</a>. For now, you can focus on the mechanics of calculating word breaks in a known tiny subset of the language.</p>
-  </div>
-
-  <h3>Integrating word-segmentation with click-to-select</h3>
-  <p></p>
-
-  <div class="aside next">In this section, you've ...
-    <ul>
-      <li>Done things</li>
-      <li>Learnt ideas</li>
-    </ul>
-    <p>In the <a href="#async">next section</a>, you'll ....</p>
-  </div>
-
-  <footer>
-    <ul class="nav">
-      <li>
-        <a href="#async">
-         <img src="../img/arrow.png" alt="next"/>
-        </a>
-      </li>
-    </ul>
-  </footer>
-</section>
-
-<!-- ASYNCHRONOUS -->
-<section id="async">
-  <h2>Making an asynchronous call to get word boundaries</h2>
-  <div class="aside preview">In this section, you'll learn how to:
-    <ul>
-      <li>Do stuff</li>
-    </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
-  </div>
-
-  <h3>Subsection</h3>
-  <p>Stuff goes here</p>
-
-  <div class="aside next">In this section, you've ...
-    <ul>
-      <li>Done things</li>
-      <li>Learnt ideas</li>
-    </ul>
-    <p>In the <a href="#box">next section</a>, you'll ....</p>
-  </div>
-
-  <footer>
-    <ul class="box">
-      <li>
-        <a href="#end">
-         <img src="../img/arrow.png" alt="next"/>
-        </a>
-      </li>
-    </ul>
-  </footer>
-</section>
-
-<!-- ASYNCHRONOUS -->
-<section id="async">
-  <h2>Making an asynchronous call to get word boundaries</h2>
-  <div class="aside preview">In this section, you'll learn how to:
-    <ul>
-      <li>Do stuff</li>
-    </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
-  </div>
-
-  <h3>Subsection</h3>
-  <p>Stuff goes here</p>
-
-  <div class="aside next">In this section, you've ...
-    <ul>
-      <li>Done things</li>
-      <li>Learnt ideas</li>
-    </ul>
-    <p>In the <a href="#jump">next section</a>, you'll ....</p>
+    <p>In the <a href="#jump">next section</a>, you will learn to make the selection jump from one word to the next using the arrow keys.</p>
   </div>
 
   <footer>
@@ -1035,12 +680,12 @@ var dico = {}
 
 <!-- JUMP -->
 <section id="jump">
-  <h2>Jumping to the next word with a shortcut</h2>
+  <h2>Jumping to the next word with a keyboard shortcut</h2>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
       <li>Do stuff</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
   </div>
 
   <h3>Subsection</h3>

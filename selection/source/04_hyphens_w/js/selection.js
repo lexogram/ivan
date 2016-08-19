@@ -1,5 +1,49 @@
 "use strict"
 
+;(function showSelection(){
+  var pOutput = document.getElementById("output")
+  var selection = window.getSelection()
+  var output = "rangeCount: " + selection.rangeCount
+  var range
+  var text
+
+  if (selection.anchorNode) {
+    text = '"' + selection.anchorNode.textContent + '"'
+    output += "<br />anchorNode: " + text
+
+    output += "<br />anchorOffset: " + selection.anchorOffset
+
+    text = '"' + selection.focusNode.textContent + '"'
+    output += "<br />focusNode: " + text
+
+    output += "<br />focusOffset: " + selection.focusOffset
+  }
+
+  if (selection.rangeCount) {
+    range = selection.getRangeAt(0)
+
+    text =  '"' + range.startContainer.textContent + '"'
+    output += "<br />range.startContainer: " + text
+
+    output += "<br />range.startOffset: " + range.startOffset
+
+    text =  '"' + range.endContainer.textContent + '"'
+    output += "<br />range.endContainer: " + text
+
+    output += "<br />range.endOffset: " + range.endOffset
+
+    text = '"' + range.toString() + '"'
+    output += "<br />range.toString(): " + text
+  }
+
+  text = '"' + selection.toString() + '"'
+  output += "<br />selection.toString(): " + text
+
+  pOutput.innerHTML = output
+
+  setTimeout(showSelection, 250)
+})()
+
 // Tweak to make a double-click select words with hyphens
 // 
 // As of 2016-0816, None of the major Mac browser selects whole words
@@ -9,61 +53,18 @@
 // apostrophes like "doesn't". This tweak also fixes that.
 
 ;(function selectWholeWordsWithHyphens(){
-  var pOutput = document.getElementById("output")
   var selection = window.getSelection()
   // Regex designed to find a word+hyphen before the selected word.
   // Example: ad-|lib|
   // It finds the last chunk with no non-word characters (except for
   // ' and -) before the first selected character. 
-  var startRegex = /(?:\w+['-]*)+['-](?:\w+(?:['-]\w+)*|$)*/g
+  var startRegex = /(\w+'?-?)+['-]$/g
   // Regex designed to find a hyphen+word after the selected word.
   // Example: |ad|-lib
-  var endRegex = /^[\w']*['-]\w+('?-?\w+)*/
-  // Edge case: to check if the selection contains no word
-  // characters. If so, then don't do anything to extend it.
+  var endRegex = /^['-]('?-?\w+)+/
+  // Edge case: check if the selection contains no word characters.
+  // If so, then don't do anything to extend it.
   var edgeRegex = /\w/
-  
-  ;(function showSelection(){
-    var output = "rangeCount: " + selection.rangeCount
-    var range
-    var text
-
-    if (selection.anchorNode) {
-      text = '"' + selection.anchorNode.textContent + '"'
-      output += "<br />anchorNode: " + text
-
-      output += "<br />anchorOffset: " + selection.anchorOffset
-
-      text = '"' + selection.focusNode.textContent + '"'
-      output += "<br />focusNode: " + text
-
-      output += "<br />focusOffset: " + selection.focusOffset
-    }
-
-    if (selection.rangeCount) {
-      range = selection.getRangeAt(0)
-
-      text =  '"' + range.startContainer.textContent + '"'
-      output += "<br />range.startContainer: " + text
-
-      output += "<br />range.startOffset: " + range.startOffset
-
-      text =  '"' + range.endContainer.textContent + '"'
-      output += "<br />range.endContainer: " + text
-
-      output += "<br />range.endOffset: " + range.endOffset
-
-      text = '"' + range.toString() + '"'
-      output += "<br />range.toString(): " + text
-    }
-
-    text = '"' + selection.toString() + '"'
-    output += "<br />selection.toString(): " + text
-
-    pOutput.innerHTML = output
-
-    setTimeout(showSelection, 250)
-  })()
 
   document.body.ondblclick = selectHyphenatedWords
 
@@ -108,10 +109,6 @@
     }
 
     function extendSelectionForwardAfterHyphen(string, offset) { 
-      if (!offset) {
-        return
-      }
-
       string = string.substring(offset)
       var result = endRegex.exec(string)
 
