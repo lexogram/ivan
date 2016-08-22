@@ -65,6 +65,10 @@
   // Edge case: check if the selection contains no word characters.
   // If so, then don't do anything to extend it.
   var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/
+  
+  var range
+    , container
+    , selectionUpdated
 
   document.body.ondblclick = selectHyphenatedWords
 
@@ -72,10 +76,11 @@
     if (!selection.rangeCount) {
       return
     }
-    var range = selection.getRangeAt(0)
-    var container = range.startContainer
+   
+    selectionUpdated = false
+    range = selection.getRangeAt(0)
+    container = range.startContainer
     var string = container.textContent
-    var selectionUpdated = false
 
     if (string.substring(range.startOffset, range.endOffset)
               .search(edgeRegex) < 0) {
@@ -90,32 +95,32 @@
       selection.removeAllRanges()
       selection.addRange(range)
     }
+  }
 
-    function extendSelectionBackBeforeHypen(string, offset) {
-      var lastIndex = 0
-      var result
-        , index
-      string = string.substring(0, offset)
+  function extendSelectionBackBeforeHypen(string, offset) {
+    var lastIndex = 0
+    var result
+      , index
+    string = string.substring(0, offset)
 
-      while (result = startRegex.exec(string)) {
-        index = result.index
-        lastIndex = startRegex.lastIndex
-      }
-
-      if (lastIndex === offset) {
-        range.setStart(container, index)
-        selectionUpdated = true
-      }
+    while (result = startRegex.exec(string)) {
+      index = result.index
+      lastIndex = startRegex.lastIndex
     }
 
-    function extendSelectionForwardAfterHyphen(string, offset) { 
-      string = string.substring(offset)
-      var result = endRegex.exec(string)
+    if (lastIndex === offset) {
+      range.setStart(container, index)
+      selectionUpdated = true
+    }
+  }
 
-      if (result) {
-        range.setEnd(container, offset + result[0].length)
-        selectionUpdated = true
-      }
+  function extendSelectionForwardAfterHyphen(string, offset) { 
+    string = string.substring(offset)
+    var result = endRegex.exec(string)
+
+    if (result) {
+      range.setEnd(container, offset + result[0].length)
+      selectionUpdated = true
     }
   }
 })()

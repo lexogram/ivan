@@ -306,6 +306,10 @@ border-color: #ddf;
 border-right-color: #fff;
 border-bottom-color: #fff;
 }
+pre {
+width: 100%;
+overflow-x: auto;
+}
 .preview {
 border: 1px solid #669;
 border-radius: 0.5em;

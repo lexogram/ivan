@@ -20,6 +20,10 @@
         <li><a href="#discover">Discovering Selections</a></li>
         <li><a href="#hyphens">Hyphenated words</a></li>
         <li><a href="#jump">Jump to next word</a></li>
+        <li><a href="#node">Jump to next node</a></li>
+        <li><a href="#user-select">Detecting user-select</a></li>
+        <li><a href="#previous">Jump to previous word</a></li>
+        <li><a href="#thai">Detecting Thai words</a></li>
         <li><a href="#box">Limiting to one element</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
@@ -114,7 +118,9 @@
       -khtml-user-select: none;    /* Konqueror */
       -moz-user-select: none;      /* Firefox */
       -ms-user-select: none;       /* Internet Explorer/Edge */
-      user-select: none;  
+      user-select: none;
+      -webkit-user-drag: none;
+      user-drag: none; 
       color: #999;
     }
   }
@@ -226,11 +232,14 @@
   -khtml-user-select: none;    /* Konqueror */
   -moz-user-select: none;      /* Firefox */
   -ms-user-select: none;       /* Internet Explorer/Edge */
-  user-select: none;  
+  user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
 }</pre>
   <p>If you're targetting recent browsers (from IE10 and later) then you can probably get away with just using:</p>
 <pre>.unselectable {
-  user-select: none;  
+  user-select: none;
+  user-drag: none;
 }</pre>
   <p>This class is applied to the sentence that says "<span class="aaa">This span has <em>user-select: none</em> applied to it,</span>". Note what happens if you click on this sentence and drag the mouse upwards or downwards.</p>
   <dl>
@@ -425,16 +434,21 @@ Natural Selection.&lt;/p&gt;
   // If so, then don't do anything to extend it.</span>
   var edgeRegex = /\w/
 
+  var range
+    , container
+    , selectionUpdated
+
   document.body.ondblclick = selectHyphenatedWords
 
   function selectHyphenatedWords(event) {
     if (!selection.rangeCount) {
       return
     }
-    var range = selection.getRangeAt(0)
-    var container = range.startContainer
+    
+    selectionUpdated = false
+    range = selection.getRangeAt(0)
+    container = range.startContainer
     var string = container.textContent
-    var selectionUpdated = false
 
     if (string.substring(range.startOffset, range.endOffset)
               .search(edgeRegex) < 0) {
@@ -449,36 +463,36 @@ Natural Selection.&lt;/p&gt;
       selection.removeAllRanges()
       selection.addRange(range)
     }
+  }
 
-    function extendSelectionBackBeforeHypen(string, offset) {
-      var lastIndex = 0
-      var result
-        , index
-      string = string.substring(0, offset)
+  function extendSelectionBackBeforeHypen(string, offset) {
+    var lastIndex = 0
+    var result
+      , index
+    string = string.substring(0, offset)
 
-      while (result = startRegex.exec(string)) {
-        index = result.index
-        lastIndex = startRegex.lastIndex
-      }
-
-      if (lastIndex === offset) {
-        range.setStart(container, index)
-        selectionUpdated = true
-      }
+    while (result = startRegex.exec(string)) {
+      index = result.index
+      lastIndex = startRegex.lastIndex
     }
 
-    function extendSelectionForwardAfterHyphen(string, offset) { 
-      if (!offset) {
-        return
-      }
+    if (lastIndex === offset) {
+      range.setStart(container, index)
+      selectionUpdated = true
+    }
+  }
 
-      string = string.substring(offset)
-      var result = endRegex.exec(string)
+  function extendSelectionForwardAfterHyphen(string, offset) { 
+    if (!offset) {
+      return
+    }
 
-      if (result) {
-        range.setEnd(container, offset + result[0].length)
-        selectionUpdated = true
-      }
+    string = string.substring(offset)
+    var result = endRegex.exec(string)
+
+    if (result) {
+      range.setEnd(container, offset + result[0].length)
+      selectionUpdated = true
     }
   }
 })()</pre>
@@ -681,6 +695,470 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
 <!-- JUMP -->
 <section id="jump">
   <h2>Jumping to the next word with a keyboard shortcut</h2>
+  <p>Over the next 4 sections, you will be creating a feature that moves the selection to the next or previous word using the arrow keys. First, you'll see how to select the next word in a given HTML element. Then in <a href="#node">section 6</a> you'll see how to jump forward to the first word in the next <code>textNode</code>. In <a href="#user-select">section 7</a> you'll see how to jump over text where the <code>user-select</code> CSS property is set to <code>none</code>. In <a href="#previous">section 8</a>, when everything is in place for jumping forward, you'll see how to adapt this for jumping backwards with the left arrow.</p>
+  <div class="aside preview">In this section, you'll learn how to:
+    <ul>
+      <li>Detect when the user presses the left or right arrow keys</li>
+      <li>Detect the beginning of the next word with lookahead regular expression</li>
+      <li>Find the end of the next word with a regular expression</li>
+      <li>Use stubs to prepare to add new features to your code</li>
+    </ul>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
+  </div>
+
+  <h3>Detecting when the arrow keys are pressed</h3>
+  <p>You can detect when the user presses any key with the <code>document.body.onkeydown</code> event. Here's how you can add this to your <code>selection.js</code> file:</p>
+
+  <pre class="revised">"use strict"
+
+;(function showSelection(){
+  <span class="omit">// code omitted for clarity</span>
+})()
+
+;(function selectWholeWordsWithHyphens(){
+  var selection = window.getSelection() 
+  <span class="omit">// code omitted for clarity</span>
+
+  document.body.ondblclick = selectHyphenatedWords
+  <span class="new">document.body.onkeydown = jumpToNextWord</span>
+
+  function selectHyphenatedWords(event) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function extendSelectionBackBeforeHypen(string, offset) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function extendSelectionForwardAfterHyphen(string, offset) { 
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  <span class="new">function jumpToNextWord(event) {
+    console.log(event.keyCode, event)
+  }</span>
+})()</pre>
+
+  <h3>The Keyboard Event object</h3>
+  <p>Listeners for the <code>keydown</code> event receive a <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent">KeyboardEvent</a></code> object as an argument. Below are the properties of the <code>KeyboardEvent</code> object that can be used to identify which key was pressed. The main values shown are for the Right Arrow key. The values shown as comments are for the "a" key on a QWERTY keyboard using the standard English.</p>
+
+  <pre>{<span class="omit"> ...</span>
+, charCode: 0<span class="comment"> // only used by keypress event</span>
+, code: "ArrowRight"<span class="comment"> // "KeyA"</span>
+, <span class="omit">...</span>
+, key: "ArrowRight"<span class="comment"> // "a"</span>
+, <span class="red">keyCode: 39</span><span class="comment"> // 65</span>
+, keyIdentifier: "Right"<span class="comment"> // "U+0041"</span>
+, <span class="omit">...</span>
+, type: "keydown"
+, <span class="omit">...</span>
+, <span class="red">which: 39</span><span class="comment"> // 65</span>
+, <span class="omit">...</span>
+}</pre>
+
+  <h3>Switching actions depending on which key was pressed</h3>
+  <p>You can use a <code>switch</code> statement to call a specific function based on the key pressed by the user. In the code listing below, the variable <code>rangeData</code> is set to an object only if the left or right arrow is pressed. If <code>rangeData</code> has a value, it is printed out into the Developer Console.</p>
+
+  <pre class="revised">"use strict"
+
+;(function showSelection(){
+  <span class="omit">// code omitted for clarity</span>
+})()
+
+;(function selectWholeWordsWithHyphens(){
+  var selection = window.getSelection() 
+  <span class="omit">// code omitted for clarity</span>
+
+  var range
+    , container
+    , selectionUpdated
+
+  document.body.ondblclick = selectHyphenatedWords
+  document.body.onkeydown = jumpToNextWord
+
+  <span class="omit">// code omitted for clarity</span>
+
+  function jumpToNextWord(event) {
+    <span class="new">var rangeData
+
+    switch (event.keyCode) {
+      case 37: <span class="comment">// Left</span>
+        rangeData = jumpLeft()
+      break
+      case 39: <span class="comment">// Right</span>
+        rangeData = jumpRight()
+    }
+
+    if (!rangeData) {
+      return
+    }
+
+    console.log(rangeData)</span>
+  }
+
+  <span class="new">function jumpLeft() {
+    return { action: "Jump Left" }
+  }
+
+  function jumpRight() {
+    return { action: "Jump Right" }
+  }</span>
+})()</pre>
+
+
+<h3>Detecting the next word</h3>
+<p>You can use a regular expression to detect the beginning of the next word. Basically, your regular expression will do this:</p>
+<ul>
+<li>Start at the end of the current word</li>
+<li>Match all subsequent non-word characters</li>
+<li>Check that the next character is not the end of the string</li>
+</ul>
+<p>For plain ASCII English, this expression could look like this:</p>
+<pre>/\W+(?!\W|$)/</pre>
+<p>In other words:</p>
+<dl>
+  <dt>\w*</dt>
+  <dd>Optionally, any word characters (that are unselected in the current word) ...</dd>
+  <dt>\W+</dt>
+  <dd>... followed by one or more non-word characters ...</dd>
+  <dt>(?!<span class="omit">...</span>)</dt>
+  <dd>... not followed by ...</dd>
+  <dt>\W|$</dt>
+  <dd>... either a non-word character or the end of the string</dd>
+</dl>
+<p>For this to work with strings that use non-ASCII characters, you need to replace <code>\W</code> with <code>[\s!-\/:-@[-`{-~\u00A0-¾—-⁊]</code>, which makes the expression more complex:</p>
+<pre>/([^\s!-\/:-@[-`{-~\u00A0-¾—-⁊])*[\s!-\/:-@[-`{-~\u00A0-¾—-⁊])+(?!([\s!-\/:-@[-`{-~\u00A0-¾—-⁊]|$)/</pre>
+<p>To find the end of the next word, you can start from the beginning of the word and keep going until you reach a non-word character or the end of the string. In simple terms, you could look for the first match or this expression:</p>
+<pre>/\W|$/</pre>
+<p>Or, more robustly:</p>
+<pre>/[\s!-\/:-@[-`{-~\u00A0-¾—-⁊$]/</pre>
+
+<h3>Using <code>new RegExp()</code> to construct a regular expression</h3>
+<p>You're using the sequence <code>\s!-\/:-@[-`{-~\u00A0-¾—-⁊</code> in many different places. You might find it easier to create this sequence just once, and use it multiple times. Here's how your regular expressions currently look:</p>
+
+<pre>var startRegex = /([^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]+'?-?)+['-]$/g
+var endRegex = /^['-]('?-?[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]+)+/
+var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
+
+<p>You can use the <code>new <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a>()</code> constructor to create a regular expression out of a string.</p>
+
+<p class="aside note">Note that when you create a regular expression from a string, with <code>new RegExp()</code>, you need to <span class="keyword">escape</span> all the <code>\</code> characters that indicate special characters. For example <code>new RegExp("\\s+(?=\\w)")</code> will compile to <code>/\s(?=\w)/</code> </p>
+
+<p>Here's how you can declare your regular expression variables now, including the two new ones:</p>
+<pre class="revised"><span class="omit">// code omitted for clarity</span>
+
+;(function selectWholeWordsWithHyphens(){
+  var selection = window.getSelection()
+  
+  <span class="new">var _W = "\\s!-\\/:-@[-`{-~\\u00A0-¾—-⁊"</span>
+  var startRegex = <span class="new">new RegExp("([^"+ _W +"]+'?-?)+['-]$", "g")</span>
+  var endRegex = <span class="new">new RegExp("^['-]('?-?[^"+ _W +"]+)+")</span>
+  var edgeRegex = <span class="new">new RegExp("[^"+ _W +"]")
+  
+  var nextWordRegex = new RegExp(
+    "([^"+ _W +"])*"
+  + "(["+ _W +"])+"
+  + "(?=[^"+ _W +"])"
+  )
+  var wordEndRegex = new RegExp("(["+ _W +"$]")</span>
+
+  <span class="omit">// code omitted for clarity</span></pre>
+<p>The <code>_W</code> variable can remind you of the <code>\W</code> non-word special character.</p>
+
+<h3>Getting the offset for the beginning and end of the next word</h3>
+<p>Now that you have these two new regular expressions, you can use them to populate the <code>rangeData</code> object when the user presses the right arrow.</p>
+
+<pre class="revised">"use strict"
+
+;(function showSelection(){
+  <span class="omit">// code omitted for clarity</span>
+})()
+
+;(function selectWholeWordsWithHyphens(){
+  var selection = window.getSelection()
+  
+  var _W = "\\s!-\\/:-@[-`{-~\\u00A0-¾—-⁊"
+  var startRegex = new RegExp("([^"+ _W +"]+'?-?)+['-]$", "g")
+  var endRegex = new RegExp("^['-]('?-?[^"+ _W +"]+)+")
+  var edgeRegex = new RegExp("[^"+ _W +"]")
+  var nextWordRegex = new RegExp(
+    "([^"+ _W +"])*"
+  + "(["+ _W +"])+"
+  + "(?=[^"+ _W +"])")
+  var wordEndRegex = new RegExp("(["+ _W +"$]")
+
+  var range
+    , container
+    , selectionUpdated
+
+  document.body.ondblclick = selectHyphenatedWords
+  document.body.onkeydown = jumpToNextWord
+
+  <span class="omit">// code omitted for clarity</span>
+
+  function jumpToNextWord(event) {
+    var rangeData
+
+    <span class="new">if (!selection.rangeCount) {
+      return
+    } 
+
+    range = selection.getRangeAt(0)</span>
+
+    switch (event.keyCode) {
+      case 37: <span class="comment">// Left</span>
+        rangeData = jumpLeft()
+      break
+      case 39: <span class="comment">// Right</span>
+        rangeData = jumpRight()
+      break
+      default:
+        return
+    }
+
+    if (!rangeData) {
+      return
+    }
+
+    console.log(rangeData)
+  }
+
+  function jumpLeft() {
+    return { action: "Jump Left" }
+  }
+
+  function jumpRight() {
+    <span class="new">container = range.endContainer
+    var startOffset = range.endOffset
+    var string = container.textContent
+    var result = nextWordRegex.exec(string.substring(startOffset))
+    var endOffset
+      , rangeData
+
+    if (result) {
+      startOffset += result[0].length
+
+    } else {
+      <span class="comment">// TODO</span>
+      return
+    }
+
+    result = wordEndRegex.exec(string.substring(startOffset))
+    endOffset = startOffset + result.index
+
+    rangeData = {
+      container: container
+    , startOffset: startOffset
+    , endOffset: endOffset
+    , string: string
+    }
+
+    return rangeData</span>
+  }
+})()</pre>
+
+<p>First, you need to check that the window's <code>Selection</code> object contains at least one <code>Range</code> object. If not, there is no current selection, so no way to get the next word after that non-existant selection.</p>
+<p>If there is a selection, you can use the <code><span class="ymmv">range.</span>endOffset</code> as the starting point of your search. You can take the <code>textContent</code> of the <code><span class="ymmv">range.</span>endContainer</code>, clip all the characters before the end of the current selection, and search for the beginning of the next word in the remainder of the string. If there is no match for <code>nextWordRegex</code>, then the current selection is already the last word in the current HTML textNode.</p>
+
+<h3>Moving the selection to the next word</h3>
+<p>If there is a match, then <code>rangeData</code> will contain all the information needed to define the next word ... up to, but not including, any hyphen or apostrophe that the word might contain. To select the next word in its hyphenated entirety, you can simply call  <code>extendSelectionForwardAfterHyphen</code>, and pass it the text content of the current container and the <code>endOffset</code> of the detected word.</p>
+
+<pre class="revised">"use strict"
+
+;(function showSelection(){
+  <span class="omit">// code omitted for clarity</span>
+})()
+
+;(function selectWholeWordsWithHyphens(){
+  var selection = window.getSelection()
+  <span class="omit">// code omitted for clarity</span>
+
+  var nextWordRegex = new RegExp(
+    "([^"+ _W +"])*"
+  + "(["+ _W +"])+"
+  + "(?=[^"+ _W +"])")
+  var wordEndRegex = new RegExp("(["+ _W +"$]")
+
+  var range
+    , container
+    , selectionUpdated
+
+  document.body.ondblclick = selectHyphenatedWords
+  document.body.onkeydown = jumpToNextWord
+
+  <span class="omit">// code omitted for clarity</span>
+
+  function jumpToNextWord(event) {
+    var rangeData
+
+    if (selection.toString === "") {
+      return
+    } else if (!(range = selection.getRangeAt(0))) {
+      return
+    }
+
+    switch (event.keyCode) {
+      case 37: <span class="comment">// Left</span>
+        rangeData = jumpLeft()
+      break
+      case 39: <span class="comment">// Right</span>
+        rangeData = jumpRight()
+    }
+
+    <span class="new">if (!rangeData) {
+      return
+    }
+
+    range.setStart(container, rangeData.startOffset)
+    range.setEnd(container, rangeData.endOffset)
+
+    switch (event.keyCode) {
+      case 37: <span class="comment">// Left
+        // TODO</span>
+      break
+      case 39: <span class="comment">// Right</span>
+        extendSelectionForwardAfterHyphen(
+          rangeData.string
+        , rangeData.endOffset
+        )
+      break
+    }
+
+    selection.removeAllRanges()
+    selection.addRange(range)
+  }</span>
+
+  function jumpLeft() {
+    <span class="new">// TODO</span>
+  }
+
+  function jumpRight() {
+    <span class="omit">// code omitted for clarity</span>
+  }
+})()</pre>
+
+<p class="aside tip">You can test a working version <a href="source/05_jump/">here</a></p>
+
+  <div class="aside next">In this section, you've learned how to:
+    <ul>
+      <li>Use an <code>onkeydown</code> event and a <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent">KeyboardEvent</a></code> object to detect when the user presses the right arrow key</li>
+      <li>Write regular expressions for detecting the beginning and end of the next word</li>
+      <li>Use the <code>new <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a>()</code> constructor to compile a regular expression from a string</li>
+      <li>Move the selection to the next word, when the user presses the right arrow key, unless the selection is currently in the last word of the text nod that contains it.</li>
+    </ul>
+    <p>In the <a href="#node">next section</a>, you'll see how to shift the selection to the first word in the next text node.</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#node">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- NODE -->
+<section id="node">
+  <h2>Jumping to first text node in the element</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+    <ul>
+      <li>Do stuff</li>
+    </ul>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
+  </div>
+
+  <h3>Subsection</h3>
+  <p>Stuff goes here</p>
+
+  <div class="aside next">In this section, you've ...
+    <ul>
+      <li></li>
+      <li>Learnt ideas</li>
+    </ul>
+    <p>In the <a href="#user-select">next section</a>, you'll ....</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#user-select">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- user-select -->
+<section id="user-select">
+  <h2>Detecting unselectable nodes</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+    <ul>
+      <li>Do stuff</li>
+    </ul>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
+  </div>
+
+  <h3>Subsection</h3>
+  <p>Stuff goes here</p>
+
+  <div class="aside next">In this section, you've ...
+    <ul>
+      <li>Done things</li>
+      <li>Learnt ideas</li>
+    </ul>
+    <p>In the <a href="#previous">next section</a>, you'll ....</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#previous">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- PREVIOUS -->
+<section id="previous">
+  <h2>Jumping to the previous word</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+    <ul>
+      <li>Do stuff</li>
+    </ul>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
+  </div>
+
+  <h3>Subsection</h3>
+  <p>Stuff goes here</p>
+
+  <div class="aside next">In this section, you've ...
+    <ul>
+      <li>Done things</li>
+      <li>Learnt ideas</li>
+    </ul>
+    <p>In the <a href="#thai">next section</a>, you'll ....</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#thai">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- THAI -->
+<section id="thai">
+  <h2>Detecting words in Thai text</h2>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
       <li>Do stuff</li>

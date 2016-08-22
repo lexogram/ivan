@@ -44,42 +44,43 @@
   setTimeout(showSelection, 250)
 })()
 
-// Tweak to make a double-click select words with hyphens
-// 
-// As of 2016-0816, None of the major Mac browser selects whole words
-// with hyphens, like "ad-lib". This tweak fixes the hypen issue.
-// 
-// Note: Firefox 48.0 doesn't automatically select whole words with 
-// apostrophes like "doesn't". This tweak also fixes that.
-
 ;(function selectWholeWordsWithHyphens(){
   var selection = window.getSelection()
+  var _W = "\\s!-\\/:-@[-`{-~\\u00A0-¾—-⁊"
   // Regex designed to find a word+hyphen before the selected word.
   // Example: ad-|lib|
   // It finds the last chunk with no non-word characters (except for
   // ' and -) before the first selected character. 
-  var startRegex = /([^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]+'?-?)+['-]$/g
+  var startRegex = new RegExp("([^" + _W + "]+'?-?)+['-]$", "g")
   // Regex designed to find a hyphen+word after the selected word.
   // Example: |ad|-lib
-  var endRegex = /^['-]('?-?[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]+)+/
+  var endRegex = new RegExp("^['-]('?-?[^" + _W + "]+)+")
   // Edge case: check if the selection contains no word characters.
   // If so, then don't do anything to extend it.
-  var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/
+  var edgeRegex = new RegExp("[^" + _W + "]")
+  var nextWordRegex = new RegExp(
+    "([^"+ _W +"])*"
+  + "(["+ _W +"])+"
+  + "(?=[^"+ _W +"])"
+  )
+  var wordEndRegex = new RegExp("[" + _W + "$]")
+
   var range
     , container
     , selectionUpdated
 
   document.body.ondblclick = selectHyphenatedWords
+  document.body.onkeydown = jumpToNextWord
 
   function selectHyphenatedWords(event) {
     if (!selection.rangeCount) {
       return
     }
-    range = selection.getRangeAt(0)
+
     selectionUpdated = false
+    range = selection.getRangeAt(0)
     container = range.startContainer
     var string = container.textContent
-    
 
     if (string.substring(range.startOffset, range.endOffset)
               .search(edgeRegex) < 0) {
@@ -123,14 +124,10 @@
     }
   }
 
-  var nextWordRegex = /(?:[\s!-\/:-@[-`{-~\u00A0-¾—-⁊])+(?=[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊])/
-  var wordStartRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/
-  var wordEndRegex = /(?:[\s!-\/:-@[-`{-~\u00A0-¾—-⁊])|$/
-
-  document.body.onkeydown = jumpToNextWord
-
   function jumpToNextWord (event) {
-    if (selection.toString === "") {
+    var rangeData
+
+    if (!selection.rangeCount) {
       return
     } else if (!(range = selection.getRangeAt(0))) {
       return
@@ -138,21 +135,40 @@
 
     switch (event.keyCode) {
       case 37: // Left
-        jumpLeft()
-     // case 38: // Up
+        rangeData = jumpLeft()
       break
       case 39: // Right
-        jumpRight()
-      //case 40: // Down
-      break
-      default:
-        return
+        rangeData = jumpRight()
     }
+
+    if (!rangeData) {
+      return
+    }
+
+    console.log(rangeData)
+
+    range.setStart(container, rangeData.startOffset)
+    range.setEnd(container, rangeData.endOffset)
+
+    switch (event.keyCode) {
+      case 37: // Left
+        // TODO
+      break
+      case 39: // Right
+        extendSelectionForwardAfterHyphen(
+          rangeData.string
+        , rangeData.endOffset
+        )
+      break
+    }
+
+    selection.removeAllRanges()
+    selection.addRange(range)
   }
 
-  function jumpLeft() {
-    
 
+  function jumpLeft() {
+    return { action: "Jump Left" }
   }
 
   function jumpRight() {
@@ -161,104 +177,25 @@
     var string = container.textContent
     var result = nextWordRegex.exec(string.substring(startOffset))
     var endOffset
+      , rangeData
 
     if (result) {
       startOffset += result[0].length
 
     } else {
-      // There are no more words in this text node. Try the next.
-      container = getNextTextNode(container, "mustBeSelectable")
-
-      if (container) {
-        string = container.textContent
-        result = wordStartRegex.exec(string)
-        startOffset = result.index
-
-      } else {
-        // We're at the very end of the selectable text. There's
-        // nothing more to select.
-        return
-      }
+      // TODO
+      return
     }
 
     result = wordEndRegex.exec(string.substring(startOffset))
     endOffset = startOffset + result.index
 
-    range.setStart(container, startOffset)
-    range.setEnd(container, endOffset)
-
-    extendSelectionForwardAfterHyphen(string, endOffset)
-
-    selection.removeAllRanges()
-    selection.addRange(range)
-  }
-
-  function getNextTextNode(node, mustBeSelectable) {
-    var parent = node.parentNode
-    var nextNode
-
-    while (node = node.nextSibling) {
-      if (node.textContent.search(/\S/) < 0) {         
-      } else if (node.tagName !== "SCRIPT") {
-        // The next child of current parent has non-empty content
-        // but it might not be selectable
-        
-        nextNode = getFirstTextNode(node)
-
-        if (nextNode) {
-          return nextNode
-        }
-      }
-    } 
-
-    // If we get here, there were no more sibling nodes. Try the next
-    // sibling of the parent, unless we've reached the last
-    // selectable child of the body itself 
-    if (parent !== document.body) {
-      return getNextTextNode(parent, mustBeSelectable)
+    rangeData = {
+      startOffset: startOffset
+    , endOffset: endOffset
+    , string: string
     }
 
-    function getFirstTextNode(nextNode) {
-      var childNodes = [].slice.call(nextNode.childNodes)
-
-      if (!childNodes.length) {
-        return nextNode
-      }
-
-      while (nextNode = childNodes.shift()) {
-        if (nextNode.textContent.search(/\S/) < 0) {         
-        } else if (nextNode.tagName !== "SCRIPT") {
-          if (nextNode.nodeType === 3) {
-            if (!mustBeSelectable 
-              || elementIsSelectable(nextNode.parentNode)) {
-              return nextNode
-            }
-          } else {
-            nextNode = getFirstTextNode(nextNode)
-            if (nextNode) {
-              return nextNode
-            }
-          }
-        }
-      }
-    }
-  }
-
-  function elementIsSelectable(element) {
-    var prefixes = [
-      "-webkit-"
-    , "-khtml-"
-    , "-moz-"
-    , "-ms-"
-    , ""
-    ]
-    var style = window.getComputedStyle(element)
-
-    var selectable = prefixes.every(function check(key) {
-      key += "user-select"
-      return style[key] !== "none"
-    })
-
-    return selectable
+    return rangeData
   }
 })()
