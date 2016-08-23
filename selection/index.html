@@ -20,9 +20,10 @@
         <li><a href="#discover">Discovering Selections</a></li>
         <li><a href="#hyphens">Hyphenated words</a></li>
         <li><a href="#jump">Jump to next word</a></li>
-        <li><a href="#node">Jump to next node</a></li>
-        <li><a href="#user-select">Detecting user-select</a></li>
+        <li><a href="#next_node">Jump to next node</a></li>
+        <li><a href="#unselect">Detecting user-select</a></li>
         <li><a href="#previous">Jump to previous word</a></li>
+        <li><a href="#scroll">Scroll into view</a></li>
         <li><a href="#thai">Detecting Thai words</a></li>
         <li><a href="#box">Limiting to one element</a></li>
         <li><a href="#end">Conclusion</a></li>
@@ -200,7 +201,9 @@
   })()
 })()</pre>
 
-  <p class="aside tip">You can test a working version <a href="source/03_discover/">here</a>.</p>
+  <div class="test unselectable">
+    <a href="source/03_discover/" target="test">Test Here</a>
+  </div>
 
   <h3><code>window.getSelection()</code></h3>
   <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/getSelection"><code>getSelection()</code></a> method is global: you don't actually need to use <code>window.</code> before you use it. This command returns a live <code>Selection</code> object. The values stored in the <code>Selection</code> object update in real time as you drag the mouse to change your selection.</p>
@@ -583,7 +586,11 @@ Natural Selection.&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</span></pre>
   <p>You can save the changes that you have made to <code>selection.js</code> and <code>index.html</code> and relaunch the page in your browser. Try clicking on hyphenated words, on hyphens and other punctuation, and on blank spaces between words, to see what happens.</p>
-  <p class="aside tip">You can test a working version <a href="source/04_hyphens_w/">here</a>.</p>
+  
+  <div class="test unselectable">
+    <a href="source/04_hyphens_w/" target="test">Test Here</a>
+  </div>
+
   <figure>
   <img src="img/selection.png" alt="Composite image showing 3 selections. Hyphenated words in English are selected whole." />
   <figcaption>Figure 4. Composite image showing 3 selections. Hyphenated words in English are selected whole.</figcaption>
@@ -650,7 +657,9 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
   <h3>Testing the refined regular expression</h3>
   <p>You can now test whether the new regular expression will correctly detect words with hyphens in Russian as well as English.</p>
 
-  <p class="aside tip">You can test a working version with the revised regular expression <a href="source/04_hyphens/">here</a>.</p>
+  <div class="test unselectable">
+    <a href="source/04_hyphens/" target="test">Test Here</a>
+  </div>
 
   <div class="aside next">In this section, you've:
     <ul>
@@ -695,7 +704,7 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
 <!-- JUMP -->
 <section id="jump">
   <h2>Jumping to the next word with a keyboard shortcut</h2>
-  <p>Over the next 4 sections, you will be creating a feature that moves the selection to the next or previous word using the arrow keys. First, you'll see how to select the next word in a given HTML element. Then in <a href="#node">section 6</a> you'll see how to jump forward to the first word in the next <code>textNode</code>. In <a href="#user-select">section 7</a> you'll see how to jump over text where the <code>user-select</code> CSS property is set to <code>none</code>. In <a href="#previous">section 8</a>, when everything is in place for jumping forward, you'll see how to adapt this for jumping backwards with the left arrow.</p>
+  <p>Over the next 4 sections, you will be creating a feature that moves the selection to the next or previous word using the arrow keys. First, you'll see how to select the next word in a given HTML element. Then in <a href="#next_node">section 6</a> you'll see how to jump forward to the first word in the next <code>textNode</code>. In <a href="#unselect">section 7</a> you'll see how to jump over text where the <code>user-select</code> CSS property is set to <code>none</code>. In <a href="#previous">section 8</a>, when everything is in place for jumping forward, you'll see how to adapt this for jumping backwards with the left arrow.</p>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
       <li>Detect when the user presses the left or right arrow keys</li>
@@ -1037,7 +1046,9 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
   }
 })()</pre>
 
-<p class="aside tip">You can test a working version <a href="source/05_jump/">here</a></p>
+  <div class="test unselectable">
+    <a href="source/05_jump/" target="test">Test Here</a>
+  </div>
 
   <div class="aside next">In this section, you've learned how to:
     <ul>
@@ -1046,13 +1057,13 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
       <li>Use the <code>new <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a>()</code> constructor to compile a regular expression from a string</li>
       <li>Move the selection to the next word, when the user presses the right arrow key, unless the selection is currently in the last word of the text nod that contains it.</li>
     </ul>
-    <p>In the <a href="#node">next section</a>, you'll see how to shift the selection to the first word in the next text node.</p>
+    <p>In the <a href="#next_node">next section</a>, you'll see how to shift the selection to the first word in the next text node.</p>
   </div>
 
   <footer>
     <ul class="nav">
       <li>
-        <a href="#node">
+        <a href="#next_node">
          <img src="../img/arrow.png" alt="next"/>
         </a>
       </li>
@@ -1060,31 +1071,297 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
   </footer>
 </section>
 
-<!-- NODE -->
-<section id="node">
-  <h2>Jumping to first text node in the element</h2>
+<!-- NEXT NODE -->
+<section id="next_node">
+  <h2>Jumping to the first text node in the next element</h2>
+  <p>As you saw in the <a href="#jump">last section</a>, it's easy enough to find the next word in a text node. But when you reach the last word in that node, you'll need to jump to the next text node that contains text. This might be a sibling node, or it might be a distant cousin, as shown in Figure 6 below.</p>
+  <figure>
+  <img src="img/nextNode.png" alt="The path to the next textNode may be simple or complex" />
+  <figcaption>Figure 6. The path to the next textNode may be simple or complex</figcaption>
+  </figure>
+  <p>You're going to need three different techniques to find the next text node.</p>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
-      <li>Do stuff</li>
+      <li>Find the first node which contains text in a given HTML element</li>
+      <li>Find the next sibling node of a given HTML element which contains text</li>
+      <li>Move up the HTML element hierarchy until you reach an element which contains text</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/06_next_node.zip" target="source">Download the source files</a>
   </div>
 
-  <h3>Subsection</h3>
-  <p>Stuff goes here</p>
+  <h3>HTML tags, textNodes, comments, childNodes and children</h3>
+  <p>When you create an HTML <span class="keyword">element</span> using a tag such as <code>&lt;p&gt;&lt;/p&gt;</code>, the actual text of the element is contained in a <span class="keyword">node</span>: a <code>textNode</code>, to be specific. All the prettifying whitespace between your HTML elements is also placed in <code>textNode</code>s, and normally you want to ignore these.</p>
+  <p>To access the child <span class="keyword">elements</span> of a given HTML element, you can use the <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/children"></a>children</code> property. Invisible script elements will be included in the array of children.</p>
+  <p>To access the <code>textNode</code>s as well as the elements, you can use the <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/childNodes"></a>childNodes</code> property, which will also include comment nodes. When looking for words that can be selected, you will want to filter out all script elements, comments and <code>textNode</code>s that contain prettifying whitespace .</p>
 
-  <div class="aside next">In this section, you've ...
+  <h3>Top-level test</h3>
+  <p>You can start by creating a function that will return a pointer to the first <code>textNode</code> that contains more than just whitespace, in a given HTML element. The function shown below assumes that <code>node.textContent</code> contains at least one non-space character. Soon, you will add a check for this before calling the function.</p>
+  <p class='aside tip'>For now, you can put the function at the top level, so that you can call it from the Developer Console. Later, you can place it inside another function, to limit its scope.</p>
+ 
+  <h4><code>selection.js</code></h4>
+  <pre class="revised">"use strict"
+
+<span class="new">function getFirstTextNode(node) {
+  var childNodes = [].slice.call(node.childNodes)
+
+  if (!childNodes.length) {
+    return node
+  }
+
+  while (node = childNodes.shift()) {
+    if (node.textContent.search(/\S/) < 0) {
+      <span class="comment">// Skip this node and its children</span>
+    } else if (node.nodeType === 3) {
+      return node
+    } else {
+      return getFirstTextNode(node)
+    }
+  }
+}</span>
+
+;(function (){
+  <span class="omit">// code omitted for clarity</span>
+})()
+</pre>
+
+  <h3><code>[].slice.call()</code></h3>
+  <p>The property <code><span class="ymmv">node.</span>childNodes</code> is an <span class="keyword">array-like</span> object, but it does not support methods like <code>shift</code>. To convert it to a full array, you can use <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice#Array-like_objects">Array.prototype.slice.call</a>(<span class="omit">...</span>)</code>, or more compactly but slightly less efficiently, <code>[].slice.call()</code>, as in the code listing above.</p>
+
+  <h3><code>if (!childNodes.length)</code> </h3>
+  <p>This function assumes that there is at least one non-space character in the <code>textContent</code> of the node, so if the node has no children, it must be the one containing that non-space text.</p>
+
+  <h3><code>while (node = childNodes.shift())</code></h3>
+  <p>For the same reason, if the node does have children, then one of them must contain non-space text. The <code>while</code> loop treats each <code>childNode</code> in turn. If ...</p>
+  <ul>
+  <li>Its <code>textContent</code> matches the <code>/\S/</code> non-whitespace regular expression AND</li>
+  <li>This child node has a <code>nodeType</code> of <code>3</code> (which means <code>textNode</code>)</li>
+  </ul>
+  <p>... then it will be the <code>textNode</code> you are looking for. If it contains text but is not a <code>textNode</code> then you have to tunnel deeper to find the first of its offspring that <em>is</em> a <code>textNode</code> with non-whitespace text. The <code>getFirstTextNode</code> function does this by calling itself recursively with the child node as its new argument.</p>
+
+  <p>In Figure 6 at the top of this section, the blue lines show how <code>getFirstTextNode</code> will tunnel down from <code>body</code> to <code>textNode 1</code>, and from <code>section 2</code> to <code>textNode 3</code>. If the argument of <code>getFirstTextNode</code> is a textNode containing non-whitespace text, then the argument node itself will be returned.</p>
+  <p>You can test this from the Developer Console:</p>
+
+  <pre class="console"><span class="input">getFirstTextNode(document.body)</span>
+<span class="output">"Вим ед путант альбюкиюс прёнкипыз, квюо эи выльёт аэтырно бландит, видэ фабыллас майыжтатйж прё экз."</span>
+<span class="input">getFirstTextNode(document.querySelector(".box"))</span>
+<span class="output">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</span>
+<span class="input">getFirstTextNode(document.querySelector("[lang=th]"))</span>
+<span class="output">"งมเข็มในมหาสมุทร พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง ตากลม ตา&#8203;กลม"</span></pre>
+<figcaption>Figure 7. Testing the <code>getFirstTextNode</code> function in the Developer Console</figcaption>
+
+  <h3>Finding text content in the next sibling node</h3>
+  <p>Now that you can find the first text node in any HTML node, you can find the next text node after any given node by asking for the first text node of its next sibling (the red line in Figure 6). If the current node doesn't have a next sibling, you can climb the hierarchy, and find the closest parent that has a sibling, and get its first text node (the green lines in Figure 6).</p>
+
+  <h3><code>getNextTextNode</code></h3>
+  <p>You can add the <code>getNextTextNode</code> function, as shown in the code listing below, to your <code>selection.js</code> file, at the top level, so that you can call it from the Developer Console.</p>
+  <p>This new function takes an HTML node and checks each of its following siblings in turn until it finds one that has non-whitespace text content. It then tunnels down into that sibling node, if necessary, to return the first node that contains text. This may be the sibling node itself.</p>
+  <p>If it reaches the last sibling node without finding any interesting text nodes, the <code>getNextTextNode</code> function will call itself recursively, to look for siblings of the parent node. It keeps going up the DOM hierarchy until it reaches the <code>document.body</code>, in which case it can go no further, and there are no more text nodes to be found. If this happens, the return value will be undefined.</p>
+
+  <h4><code>selection.js</code></h4>
+  <pre class="revised">use strict"
+
+<span class="new">function getNextTextNode(node) {
+  var parentNode = node.parentNode
+
+  while (node = node.nextSibling) {
+    if (node.textContent.search(/\S/) < 0) {   
+      <span class="comment">// Skip this node and its children</span>
+    } else if (node.tagName !== "SCRIPT") {
+      <span class="comment">// The next child of current parent has non-empty content</span>
+      return getFirstTextNode(node)
+    }
+  } 
+
+  <span class="comment">// If we get here, there were no more sibling nodes. Try the
+  // next sibling of the parent, unless we've reached the last
+  // child of the body itself.</span>
+  if (parentNode !== document.body) {
+    return getNextTextNode(parentNode)
+  }
+}</span>
+
+function getFirstTextNode(node) {
+  var childNodes = [].slice.call(node.childNodes)
+
+  if (!childNodes.length) {
+    return node
+  }
+
+  while (node = childNodes.shift()) {
+    if (node.textContent.search(/\S/) < 0) {
+      <span class="comment">// Skip this node and its children</span>
+    } else if (node.nodeType === 3) {
+      return node
+    } else {
+      return getFirstTextNode(node)
+    }
+  }
+}
+
+;(function (){
+  <span class="omit">// code omitted for clarity</span>
+})()</span></pre>
+
+  <h3>Integrating these new functions into <code>jumpRight</code></h3>
+  <p>With these new functions in place, your can add ...</p>
+  <pre>container = getNextTextNode(container)</pre>
+  <p>... to the <code>jumpRight</code> function, for the case where the currently selected word is the last word of the current container. You'll then need to find the start of the first word in the new container, and then proceed with finding the end of the word just as you did before.</p>
+  <p>There may be some prettifying whitespace before the first word in the text node. You can create a new regular expression ...</p>
+  <pre>var wordStartRegex = new RegExp("[^" + _W + "]")</pre>
+  <p>... to find the first non-whitespace character, which will be the beginning of the first word.</p>
+  <p>The code listing below shows the code to replace the <code>// TODO</code> placeholder in the <code>jumpRight</code> function. Notice that <code>getFirstTextNode</code> can be placed inside <code>getNextTextNode</code>. You could also place <code>getNextTextNode</code> inside the <code>jumpRight</code> function, but later, you will be converting it to a <code>getAdjacentTextNode</code> function, which you will be able to use to jump both right and left. For this reason, it's better to put it at the same level as the <code>jumpRight</code> function, so that the forthcoming <code>jumpLeft</code> function can use it, too.</p>
+  <pre><span class="revised">"use strict"
+
+;(function showSelection(){
+  <span class="omit">// code omitted for clarity</span>
+})()
+
+;(function selectWholeWordsWithHyphens(){
+  var selection = window.getSelection()
+  var _W = "\\s!-\\/:-@[-`{-~\\u00A0-¾—-⁊"
+  var startRegex = new RegExp("([^" + _W + "]+'?-?)+['-]$", "g")
+  var endRegex = new RegExp("^['-]('?-?[^" + _W + "]+)+")
+  var edgeRegex = new RegExp("[^" + _W + "]")
+  var nextWordRegex = new RegExp(
+    "([^"+ _W +"])*"
+  + "(["+ _W +"])+"
+  + "(?=[^"+ _W +"])"
+  )</span>
+  <span class="new">var wordStartRegex = new RegExp("[^" + _W + "]")</span>
+  <span class="revised">var wordEndRegex = new RegExp("[" + _W + "$]")
+
+  var range
+    , container
+    , selectionUpdated
+
+  document.body.ondblclick = selectHyphenatedWords
+  document.body.onkeydown = jumpToNextWord
+
+  function selectHyphenatedWords(event) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function extendSelectionBackBeforeHypen(string, offset) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function extendSelectionForwardAfterHyphen(string, offset) { 
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function jumpToNextWord (event) {   
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function jumpLeft() {
+    // TODO
+  }
+
+  function jumpRight() {
+    container = range.endContainer
+    var startOffset = range.endOffset
+    var string = container.textContent
+    var result = nextWordRegex.exec(string.substring(startOffset))
+    var endOffset
+      , rangeData
+
+    if (result) {
+      startOffset += result[0].length
+
+    } else {</span>
+      <span class="new"><span class="comment">// There are no more words in this text node. Try the next.</span>
+      container = getNextTextNode(container)
+
+      if (container) {
+        string = container.textContent
+        result = wordStartRegex.exec(string)
+        startOffset = result.index
+
+      } else {
+        <span class="comment">// We're at the very end of the selectable text. There's
+        // nothing more to select.</span>
+        return
+      }</span>
+    }
+
+    <span class="revised">result = wordEndRegex.exec(string.substring(startOffset))
+    endOffset = startOffset + result.index
+
+    rangeData = {
+      startOffset: startOffset
+    , endOffset: endOffset
+    , string: string
+    }
+
+    return rangeData</span>
+  }
+
+  function getNextTextNode(node) {
+    var parentNode = node.parentNode
+
+    while (node = node.nextSibling) {
+      if (node.textContent.search(/\S/) < 0) {         
+      } else if (node.tagName !== "SCRIPT") {
+        <span class="comment">// The next child of current parent has non-empty
+        // content</span>
+        return getFirstTextNode(node)
+      }
+    } 
+
+    <span class="comment">// If we get here, there were no more sibling nodes. Try the
+    // next sibling of the parent, unless we've reached the last
+    // selectable child of the body itself.</span>
+    if (parentNode !== document.body) {
+      return getNextTextNode(parentNode)
+    }
+
+    function getFirstTextNode(node) {
+      var childNodes = [].slice.call(node.childNodes)
+
+      if (!childNodes.length) {
+        return node
+      }
+
+      while (node = childNodes.shift()) {
+        if (node.textContent.search(/\S/) < 0) {         
+        } if (node.nodeType === 3) {
+          return node
+        } else {
+          return getFirstTextNode(node)
+        }
+      }
+    }
+  }
+})()</pre>
+
+  <div class="test unselectable">
+    <a href="source/06_next_node/" target="test">Test Here</a>
+  </div>
+
+  <p class="aside warn">There is a major flaw in this implementation: you can use the right arrow key to jump to words that are not selectable with the mouse; when you do this, the selection highlight vanishes. More dramatically (but only in this context), if you select the last selectable word and press the right arrow key, a word in the (unselectable) data about the selection will become selected, and the contents of the unselectable data will be displayed inside itself, in a loop that continually adds more text to the page. You'll see how to deal with this issue in the next section.</p>
+
+  <div class="aside next">In this section, you've seen how to 
     <ul>
-      <li></li>
-      <li>Learnt ideas</li>
+      <li>Use a <code>while</code> loop and recursion to find the first text node in a given HTML element</li>
+      <li>Use a <code>while</code> loop and recursion to find the next text node in a sibling or the sibling of a parent</li>
+      <li>Jump to the next text node when the last word in the current text node is selected and the right arrow key is pressed</li>
     </ul>
-    <p>In the <a href="#user-select">next section</a>, you'll ....</p>
+    <p>In particular, you've seen the following expressions:</p>
+    <ul>
+    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice#Array-like_objects">[].slice.call</a></code><span class="ymmv">(...)</span></li>
+    <li><code><span class="ymmv">array.</span><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/shift">shift</a><span class="ymmv">(...)</span></code></li>
+    <li><code><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/while"></code>while</a><span class="ymmv"> (...) {...}</span></li>
+    <li><code><span class="ymmv">node.</span><a href="https://developer.mozilla.org/en/docs/Web/API/Node/nodeType">nodeType</code></a></li>
+    <li><code><span class="ymmv">node.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/parentNode"></code>parentNode</a></li>
+    <li><code><span class="ymmv">node.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/childNodes"></code>childNodes</a></li>
+    </ul>
+    <p>In the <a href="#unselect">next section</a>, you'll see how to avoid jumping to text nodes that have been made unselectable.</p>
   </div>
 
   <footer>
     <ul class="nav">
       <li>
-        <a href="#user-select">
+        <a href="#unselect">
          <img src="../img/arrow.png" alt="next"/>
         </a>
       </li>
@@ -1092,25 +1369,164 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
   </footer>
 </section>
 
-<!-- user-select -->
-<section id="user-select">
+<!-- unselect -->
+<section id="unselect">
   <h2>Detecting unselectable nodes</h2>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
-      <li>Do stuff</li>
+      <li>Use JavaScript to read the CSS rules applied to a given node</li>
+      <li>Check whether a particular CSS property has been set to a particular value</li>
+      <li>Modify the <code>getNextTextNode</code> and <code>getFirstTextNode</code> functions to avoid unselectable text nodes</li>
     </ul>
     <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
   </div>
 
-  <h3>Subsection</h3>
-  <p>Stuff goes here</p>
+  <h3>Accessing CSS from JavaScript</h3>
+  <p>You can use <code>window.<a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle">getComputedStyle</a>(<span class="ymmv">element</span>)</code> to obtain a <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration">CSSStyleDeclaration</a> which gives you access to all the CSS property-value pairs that apply to the element. To determine whether the element has been made unselectable, you can check whether it has a <code>user-select</code> property set to <code>none</code>.</p>
+  <p>Actually, it's not quite as simple as that: the official specifications for the <code><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/user-select">user-select</a></code> property have not been finalized, so each browser vendor implements the property in its own way, and uses a vendor prefix to indicate that the feature is subject to change and may differ from browser to browser.</p>
+  <p>As a result, you will need to check for "-webkit-user-select", "-moz-user-select", and other properties. This is all dealt with for you in the <code>elementIsSelectable</code> function in the code listing below. In order to test it easily, you can place it at the top level of your <code>selection.js</code> script.</p>
 
-  <div class="aside next">In this section, you've ...
-    <ul>
-      <li>Done things</li>
-      <li>Learnt ideas</li>
-    </ul>
-    <p>In the <a href="#previous">next section</a>, you'll ....</p>
+  <h4><code>selection.js</code></h4>
+  <pre class="revised">"use strict"
+
+<span class="new">function elementIsSelectable(element) {
+  var prefixes = [
+    "-webkit-"
+  , "-khtml-"
+  , "-moz-"
+  , "-ms-"
+  , ""
+  ]
+  var style = window.getComputedStyle(element)
+
+  var selectable = prefixes.every(function check(key) {
+    key += "user-select"
+    return style[key] !== "none"
+  })
+
+  return selectable
+}</span>
+
+;(function (){
+  <span class="omit">// code omitted for clarity</span>
+})()</pre>
+
+  <h3>Testing</h3>
+  <p>You can test that it is working from the Developer Console.</p>
+
+  <pre class="console"><span class="input">elementIsSelectable(document.body)</span>
+<span class="output">true</span>
+<span class="input">elementIsSelectable(document.querySelector(".box"))</span>
+<span class="output">true</span>
+<span class="input">elementIsSelectable(document.querySelector(".unselectable"))</span>
+<span class="output">false</span></pre>
+<figcaption>Figure 8. Testing the <code>elementIsSelectable</code> function in the Developer Console</figcaption>
+
+  <h3>CSS and textNodes</h3>
+  <p>Another complexity is that <code>window.getComputedStyle()</code>functions only on HTML elements and <code>textNodes</code> are not HTML elements. You need to ask for the <code>textNode</code>'s <code>parentNode</code>'s computed style.</p>
+
+  <h3></h3>
+  <p>In the code listing below, the <code>getFirstTextNode</code> is modified to return a node only if it is selectable. This means that, although the node contains non-whitespace text, the function may not return a value. As a result, the <code>getNextTextNode</code> function has to play it safe and check whether the call to <code>getFirstTextNode</code> returned a value or not.</p>
+  <p>For tidiness, the <code>elementIsSelectable</code> function has been moved inside the <code>selectWholeWordsWithHyphens</code> function, so it will no longer be accessible from the Developer Console.</p>
+  <pre><span class="revised">"use strict"
+
+;(function showSelection(){ 
+  <span class="omit">// code omitted for clarity</span>
+})()
+
+;(function selectWholeWordsWithHyphens(){
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function extendSelectionBackBeforeHypen(string, offset) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function extendSelectionForwardAfterHyphen(string, offset) { 
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function jumpToNextWord (event) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function jumpLeft() {
+    // TODO
+  }
+
+  function jumpRight() {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function getNextTextNode(node) {
+    var parentNode = node.parentNode
+    <span class="new">var nextNode</span>
+
+    while (node = node.nextSibling) {
+      if (node.textContent.search(/\S/) < 0) {         
+      } else if (node.tagName !== "SCRIPT") {
+        // The next child of current parent has non-empty content
+        <span class="new">nextNode = getFirstTextNode(node)
+        if (nextNode) {
+          return nextNode
+        }</span>
+      }
+    } 
+
+    // If we get here, there were no more sibling nodes. Try the
+    // next sibling of the parent, unless we've reached the last
+    // selectable child of the body itself.
+    if (parentNode !== document.body) {
+      return getNextTextNode(parentNode)
+    }
+
+    function getFirstTextNode(node) {
+      var childNodes = [].slice.call(node.childNodes)
+
+      if (!childNodes.length) {
+        return node
+      }
+
+      while (node = childNodes.shift()) {
+        if (node.textContent.search(/\S/) < 0) {         
+        } else if (node.nodeType === 3) {
+          <span class="new">if (elementIsSelectable(node.parentNode)) {
+            return node
+          }</span>
+        } else {
+          return getFirstTextNode(node)
+        }
+      }
+    }
+  }</span>
+
+  function elementIsSelectable(element) {
+    var prefixes = [
+      "-webkit-"
+    , "-khtml-"
+    , "-moz-"
+    , "-ms-"
+    , ""
+    ]
+    var style = window.getComputedStyle(element)
+
+    var selectable = prefixes.every(function check(key) {
+      key += "user-select"
+      return style[key] !== "none"
+    })
+
+    return selectable
+  }
+<span class="revised">})()</span></pre>
+
+  <div class="test unselectable">
+    <a href="source/07_unselect/" target="test">Test Here</a>
+  </div>
+
+  <p>Now when you test your script, you'll find that the selection jumps directly from "eros" to "Integer", and that it does not move when you get to the final word of Thai text: "ตา​กลม".</p>
+
+  <div class="aside next">In this section, you've prevented the <code>getNextTextNode</code> function from setting the range of the <code>Selection</code> object to a chunk of text that cannot be selected. Your work on jumping forward is complete.
+  <p>In the <a href="#previous">next section</a>, you'll see how to create similar functions for jumping back to the previous word when you press the left arrow key.</p>
   </div>
 
   <footer>
@@ -1142,7 +1558,39 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
       <li>Done things</li>
       <li>Learnt ideas</li>
     </ul>
-    <p>In the <a href="#thai">next section</a>, you'll ....</p>
+    <p>In the <a href="#scroll">next section</a>, you'll ....</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#scroll">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- scroll -->
+<section id="scroll">
+  <h2>Scrolling the selection into view</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+    <ul>
+      <li>Do stuff</li>
+    </ul>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
+  </div>
+
+  <h3>Subsection</h3>
+  <p>Stuff goes here</p>
+
+  <div class="aside next">In this section, you've ...
+    <ul>
+      <li>Done things</li>
+      <li>Learnt ideas</li>
+    </ul>
+    <p>In the <a href="#thax">next section</a>, you'll ....</p>
   </div>
 
   <footer>

@@ -197,6 +197,7 @@ filter: FlipH;
 -ms-filter: "FlipH";
 }
 
+div.test a,
 .preview a {
 margin: 0.5em 25px;
 border: 1px outset #bdc4fb;
@@ -222,6 +223,7 @@ margin: 0;
 padding: 0.1em;
 }
 
+div.test a:active,
 .preview a:active {
 border-style: inset;
 }
@@ -811,6 +813,59 @@ padding: 0;
 .select {
   background-color: #aed4fe;
 }
+.console {
+background-color: #fff;
+border: 1px solid #999;
+border-right-color: #ccc;
+border-bottom-color: #ccc;
+font-family: "Lucida Console", Monaco, monospace;
+line-height: 1.5em;
+border-radius: 0;
+}
+.console .input::before {
+content: "> ";
+}
+.console .output {
+font-style: normal;
+margin: 0.2em 0;
+}
+.console .output::before {
+content: "< ";
+}
+.unselectable,
+.unselectable * {
+-webkit-touch-callout: none; /* iOS Safari */
+-webkit-user-select: none;   /* Chrome/Safari/Opera */
+-khtml-user-select: none;    /* Konqueror */
+-moz-user-select: none;      /* Firefox */
+-ms-user-select: none;       /* Internet Explorer/Edge */
+user-select: none;
+-webkit-user-drag: none;
+user-drag: none;
+}
+div.test {
+text-align: center;
+}
+/*div.test a {
+padding: 0.5em 1em;
+line-height: 3em;
+background-color: #ccf;
+text-decoration: none;
+color: #009;
+border: 1px solid #eef;
+border-right-color: #669;
+border-bottom-color: #669;
+border-radius: 0.5em;
+}
+div.test a:hover {
+  background-color: #ddf;
+}
+div.test a:active {
+  background-color: #bdc4fb;
+  border: 1px solid #669;
+  border-right-color: #ccf;
+  border-bottom-color: #ccf;
+}*/
 
 @media print
 {

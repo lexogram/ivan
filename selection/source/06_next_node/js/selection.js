@@ -47,22 +47,15 @@
 ;(function selectWholeWordsWithHyphens(){
   var selection = window.getSelection()
   var _W = "\\s!-\\/:-@[-`{-~\\u00A0-¾—-⁊"
-  // Regex designed to find a word+hyphen before the selected word.
-  // Example: ad-|lib|
-  // It finds the last chunk with no non-word characters (except for
-  // ' and -) before the first selected character. 
   var startRegex = new RegExp("([^" + _W + "]+'?-?)+['-]$", "g")
-  // Regex designed to find a hyphen+word after the selected word.
-  // Example: |ad|-lib
   var endRegex = new RegExp("^['-]('?-?[^" + _W + "]+)+")
-  // Edge case: check if the selection contains no word characters.
-  // If so, then don't do anything to extend it.
   var edgeRegex = new RegExp("[^" + _W + "]")
   var nextWordRegex = new RegExp(
     "([^"+ _W +"])*"
   + "(["+ _W +"])+"
   + "(?=[^"+ _W +"])"
   )
+  var wordStartRegex = new RegExp("[^" + _W + "]")
   var wordEndRegex = new RegExp("[" + _W + "]|$")
 
   var range
@@ -169,7 +162,7 @@
     // TODO
   }
 
-  function jumpRight() {
+ function jumpRight() {
     container = range.endContainer
     var startOffset = range.endOffset
     var string = container.textContent
@@ -181,8 +174,19 @@
       startOffset += result[0].length
 
     } else {
-      // TODO
-      return
+      // There are no more words in this text node. Try the next.
+      container = getNextTextNode(container)
+
+      if (container) {
+        string = container.textContent
+        result = wordStartRegex.exec(string)
+        startOffset = result.index
+
+      } else {
+        // We're at the very end of the selectable text. There's
+        // nothing more to select.
+        return
+      }
     }
 
     result = wordEndRegex.exec(string.substring(startOffset))
@@ -195,5 +199,43 @@
     }
 
     return rangeData
+  }
+
+  function getNextTextNode(node) {
+    var parentNode = node.parentNode
+
+    while (node = node.nextSibling) {
+      if (node.textContent.search(/\S/) < 0) {         
+      } else if (node.tagName !== "SCRIPT") {
+        // The next child of current parent has non-empty
+        // content
+        return getFirstTextNode(node)
+      }
+    } 
+
+    // If we get here, there were no more sibling nodes. Try the
+    // next sibling of the parent, unless we've reached the last
+    // selectable child of the body itself.
+    if (parentNode !== document.body) {
+      return getNextTextNode(parentNode)
+    }
+
+    function getFirstTextNode(node) {
+      var childNodes = [].slice.call(node.childNodes)
+
+      if (!childNodes.length) {
+        return node
+      }
+
+      while (node = childNodes.shift()) {
+        if (node.textContent.search(/\S/) < 0) {         
+        } if (node.nodeType === 3) {
+            return node
+          } else {
+            return getFirstTextNode(node)
+          }
+        }
+      }
+    }
   }
 })()
