@@ -16,7 +16,6 @@
     <nav>
       <ol>
         <li><a href="#top">Overview</a></li>
-        <li><a href="#intro">Introduction</a></li>
         <li><a href="#discover">Discovering Selections</a></li>
         <li><a href="#hyphens">Hyphenated words</a></li>
         <li><a href="#jump">Jump to next word</a></li>
@@ -24,8 +23,9 @@
         <li><a href="#unselect">Detecting user-select</a></li>
         <li><a href="#previous">Jump to previous word</a></li>
         <li><a href="#scroll">Scroll into view</a></li>
-        <li><a href="#thai">Detecting Thai words</a></li>
+        <li><a href="#nested-scroll">Scrolling sub-elements</a></li>
         <li><a href="#box">Limiting to one element</a></li>
+        <li><a href="#thai">Detecting Thai words</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
     </nav>
@@ -47,21 +47,6 @@
 </header>
 
 <article>
-<!-- INTRODUCTION -->
-<section id="intro">
-  <h2>Introduction</h2>
-  <p>More details to go here</p>
-
-  <footer>
-    <ul class="nav">
-      <li>
-        <a href="#end">
-          <img src="../img/arrow.png" alt="next"/>
-        </a>
-      </li>
-    </ul>
-  </footer>
-</section>
 
 <!-- DISCOVER -->
 <section id="discover">
@@ -563,8 +548,8 @@ Natural Selection.&lt;/p&gt;
   <h3>Testing</h3>
   <p>Your current <code>index.html</code> page contains hyphenated words only in the unselectable section. To test your new function, you can add the following to your HTML file:</p>
 
+  <h4><code>index.html</code></h4>
   <pre class="revised">&lt;!DOCTYPE html&gt;
-&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
   <span class="omit">// HTML omitted for clarity</span>
@@ -632,6 +617,7 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
   <pre>/[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
   <p class="aside note">To be applicable to all languages, even outside Europe, a rigorous regular expression would need to include all the punctuation and other non-word characters in any script, such as <code>๏ ๛ 。</code>. In practice, it would make more sense to generate a language-specific regular expression, to match just the languages you expect to encounter.</p>
 
+  <h4><code>js/selection.js</code></h4>
   <pre class="revised">"use strict"
 
 ;(function showSelection(){
@@ -718,6 +704,7 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
   <h3>Detecting when the arrow keys are pressed</h3>
   <p>You can detect when the user presses any key with the <code>document.body.onkeydown</code> event. Here's how you can add this to your <code>selection.js</code> file:</p>
 
+  <h4><code>js/selection.js</code></h4>
   <pre class="revised">"use strict"
 
 ;(function showSelection(){
@@ -768,6 +755,7 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
   <h3>Switching actions depending on which key was pressed</h3>
   <p>You can use a <code>switch</code> statement to call a specific function based on the key pressed by the user. In the code listing below, the variable <code>rangeData</code> is set to an object only if the left or right arrow is pressed. If <code>rangeData</code> has a value, it is printed out into the Developer Console.</p>
 
+  <h4><code>js/selection.js</code></h4>
   <pre class="revised">"use strict"
 
 ;(function showSelection(){
@@ -854,7 +842,9 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
 <p class="aside note">Note that when you create a regular expression from a string, with <code>new RegExp()</code>, you need to <span class="keyword">escape</span> all the <code>\</code> characters that indicate special characters. For example <code>new RegExp("\\s+(?=\\w)")</code> will compile to <code>/\s(?=\w)/</code> </p>
 
 <p>Here's how you can declare your regular expression variables now, including the two new ones:</p>
-<pre class="revised"><span class="omit">// code omitted for clarity</span>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised"><span class="omit">// code omitted for clarity</span>
 
 ;(function selectWholeWordsWithHyphens(){
   var selection = window.getSelection()
@@ -877,7 +867,8 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
 <h3>Getting the offset for the beginning and end of the next word</h3>
 <p>Now that you have these two new regular expressions, you can use them to populate the <code>rangeData</code> object when the user presses the right arrow.</p>
 
-<pre class="revised">"use strict"
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised">"use strict"
 
 ;(function showSelection(){
   <span class="omit">// code omitted for clarity</span>
@@ -972,7 +963,8 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
 <h3>Moving the selection to the next word</h3>
 <p>If there is a match, then <code>rangeData</code> will contain all the information needed to define the next word ... up to, but not including, any hyphen or apostrophe that the word might contain. To select the next word in its hyphenated entirety, you can simply call  <code>extendSelectionForwardAfterHyphen</code>, and pass it the text content of the current container and the <code>endOffset</code> of the detected word.</p>
 
-<pre class="revised">"use strict"
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised">"use strict"
 
 ;(function showSelection(){
   <span class="omit">// code omitted for clarity</span>
@@ -1098,7 +1090,7 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
   <p>You can start by creating a function that will return a pointer to the first <code>textNode</code> that contains more than just whitespace, in a given HTML element. The function shown below assumes that <code>node.textContent</code> contains at least one non-space character. Soon, you will add a check for this before calling the function.</p>
   <p class='aside tip'>For now, you can put the function at the top level, so that you can call it from the Developer Console. Later, you can place it inside another function, to limit its scope.</p>
  
-  <h4><code>selection.js</code></h4>
+  <h4><code>js/selection.js</code></h4>
   <pre class="revised">"use strict"
 
 <span class="new">function getFirstTextNode(node) {
@@ -1156,8 +1148,8 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
   <p>You can add the <code>getNextTextNode</code> function, as shown in the code listing below, to your <code>selection.js</code> file, at the top level, so that you can call it from the Developer Console.</p>
   <p>This new function takes an HTML node and checks each of its following siblings in turn until it finds one that has non-whitespace text content. It then tunnels down into that sibling node, if necessary, to return the first node that contains text. This may be the sibling node itself.</p>
   <p>If it reaches the last sibling node without finding any interesting text nodes, the <code>getNextTextNode</code> function will call itself recursively, to look for siblings of the parent node. It keeps going up the DOM hierarchy until it reaches the <code>document.body</code>, in which case it can go no further, and there are no more text nodes to be found. If this happens, the return value will be undefined.</p>
-
-  <h4><code>selection.js</code></h4>
+  
+  <h4><code>js/selection.js</code></h4>
   <pre class="revised">use strict"
 
 <span class="new">function getNextTextNode(node) {
@@ -1210,6 +1202,8 @@ function getFirstTextNode(node) {
   <pre>var wordStartRegex = new RegExp("[^" + _W + "]")</pre>
   <p>... to find the first non-whitespace character, which will be the beginning of the first word.</p>
   <p>The code listing below shows the code to replace the <code>// TODO</code> placeholder in the <code>jumpRight</code> function. Notice that <code>getFirstTextNode</code> can be placed inside <code>getNextTextNode</code>. You could also place <code>getNextTextNode</code> inside the <code>jumpRight</code> function, but later, you will be converting it to a <code>getAdjacentTextNode</code> function, which you will be able to use to jump both right and left. For this reason, it's better to put it at the same level as the <code>jumpRight</code> function, so that the forthcoming <code>jumpLeft</code> function can use it, too.</p>
+  
+  <h4><code>js/selection.js</code></h4>
   <pre><span class="revised">"use strict"
 
 ;(function showSelection(){
@@ -1386,7 +1380,7 @@ function getFirstTextNode(node) {
   <p>Actually, it's not quite as simple as that: the official specifications for the <code><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/user-select">user-select</a></code> property have not been finalized, so each browser vendor implements the property in its own way, and uses a vendor prefix to indicate that the feature is subject to change and may differ from browser to browser.</p>
   <p>As a result, you will need to check for "-webkit-user-select", "-moz-user-select", and other properties. This is all dealt with for you in the <code>elementIsSelectable</code> function in the code listing below. In order to test it easily, you can place it at the top level of your <code>selection.js</code> script.</p>
 
-  <h4><code>selection.js</code></h4>
+  <h4><code>js/selection.js</code></h4>
   <pre class="revised">"use strict"
 
 <span class="new">function elementIsSelectable(element) {
@@ -1428,6 +1422,8 @@ function getFirstTextNode(node) {
   <h3></h3>
   <p>In the code listing below, the <code>getFirstTextNode</code> is modified to return a node only if it is selectable. This means that, although the node contains non-whitespace text, the function may not return a value. As a result, the <code>getNextTextNode</code> function has to play it safe and check whether the call to <code>getFirstTextNode</code> returned a value or not.</p>
   <p>For tidiness, the <code>elementIsSelectable</code> function has been moved inside the <code>selectWholeWordsWithHyphens</code> function, so it will no longer be accessible from the Developer Console.</p>
+
+  <h4><code>js/selection.js</code></h4>
   <pre><span class="revised">"use strict"
 
 ;(function showSelection(){ 
@@ -1557,7 +1553,7 @@ function getFirstTextNode(node) {
   <p>... where <code>_W</code> is the comprehensive "non-word-character" expression that you've already used. The <code>"g"</code> flag means that multiple uses of the <code><span class="ymmv">regex.</span>exec(<span class="ymmv">string</span>)</code> method will start searching from the end of the last match.</p>
   <p>The changes in the code listing below allow you use the left arrow key to jump back, word by word, to the beginning of a textNode. The code for jumping back to the previous text node will be shown later. Where the new code is identical to the code in the <code>jumpRight</code> function, it's shown in plain (not <strong>bold</strong>) characters.</p>
 
-  <h4><code>selection.js</code></h4>
+  <h4><code>js/selection.js</code></h4>
   <pre><span class="revised">"use strict"
 
 ;(function showSelection(){
@@ -1711,6 +1707,7 @@ function getFirstTextNode(node) {
   <h3>Finding the previous text node</h3>
   <p>Searching backwards through siblings is easier than searching backwards through text: there is a built-in <code>previousSibling</code> property for all nodes. Below, you can see how similar the code for </p>
 
+  <h4><code>js/selection.js</code></h4>
   <pre><span class="revised">"use strict"
 
 ;(function showSelection(){
@@ -1805,7 +1802,8 @@ function getFirstTextNode(node) {
   <h3>Simplifying the code</h3>
   <p>As you can see from the quantity of plain black text in the code listing above, there are many similarities between <code>getNextTextNode</code> and <code>getPreviousTextNode</code>. You can merge these two into one function called <code>getAdjacentTextNode</code>, as shown in the code listing below.</p>
 
-  <pre>function get<span class="new">AdjacentText</span>Node(node, <span class="new">whichSibling, arrayMethod</span>) {
+  <h4><code>js/selection.js</code></h4>
+  <pre>  function get<span class="new">AdjacentText</span>Node(node, <span class="new">whichSibling, arrayMethod</span>) {
     // &lt;whichSibling&gt; will be "previousSibling" or "nextSibling"
     // &lt;arrayMethod&gt; will be "pop" or "shift"
 
@@ -1860,7 +1858,8 @@ function getFirstTextNode(node) {
 
   <p>After this change, the <code>jumpLeft</code> and <code>jumpRight</code> functions need to look like this:</p>
 
-  <pre class="revised">
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised"><span class="omit">...</span>
 
   function jumpLeft() {
     container = range.endContainer
@@ -1919,7 +1918,9 @@ function getFirstTextNode(node) {
     <span class="omit">// code omitted for clarity</span>
 
     return rangeData
-  }</pre>
+  }
+
+<span class="omit">...</span></pre>
 
   <div class="test unselectable">
     <a href="source/08_previous/" target="test">Test Here</a>
@@ -1951,28 +1952,131 @@ function getFirstTextNode(node) {
 <!-- scroll -->
 <section id="scroll">
   <h2>Scrolling the selection into view</h2>
+  <p>Currently, if you use the left and right arrow keys to move the selection from word to word, the current selection may be outside the visible area of the window. It would be nice to scroll the window to make the selection visible.</p>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
-      <li>Do stuff</li>
+      <li>User <code>range.getBoundingClientRect</code> to get the coordinates of the selection area relative to the window</li>
+      <li>Set the <code>scrollTop</code> of the window to ensure that the selection is in view</li>
     </ul>
     <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
   </div>
 
-  <h3>Subsection</h3>
-  <p>Stuff goes here</p>
+  <h3><code>getBoundingClientRect</code></h3>
+  <p>The <code><span class="ymmv">element.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect"></a>getBoundingClientRect</code> returns an <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIDOMClientRect">object</a> that tells you the ...</p>
+  <ul>
+  <li><code>bottom</code></li>
+  <li><code>height</code></li>
+  <li><code>left</code></li>
+  <li><code>right</code></li>
+  <li><code>top</code></li>
+  <li><code>width</code></li>
+  <li></li>
+  </ul>
+  <p>... of the element, in pixels, relative to area visible in the browser window. In most browsers, the <code>Range</code> object also responds to the </a>getBoundingClientRect</code> method, so you can use this to detect where the selection appears in the browser window.</p>
 
-  <div class="aside next">In this section, you've ...
+  <h3><code>scrollTop</code></h3>
+  <p>For scrollable elements, setting <code><span class="ymmv">element.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTop">scrollTop</a></code> will change the number of pixels hidden above the top of the element. In this section, you will be setting the <code>scrollTop</code> of the document itself. Some browsers (such as Firefox), do this by changing <code>document.documentElement.scrollTop</code>; others (such as Chrome) continue to use the deprecated <code>document.body.scrollTop</code>, even in strict mode. Setting the <code>scrollTop</code> of the wrong element will have no effect. The simplest solution is to set both, and let the best one win.</p>
+  <p class="aside info">You can read more about this issue <a href="http://stackoverflow.com/a/20060513/1927589">here</a></p>
+  <p>You can add the following function to your JavaScript file:</p>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised">"use strict"
+
+;(function showSelection(){
+  <span class="omit">// code omitted for clarity</span>
+})()
+
+;(function selectWholeWordsWithHyphens(){
+  <span class="omit">// code omitted for clarity</span>
+
+  <span class="new">function scrollIntoView(range) {
+    if (!range.getBoundingClientRect) {
+      return
+    }
+    
+    var viewHeight = document.documentElement.clientHeight
+    var selectionRect = range.getBoundingClientRect()
+
+    if (selectionRect.top < 0) {
+      document.body.scrollTop += selectionRect.top
+      document.documentElement.scrollTop += selectionRect.top
+    } else if (selectionRect.bottom > viewHeight) {
+      document.body.scrollTop += selectionRect.bottom - viewHeight
+      document.documentElement.scrollTop += selectionRect.bottom
+                                          - viewHeight
+    }
+  }</span>
+})()</pre>
+
+  <h3>Scrolling into view</code> on <code>dblclick</code> and when the arrow keys are used </h3>
+  <p>To trigger the <code>scrollIntoView</code> function after selecting a word with a double-click or after moving the selection to the next word with left or right arrow keys, you need to add two calls to <code>scrollIntoView</code>: one at the end of the <code>selectHyphenatedWords</code> function, and one at the end of the <code>jumpToNextWord</code> function, as shown below:</p>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised">"use strict"
+
+;(function showSelection(){
+  <span class="omit">// code omitted for clarity</span>
+ }
+
+;(function selectWholeWordsWithHyphens(){
+  <span class="omit">// code omitted for clarity</span>
+
+  document.body.ondblclick = selectHyphenatedWords
+  document.body.onkeydown = jumpToNextWord
+
+  <span class="omit">// code omitted for clarity</span>
+
+  function selectHyphenatedWords(event) {
+    <span class="omit">// code omitted for clarity</span>
+
+    extendSelectionBackBeforeHypen(string, range.startOffset)
+    extendSelectionForwardAfterHyphen(string, range.endOffset)
+
+    if (selectionUpdated) {
+      selection.removeAllRanges()
+      selection.addRange(range)
+    }
+
+    <span class="new">scrollIntoView(range)</span>
+  }
+
+  function extendSelectionBackBeforeHypen(string, offset) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function extendSelectionForwardAfterHyphen(string, offset) { 
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function jumpToNextWord (event) {
+    <span class="omit">// code omitted for clarity</span>
+
+    selection.removeAllRanges()
+    selection.addRange(range)
+    <span class="new">scrollIntoView(range)</span>
+  }
+
+  <span class="omit">// code omitted for clarity</span>
+}</pre>
+
+  <div class="test unselectable">
+    <a href="source/09_scroll/" target="test">Test Here</a>
+  </div>
+
+  <div class="aside next">In this section, you've used ...
     <ul>
-      <li>Done things</li>
-      <li>Learnt ideas</li>
+      <li><code><span class="ymmv">range.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect">getBoundingClientRect</a></code></li>
+      <li>a <code><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIDOMClientRect">ClientRect or DOMRect</a> object</code></li>
+      <li><code><span class="ymmv">element.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTop">scrollTop</a></code></li>
     </ul>
-    <p>In the <a href="#thax">next section</a>, you'll ....</p>
+    <p>... to activate a function that automatically scrolls the page to show the current selection.</p>
+    <p>In the <a href="#nested-scroll">next section</a>, you'll see how to ensure that the selection is visible even when it is inside a sub-element of the page that can itself scroll.</p>
   </div>
 
   <footer>
     <ul class="nav">
       <li>
-        <a href="#thai">
+        <a href="#nested-scroll">
          <img src="../img/arrow.png" alt="next"/>
         </a>
       </li>
@@ -1980,9 +2084,9 @@ function getFirstTextNode(node) {
   </footer>
 </section>
 
-<!-- THAI -->
-<section id="thai">
-  <h2>Detecting words in Thai text</h2>
+<!-- NESTED SCROLL -->
+<section id="nested-scroll">
+  <h2>Scrolling a sub-element of the page</h2>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
       <li>Do stuff</li>
@@ -2030,13 +2134,13 @@ function getFirstTextNode(node) {
       <li>Done things</li>
       <li>Learnt ideas</li>
     </ul>
-    <p>In the <a href="#end">next section</a>, you'll ....</p>
+    <p>In the <a href="#thai">next section</a>, you'll ....</p>
   </div>
 
   <footer>
     <ul class="nav">
       <li>
-        <a href="#end">
+        <a href="#thai">
          <img src="../img/arrow.png" alt="next"/>
         </a>
       </li>
@@ -2044,14 +2148,14 @@ function getFirstTextNode(node) {
   </footer>
 </section>
 
-<!-- NEXT -->
-<section id="next">
-  <h2>Title of section</h2>
+<!-- THAI -->
+<section id="thai">
+  <h2>Detecting words in Thai text</h2>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
       <li>Do stuff</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
   </div>
 
   <h3>Subsection</h3>
@@ -2098,8 +2202,9 @@ function getFirstTextNode(node) {
     <ul>
       <li>The <code>Selection</code> object</li>
       <li>The <code>Range</code> object</li>
-      <li>Selecting the word under the cursor as the user drags the mouse</li>
-      <li>Creating <span class="select">discontigous</span> word <span class="select">selections</span></li>
+      <li>Selecting hyphenated words in their entirety</li>
+      <li>Using the left and right arrow keys to jump from one word to the next</li>
+      <li>Ensuring that the current selection is visible in the browser window</li>
       <li>Working with text in a variety of writing scripts</li>
     </ul>
   </div>
@@ -2107,7 +2212,7 @@ function getFirstTextNode(node) {
   <footer>
     <ul class="nav">
       <li>
-        <a href="#intro">
+        <a href="#discover">
          <img src="../img/arrow.png" alt="next"/>
         </a>
       </li>
