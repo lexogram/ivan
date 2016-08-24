@@ -58,7 +58,7 @@
       <li>See how text can be made unselectable</li>
       <li>Learn how to select unselectable text</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/03_discover.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/02_discover.zip" target="source">Download the source files</a>
   </div>
 
   <h3>A test page</h3>
@@ -351,7 +351,7 @@ Natural Selection.&lt;/p&gt;
       <li>Search backwards with a regular expression</li>
       <li>Refine your regular expression so that it works with all European languages.</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/04_hyphens.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/03_hyphens.zip" target="source">Download the source files</a>
   </div>
 
   <h3>Modifying a <code>Range</code></h3>
@@ -644,7 +644,7 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
   <p>You can now test whether the new regular expression will correctly detect words with hyphens in Russian as well as English.</p>
 
   <div class="test unselectable">
-    <a href="source/04_hyphens/" target="test">Test Here</a>
+    <a href="source/03_hyphens/" target="test">Test Here</a>
   </div>
 
   <div class="aside next">In this section, you've:
@@ -690,7 +690,7 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
 <!-- JUMP -->
 <section id="jump">
   <h2>Jumping to the next word with a keyboard shortcut</h2>
-  <p>Over the next 4 sections, you will be creating a feature that moves the selection to the next or previous word using the arrow keys. First, you'll see how to select the next word in a given HTML element. Then in <a href="#next_node">section 6</a> you'll see how to jump forward to the first word in the next <code>textNode</code>. In <a href="#unselect">section 7</a> you'll see how to jump over text where the <code>user-select</code> CSS property is set to <code>none</code>. In <a href="#previous">section 8</a>, when everything is in place for jumping forward, you'll see how to adapt this for jumping backwards with the left arrow.</p>
+  <p>Over the next 4 sections, you will be creating a feature that moves the selection to the next or previous word using the arrow keys. First, you'll see how to select the next word in a given HTML element. Then in <a href="#next_node">section 5</a> you'll see how to jump forward to the first word in the next <code>textNode</code>. In <a href="#unselect">section 6</a> you'll see how to jump over text where the <code>user-select</code> CSS property is set to <code>none</code>. In <a href="#previous">section 7</a>, when everything is in place for jumping forward, you'll see how to adapt this for jumping backwards with the left arrow.</p>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
       <li>Detect when the user presses the left or right arrow keys</li>
@@ -698,7 +698,7 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
       <li>Find the end of the next word with a regular expression</li>
       <li>Use stubs to prepare to add new features to your code</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/04_jump.zip" target="source">Download the source files</a>
   </div>
 
   <h3>Detecting when the arrow keys are pressed</h3>
@@ -1039,7 +1039,7 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
 })()</pre>
 
   <div class="test unselectable">
-    <a href="source/05_jump/" target="test">Test Here</a>
+    <a href="source/04_jump/" target="test">Test Here</a>
   </div>
 
   <div class="aside next">In this section, you've learned how to:
@@ -1078,7 +1078,7 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
       <li>Find the next sibling node of a given HTML element which contains text</li>
       <li>Move up the HTML element hierarchy until you reach an element which contains text</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/06_next_node.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_next_node.zip" target="source">Download the source files</a>
   </div>
 
   <h3>HTML tags, textNodes, comments, childNodes and children</h3>
@@ -1329,7 +1329,7 @@ function getFirstTextNode(node) {
 })()</pre>
 
   <div class="test unselectable">
-    <a href="source/06_next_node/" target="test">Test Here</a>
+    <a href="source/05_next_node/" target="test">Test Here</a>
   </div>
 
   <p class="aside warn">There is a major flaw in this implementation: you can use the right arrow key to jump to words that are not selectable with the mouse; when you do this, the selection highlight vanishes. More dramatically (but only in this context), if you select the last selectable word and press the right arrow key, a word in the (unselectable) data about the selection will become selected, and the contents of the unselectable data will be displayed inside itself, in a loop that continually adds more text to the page. You'll see how to deal with this issue in the next section.</p>
@@ -1372,7 +1372,7 @@ function getFirstTextNode(node) {
       <li>Check whether a particular CSS property has been set to a particular value</li>
       <li>Modify the <code>getNextTextNode</code> and <code>getFirstTextNode</code> functions to avoid unselectable text nodes</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/06_jump.zip" target="source">Download the source files</a>
   </div>
 
   <h3>Accessing CSS from JavaScript</h3>
@@ -1516,7 +1516,7 @@ function getFirstTextNode(node) {
 <span class="revised">})()</span></pre>
 
   <div class="test unselectable">
-    <a href="source/07_unselect/" target="test">Test Here</a>
+    <a href="source/06_unselect/" target="test">Test Here</a>
   </div>
 
   <p>Now when you test your script, you'll find that the selection jumps directly from "eros" to "Integer", and that it does not move when you get to the final word of Thai text: "ตา​กลม".</p>
@@ -1543,7 +1543,7 @@ function getFirstTextNode(node) {
     <ul>
       <li>Adapt the <code>jumpRight</code> function to create a <code>jumpLeft</code> function</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/08_previous.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/07_previous.zip" target="source">Download the source files</a>
   </div>
 
   <h3>Jumping Left</h3>
@@ -1923,7 +1923,7 @@ function getFirstTextNode(node) {
 <span class="omit">...</span></pre>
 
   <div class="test unselectable">
-    <a href="source/08_previous/" target="test">Test Here</a>
+    <a href="source/07_previous/" target="test">Test Here</a>
   </div>
 
   <div class="aside next">In this section, you've ...
@@ -1958,7 +1958,7 @@ function getFirstTextNode(node) {
       <li>User <code>range.getBoundingClientRect</code> to get the coordinates of the selection area relative to the window</li>
       <li>Set the <code>scrollTop</code> of the window to ensure that the selection is in view</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/08_scroll.zip" target="source">Download the source files</a>
   </div>
 
   <h3><code>getBoundingClientRect</code></h3>
@@ -2060,7 +2060,7 @@ function getFirstTextNode(node) {
 }</pre>
 
   <div class="test unselectable">
-    <a href="source/09_scroll/" target="test">Test Here</a>
+    <a href="source/08_scroll/" target="test">Test Here</a>
   </div>
 
   <div class="aside next">In this section, you've used ...
