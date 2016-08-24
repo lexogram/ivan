@@ -1278,8 +1278,8 @@ function getFirstTextNode(node) {
         startOffset = result.index
 
       } else {
-        <span class="comment">// We're at the very end of the selectable text. There's
-        // nothing more to select.</span>
+        <span class="comment">// We're at the very end of the selectable text.
+        // There's nothing more to select.</span>
         return
       }</span>
     }
@@ -1545,20 +1545,396 @@ function getFirstTextNode(node) {
   <h2>Jumping to the previous word</h2>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
-      <li>Do stuff</li>
+      <li>Adapt the <code>jumpRight</code> function to create a <code>jumpLeft</code> function</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/08_previous.zip" target="source">Download the source files</a>
   </div>
 
-  <h3>Subsection</h3>
-  <p>Stuff goes here</p>
+  <h3>Jumping Left</h3>
+  <p>The code you need to write to jump backwards uses the same techniques that you have already seen. As you saw with the selection of hyphenated words, searching backwards needs to be conceived of as "searching forwards until the last match is found".</p>
+  <p>To do that, you need to create a new regular expression ...</p>
+  <pre>new RegExp("([^"+ _W +"])+", "g")</pre>
+  <p>... where <code>_W</code> is the comprehensive "non-word-character" expression that you've already used. The <code>"g"</code> flag means that multiple uses of the <code><span class="ymmv">regex.</span>exec(<span class="ymmv">string</span>)</code> method will start searching from the end of the last match.</p>
+  <p>The changes in the code listing below allow you use the left arrow key to jump back, word by word, to the beginning of a textNode. The code for jumping back to the previous text node will be shown later. Where the new code is identical to the code in the <code>jumpRight</code> function, it's shown in plain (not <strong>bold</strong>) characters.</p>
+
+  <h4><code>selection.js</code></h4>
+  <pre><span class="revised">"use strict"
+
+;(function showSelection(){
+  <span class="omit">// code omitted for clarity</span>
+})()
+
+;(function selectWholeWordsWithHyphens(){
+  var selection = window.getSelection()
+  var _W = "\\s!-\\/:-@[-`{-~\\u00A0-¾—-⁊"
+  var startRegex = new RegExp("([^" + _W + "]+'?-?)+['-]$", "g")
+  var endRegex = new RegExp("^['-]('?-?[^" + _W + "]+)+")
+  var edgeRegex = new RegExp("[^" + _W + "]")
+  <span class="new">var lastWordRegex = new RegExp("([^"+ _W +"])+", "g")</span>
+  var nextWordRegex = new RegExp(
+    "([^"+ _W +"])*"
+  + "(["+ _W +"])+"
+  + "(?=[^"+ _W +"])"
+  )
+  var wordStartRegex = new RegExp("[^" + _W + "]")
+  var wordEndRegex = new RegExp("[" + _W + "]|$")
+
+  var range
+    , container
+    , selectionUpdated
+
+  document.body.ondblclick = selectHyphenatedWords
+  document.body.onkeydown = jumpToNextWord
+
+  function selectHyphenatedWords(event) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function extendSelectionBackBeforeHypen(string, offset) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function extendSelectionForwardAfterHyphen(string, offset) { 
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function jumpToNextWord (event) {
+    var rangeData
+
+    if (!selection.rangeCount) {
+      return
+    } else if (!(range = selection.getRangeAt(0))) {
+      return
+    }
+
+    switch (event.keyCode) {
+      case 37: <span class="comment">// Left</span>
+        rangeData = jumpLeft()
+      break
+      case 39: <span class="comment">// Right</span>
+        rangeData = jumpRight()
+    }
+
+    if (!rangeData) {
+      return
+    }
+
+    range.setStart(container, rangeData.startOffset)
+    range.setEnd(container, rangeData.endOffset)
+
+    switch (event.keyCode) {
+      case 37: </span><span class="comment">// Left</span>
+        <span class="new">extendSelectionBackBeforeHypen</span>(
+          rangeData.string
+        , rangeData.<span class="new">startOffset</span>
+      <span class="revised">break
+      case 39: <span class="comment">// Right</span>
+        extendSelectionForwardAfterHyphen(
+          rangeData.string
+        , rangeData.endOffset
+        )
+      break
+    }
+
+    selection.removeAllRanges()
+    selection.addRange(range)
+  }
+
+  function jumpLeft() {</span>
+    container = range.<span class="new">startContainer</span>
+    var string = container.textContent
+    var result = <span class="new">getPreviousWord(string, range.startOffset)</span>
+    var startOffset
+      , endOffset
+      , rangeData
+
+    if (!result) {
+      <span class="comment">// There are no more words in this text node. Try the next.</span>
+      container = <span class="new">getPreviousTextNode</span>(container)
+
+      if (container) {
+        string = container.textContent
+        result = <span class="new">getPreviousWord(string, string.length)</span>
+
+      } else {
+        <span class="comment">// We're at the very beginning of the selectable text.
+        // There's nothing earlier to select.</span>
+        return
+      }
+    }
+
+    <span class="new">startOffset = result.index</span>
+    endOffset = <span class="new">startOffset + result[0].length</span>
+
+    rangeData = {
+      container: container
+    , startOffset: startOffset
+    , endOffset: endOffset
+    , string: string
+    }
+
+    return rangeData
+
+    <span class="new">function getPreviousWord(string, offset) {
+      string = string.substring(0, offset)
+      var result
+        , temp
+
+      while (temp = lastWordRegex.exec(string)) {
+        result = temp
+      }
+
+      return result
+    }</span>
+  }
+
+  function get<span class="new">Previous</span>TextNode(node) {
+    <span class="comment">// TODO</span>
+  }
+
+  <span class="revised">function jumpRight() {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function getNextTextNode(node) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function elementIsSelectable(element) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+})()</pre>
+
+  <h3><code>getPreviousWord</code></h3>
+  <p>The most major change in the code listing above is the addition of the <code>getPreviousWord</code> function, which repeatedly searches for matches for <code>lastWordRegex</code>. If any are found, the <code>result</code>  of the last match is returned. (For <code>jumpRight</code> searching forward is done with a single match in a single line).</p>
+
+  <h3>Finding the previous text node</h3>
+  <p>Searching backwards through siblings is easier than searching backwards through text: there is a built-in <code>previousSibling</code> property for all nodes. Below, you can see how similar the code for </p>
+
+  <pre><span class="revised">"use strict"
+
+;(function showSelection(){
+  <span class="omit">// code omitted for clarity</span>
+})()
+
+;(function selectWholeWordsWithHyphens(){
+  <span class="omit">// code omitted for clarity</span>
+
+  function jumpLeft() {
+    container = range.endContainer
+    var string = container.textContent
+    var result = getPreviousWord(string, range.startOffset)
+    var startOffset
+      , endOffset
+      , rangeData
+
+    if (!result) {
+      // There are no more words in this text node. Try the next.
+      container = getPreviousTextNode(container)
+
+      if (container) {
+        string = container.textContent
+        result = getPreviousWord(string, string.length)
+
+      } else {
+        // We're at the very beginning of the selectable text.
+        // There's nothing earlier to select.
+        return
+      }
+    }
+
+    <span class="omit">// code omitted for clarity</span>
+
+    return rangeData
+
+    <span class="omit">// code omitted for clarity</span>  
+  }</span>
+
+  function get<span class="new">Previous</span>TextNode(node) {
+    var parent = node.parentNode
+    var <span class="new">previousNode</span>
+
+    while (node = node.<span class="new">previousSibling</span>) {
+      if (node.textContent.search(/\S/) < 0) {         
+      } else if (node.tagName !== "SCRIPT") {
+        <span class="comment">// The previous child of current parent has non-empty
+        // content but it might not be selectable</span>      
+        <span class="new">previousNode</span> = <span class="new">getLastTextNode</span>(node)
+
+        if (<span class="new">previousNode</span>) {
+          return <span class="new">previousNode</span>
+        }
+      }
+    } 
+
+    <span class="comment">// If we get here, there were no more sibling nodes. Try the 
+    // previous sibling of the parent, unless we've reached the first
+    // selectable child of the body itself</span>
+    if (parent !== document.body) {
+      return get<span class="new">Previous</span>TextNode(parent)
+    }
+
+    function get<span class="new">Last</span>TextNode(node) {
+      var childNodes = [].slice.call(node.childNodes)
+
+      if (!childNodes.length) {
+        return node
+      }
+
+      while (node = childNodes.<span class="new">pop</span>()) {
+        if (node.textContent.search(/\S/) < 0) {         
+        } else if (node.tagName !== "SCRIPT") {
+          if (node.nodeType === 3) {
+            if (elementIsSelectable(node.parentNode)) {
+              return node
+            }
+          } else {
+            node = get<span class="new">Last</span>TextNode(node)
+            if (node) {
+              return node
+            }
+          }
+        }
+      }
+    }
+  }</span>
+
+  <span class="omit">// code omitted for clarity</span>
+})()</pre>
+
+  <h3>Simplifying the code</h3>
+  <p>As you can see from the quantity of plain black text in the code listing above, there are many similarities between <code>getNextTextNode</code> and <code>getPreviousTextNode</code>. You can merge these two into one function called <code>getAdjacentTextNode</code>, as shown in the code listing below.</p>
+
+  <pre>function get<span class="new">AdjacentText</span>Node(node, <span class="new">whichSibling, arrayMethod</span>) {
+    // &lt;whichSibling&gt; will be "previousSibling" or "nextSibling"
+    // &lt;arrayMethod&gt; will be "pop" or "shift"
+
+    var parent = node.parentNode
+    var <span class="new">adjacentNode</span>
+
+    while (node = node[<span class="new">whichSibling</span>]) {
+      if (node.textContent.search(/\S/) < 0) {         
+      } else if (node.tagName !== "SCRIPT") {
+        // The adjacent child of current parent has non-empty
+        // content but it might not be selectable
+        
+        <span class="new">adjacentNode</span> = get<span class="new">End</span>Node(node, <span class="new">arrayMethod</span>)
+
+        if (<span class="new">adjacentNode</span>) {
+          return <span class="new">adjacentNode</span>
+        }
+      }
+    } 
+
+    // If we get here, there were no more sibling nodes. Try the 
+    // adjacent sibling of the parent, unless we've reached the
+    // farthest selectable child of the body itself 
+    if (parent !== document.body) {
+      return get<span class="new">Adjacent</span>TextNode(parent, <span class="new">whichSibling, arrayMethod</span>)
+    }
+
+    function get<span class="new">End</span>Node(node, <span class="new">arrayMethod</span>) {
+      var childNodes = [].slice.call(node.childNodes)
+
+      if (!childNodes.length) {
+        return node
+      }
+
+      while (node = childNodes[<span class="new">arrayMethod</span>]()) {
+        if (node.textContent.search(/\S/) < 0) {         
+        } else if (node.tagName !== "SCRIPT") {
+          if (node.nodeType === 3) {
+            if (elementIsSelectable(node.parentNode)) {
+              return node
+            }
+          } else {
+            node = get<span class="new">End</span>Node(node, arrayMethod)
+            if (node) {
+              return node
+            }
+          }
+        }
+      }
+    }
+  }</pre>
+
+  <p>After this change, the <code>jumpLeft</code> and <code>jumpRight</code> functions need to look like this:</p>
+
+  <pre class="revised">
+
+  function jumpLeft() {
+    container = range.endContainer
+    var string = container.textContent
+    var result = getPreviousWord(string, range.startOffset)
+    var startOffset
+      , endOffset
+      , rangeData
+
+    if (!result) {
+      // There are no more words in this text node. Try the next.
+      container = <span class="new">getAdjacentTextNode(
+        container
+      , "previousSibling"
+      , "pop"
+      )</span>
+
+      if (container) {
+        <span class="omit">// code omitted for clarity</span>
+      }
+    }
+
+    <span class="omit">// code omitted for clarity</span>
+
+    return rangeData
+
+    function getPreviousWord(string, offset) {
+      <span class="omit">// code omitted for clarity</span>
+    }
+  }
+
+  function jumpRight() {
+    container = range.endContainer
+    var startOffset = range.endOffset
+    var string = container.textContent
+    var result = nextWordRegex.exec(string.substring(startOffset))
+    var endOffset
+      , rangeData
+
+    if (result) {
+      startOffset += result[0].length
+
+    } else {
+      // There are no more words in this text node. Try the next.
+      container = <span class="new">getAdjacentTextNode(
+        container
+      , "nextSibling"
+      , "shift"
+      )</span>
+
+      if (container) {
+        <span class="omit">// code omitted for clarity</span>
+      }
+    }
+
+    <span class="omit">// code omitted for clarity</span>
+
+    return rangeData
+  }</pre>
+
+  <div class="test unselectable">
+    <a href="source/08_previous/" target="test">Test Here</a>
+  </div>
 
   <div class="aside next">In this section, you've ...
     <ul>
-      <li>Done things</li>
-      <li>Learnt ideas</li>
+      <li>Added a new regular expression to help find the end of the previous word in a string</li>
+      <li>Adapted the <code>jumpLeft</code> function to mirror the behavior of the <code>jumpRight</code> function</li>
+      <li>Added a new <code>getPreviousTextNode</code> function</li>
+      <li>Replaced both the <code>getPreviousTextNode</code> and the <code>getNextTextNode</code> with a generic <code>getAdjacentTextNode</code> which requires two additional arguments.</li>
     </ul>
-    <p>In the <a href="#scroll">next section</a>, you'll ....</p>
+    <p>You can now use the arrow keys to move backwards and forwards in the text, selecting hyphenated words whole. However, the selection with arrow keys fails on Thai text, since this does not have any spaces or punctuation between words. You can see how to deal with that later, in the section on <a href="#thai">Detecting Thai Words</a>.</p>
+    <p>Before that, there are two minor issues to handle: scrolling the page or the parent element to keep the selection in view, and limiting the word selection feature to one HTML element.</p>
+    <p>In the <a href="#scroll">next section</a>, you'll see how to detect where the current selection is on the page, and how to scroll the page to ensure that it is visible.</p>
   </div>
 
   <footer>

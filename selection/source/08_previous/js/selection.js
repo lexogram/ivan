@@ -44,32 +44,20 @@
   setTimeout(showSelection, 250)
 })()
 
-// Tweak to make a double-click select words with hyphens
-// 
-// As of 2016-0816, None of the major Mac browser selects whole words
-// with hyphens, like "ad-lib". This tweak fixes the hypen issue.
-// 
-// Note: Firefox 48.0 doesn't automatically select whole words with 
-// apostrophes like "doesn't". This tweak also fixes that.
-
 ;(function selectWholeWordsWithHyphens(){
   var selection = window.getSelection()
-  // Regex designed to find a word+hyphen before the selected word.
-  // Example: ad-|lib|
-  // It finds the last chunk with no non-word characters (except for
-  // ' and -) before the first selected character. 
-  var startRegex = /([^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]+'?-?)+['-]$/g
-  // Regex designed to find a hyphen+word after the selected word.
-  // Example: |ad|-lib
-  var endRegex = /^['-]('?-?[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]+)+/
-  // Edge case: check if the selection contains no word characters.
-  // If so, then don't do anything to extend it.
-  var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/
-  
-  var lastWordRegex = /([^\s!-\/:-@[-`{-~\u00A0-¾—-⁊])+/g
-  var nextWordRegex = /(?:[\s!-\/:-@[-`{-~\u00A0-¾—-⁊])+(?=[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊])/
-  var wordStartRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/
-  var wordEndRegex = /(?:[\s!-\/:-@[-`{-~\u00A0-¾—-⁊])|$/
+  var _W = "\\s!-\\/:-@[-`{-~\\u00A0-¾—-⁊"
+  var startRegex = new RegExp("([^" + _W + "]+'?-?)+['-]$", "g")
+  var endRegex = new RegExp("^['-]('?-?[^" + _W + "]+)+")
+  var edgeRegex = new RegExp("[^" + _W + "]")
+  var lastWordRegex = new RegExp("([^"+ _W +"])+", "g")
+  var nextWordRegex = new RegExp(
+    "([^"+ _W +"])*"
+  + "(["+ _W +"])+"
+  + "(?=[^"+ _W +"])"
+  )
+  var wordStartRegex = new RegExp("[^" + _W + "]")
+  var wordEndRegex = new RegExp("[" + _W + "]|$")
 
   var range
     , container
@@ -82,11 +70,11 @@
     if (!selection.rangeCount) {
       return
     }
-    range = selection.getRangeAt(0)
+
     selectionUpdated = false
+    range = selection.getRangeAt(0)
     container = range.startContainer
     var string = container.textContent
-    
 
     if (string.substring(range.startOffset, range.endOffset)
               .search(edgeRegex) < 0) {
@@ -100,7 +88,6 @@
     if (selectionUpdated) {
       selection.removeAllRanges()
       selection.addRange(range)
-      scrollIntoView(range)
     }
   }
 
@@ -134,7 +121,7 @@
   function jumpToNextWord (event) {
     var rangeData
 
-    if (selection.toString === "") {
+    if (!selection.rangeCount) {
       return
     } else if (!(range = selection.getRangeAt(0))) {
       return
@@ -143,22 +130,17 @@
     switch (event.keyCode) {
       case 37: // Left
         rangeData = jumpLeft()
-     // case 38: // Up
       break
       case 39: // Right
         rangeData = jumpRight()
-      //case 40: // Down
-      break
-      default:
-        return
     }
 
     if (!rangeData) {
       return
     }
 
-    range.setStart(rangeData.container, rangeData.startOffset)
-    range.setEnd(rangeData.container, rangeData.endOffset)
+    range.setStart(container, rangeData.startOffset)
+    range.setEnd(container, rangeData.endOffset)
 
     switch (event.keyCode) {
       case 37: // Left
@@ -166,21 +148,17 @@
           rangeData.string
         , rangeData.startOffset
         )
-     // case 38: // Up
       break
       case 39: // Right
         extendSelectionForwardAfterHyphen(
           rangeData.string
         , rangeData.endOffset
         )
-      //case 40: // Down
       break
     }
 
     selection.removeAllRanges()
     selection.addRange(range)
-
-    scrollIntoView(range)
   }
 
   function jumpLeft() {
@@ -192,8 +170,12 @@
       , rangeData
 
     if (!result) {
-      // There are no more words in this text node. Try the next.
-      container = getPreviousTextNode(container, "mustBeSelectable")
+      // There are no more words in this text node. Try the previous.
+      container = getAdjacentTextNode(
+        container
+      , "previousSibling"
+      , "pop"
+      )
 
       if (container) {
         string = container.textContent
@@ -229,57 +211,6 @@
 
       return result
     }
-
-    function getPreviousTextNode(node, mustBeSelectable) {
-      var parent = node.parentNode
-      var previousNode
-
-      while (node = node.previousSibling) {
-        if (node.textContent.search(/\S/) < 0) {         
-        } else if (node.tagName !== "SCRIPT") {
-          // The previous child of current parent has non-empty content
-          // but it might not be selectable
-          
-          previousNode = getLastTextNode(node)
-
-          if (previousNode) {
-            return previousNode
-          }
-        }
-      } 
-
-      // If we get here, there were no more sibling nodes. Try the next
-      // sibling of the parent, unless we've reached the last
-      // selectable child of the body itself 
-      if (parent !== document.body) {
-        return getPreviousTextNode(parent, mustBeSelectable)
-      }
-
-      function getLastTextNode(node) {
-        var childNodes = [].slice.call(node.childNodes)
-
-        if (!childNodes.length) {
-          return node
-        }
-
-        while (node = childNodes.pop()) {
-          if (node.textContent.search(/\S/) < 0) {         
-          } else if (node.tagName !== "SCRIPT") {
-            if (node.nodeType === 3) {
-              if (!mustBeSelectable 
-                || elementIsSelectable(node.parentNode)) {
-                return node
-              }
-            } else {
-              node = getLastTextNode(node)
-              if (node) {
-                return node
-              }
-            }
-          }
-        }
-      }
-    }
   }
 
   function jumpRight() {
@@ -295,7 +226,11 @@
 
     } else {
       // There are no more words in this text node. Try the next.
-      container = getNextTextNode(container, "mustBeSelectable")
+      container = getAdjacentTextNode(
+        container
+      , "nextSibling"
+      , "shift"
+      )
 
       if (container) {
         string = container.textContent
@@ -313,59 +248,60 @@
     endOffset = startOffset + result.index
 
     rangeData = {
-      container: container
-    , startOffset: startOffset
+      startOffset: startOffset
     , endOffset: endOffset
     , string: string
     }
 
     return rangeData
- 
-    function getNextTextNode(node, mustBeSelectable) {
-      var parent = node.parentNode
-      var nextNode
+  }
 
-      while (node = node.nextSibling) {
-        if (node.textContent.search(/\S/) < 0) {         
-        } else if (node.tagName !== "SCRIPT") {
-          // The next child of current parent has non-empty content
-          // but it might not be selectable
-          
-          nextNode = getFirstTextNode(node)
+  function getAdjacentTextNode(node, whichSibling, arrayMethod) {
+    // <whichSibling> will be "previousSibling" or "nextSibling"
+    // <arrayMethod> will be "pop" or "shift"
 
-          if (nextNode) {
-            return nextNode
-          }
+    var parent = node.parentNode
+    var adjacentNode
+
+    while (node = node[whichSibling]) {
+      if (node.textContent.search(/\S/) < 0) {         
+      } else if (node.tagName !== "SCRIPT") {
+        // The adjacent child of current parent has non-empty
+        // content but it might not be selectable
+        
+        adjacentNode = getEndNode(node, arrayMethod)
+
+        if (adjacentNode) {
+          return adjacentNode
         }
-      } 
+      }
+    } 
 
-      // If we get here, there were no more sibling nodes. Try the next
-      // sibling of the parent, unless we've reached the last
-      // selectable child of the body itself 
-      if (parent !== document.body) {
-        return getNextTextNode(parent, mustBeSelectable)
+    // If we get here, there were no more sibling nodes. Try the 
+    // adjacent sibling of the parent, unless we've reached the
+    // farthest selectable child of the body itself 
+    if (parent !== document.body) {
+      return getAdjacentTextNode(parent, whichSibling, arrayMethod)
+    }
+
+    function getEndNode(node, arrayMethod) {
+      var childNodes = [].slice.call(node.childNodes)
+
+      if (!childNodes.length) {
+        return node
       }
 
-      function getFirstTextNode(nextNode) {
-        var childNodes = [].slice.call(nextNode.childNodes)
-
-        if (!childNodes.length) {
-          return nextNode
-        }
-
-        while (nextNode = childNodes.shift()) {
-          if (nextNode.textContent.search(/\S/) < 0) {         
-          } else if (nextNode.tagName !== "SCRIPT") {
-            if (nextNode.nodeType === 3) {
-              if (!mustBeSelectable 
-                || elementIsSelectable(nextNode.parentNode)) {
-                return nextNode
-              }
-            } else {
-              nextNode = getFirstTextNode(nextNode)
-              if (nextNode) {
-                return nextNode
-              }
+      while (node = childNodes[arrayMethod]()) {
+        if (node.textContent.search(/\S/) < 0) {         
+        } else if (node.tagName !== "SCRIPT") {
+          if (node.nodeType === 3) {
+            if (elementIsSelectable(node.parentNode)) {
+              return node
+            }
+          } else {
+            node = getEndNode(node, arrayMethod)
+            if (node) {
+              return node
             }
           }
         }
@@ -389,28 +325,5 @@
     })
 
     return selectable
-  }
-
-  /**
-   * scrollIntoView only works on non-nested elements. It is
-   * hard-coded to scroll the body to show the selection.
-   * @param  {Range object} range
-   * TODO: In nested scrollable elements, ensure all parents are 
-   *       in view before setting the scrollTop of the lowest-level
-   *       scrollable element.
-   */
-  function scrollIntoView(range) {
-    if (!range.getBoundingClientRect) {
-      return
-    }
-    
-    var viewHeight = document.documentElement.clientHeight
-    var selectionRect = range.getBoundingClientRect()
-
-    if (selectionRect.top < 0) {
-      document.body.scrollTop += selectionRect.top
-    } else if (selectionRect.bottom > viewHeight) {
-      document.body.scrollTop += selectionRect.bottom - viewHeight
-    }
   }
 })()

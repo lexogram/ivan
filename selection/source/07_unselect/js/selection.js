@@ -1,24 +1,5 @@
 "use strict"
 
-
-function elementIsSelectable(element) {
-  var prefixes = [
-    "-webkit-"
-  , "-khtml-"
-  , "-moz-"
-  , "-ms-"
-  , ""
-  ]
-  var style = window.getComputedStyle(element)
-
-  var selectable = prefixes.every(function check(key) {
-    key += "user-select"
-    return style[key] !== "none"
-  })
-
-  return selectable
-}
-
 ;(function showSelection(){
   var pOutput = document.getElementById("output")
   var selection = window.getSelection()
