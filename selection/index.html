@@ -373,7 +373,7 @@ Natural Selection.&lt;/p&gt;
 
   <h3>Using Regular Expressions</h3>
   <p>Regular Expressions are designed to let you search for a particular pattern in a string of text. If you're not familiar with Regular Expressions, you might like to work through a <a href="http://regexone.com/">beginner's tutorial</a> so that the explanations below make more sense to you.</p>
-  <p>The example below uses three regular expressions. Here's the simplest: <code>/\w/</code>. This means "match the first <span class="keyword">word character</span> in the string". According to the <a href="</span>  ">JavaScript specifications</a>, a word character is any of the following:</p>
+  <p>The example below uses three regular expressions. Here's the simplest: <code>/\w/</code>. This means "match the first <span class="keyword">word character</span> in the string". According to the <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.10.2.6">JavaScript specifications</a>, a word character is any of the following:</p>
   <pre>0123456789_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
 </pre>
   <p>That's fine if you're working in English and not using any of them fancy foreign words with accents, like "déjà vu" or "mañana". You can use this simple expression for now, for testing the logic of your code, and then create a more generic regular expression when you've got everything working in plain vanilla English.</p>
@@ -439,7 +439,7 @@ Natural Selection.&lt;/p&gt;
     var string = container.textContent
 
     if (string.substring(range.startOffset, range.endOffset)
-              .search(edgeRegex) < 0) {
+              .search(edgeRegex) &lt; 0) {
       <span class="comment">// There are no word characters selected</span>
       return
     }
@@ -489,7 +489,7 @@ Natural Selection.&lt;/p&gt;
   <p>Because this function is triggered by a double-click, you can be sure that the click occurred with no movement, so the <code>range.startContainer</code> and <code>range.endContainer</code> will be the same. The browser will already have selected the item under the mouse. This might in fact be a space, a punctuation character, or a "word" in English or some other language.</p>
   <p>If something other than a word is selected, there is no point in searching for a hypen in the non-word. The first check is therefore to see if there are any word characters included in the selectionA if not, there is no need to go any further:</p>
   <pre>if (string.substring(range.startOffset, range.endOffset)
-          .search(edgeRegex) < 0) {
+          .search(edgeRegex) &lt; 0) {
   return
 }</pre>
 
@@ -569,7 +569,7 @@ Natural Selection.&lt;/p&gt;
 
   &lt;script src="js/selection.js">&lt;/script&gt;
 &lt;/body&gt;
-&lt;/html&gt;</span></pre>
+&lt;/html&gt;</pre>
   <p>You can save the changes that you have made to <code>selection.js</code> and <code>index.html</code> and relaunch the page in your browser. Try clicking on hyphenated words, on hyphens and other punctuation, and on blank spaces between words, to see what happens.</p>
   
   <div class="test unselectable">
@@ -585,16 +585,18 @@ Natural Selection.&lt;/p&gt;
 
   <h3>Revising the "word character" regular expression</h3>
   <p>The simple regular expression <code>/\w/</code>, meaning "word character" works well for most text in English, but it fails in languages that use accented Roman characters and in non-Roman scripts. In JavaScript, it is a shorthand for <code>/[0-9A-Za-z_]/</code>. When working in other languages, what you need is an expression that means "any printable character in the ASCII table that is not (not a letter or a number)". Here are all the printable ASCII characters:</p>
+  <figure>
   <pre>! " # $ % &amp; ' ( ) * + , - . / 
 0 1 2 3 4 5 6 7 8 9 
-: ; < = > ? @ 
+: ; &lt; = &gt; ? @ 
 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 
 [ \ ] ^ _ ` 
 a b c d e f g h i j k l m n o p q r s t u v w x y z 
 { } ~</pre>
   <figcaption>Figure 5: The printable ASCII characters</figcaption>
+  </figure>
   <p>To refer to a range of characters for a regular expression pattern, such as "all the letters from A to Z" you can use a pattern like <code><span class="ymmv">/[</span>A-Z<span class="ymmv">]/</span></code>. Some characters, such as <code>/</code> have a special meaning in regular expressions, so to refer to that character as a character, you need to <span class="keyword">esape</span> it by placing a <code>\</code> in front of it. The expression <code>/[!-\/]/</code> will match all the characters from <code>!</code> to <code>/</code> (which needs to be escaped). This corresponds to the top line in the character set shown in Figure 5 above. You can put several ranges one after the other inside the square brackets, so the expression <code>/[!-\/:-@[-`{-~]/</code> will match any printable ASCII character other than a letter or a number.</p>
-  <p>You can use the <code>^</code> special character to say "not any of the following characters". So <code>/[^!-\/:-@[-`{-~]</code></code> means "any character that is not one of the following: !"#$%&amp;'()*+,-./:;<=>?@[\]^_`{}~"</p>
+  <p>You can use the <code>^</code> special character to say "not any of the following characters". So <code>/[^!-\/:-@[-`{-~]</code> means "any character that is not one of the following: !"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{}~"</p>
 
   <h3>Unicode characters for punctuation</h3>
   <p>Even in English, characters outside the ASCII range, such as
@@ -638,7 +640,7 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
   var edgeRegex = /<span class="new">[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]</span>/
 
   <span class="omit">// code omitted for clarity</span>
-})()</span></pre>
+})()</pre>
 
   <h3>Testing the refined regular expression</h3>
   <p>You can now test whether the new regular expression will correctly detect words with hyphens in Russian as well as English.</p>
@@ -1101,7 +1103,7 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
   }
 
   while (node = childNodes.shift()) {
-    if (node.textContent.search(/\S/) < 0) {
+    if (node.textContent.search(/\S/) &lt; 0) {
       <span class="comment">// Skip this node and its children</span>
     } else if (node.nodeType === 3) {
       return node
@@ -1133,6 +1135,7 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
   <p>In Figure 6 at the top of this section, the blue lines show how <code>getFirstTextNode</code> will tunnel down from <code>body</code> to <code>textNode 1</code>, and from <code>section 2</code> to <code>textNode 3</code>. If the argument of <code>getFirstTextNode</code> is a textNode containing non-whitespace text, then the argument node itself will be returned.</p>
   <p>You can test this from the Developer Console:</p>
 
+  <figure>
   <pre class="console"><span class="input">getFirstTextNode(document.body)</span>
 <span class="output">"Вим ед путант альбюкиюс прёнкипыз, квюо эи выльёт аэтырно бландит, видэ фабыллас майыжтатйж прё экз."</span>
 <span class="input">getFirstTextNode(document.querySelector(".box"))</span>
@@ -1140,6 +1143,7 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
 <span class="input">getFirstTextNode(document.querySelector("[lang=th]"))</span>
 <span class="output">"งมเข็มในมหาสมุทร พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง ตากลม ตา&#8203;กลม"</span></pre>
 <figcaption>Figure 7. Testing the <code>getFirstTextNode</code> function in the Developer Console</figcaption>
+</figure>
 
   <h3>Finding text content in the next sibling node</h3>
   <p>Now that you can find the first text node in any HTML node, you can find the next text node after any given node by asking for the first text node of its next sibling (the red line in Figure 6). If the current node doesn't have a next sibling, you can climb the hierarchy, and find the closest parent that has a sibling, and get its first text node (the green lines in Figure 6).</p>
@@ -1156,7 +1160,7 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
   var parentNode = node.parentNode
 
   while (node = node.nextSibling) {
-    if (node.textContent.search(/\S/) < 0) {   
+    if (node.textContent.search(/\S/) &lt; 0) {   
       <span class="comment">// Skip this node and its children</span>
     } else if (node.tagName !== "SCRIPT") {
       <span class="comment">// The next child of current parent has non-empty content</span>
@@ -1180,7 +1184,7 @@ function getFirstTextNode(node) {
   }
 
   while (node = childNodes.shift()) {
-    if (node.textContent.search(/\S/) < 0) {
+    if (node.textContent.search(/\S/) &lt; 0) {
       <span class="comment">// Skip this node and its children</span>
     } else if (node.nodeType === 3) {
       return node
@@ -1192,7 +1196,7 @@ function getFirstTextNode(node) {
 
 ;(function (){
   <span class="omit">// code omitted for clarity</span>
-})()</span></pre>
+})()</pre>
 
   <h3>Integrating these new functions into <code>jumpRight</code></h3>
   <p>With these new functions in place, your can add ...</p>
@@ -1294,7 +1298,7 @@ function getFirstTextNode(node) {
     var parentNode = node.parentNode
 
     while (node = node.nextSibling) {
-      if (node.textContent.search(/\S/) < 0) {         
+      if (node.textContent.search(/\S/) &lt; 0) {         
       } else if (node.tagName !== "SCRIPT") {
         <span class="comment">// The next child of current parent has non-empty
         // content</span>
@@ -1317,7 +1321,7 @@ function getFirstTextNode(node) {
       }
 
       while (node = childNodes.shift()) {
-        if (node.textContent.search(/\S/) < 0) {         
+        if (node.textContent.search(/\S/) &lt; 0) {         
         } if (node.nodeType === 3) {
           return node
         } else {
@@ -1344,10 +1348,10 @@ function getFirstTextNode(node) {
     <ul>
     <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice#Array-like_objects">[].slice.call</a></code><span class="ymmv">(...)</span></li>
     <li><code><span class="ymmv">array.</span><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/shift">shift</a><span class="ymmv">(...)</span></code></li>
-    <li><code><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/while"></code>while</a><span class="ymmv"> (...) {...}</span></li>
-    <li><code><span class="ymmv">node.</span><a href="https://developer.mozilla.org/en/docs/Web/API/Node/nodeType">nodeType</code></a></li>
-    <li><code><span class="ymmv">node.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/parentNode"></code>parentNode</a></li>
-    <li><code><span class="ymmv">node.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/childNodes"></code>childNodes</a></li>
+    <li><code><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/while">while</a><span class="ymmv"> (...) {...}</span></code></li>
+    <li><code><span class="ymmv">node.</span><a href="https://developer.mozilla.org/en/docs/Web/API/Node/nodeType">nodeType</a></code></li>
+    <li><code><span class="ymmv">node.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/parentNode">parentNode</a></code></li>
+    <li><code><span class="ymmv">node.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/childNodes">childNodes</a></code></li>
     </ul>
     <p>In the <a href="#unselect">next section</a>, you'll see how to avoid jumping to text nodes that have been made unselectable.</p>
   </div>
@@ -1372,7 +1376,7 @@ function getFirstTextNode(node) {
       <li>Check whether a particular CSS property has been set to a particular value</li>
       <li>Modify the <code>getNextTextNode</code> and <code>getFirstTextNode</code> functions to avoid unselectable text nodes</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/06_jump.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/06_unselect.zip" target="source">Download the source files</a>
   </div>
 
   <h3>Accessing CSS from JavaScript</h3>
@@ -1408,6 +1412,7 @@ function getFirstTextNode(node) {
   <h3>Testing</h3>
   <p>You can test that it is working from the Developer Console.</p>
 
+  <figure>
   <pre class="console"><span class="input">elementIsSelectable(document.body)</span>
 <span class="output">true</span>
 <span class="input">elementIsSelectable(document.querySelector(".box"))</span>
@@ -1415,11 +1420,11 @@ function getFirstTextNode(node) {
 <span class="input">elementIsSelectable(document.querySelector(".unselectable"))</span>
 <span class="output">false</span></pre>
 <figcaption>Figure 8. Testing the <code>elementIsSelectable</code> function in the Developer Console</figcaption>
+  </figure>
 
   <h3>CSS and textNodes</h3>
   <p>Another complexity is that <code>window.getComputedStyle()</code>functions only on HTML elements and <code>textNodes</code> are not HTML elements. You need to ask for the <code>textNode</code>'s <code>parentNode</code>'s computed style.</p>
 
-  <h3></h3>
   <p>In the code listing below, the <code>getFirstTextNode</code> is modified to return a node only if it is selectable. This means that, although the node contains non-whitespace text, the function may not return a value. As a result, the <code>getNextTextNode</code> function has to play it safe and check whether the call to <code>getFirstTextNode</code> returned a value or not.</p>
   <p>For tidiness, the <code>elementIsSelectable</code> function has been moved inside the <code>selectWholeWordsWithHyphens</code> function, so it will no longer be accessible from the Developer Console.</p>
 
@@ -1459,7 +1464,7 @@ function getFirstTextNode(node) {
     <span class="new">var nextNode</span>
 
     while (node = node.nextSibling) {
-      if (node.textContent.search(/\S/) < 0) {         
+      if (node.textContent.search(/\S/) &lt; 0) {         
       } else if (node.tagName !== "SCRIPT") {
         // The next child of current parent has non-empty content
         <span class="new">nextNode = getFirstTextNode(node)
@@ -1484,7 +1489,7 @@ function getFirstTextNode(node) {
       }
 
       while (node = childNodes.shift()) {
-        if (node.textContent.search(/\S/) < 0) {         
+        if (node.textContent.search(/\S/) &lt; 0) {         
         } else if (node.nodeType === 3) {
           <span class="new">if (elementIsSelectable(node.parentNode)) {
             return node
@@ -1699,7 +1704,7 @@ function getFirstTextNode(node) {
   function elementIsSelectable(element) {
     <span class="omit">// code omitted for clarity</span>
   }
-})()</pre>
+})()</span></pre>
 
   <h3><code>getPreviousWord</code></h3>
   <p>The most major change in the code listing above is the addition of the <code>getPreviousWord</code> function, which repeatedly searches for matches for <code>lastWordRegex</code>. If any are found, the <code>result</code>  of the last match is returned. (For <code>jumpRight</code> searching forward is done with a single match in a single line).</p>
@@ -1752,7 +1757,7 @@ function getFirstTextNode(node) {
     var <span class="new">previousNode</span>
 
     while (node = node.<span class="new">previousSibling</span>) {
-      if (node.textContent.search(/\S/) < 0) {         
+      if (node.textContent.search(/\S/) &lt; 0) {         
       } else if (node.tagName !== "SCRIPT") {
         <span class="comment">// The previous child of current parent has non-empty
         // content but it might not be selectable</span>      
@@ -1779,7 +1784,7 @@ function getFirstTextNode(node) {
       }
 
       while (node = childNodes.<span class="new">pop</span>()) {
-        if (node.textContent.search(/\S/) < 0) {         
+        if (node.textContent.search(/\S/) &lt; 0) {         
         } else if (node.tagName !== "SCRIPT") {
           if (node.nodeType === 3) {
             if (elementIsSelectable(node.parentNode)) {
@@ -1794,7 +1799,7 @@ function getFirstTextNode(node) {
         }
       }
     }
-  }</span>
+  }
 
   <span class="omit">// code omitted for clarity</span>
 })()</pre>
@@ -1811,7 +1816,7 @@ function getFirstTextNode(node) {
     var <span class="new">adjacentNode</span>
 
     while (node = node[<span class="new">whichSibling</span>]) {
-      if (node.textContent.search(/\S/) < 0) {         
+      if (node.textContent.search(/\S/) &lt; 0) {         
       } else if (node.tagName !== "SCRIPT") {
         // The adjacent child of current parent has non-empty
         // content but it might not be selectable
@@ -1839,7 +1844,7 @@ function getFirstTextNode(node) {
       }
 
       while (node = childNodes[<span class="new">arrayMethod</span>]()) {
-        if (node.textContent.search(/\S/) < 0) {         
+        if (node.textContent.search(/\S/) &lt; 0) {        
         } else if (node.tagName !== "SCRIPT") {
           if (node.nodeType === 3) {
             if (elementIsSelectable(node.parentNode)) {
@@ -1972,7 +1977,7 @@ function getFirstTextNode(node) {
   <li><code>width</code></li>
   <li></li>
   </ul>
-  <p>... of the element, in pixels, relative to area visible in the browser window. In most browsers, the <code>Range</code> object also responds to the </a>getBoundingClientRect</code> method, so you can use this to detect where the selection appears in the browser window.</p>
+  <p>... of the element, in pixels, relative to area visible in the browser window. In most browsers, the <code>Range</code> object also responds to the <code>getBoundingClientRect</code> method, so you can use this to detect where the selection appears in the browser window.</p>
 
   <h3><code>scrollTop</code></h3>
   <p>For scrollable elements, setting <code><span class="ymmv">element.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTop">scrollTop</a></code> will change the number of pixels hidden above the top of the element. In this section, you will be setting the <code>scrollTop</code> of the document itself. Some browsers (such as Firefox), do this by changing <code>document.documentElement.scrollTop</code>; others (such as Chrome) continue to use the deprecated <code>document.body.scrollTop</code>, even in strict mode. Setting the <code>scrollTop</code> of the wrong element will have no effect. The simplest solution is to set both, and let the best one win.</p>
@@ -1994,21 +1999,20 @@ function getFirstTextNode(node) {
       return
     }
     
+    var rect = range.getBoundingClientRect()
     var viewHeight = document.documentElement.clientHeight
-    var selectionRect = range.getBoundingClientRect()
 
-    if (selectionRect.top < 0) {
-      document.body.scrollTop += selectionRect.top
-      document.documentElement.scrollTop += selectionRect.top
-    } else if (selectionRect.bottom > viewHeight) {
-      document.body.scrollTop += selectionRect.bottom - viewHeight
-      document.documentElement.scrollTop += selectionRect.bottom
-                                          - viewHeight
+    if (rect.top &lt; 0) {
+      document.body.scrollTop += rect.top
+      document.documentElement.scrollTop += rect.top
+    } else if (rect.bottom > viewHeight) {
+      document.body.scrollTop += rect.bottom - viewHeight
+      document.documentElement.scrollTop += rect.bottom - viewHeight
     }
   }</span>
 })()</pre>
 
-  <h3>Scrolling into view</code> on <code>dblclick</code> and when the arrow keys are used </h3>
+  <h3>Scrolling into view on <code>dblclick</code> and when the arrow keys are used </h3>
   <p>To trigger the <code>scrollIntoView</code> function after selecting a word with a double-click or after moving the selection to the next word with left or right arrow keys, you need to add two calls to <code>scrollIntoView</code>: one at the end of the <code>selectHyphenatedWords</code> function, and one at the end of the <code>jumpToNextWord</code> function, as shown below:</p>
 
   <h4><code>js/selection.js</code></h4>
@@ -2087,22 +2091,187 @@ function getFirstTextNode(node) {
 <!-- NESTED SCROLL -->
 <section id="nested-scroll">
   <h2>Scrolling a sub-element of the page</h2>
-  <div class="aside preview">In this section, you'll learn how to:
+  <div class="aside preview">In this section, you'll see how to:
     <ul>
-      <li>Do stuff</li>
+      <li>Adapt your <code>index.html</code> to create a series of nested scrolling elements</li>
+      <li>Extend the <code>scrollIntoView</code> function so that the selection will appear in the window, no matter how deep it is nested in scrolling elements</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/09_subscroll.zip" target="source">Download the source files</a>
   </div>
 
-  <h3>Subsection</h3>
-  <p>Stuff goes here</p>
+  <p>To make your <code>scrollIntoView</code> function work in all cases, you can add recursive function to scroll all the intermediate layers between your selection range and the body of your page. The <code>scrollChildIntoView</code> function below will get every scrollable parent to set its <code>scrollTop</code> so that the selection is visible within its viewport. Finally, it will call the <code>scrollWindow</code> function which will finish up the process by moving the selection into the viewport of the window itself.</p>
 
-  <div class="aside next">In this section, you've ...
-    <ul>
-      <li>Done things</li>
-      <li>Learnt ideas</li>
-    </ul>
-    <p>In the <a href="#box">next section</a>, you'll ....</p>
+  <h4><code>js/selection.js</code></h4>
+  <pre><span class="revised">"use strict"
+
+;(function showSelection(){
+  <span class="omit">// code omitted for clarity</span>
+})()
+
+;(function selectWholeWordsWithHyphens(){
+  <span class="omit">// code omitted for clarity</span>
+
+  document.body.ondblclick = selectHyphenatedWords
+  document.body.onkeydown = jumpToNextWord
+
+  function selectHyphenatedWords(event) {
+    <span class="omit">// code omitted for clarity</span>
+
+    if (selectionUpdated) {
+      selection.removeAllRanges()
+      selection.addRange(range)
+    }</span>
+
+    scrollIntoView(range)
+  <span class="revised">}
+
+  <span class="omit">// code omitted for clarity</span>
+
+  function jumpToNextWord (event) {
+    <span class="omit">// code omitted for clarity</span>
+
+    selection.removeAllRanges()
+    selection.addRange(range)</span>
+    scrollIntoView(range)
+  <span class="revised">}
+
+  <span class="omit">// code omitted for clarity</span>
+
+  function scrollIntoView(range) {
+    if (!range.getBoundingClientRect) {
+      return
+    }
+    
+    var rect = range.getBoundingClientRect()
+    <span class="new">var parentNode = range.startContainer.parentNode
+    scrollChildIntoView(parentNode, rect.top, rect.bottom)
+  }
+
+  function scrollChildIntoView(parentNode, top, bottom) {
+    var parentRect = parentNode.getBoundingClientRect()
+    var topAdjust = parentRect.top - top
+    var adjust = parentRect.bottom - bottom
+
+    if (topAdjust > 0) {
+      adjust = topAdjust
+      parentNode.scrollTop -= adjust
+
+    } else if (adjust &lt; 0) {
+      adjust = Math.max(adjust, topAdjust)
+      parentNode.scrollTop -= adjust
+    } else {
+      adjust = 0
+    }
+
+    parentNode = parentNode.parentNode
+    top += adjust
+    bottom += adjust
+    if (parentNode !== document.body) {
+      scrollChildIntoView(parentNode, top, bottom)
+    } else {
+      scrollWindow(top, bottom)
+    }
+  }
+
+  function scrollWindow(top, bottom) {</span>
+    var viewHeight = document.documentElement.clientHeight
+
+    if (<span class="new">top</span> &lt; 0) {
+      document.body.scrollTop += <span class="new">top</span>
+      document.documentElement.scrollTop += <span class="new">top</span>
+    } else if (bottom > viewHeight) {
+      document.body.scrollTop += <span class="new">bottom</span> - viewHeight
+      document.documentElement.scrollTop += <span class="new">bottom</span> - viewHeight
+    }
+  }
+})()</span></pre>
+
+  <h3>Adding scrolling items to the HTML page</h3>
+  <p>Currently all the HTML elements in your <code>index.html</code> page appear one beneath the other. To test that the new <code>scrollIntoView</code> code works correctly, you can modify your <code>index.html</code> page as shown below.</p>
+
+  <h4><code>index.html</code></h4>
+  <pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Selection&lt;/title&gt;
+  &lt;style&gt;
+    <span class="new">body {
+      width: 200px;
+      margin: 0 auto;
+    }
+    div {
+      overflow: auto;
+    }
+    .container {
+      width: 80%;
+      height: 100px;
+      margin: 0 auto;
+      background-color: #fee;
+      padding: 0.5em;
+    }</span>
+    .box {    
+      <span class="new">height: 200px;</span>
+      width: 80%;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      border-top-color: #666;
+      border-left-color: #666;
+      background-color: #f8f8f8;
+      padding: 0.5em;
+    }
+    span {
+      color: #c00;
+    }
+    .unselectable {
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none;   /* Chrome/Safari/Opera */
+      -khtml-user-select: none;    /* Konqueror */
+      -moz-user-select: none;      /* Firefox */
+      -ms-user-select: none;       /* Internet Explorer/Edge */
+      user-select: none;
+      -webkit-user-drag: none;
+      user-drag: none;
+      color: #999;
+    }
+  }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p lang="ru"&gt;Вим ед путант альбюкиюс прёнкипыз, квюо
+  эи выльёт аэтырно бландит, видэ фабыллас майыжтатйж прё экз.&lt;/p&gt;
+
+  <span class="new">&lt;div class="container"&gt;</span>
+    &lt;div class="box" lang="la"&gt;
+      &lt;span&gt;Lorem ipsum dolor sit amet, consectetur adipiscing
+      elit.&lt;/span&gt;
+      In nunc ipsum, tristique in convallis non, ultrices sed eros.
+      &lt;span class="unselectable" draggable="false" ondragstart="function() { return false; }"&gt;This span has
+      &lt;em&gt;user-select: none;&lt;/em&gt; applied to it.&lt;/span&gt;
+      &lt;span&gt;Integer eu dignissim justo, eu facilisis est.&lt;/span&gt;
+    &lt;/div&gt;
+ <span class="new"> &lt;/div&gt;</span>
+
+  &lt;p&gt;-Double-click to test- 'Use A4-size paper.'
+  It's a three-o'clock meet-up. An O'Brian-style decision.
+  Я — программист. «Ты говоришь по-русски? Скажи что-нибудь.»&lt;/p&gt;
+
+  &lt;p lang="th"&gt;งมเข็มในมหาสมุทร พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง
+  ตากลม ตา&#8203;กลม&lt;/p&gt;
+
+  &lt;p id="output" class="unselectable"&gt;&lt;/p&gt;
+
+  &lt;script src="js/selection.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;></pre>
+
+  <div class="test unselectable">
+    <a href="source/09_subscroll/" target="test">Test Here</a>
+  </div>
+
+  <div class="aside next">In this section, you've extended the <code>scrollIntoView</code> feature so that it will work in any context.
+    <p>In the <a href="#box">next section</a>, you'll see how to limit the "select hyphenated words with a double-click or the left and right arrow keys" feature to just one HTML element.</p>
   </div>
 
   <footer>
