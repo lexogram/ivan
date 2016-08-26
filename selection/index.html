@@ -2288,22 +2288,98 @@ function getFirstTextNode(node) {
 <!-- BOX -->
 <section id="box">
   <h2>Limiting the "whole word selection" feature to one HTML element</h2>
+  <p>If you want the feature you've been working on to take effect only inside a particular HTML element, you need to make changes in three different places:</p>
+  <ul>
+  <li>Instead of using <code>document.body.ondblclick</code> to trigger the <code>selectHyphenatedWords</code> function, you'll need to use <code><span class="ymmv">yourCustomElement.</span>ondblclick</code>.</li>
+  <li>You'll still need to use <code>document.body.onkeydown = jumpToNextWord</code>, but inside the <code>jumpToNextWord</code> function, you'll need to detect both:
+    <ul>
+      <li>If the selection is inside the particular HTML element before an arrow key was pressed</li>
+      <li>If the selection will still be inside the particular HTML element after it moves to the adjacent word.</li>
+    </ul>
+    If either of these is false, then the selection should not move.</li>
+  </ul>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
-      <li>Do stuff</li>
+      <li>Detect if the selection starts inside a given HTML element</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/10_box.zip" target="source">Download the source files</a>
   </div>
 
-  <h3>Subsection</h3>
-  <p>Stuff goes here</p>
+  <h3>Detecting if a node is inside a given node</h3>
+  <p>You can use the <code><span class="ymmv">node.</span><a href="https://developer.mozilla.org/en/docs/Web/API/Node/contains">contains</a>(<span class="ymmv">other_node</span>)</code> method to check if the <code><span class="ymmv">range.</span>startContainer</code> node is inside your chosen element. The code listing below shows how you can change the <code>selection.js</code> script to limit the feature to the scrollable box that contains the "Lorem ipsum" text.</p>
 
-  <div class="aside next">In this section, you've ...
-    <ul>
-      <li>Done things</li>
-      <li>Learnt ideas</li>
+  <h4><code>js/selection.js</code></h4>
+  <pre><span  class="revised">"use strict"
+
+;(function showSelection(){
+  <span class="omit">// code omitted for clarity</span>
+})()
+
+;(function selectWholeWordsWithHyphens(){
+  <span class="omit">// code omitted for clarity</span>
+
+  var range
+    , container
+    , selectionUpdated</span>
+
+  <span class="new">var box = document.querySelector(".box")</span>
+
+  <span class="new">box</span>.ondblclick = selectHyphenatedWords
+  document.body.onkeydown = jumpToNextWord
+
+  <span class="revised">function selectHyphenatedWords(event) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  <span class="omit">// code omitted for clarity</span>
+
+  function jumpToNextWord (event) {
+    var rangeData
+
+    if (!selection.rangeCount) {
+      return
+    } else if (!(range = selection.getRangeAt(0))) {
+      return
+    } <span class="new">else if (!box.contains(range.startContainer)) {
+      return
+    }</span>
+
+    switch (event.keyCode) {
+      case 37: // Left
+        rangeData = jumpLeft()
+      break
+      case 39: // Right
+        rangeData = jumpRight()
+    }
+
+    if (!rangeData) {
+      return
+    }
+
+    <span class="new">if (!box.contains(container)) {
+      return
+    }</span></span>
+
+    range.setStart(container, rangeData.startOffset)
+    range.setEnd(container, rangeData.endOffset)
+
+    <span class="omit">// code omitted for clarity</span>
+  <span class="revised">}
+
+  <span class="omit">// code omitted for clarity</span>
+</span>})()</pre></pre>
+
+  <p>You can save the changes to your file and test that double-clicking a hyphenated word outside the scrollable box will not select the whole word, and pressing the arrow keys will not move the selection. If you click inside the scrollable box, however, everything behaves the way it did before.</p>
+
+  <div class="test unselectable">
+    <a href="source/10_box/" target="test">Test Here</a>
+  </div>
+
+  <div class="aside next">In this section, you've made changes to your JavaScript code to limit the "whole word selection" feature to one HTML element. To do this, you have used:
+  <ul>
+      <li><code><span class="ymmv">node.</span><a href="https://developer.mozilla.org/en/docs/Web/API/Node/contains">contains</a>(<span class="ymmv">other_node</span>)</code></li>
     </ul>
-    <p>In the <a href="#thai">next section</a>, you'll ....</p>
+    <p>Up until now, you have ignored the Thai text at the bottom of your test HTML file. In the <a href="#thai">next section</a>, you'll how to detect word boundaries in text where there are no spaces between words.</p>
   </div>
 
   <footer>
