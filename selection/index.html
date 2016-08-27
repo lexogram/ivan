@@ -25,7 +25,6 @@
         <li><a href="#scroll">Scroll into view</a></li>
         <li><a href="#nested-scroll">Scrolling sub-elements</a></li>
         <li><a href="#box">Limiting to one element</a></li>
-        <li><a href="#thai">Detecting Thai words</a></li>
         <li><a href="#end">Conclusion</a></li>
       </ol>
     </nav>
@@ -72,7 +71,7 @@
   <p>There are a number of things to notice here:</p>
   <ul>
    <li>The HTML includes nodes of different types: <code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;span&gt;</code> and <code>&lt;em&gt;</code> tags</li>
-   <li>The text uses different writing scripts: Cyrillic, Latin and Thai. In Thai, spaces indicate the end of clauses or sentences (like <code>,</code> and <code>.</code> characters in English). In other words, spaces do not indicate the ends of words. In order to select "the word under the mouse" in Thai (and many other writing scripts) you'll have to learn a technique that doesn't depend on spaces.</li>
+   <li>The text uses two different writing scripts: Cyrillic and Latin.</li>
    <li>One span in the text is intended to be "unselectable", but when you create a selection that starts before and finishes after this span, it is included in the selection.</li>
    <li>The text of the <code>p#output</code> element at the bottom cannot be selected, to prevent an endless loop where it would try to display the contents of itself inside itself.</li>
    </ul>
@@ -187,7 +186,7 @@
 })()</pre>
 
   <div class="test unselectable">
-    <a href="source/03_discover/" target="test">Test Here</a>
+    <a href="source/02_discover/" target="test">Test Here</a>
   </div>
 
   <h3><code>window.getSelection()</code></h3>
@@ -562,9 +561,6 @@ Natural Selection.&lt;/p&gt;
   It's a three-o'clock meet-up. An O'Brian-style decision.
   Я — программист. «Ты говоришь по-русски? Скажи что-нибудь.»&lt;/p&gt;</span>
 
-  &lt;p lang="th"&gt;งมเข็มในมหาสมุทร พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง
-  ตากลม ตา&#8203;กลม&lt;/p&gt;
-
   &lt;p id="output" class="unselectable">&lt;/p&gt;
 
   &lt;script src="js/selection.js">&lt;/script&gt;
@@ -573,7 +569,7 @@ Natural Selection.&lt;/p&gt;
   <p>You can save the changes that you have made to <code>selection.js</code> and <code>index.html</code> and relaunch the page in your browser. Try clicking on hyphenated words, on hyphens and other punctuation, and on blank spaces between words, to see what happens.</p>
   
   <div class="test unselectable">
-    <a href="source/04_hyphens_w/" target="test">Test Here</a>
+    <a href="source/03_hyphens_w/" target="test">Test Here</a>
   </div>
 
   <figure>
@@ -1139,9 +1135,7 @@ var edgeRegex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊]/</pre>
   <pre class="console"><span class="input">getFirstTextNode(document.body)</span>
 <span class="output">"Вим ед путант альбюкиюс прёнкипыз, квюо эи выльёт аэтырно бландит, видэ фабыллас майыжтатйж прё экз."</span>
 <span class="input">getFirstTextNode(document.querySelector(".box"))</span>
-<span class="output">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</span>
-<span class="input">getFirstTextNode(document.querySelector("[lang=th]"))</span>
-<span class="output">"งมเข็มในมหาสมุทร พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง ตากลม ตา&#8203;กลม"</span></pre>
+<span class="output">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</span></pre>
 <figcaption>Figure 7. Testing the <code>getFirstTextNode</code> function in the Developer Console</figcaption>
 </figure>
 
@@ -1524,7 +1518,7 @@ function getFirstTextNode(node) {
     <a href="source/06_unselect/" target="test">Test Here</a>
   </div>
 
-  <p>Now when you test your script, you'll find that the selection jumps directly from "eros" to "Integer", and that it does not move when you get to the final word of Thai text: "ตา​กลม".</p>
+  <p>Now when you test your script, you'll find that the selection jumps directly from "eros" to "Integer", and that it does not move when you get to the final word.</p>
 
   <div class="aside next">In this section, you've prevented the <code>getNextTextNode</code> function from setting the range of the <code>Selection</code> object to a chunk of text that cannot be selected. Your work on jumping forward is complete.
   <p>In the <a href="#previous">next section</a>, you'll see how to create similar functions for jumping back to the previous word when you press the left arrow key.</p>
@@ -1938,8 +1932,7 @@ function getFirstTextNode(node) {
       <li>Added a new <code>getPreviousTextNode</code> function</li>
       <li>Replaced both the <code>getPreviousTextNode</code> and the <code>getNextTextNode</code> with a generic <code>getAdjacentTextNode</code> which requires two additional arguments.</li>
     </ul>
-    <p>You can now use the arrow keys to move backwards and forwards in the text, selecting hyphenated words whole. However, the selection with arrow keys fails on Thai text, since this does not have any spaces or punctuation between words. You can see how to deal with that later, in the section on <a href="#thai">Detecting Thai Words</a>.</p>
-    <p>Before that, there are two minor issues to handle: scrolling the page or the parent element to keep the selection in view, and limiting the word selection feature to one HTML element.</p>
+    <p>You can now use the arrow keys to move backwards and forwards in the text, selecting hyphenated words whole. However, there are two minor issues to handle: scrolling the page or the parent element to keep the selection in view, and limiting the word selection feature to one HTML element.</p>
     <p>In the <a href="#scroll">next section</a>, you'll see how to detect where the current selection is on the page, and how to scroll the page to ensure that it is visible.</p>
   </div>
 
@@ -2257,9 +2250,6 @@ function getFirstTextNode(node) {
   It's a three-o'clock meet-up. An O'Brian-style decision.
   Я — программист. «Ты говоришь по-русски? Скажи что-нибудь.»&lt;/p&gt;
 
-  &lt;p lang="th"&gt;งมเข็มในมหาสมุทร พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง
-  ตากลม ตา&#8203;กลม&lt;/p&gt;
-
   &lt;p id="output" class="unselectable"&gt;&lt;/p&gt;
 
   &lt;script src="js/selection.js"&gt;&lt;/script&gt;
@@ -2379,39 +2369,7 @@ function getFirstTextNode(node) {
   <ul>
       <li><code><span class="ymmv">node.</span><a href="https://developer.mozilla.org/en/docs/Web/API/Node/contains">contains</a>(<span class="ymmv">other_node</span>)</code></li>
     </ul>
-    <p>Up until now, you have ignored the Thai text at the bottom of your test HTML file. In the <a href="#thai">next section</a>, you'll how to detect word boundaries in text where there are no spaces between words.</p>
-  </div>
-
-  <footer>
-    <ul class="nav">
-      <li>
-        <a href="#thai">
-         <img src="../img/arrow.png" alt="next"/>
-        </a>
-      </li>
-    </ul>
-  </footer>
-</section>
-
-<!-- THAI -->
-<section id="thai">
-  <h2>Detecting words in Thai text</h2>
-  <div class="aside preview">In this section, you'll learn how to:
-    <ul>
-      <li>Do stuff</li>
-    </ul>
-    <a href="https://github.com/lexogram/openbook/blob/gh-pages/selection/source/zips/05_jump.zip" target="source">Download the source files</a>
-  </div>
-
-  <h3>Subsection</h3>
-  <p>Stuff goes here</p>
-
-  <div class="aside next">In this section, you've ...
-    <ul>
-      <li>Done things</li>
-      <li>Learnt ideas</li>
-    </ul>
-    <p>In the <a href="#end">next section</a>, you'll ....</p>
+    <p><a href="#end">next section</a></p>
   </div>
 
   <footer>
@@ -2428,14 +2386,21 @@ function getFirstTextNode(node) {
 <!-- CONCLUSION -->
 <section id="end">
   <h2>Conclusion</h2>
+  <p>If you've worked all the way through to here, then you've seen:</p>
   <div class="aside preview">Here's what you've learnt:
     <ul>
-      <li>98% of good stuff</li>
-      <li>2% salt</li>
+      <li>How to create a text selection through code</li>
+      <li>How to use regular expressions to detect words and word boundaries</li>
+      <li>How to extend a selection</li>
+      <li>How to find the next whole word in a given text node</li>
+      <li>How to find the next text node as it appears in the HTML file</li>
+      <li>How to scroll the elements of a page to ensure that the selection is visible</li>
     </ul>
   </div>
 
-  <p>Well done!</p>
+  <p>This all works well in  languages that read from left to right and that use spaces to separate words, such as the languages of Europe. To get this feature to work in other languages, more work needs to be done. To continue with this topic, you might like to follow tutorial on using a dictionary <a href="https://en.wikipedia.org/wiki/Trie">trie</a> to help with <a href="../thai/">word segmentation in Thai</a>.</p>
+
+  <p>Congratulations on all you have learned!</p>
 </section>
 
 <!-- OVERVIEW : SECTION 0 -->
@@ -2451,8 +2416,10 @@ function getFirstTextNode(node) {
       <li>Using the left and right arrow keys to jump from one word to the next</li>
       <li>Ensuring that the current selection is visible in the browser window</li>
       <li>Working with text in a variety of writing scripts</li>
+      <li>Limiting the field of action of the selection feature to one particular HTML element.</li>
     </ul>
   </div>
+  <p></p>
 
   <footer>
     <ul class="nav">

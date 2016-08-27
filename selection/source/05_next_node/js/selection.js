@@ -230,10 +230,9 @@
       while (node = childNodes.shift()) {
         if (node.textContent.search(/\S/) < 0) {         
         } if (node.nodeType === 3) {
-            return node
-          } else {
-            return getFirstTextNode(node)
-          }
+          return node
+        } else {
+          return getFirstTextNode(node)
         }
       }
     }
