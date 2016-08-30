@@ -846,6 +846,9 @@ user-drag: none;
 div.test {
 text-align: center;
 }
+.preview [target=test] {
+  float: right;
+}
 /*div.test a {
 padding: 0.5em 1em;
 line-height: 3em;

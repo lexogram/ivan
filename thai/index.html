@@ -2,7 +2,7 @@
 <html lang=en>
 <head>
 <meta charset="utf-8">
-<title>Tab Title Goes Here</title>
+<title>Selecting Thai Words</title>
 <link rel="stylesheet" href="../css/core.css" />
 <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
 </head>
@@ -15,9 +15,13 @@
 
     <nav>
       <ol>
-        <li><a href="#top">Overview</a></li>
-        <li><a href="#intro">Introduction</a></li>
-        <li><a href="#next">Next</a></li>
+        <li><a href="#top">Overview</a></li></li>
+        <li><a href="#dictionary">Defining a dictionary</a></li>
+        <li><a href="#trie">Creating a trie</a></li>
+        <li><a href="#detect">Detecting words</a></li>
+        <li><a href="#rules">A rule-based system</a></li>
+        <li><a href="#async">Asynchronous calls</a></li>
+        
         <li><a href="#end">Conclusion</a></li>
       </ol>
     </nav>
@@ -28,7 +32,7 @@
 <main>
 <header>
   <a href="https://github.com/lexogram/openbook/blob/master/LICENSE" class="cc">&#59409;</a>
-  <h1>Tutorial Title Goes Here</h1>
+  <h1>Selecting Thai Words</h1>
 
   <ul class="nav">
     <li>
@@ -41,15 +45,778 @@
 
 <article>
 
-<!-- INTRODUCTION -->
-<section id="intro">
-  <h2>Introduction to the tutorial</h2>
-  <p>More details to go here</p>
+<!-- DICTIONARY -->
+<section id="dictionary">
+  <h2>Defining a dictionary</h2>
+  <div class="aside preview">In this section, you'll:
+    <ul>
+      <li>Create an HTML file containing some Thai text and an English translation withnospacesbetweenwords</li>
+      <li>Create a dictionary object for all the words in the Thai text and all the words that can be found in the English string.</li>
+    </ul>
+    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/02_dictionary.zip" target="source">Download the source files</a> <a href="source/02_dictionary" target="test">Test here</a>
+  </div>
+
+  <h3>Mimicking Thai text</h3>
+  <p>During this tutorial, you'll be working with some text in Thai. To make it easier to understand what your code is doing, it might be easier to use a translation of the Thai text in English, from which all the spaces have been removed. You can then perform exactly the same actions on the English textwithnospaces, even if you understand no Thai.</p>
+  <p>You can start by creating a file named <code>index.html</code> with the following HTML code:</p>
+
+  <h4><code>index.html</code></h4>
+  <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Selecting Thai words&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p lang="th"&gt;งมเข็มในมหาสมุทร
+  พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง
+  ตากลม  ตา&amp;#8203;กลม&lt;/p&gt;
+
+  &lt;p lang="enx"&gt;lookforaneedleinthesea
+  talkisworthtuppence silenceisworthgold
+  exposedtotheair roundeye&lt;/p&gt;
+
+  &lt;script src="js/dictionaries.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+  <h3>ISO language codes</h3>
+  <p>The <a href="https://en.wikipedia.org/wiki/International_Organization_for_Standardization">International Organization for Standardization</a> (ISO) has published a list of two- and three-letter language codes. You can use the <code>lang</code> attribute of an HTML element to indicate which language the text of the element is in. The standard codes for English and Thai <code>en</code> and <code>th</code>.</p>
+  <p>Normally, you would add this attribute to the <code>&lt;html&gt;</code> element ...
+  <pre><span class="revised">&lt;!DOCTYPE html&gt;
+&lt;html </span>lang="en"<span class="revised">&gt;
+   &lt;head&gt;
+    <span class="ymmv">...</span>
+  &lt;head&gt;
+  &lt;body&gt;
+    <span class="ymmv">...</span>
+  &lt;/body&gt;
+&lt;/html&gt;</span></pre>
+<p>... to indicate the language of the entire page. But this page is in two languages, so it makes sense to give the attribute to the individual <code>&lt;p&gt;</code> tags.</p>
+  <p class="aside note">Since the "English" used here to mimic the structure of Thai text is non-standard English, I have used a non-standard code: <code>enx</code>.</p>
+
+  <h3>Zero-width space</h3>
+  <p>The character encoded as <code>&amp;#8203;</code> is a "zero-width space". It is used here to force a word-break in the string ตากลม so that it will be treated as ตา กลม (eye round) and not ตาก ลม (exposed-to air).</p>
+
+  <h3>Creating a dictionary</h3>
+  <p>The JavaScript file below creates a global object called <code>dico</code>, with two dictionary maps: one for the non-standard <code>enx</code> language code, one for <code>th</code>, the Thai language.</p>
+  <p>If you are reading this in English, the chances are that you already know all the English words, so a pronunciation guide and  translation is provided only for the Thai words. </p>
+  <p>Notice that the <code>enx</code> dictionary contains all the words that can be found in the <code>enx</code> strings, even those that are not used to create meaning from the strings. For testing purposes, the <code>enx</code> dictionary object contains the invented word "forane", which can be found in the chunk "<span class="under">for<span class="gold">a</span>ne</span>edle"</p>
+
+ <h4><code>js/dictionaries.js</code></h4>
+ <pre>"use strict"
+
+var dico = {}
+
+;(function addDictionaries() {
+  dico = {
+
+    dictionaries: {
+      enx: {
+        " ": 0
+      , "a": 0
+      , "air": 0
+      , "exposed": 0
+      , "eye": 0
+      , "for": 0
+      , "forane": 0 <span class="comment">// nonsense word for testing</span>
+      , "gold": 0
+      , "he": 0
+      , "in": 0
+      , "is": 0    
+      , "look": 0
+      , "need": 0
+      , "needle": 0
+      , "old": 0
+      , "or": 0
+      , "pence": 0
+      , "round": 0
+      , "sea": 0
+      , "silence": 0
+      , "talk": 0
+      , "the": 0
+      , "these": 0
+      , "to": 0
+      , "tot": 0
+      , "tup": 0
+      , "tuppence": 0
+      , "up": 0
+      , "worth": 0
+      }
+
+    , th: {
+        " ": {}
+      , "​": {} <span class="comment">// &amp;#8203; = zero-width space</span>
+      , "กลม": {
+          "pronunciation": "glohm-"
+        , "translation": "round; circular"
+        }
+      , "งม" : {
+          "pronunciation": "ngohm-"
+        , "translation": "to grope; search; seek; fumble for"
+        }
+      , "ตา": {
+          "pronunctiation": "dtaa-"
+        , "translation": "eye; maternal grandfather"
+        }
+      , "ตาก": {
+          "pronunctiation": "dtaak_"
+        , "translation": "[is] exposed (e.g., to the sun)"
+        }
+      , "ตำ" : {
+          "pronunciation": "dtam-"
+        , "translation": "beat; pound an object; pulverize; to pierce; puncture; prick"
+        }
+      , "ตำลึง" : {
+          "pronunciation": "dtam- leung-"
+        , "translation": "ancient Thai monetary unit"
+        }
+      , "ทอง" : {
+          "pronunciation": "thaawng-"
+        , "translation": " gold"
+        }
+      , "นิ่ง" : {
+          "pronunciation": "ning`"
+        , "translation": "[is] still; immobile; silent; motionless; quiet"
+        }
+      , "พูด" : {
+          "pronunciation": "phuut`"
+        , "translation": " to speak; to talk; to say"
+        }
+      , "มหา" : {
+          "pronunciation": "ma' haa´"
+        , "translation": "great; omnipotent; large; many; much; maximal; paramount; exalted"
+        }
+      , "มหาสมุทร" : {
+          "pronunciation": "ma' haa´ sa_ moot_"
+        , "translation": "ocean"
+        }
+      ,"ลม": {
+          "pronunciation": "lohm-"
+        , "translation": "air; wind; storm"
+        }
+      , "สมุทร" : {
+          "pronunciation": "sa_  moot_"
+        , "translation": "ocean; sea"
+        }
+      , "สอง" : {
+          "pronunciation": "saawng´"
+        , "translation": "two"
+        }
+      , "เข็ม" : {
+          "pronunciation": "khem´"
+        , "translation": "clasp; brooch; safety pin; needle; sewing pin"
+        }
+      , "เบี้ย" : {
+          "pronunciation": "biia`"
+        , "translation": "a cowrie shell [formerly used as] money"
+        }
+      , "เสีย" : {
+          "pronunciation": "siia´"
+        , "translation": "to spend; use up; lose; give up; sacrifice; pay"
+        }
+      , "ใน" : {
+          "pronunciation": "nai-"
+        , "translation": "in; inside; within; amidst; into; on; at a particular time"
+        }
+      , "ไป" : {
+          "pronunciation": "bpai-"
+        , "translation": "to go; &lt;subject&gt; goes"
+        }
+      , "ไพ" : {
+          "pronunciation": "phai-"
+        , "translation": "a certain old coin equal in value to 1/32 baht"
+        }
+      }
+    }
+  }
+})()</pre>
+
+  <div class="test unselectable">
+    <a href="source/02_dictionary/" target="test">Test Here</a>
+  </div>
+
+  <div class="aside next">In this section, you've created:
+    <ul>
+      <li>An HTML page for testing</li>
+      <li>Two JavaScript dictionary objects containing a limited number of words in English and Thai.</li>
+    </ul>
+    <p>In the <a href="#trie">next section</a>, you'll use these dictionaries to create a <span class="keyword">trie</span> object for each language.</p>
+  </div>
 
   <footer>
     <ul class="nav">
       <li>
-        <a href="#next">
+        <a href="#trie">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- TRIE -->
+<section id="trie">
+  <h2>Creating a trie</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+    <ul>
+      <li>Create a trie object</li>
+    </ul>
+    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
+  </div>
+
+  <p>The word "trie" comes from the French word for "to choose, classify, filter, pick out, separate, sort". It also sounds like the English word "tree". In computing, it refers to a data structure than starts at a common root and divides multiple times to end in a unique leaf.</p>
+  <p>You can add the code below to your <code>dictionaries.js</code> file.</p>
+
+  <h4><code>js/dictionaries.js</code></h4>
+  <pre class="revised">"use strict"
+
+var dico = {}
+
+;(function addDictionaries() {
+  dico = {
+
+    dictionaries: {
+      enx: {
+        <span class="omit">// code omitted for clarity</span>
+      }
+    , th: {
+        <span class="omit">// code omitted for clarity</span>
+      }
+    }
+
+  <span class="new">, tries: {}
+
+  , initialize: function createTries(){
+      for (var languageCode in this.dictionaries) {
+        this.tries[languageCode] = 
+          this.createTrie(this.dictionaries[languageCode])
+      }
+
+      return this
+    }
+
+  , createTrie: function createTrie(languageMap) {
+      var trie = {}
+      var end = "$"
+      var word
+        , ii
+        , length
+        , last
+        , chars
+        , char
+        , path
+        , place
+
+
+      for (word in languageMap) {
+        chars = word.split("")
+        path = trie
+   
+        for (ii = 0, length = word.length; ii < length; ii += 1) {
+          char = chars[ii]
+          place = path[char]
+   
+          if (!place) {
+            place = {}
+            path[char] = place
+          }
+          path = place
+        }
+        path[end] = true
+      }
+
+      return trie
+    }</span>
+  }<span class="new">.initialize()</span>
+})()
+
+<span class="new">console.log(JSON.stringify(dico.tries.enx))</span>
+</pre>
+
+<p>The <code>createTrie</code> method creates an empty <code>trie</code> object, and then takes each word key in a given dictionary and splits it into its individual characters. It then checks if there is already a word which begins with the first letter. If not, it creates a new entry for that letter in the <code>trie</code> object; if so, it checks whether the existing sub-object already contains a sub-object for the next letter. In this manner, it works its way along until it reaches the end of the word, when it adds an entry for <code>"$": true</code> to the current branch, as a final leaf.</p>
+
+<h3>Console output</h3>
+<p>If you save your changes, relaunch your page and check the Developer Console, you should see output that looks something like this (but a bit less prettified).</p>
+
+  <pre>{" ":{"$":true}
+,"a":{"$":true
+     ,"i":{"r":{"$":true}}}
+,"e":{"x":{"p":{"o":{"s":{"e":{"d":{"$":true}}}}}}
+     ,"y":{"e":{"$":true}}}
+,"f":{"o":{"r":{"$":true
+               ,"a":{"n":{"e":{"$":true}}}}}}
+,"g":{"o":{"l":{"d":{"$":true}}}}
+,"h":{"e":{"$":true}}
+,"i":{"n":{"$":true}
+     ,"s":{"$":true}}
+,"l":{"o":{"o":{"k":{"$":true}}}}
+,"n":{"e":{"e":{"d":{"$":true
+                    ,"l":{"e":{"$":true}}}}}}
+,"o":{"l":{"d":{"$":true}}
+     ,"r":{"$":true}}
+,"p":{"e":{"n":{"c":{"e":{"$":true}}}}}
+,"r":{"o":{"u":{"n":{"d":{"$":true}}}}}
+,"s":{"e":{"a":{"$":true}}
+     ,"i":{"l":{"e":{"n":{"c":{"e":{"$":true}}}}}}}
+,<span class="red">"t"</span>:{"a":{"l":{"k":{"$":true}}}
+     ,<span class="red">"h"</span>:{<span class="red">"e"</span>:{"$":true
+               ,<span class="red">"s"</span>:{<span class="red">"e"</span>:{<span class="red">"$"</span>:true}}}}
+     ,"o":{"$":true,"t":{"$":true}}
+     ,"u":{"p":{"$":true
+               ,"p":{"e":{"n":{"c":{"e":{"$":true}}}}}}}}
+,"u":{"p":{"$":true}}
+,"w":{"o":{"r":{"t":{"h":{"$":true}}}}}}</pre>
+
+  <p>Note how the letters of the word "these" (shown in red) have been added to the <code>trie</code> object.</p>
+
+  <div class="test unselectable">
+    <a href="source/03_trie/" target="test">Test Here</a>
+  </div>
+
+  <div class="aside next">In this section, you've taken a flat dictionary object and created a branching trie object from it.
+    <p>In the <a href="#detect">next section</a>, you'll use your trie object to detect the word boundaries in a given string.</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#detect">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- DETECT -->
+<section id="detect">
+  <h2>Detecting words with a trie</h2>
+  <div class="aside preview">In this section, you'll learn how to:<ul>
+  <li>Use a trie object to analyze a string of text and split it into known words.</li>
+  </ul>
+    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/04_detect.zip" target="source">Download the source files</a> <a href="source/04_detect/" target="test">Test Here</a>
+  </div>
+
+  <h3>Looking for known words</h3>
+  <p>Now that you have a trie object, you can use it identify words in a string. The <code>splitIntoWords</code> method in the code listing below will step through the string one character at a time, matching it to a path through the trie. If it fails to find a word at any point, it will backtrack and start from the last point where it found a whole word.</p>
+
+  <h4><code>js/.dictionaries.js</code></h4>
+  <pre class="revised">"use strict"
+
+var dico = {}
+
+;(function addDictionaries() {
+  dico = {
+
+    dictionaries: {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , tries: {}
+
+  , initialize: function createTries(){
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , createTrie: function createTrie(languageMap) {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  <span class="new">, splitIntoWords: function splitIntoWords(string, languageCode) {
+      var trie = this.tries[languageCode]
+      var alternatives = []
+      var path = trie
+      var words = []
+      var word = ""
+      var found = false
+      var char
+        , next
+        , alternative
+
+      words.index = 0
+
+      for (var ii = 0, total = string.length; ii < total ; ii += 1) {
+        char = string[ii]
+        next = path[char]
+
+        if (next) { <span class="comment">// { "$": 0, "a": { ... }. ...}          </span>
+          word += char
+
+          if (next.$) {
+            if (found) {
+              <span class="comment">// We've already added a shorter word to the list.
+              // Push the list with the shorter word onto the
+              // alternatives array and continue with the longer word</span>
+              alternative = words.slice(0)
+              alternative.index = words.index
+              alternatives.push(alternative)
+
+              words.index -= words.pop().length <span class="comment">// remove shorter word</span>
+            }
+            <span class="comment">// Add this whole word to the list</span>
+            words.push(word)
+            words.index += word.length
+            found = true
+          }
+
+          path = next
+
+        } else if (found) {
+          <span class="comment">// !next, but we have a complete word already
+          // This character could be the start of a new word</span>
+          word = char
+          path = trie[char]
+          if (!path) {
+            <span class="comment">// It's imposible to start a word with this letter</span>
+            backtrack("Initial letter absent: " + char)
+
+          } else if (path.$) {
+            <span class="comment">// This may be a one-letter word: found remains true</span>
+            words.push(word)
+            words.index += word.length
+            next = path
+
+          } else {
+            found = false
+          }
+
+        } else {
+          <span class="comment">// !next &amp;&amp; !found: stop trying to complete this word</span>
+          backtrack("Word fragment: " + word)
+        }
+      }
+
+      if (!next || !next.$) {
+        backtrack("Fail – Unknown word: ", word)
+      }
+
+      return words
+
+      function backtrack(reason) {
+        console.log(reason)
+
+        <span class="comment">// Try the longest earlier alternative ...</span>
+        words = alternatives.pop()
+        <span class="comment">// ... if one exists ...</span>
+        if (!words) {
+          console.log("Failed to segment")
+          ii = total
+          return
+        }
+        <span class="comment">// ... and see if all the remaining characters cand be
+        // segmented into words</span>
+        ii = words.index - 1
+        path = trie
+        word = ""
+        found = false
+      }
+    }</span>
+  }.initialize()
+})()
+
+console.log(<span class="new">dico.splitIntoWords("lookforaneedleinthesea", "enx")</span>)
+<span class="new">console.log(dico.splitIntoWords(
+  "งมเข็มในมหาสมุทร "
++ "พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง "
++ "ตากลม ตา&#8203;กลม"
+, "th"))</span></pre>
+
+  <div class="test unselectable">
+    <a href="source/04_detect/" target="test">Test Here</a>
+  </div>
+
+  <p>The output in the Developer Console should look something like this:</p>
+  <pre class="console"><span class="output">["look", "for", "a", "needle", "in", "these", "a", index: 22]</span>
+<span class="output">["งม", "เข็ม", "ใน", "มหาสมุทร", " ", "พูด", "ไป", "สอง",
+   "ไพ", "เบี้ย", " ", "นิ่ง", "เสีย", "ตำลึง", "ทอง", " ", 
+   "ตาก", "ลม", " ", "ตา", "​", "กลม", index: 62]</span></pre>
+  <p>You'll notice that the last two words in English are <code>"these", "a"</code>  and not <code>"the", "sea"</code>. The last  chunks of Thai has been split differently from the previous chunk, because of the zero-width space <code>&amp;#8203;</code>.</p>
+
+  <h3><code>splitIntoWords</code></h3>
+  <p>The <code>splitIntoWords</code> method accepts a string of text and a language code. It uses the language code to select the appropriate language trie. It takes the first character in the string and looks for it at the top level of the trie, then takes the second letter, and looks for it in the branch of the trie defined by the previous letter, adding it to its <code>word</code> variable as it goes. It will continue to do this until one of three things happens:</p>
+  <ul>
+  <li>It meets an object with a <code>"$": true</code> key/value pair</li>
+  <li>It finds an object which contains no key for the letter in the string that it is currently looking at</li>
+  <li>It reaches the end of the text</li>
+  </ul>
+
+  <h3>Adding words</h3>
+  <p>The algorithm will step through the string and tunnel into the trie until it has created the string "look". At this point, it will encounter a {"$": true} object. This tells it to add the word "look" to its current <code>words</code> list, and to set a flag to say that at least one word has been found. Since an array is special kind of object, it can add a property to the array: it adds an <code>index</code> key with a value equal to the length of the string read so far. You'll see in a moment how this is used.</p>
+
+  <h3>Preparing alternatives</h3>
+  <p>The <code>splitIntoWords</code> algorithm is greedy: it will keep looking for the longest word that fits, and this may lead it into a blind alley. To test this, you'll find the nonsense word "forane" in the dictionary. After finding "look", the algorithm keeps moving forward. When it has read "for", it will find an object with both a <code>"$": true</code> key pair and the key "a", with a submap that it can continue to follow.</p>
+  <p>It adds the word "for" to the <code>words</code> array, and updates the <code>index</code> of the array: <code>index</code> is now the sum of the lengths of the word in the array.</p>
+  <p>The process continues until the <code>{"$": true}</code> object indicating the end of the nonsense word "forane" is found. This time, however, there is already a word that uses the letters "for" in the <code>words</code> array. The <code>splitIntoWords</code> function first uses <code>words.slice(0)</code> to copy the array, and also copies the value of <code>index</code>, to create a full clone. This clone is added to the <code>alternatives</code> array. In the original <code>words</code> array, the last word ("for") is removed and replaced with "forane", and the <code>index</code> value is updated.</p>
+  <p>A new word now begins, starting with the letter "e", but at the next iteration, no sub-map of <code>trie</code> is found that corresponds to the word fragment "ed". The <code>splitIntoWords</code> function has reached the end of a blind alley: it calls the <code>backtrack</code> function. This drops the current <code>words</code> array and replaces it with the longest array in <code>alternatives</code>: <code>["look", "for"]</code>, with its <code>index</code> value of 7. It resets the <code>ii</code> iterator so that the next iteration starts building a new word from position <code>ii = 7</code>: the index of the next letter after "lookfor". This time, it finds the words "a" and "need", which is soon replaced by "needle", and continues to read "these", and "a". This is a complete word and the final letter in the string, so the process stops there.</p>
+
+  <h3>Issues with a dictionary approach</h3>
+  <p>This approach suffers from two major problems:</p>
+  <ul>
+  <li>It is possible to split the letters in the wrong place and still create a set of valid (but meaningless) words</li>
+  <li>If a word is not in the dictionary, it will fail</li>
+  </ul>
+
+  <h3>Ambiguous word boundaries</h3>
+  <p>The algorithm has no "intelligence" built in, so it has no reason to reject "these", "a" and replace it with "the", "sea". Its greediness has led it into error. Refusing to be greedy could lead it to make different errors.</p>
+  <p>People who speak English know almost instantly where to split what they hear into words, based on meaning and statistics. Until you read this paragraph, it's unlikely that you have ever encountered a meaningful sentence that ends with the words "in these a".</p>
+  <p>As far as we know, computers are totally unaware of meaning, but a quick search on Google will show you that, statistically, "in the sea" is over 300 times more likely to appear in written English than "in these a". It should therefore be possible to improve the accuracy of the <code>splitIntoWords</code> algorithm by checking the statistical likelihood of each subset of words appearing together. However, this will require access to a vast database: not just a dictionary of words but a store of phrases indexed by the words they contain.</p>
+  <p>It is not feasible to load this database in your browser. It uses much less bandwidth to send the text for analysis to the server, where it can be treated by all the CPU power necessary, and then to send the results back.</p>
+
+  <h3>Unknown words</h3>
+  <p>In this simple implementation, the absence of a single word from the dictionary will cause the algorithm to fail. A more robust version would necessarily be slower, and, without a database to provide statistical input, may still produce erroneous results.</p>
+
+  <div class="aside next">In this section, you've seen how to use a dictionary to find word boundaries, and you have seen its shortcomings.
+    <p>In the <a href="#rules">next section</a>, you'll see a different approach based on the spelling rules of the Thai language.</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#rules">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- RULES -->
+<section id="rules">
+  <h2>A rule-based system for detecting syllables</h2>.</p>
+  <div class="aside preview">Even in a language where there are no gaps between words, there are several places that are clearly boundaries between syllables. In this section, you'll learn about:
+    <ul>
+      <li>Characters that only appear at the beginning of a Thai syllable</li>
+      <li>Characters that appear only at the end of a Thai syllable</li>
+      <li>Thai numbers</li>
+      <li>Boundaries between Thai characters and non-Thai characters</li>
+      <li>Common Thai words that cannot be created by chance across a word boundary</li>
+    </ul>
+    <p>You'll create a series of regular expressions to detect any of these boundaries, and use them to determine places where there must be a syllable boundary.</p>
+    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/05_rules.zip" target="source">Download the source files</a> <a href="source/05_rules/" target="test">Test Here</a>
+  </div>
+
+  <h3>Initial and final letters in Thai</h3>
+  <p>In English, you are used to seeing vowel sounds that are with multiple vowel characters. For example: "fair" and "fire". In the word "fire", the final "e" appears after the last consonant, but it is not pronounced. Instead, its existence changes the sound of the preceding "i".</p>
+  <p>In Thai, certain vowels are written <em>before</em> the first consonant, but are pronounced <em>after</em> the consonant. The Thai tone-twister ไม้ ใหม่ ไม่ ไหม้ ไหม (máai mài mâi mâi mái, green wood doesn't burn, does it?) uses two of these vowels: ไ and ใ. The character for "m" is ม, which is written after the vowel. You can therefor be sure that wherever you find a ไ or ใ character, it is the first character in a syllable.</p>
+  <p>The five vowels that work this way are เ แ โ ใ ไ. Fortunately, they have been placed together in the <a href="https://en.wikipedia.org/wiki/Thai_(Unicode_block)">Thai Unicode block</a>, so you can use the regular expression <code>/[เ-ไ]/</code> for them.</p>
+  <<p>There are also a certain number of characters that only ever appear at the end of a syllable. These are more scattered so you need to use each individual character in the regular expression that identifies them all: <code>[ฯะำฺๅๅๆ๎]</code>. If you encounter any of these characters in Thai text, you can be 100% sure that the next character is the start of a new syllable.</p>
+
+  <h3>Numbers</h3>
+  <p>The Thai numbers from 0 to 9 are written as:</p>
+  <blockquote>๐ ๑ ๒ ๓ ๔ ๕ ๖ ๗ ๘ ๙</blockquote>
+  <p>Anywhere where a number is followed by a non-number, or a non-number is followed by a number must be the end of a word. These numbers can be expressed in the regular expression: <code>/[๐-๙]/</code>. To define all the Thai characters that are not numbers, you can use <code>/[ก-ฺเ-๎]/</code> </p>
+
+  <h3>Non-Thai characters</h3>
+  <p>Thai people often use Western numerals (0 - 9), and Western names may be written in Roman characters. You can be sure that any transition from Thai to non-Thai will occur at a word boundary.</p>
+
+  <h3>Common words</h3>
+  <p>Out of the top 100 words in Thai, there are 30 which form unambiguous syllables. Out of the top 2500, there are 51 such words, as shown in the following regular expression:</p>
+   <pre>/(เป็น|ใน|จะ|ไม่|และ|ได้|ให้|ความ|แล้ว|กับ|อยู่|หรือ|กัน|จาก|เขา|ต้อง|ด้วย|นั้น|ผู้|ซึ่ง|โดย|ใช้|ยัง|เข้า|ถึง|เพราะ|จึง|ไว้|ทั้ง|ถ้า|ส่วน|อื่น|สามารถ|ใหม่|ใช่|ใด|ช่วย|ใหญ่|เล็ก|ใส่|เท่า|ใกล้|ทั่ว|ฉบับ|ใต้|เร็ว|ไกล|เช้า|ซ้ำ|เนื่อง|ค้น)/</pre>
+   <p>If you encounter any of these words, you can be sure that the preceding character is the end of the previous syllable and the next character is the beginning of the following syllable.</p>
+   <p></p>
+
+   <h3>Rule-based segmentation</h3>
+   <p>You can add the <code>segment</code> object, as shown below, to your <code>dictionaries.js</code> script. When you call <code>segment.th(<span class="ymmv">string</span>)</code>, it will search through the string, applying each regular expression in turn, looking for all these identifiable syllable boundaries. It adds the position of these boundaries to an array. Some boundaries will be found multiple times, and these are filtered out. In the last step, it takes each boundary point, starting from the end, and replaces it with the segment of the string that starts from that point.</p>
+
+   <h4><code>js/dictionaries.js</code></h4>
+   <pre class="revised">"use strict"
+
+var dico = {}
+<span class="new">var segment</span>
+
+;(function addDictionaries() {
+  dico = {
+    <span class="omit">// code omitted for clarity</span>
+  }.initialize()
+
+  <span class="new">segment = {
+    th: function thai(string) {
+      <span class="comment">// unambiguous words that are common, like prepositions</span>
+      var cw = "(เป็น|ใน|จะ|ไม่|และ|ได้|ให้|ความ|แล้ว|กับ|อยู่|หรือ|กัน|จาก|เขา|ต้อง|ด้วย|นั้น|ผู้|ซึ่ง|โดย|ใช้|ยัง|เข้า|ถึง|เพราะ|จึง|ไว้|ทั้ง|ถ้า|ส่วน|อื่น|สามารถ|ใหม่|ใช่|ใด|ช่วย|ใหญ่|เล็ก|ใส่|เท่า|ใกล้|ทั่ว|ฉบับ|ใต้|เร็ว|ไกล|เช้า|ซ้ำ|เนื่อง|ค้น)"
+      <span class="comment">// leading chars</span>
+      var lc = "[เ-ไ]"
+      <span class="comment">// final chars</span>
+      var fc = "[ฯะำฺๅๅๆ๎]"
+      <span class="comment">// thai chars</span>
+      var tc = "ก-ฺเ-๎" <span class="comment">// not including numbers + ฿, ๏ or ๚๛</span>
+      var no = "๐-๙"
+      var isThai = /[ก-ฺเ-๎]/
+      var isNumber = /[๐-๙]/
+
+      var regexes = [
+        <span class="comment">// characters that start a syllable</span>
+        new RegExp(lc, "g")
+        <span class="comment">// characters than end a syllable</span>
+      , new RegExp(fc, "g")
+         <span class="comment">// non-number followed by any Thai number</span>
+      , new RegExp("[^"+no+"](?=["+no+"])", "g")
+         <span class="comment">// Thai number followed by any non-number</span>
+      , new RegExp("["+no+"](?=[^"+no+"])", "g")
+         <span class="comment">// Thai character followed by a non-Thai character</span>
+      , new RegExp("["+tc+"](?=[^"+tc+"])", "g")
+        <span class="comment">// non-Thai character followed by Thai character</span>
+      , new RegExp("[^"+tc+"](?=["+tc+"])", "g")
+        <span class="comment">// any char followed by known word</span>
+      , new RegExp("."+cw+"", "g")
+        <span class="comment">// known word followed by any character</span>
+      , new RegExp(cw+"(.)", "g")
+        <span class="comment">// beginning of a space</span>
+      , /.\s/g
+        <span class="comment">// end of a space</span>
+      , /\s+./g
+      ]
+
+      var adjustments = [
+        <span class="comment">// characters that start a syllable</span>
+        0
+        <span class="comment">// characters that end a syllable</span>
+      , 1
+        <span class="comment">// non-number followed by any Thai number</span>
+      , 1
+        <span class="comment">// Thai number followed by any non-number</span>
+      , 1
+        <span class="comment">// Thai character followed by a non-Thai character</span>
+      , 1
+        <span class="comment">// non-Thai character followed by Thai character</span>
+      , 1
+        <span class="comment">// any char followed by known word</span>
+      , 1
+        <span class="comment">// known word followed by any character</span>
+      , true
+        <span class="comment">// spaces</span>
+      , 1
+      , true
+      ]
+
+      function numerical(a, b) {
+        return a - b
+      }
+
+      function removeDuplicates(value, index, array) {
+        return array.indexOf(value) === index
+      }
+
+      function splitIntoWords(string) {
+        var breakPoints = [0]
+        var total
+          , ii
+          , regex
+          , adjust
+          , result
+          , split
+          , start
+          , end
+
+        for (ii = 0, total = regexes.length; ii < total; ii++) {
+          regex = regexes[ii]
+          adjust = adjustments[ii]
+          while (result = regex.exec(string)) {
+            split = result.index + (adjust === true
+                           ? result[0].length - 1
+                           : adjust)
+            breakPoints.push(split)
+          }
+        }
+
+        breakPoints.sort(numerical)
+        breakPoints = breakPoints.filter(removeDuplicates)
+
+        end = string.length
+        ii = breakPoints.length
+        while (ii--) {
+          start = breakPoints[ii]
+          breakPoints[ii] = string.slice(start, end)
+          end = start
+        }  
+
+        return breakPoints
+      }
+
+      return splitIntoWords(string)
+    }
+  }</span>
+})()
+
+console.log(dico.splitIntoWords(
+  "งมเข็มในมหาสมุทร "
++ "พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง "
++ "ตากลม ตา​กลม"
+, "th"
+))
+<span class="new">console.log(segment.th(
+  "งมเข็มในมหาสมุทร "
++ "พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง "
++ "ตากลม ตา​กลม"
+))</span></pre>
+
+  <div class="test unselectable">
+    <a href="source/05_rules/" target="test">Test Here</a>
+  </div>
+
+  <h3>Results</h3>
+  <p>In the Developer Console, you will see the output of the dictionary-based and the rule-based algorithms. Differences are marked in colour below:</p>
+
+  <pre class="console"><span class="output">["งม","เข็ม","ใน","มหาสมุทร"," ",
+   "พูด","<span class="green">ไป</span>","<span class="green">สอง</span>","ไพ","เบี้ย"," ","นิ่ง","เสีย","<span class="red">ตำลึง</span>","ทอง"," ",
+   "<span class="green">ตาก</span>","<span class="green">ลม</span>"," ",ตา","​","กลม", index: 62]</span>
+
+<span class="output">["งม","เข็ม","ใน","มหาสมุทร"," ",
+   "พูด","<span class="green">ไปสอง</span>","ไพ","เบี้ย"," ","นิ่ง","เสีย<span class="red">ตำ","ลึง</span>ทอง"," ",
+   "<span class="green">ตากลม</span>"," ",ตา","​","กลม"]</span></pre>
+
+  <p>In the majority of cases, the two approaches agree. However:</p>
+  <ul>
+  <li>The rule-based approach does not identify a boundary in two cases (shown in green)</li>
+  <li>The rule-based approach splits <a href="http://www.thai-language.com/id/140482">one word</a> (shown in red) along its syllable boundaries, and the two halves fail to be detached from the adjacent words.</li>
+  </ul>
+  <p>This rule-based approach can function with moderate accuracy with a dictionary of only a few dozen words. It may make errors but it does not fail if it encounters an unknown word.</p>
+
+  <div class="aside next">In this section, you've explored an approach based on spelling rules, and compared it to a dictionary approach. It is clear that both approaches have their shortcomings. 
+  <p>Attempting to solve the problem in the browser appears unrealistic. In the <a href="#async">next section</a>, you'll see how to make an asynchronous call, to simulate a request for word segmentation data from the server.</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#async">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- ASYNC -->
+<section id="async">
+  <h2>Asynchronous calls</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+    <ul>
+      <li>Do stuff</li>
+    </ul>
+    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a> <a href="source/xxx/" target="test">Test Here</a>
+  </div>
+
+  <h3>Subsection</h3>
+  <p>Stuff goes here</p>
+
+  <div class="test unselectable">
+    <a href="source/asynch/" target="test">Test Here</a>
+  </div>
+
+  <div class="aside next">In this section, you've ...
+    <ul>
+      <li>Done things</li>
+      <li>Learnt ideas</li>
+    </ul>
+    <p>In the <a href="#end">next section</a>, you'll ....</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#end">
          <img src="../img/arrow.png" alt="next"/>
         </a>
       </li>
@@ -64,7 +831,7 @@
     <ul>
       <li>Do stuff</li>
     </ul>
-    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a> <a href="source/xxx/" target="test">Test Here</a>
   </div>
 
   <h3>Subsection</h3>
@@ -109,24 +876,51 @@
 <!-- OVERVIEW  -->
 <section id="top">
   <h2>Overview</h2>
-  <p class="top">This tutorial is currently a stub. When it is completed, it will show you how to do neat stuff.</p>
-  <ul>
-  <li>Copy this folder and its contents and give the new folder a meaningful name</li>
-  <li>Edit the <a href="../">&lt;div class="sidebar"&gt;&lt;nav&gt;</a> section of the home page, to add a link to <code>&lt;li&gt;&lt;a href="tutorial_name/"&gt;Your New Tutorial&lt;/a&gt;&lt;/li&gt;</code></li>
-  <li>Edit your new copy of this file</li>
-  </ul>
 
-  <div class="aside preview">In particular, you will be learning to:
+  <p class="top">In a browser, you expect a double-click to select a whole word, regardless of which language that word is written in. A browser like Chrome, the word boundaries for many languages are automatically detected. Other browsers may fail to indentify word boundaries in non-European languages and select either syllables or whole phrases instead. If you want to select a whole word in such browsers, or without using a double-click, you need to know how to analyze text to find word boundaries.</p>
+  <p>In spoken language, words tend to flow together. In a sentence like "We went on a long journey", you have to wait until the word "journey" is spoken before you can be sure that "a long" is two words. Conversely, if the sentence was "We went on along the road", you would need to wait until the word "the" to know that the same sounds were the single word "along".</p>
+  <p>In many written languages, there are visual signs to indicate where words end. In European languages descended from Latin and Greek, a space is used between words, but there is still some ambiguity about whether "can't" is one word or two. In Arabic, letters have different shapes depending on whether they appear at the beginning, in the middle or the end of a word, as an additional clue.</p>
+  <p>However, in other languages, such as Chinese and Japanese, there are spaces between sentences, but no spaces between words. In Thai and Lao, there may also be spaces between clauses, so the space character itself is ambiguous. In Vietnamese, there is a space between each syllable, while several syllables may combine to make a single word.</p>
+  <p>This tutorial explores two simple techniques for segmenting written Thai into words. However, there is no generic automated solution for this, for several reasons, including:</p>
+  <ul>
+  <li>Ambiguous word boundaries</li>
+  <li>Unknown words</li>
+  </ul>
+  <h3>Ambiguous word boundaries</h3>
+  <p>Word boundaries found in identical character sequences can depend on the meaning, which is inaccessible to anyone (including a computer) who does not speak the language. A classic example in Thai is ตากลม, which can be ตา|กลม (round eyes) or ตาก|ลม (exposed to the air). You see a similar kind of ambiguity in the following English sentences:</p>
+  <ul>
+  <li>Those who <em>died are devils</em></li>
+  <li>The <strong>do or <em>di</strong>e daredevils</em></li>
+  <li>The <strong>door di</strong>d no<em>t o</em>pen</li>
+  </ul>
+  <p>If this were written with no spaces, a machine or non-English speaker would have no way of knowing where to place the word boundaries. There are multiple ways of dividing the letters to yield real English words.</p>
+  <h3>Unknown words</h3>
+  <p>A dictionary-based approach fails as soon as it encounters an unknown word. At best, it can skip over chunks that do not correspond to any entry in the dictionary, but this can be a costly and error-prone process. If it had no spaces, and the name "Houdini" was not in the dictionary, a sentence like ...</p>
+  <blockquote>A noted wit, Houdini told many jokes.</blockquote>
+  <p>... could be segmented as ...</p>
+  <blockquote>a noted wit<strong>h <span class="red">ou</span> din it old</strong> many jokes</blockquote> 
+  <p>... or ...</p>
+  <blockquote>a noted <strong><span class="red">wi</span> thou din it old</strong> many jokes</blockquote> 
+  <p>... with one unknown word leading to a longer garbled passage, and a misleading chunk being labelled "unknown".</p>
+
+  <p class="aside note">This tutorial will not address either of these issues, which are still the subject of much research.</p>
+
+  <div class="aside preview">In this tutorial, you will be learning to:
     <ul>
-      <li>Do X</li>
-      <li>Do Y</li>
+      <li>Create a trie from a dictionary</li>
+      <li>Use the trie to detect word boundaries in Englishwithnospaces</li>
+      <li>Apply the trie technique to Thai text</li>
+      <li>Use a "rule-based" system to identify syllable boundaries in Thai text</li>
+      <li>Run an asynchronous method (to simulate an AJAX request to a server) to obtain the word segmentation of a chunk of text</li>
+      <li>Use the callback result to select the word indicated by a click on a press on an arrow key.</li>
     </ul>
   </div>
+  <p class="aside info">Note: the <code>selection.js</code> code used in this tutorial is describe in more detail <a href="../selection/">here</a>.</p>
 
   <footer>
     <ul class="nav">
       <li>
-        <a href="#intro">
+        <a href="#dictionary">
           <img src="../img/arrow.png" alt="next"/>
         </a>
       </li>

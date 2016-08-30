@@ -1,0 +1,29 @@
+.box {
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-top-color: #666;
+  border-left-color: #666;
+  background-color: #f8f8f8;
+  padding: 0.5em;
+}
+span {
+  color: #c00;
+}
+.unselectable {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+  color: #999;
+}
+.blue {
+  color: #009;
+}
+.green {
+  color: #090;
+}

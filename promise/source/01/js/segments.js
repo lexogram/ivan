@@ -10,7 +10,7 @@ var SEGMENTS
   SEGMENTS = {
     th: function thai(string) {
       // unambiguous words that are common, like prepositions
-      var cw = "(เป็น|อยู่|จะ|ใช้|ได้|ให้|ใน|จึง|หรือ|และ|กับ|เนื่อง|ด้วย|ถ้า|แล้ว|ทั้ง|เพราะ|ซึ่ง|ซ้ำ|ไม่|ใช่|ต้อง|กัน|จาก|ถึง|นั้น|ผู้|ความ|ส่วน|ยัง|ทั่ว|อื่น|โดย|สามารถ|เท่า|ใต้|ใส่|ใด|ไว้|ใหม่|ใหญ่|เล็ก|ใกล้|ไกล|เขา|ช่วย|ฉบับ|ค้น|เร็ว|เข้า|เช้า)";
+      var cw = "(เป็น|ใน|จะ|ไม่|และ|ได้|ให้|ความ|แล้ว|กับ|อยู่|หรือ|กัน|จาก|เขา|ต้อง|ด้วย|นั้น|ผู้|ซึ่ง|โดย|ใช้|ยัง|เข้า|ถึง|เพราะ|จึง|ไว้|ทั้ง|ถ้า|ส่วน|อื่น|สามารถ|ใหม่|ใช่|ใด|ช่วย|ใหญ่|เล็ก|ใส่|เท่า|ใกล้|ทั่ว|ฉบับ|ใต้|เร็ว|ไกล|เช้า|ซ้ำ|เนื่อง|ค้น)"
       // leading chars
       var lc = "[เ-ไ]"
       // final chars
@@ -47,7 +47,7 @@ var SEGMENTS
       var adjustments = [
         // characters that start a syllable
         0
-        // characters than end a syllable
+        // characters that end a syllable
       , 1
         // non-number followed by any Thai number
       , 1
