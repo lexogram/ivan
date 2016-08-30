@@ -53,7 +53,9 @@
       <li>Create an HTML file containing some Thai text and an English translation withnospacesbetweenwords</li>
       <li>Create a dictionary object for all the words in the Thai text and all the words that can be found in the English string.</li>
     </ul>
-    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/02_dictionary.zip" target="source">Download the source files</a> <a href="source/02_dictionary" target="test">Test here</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/thai/source/zips/02_dictionary.zip
+
+    02_dictionary.zip" target="source">Download the source files</a> <a href="source/02_dictionary" target="test">Test here</a>
   </div>
 
   <h3>Mimicking Thai text</h3>
@@ -263,7 +265,7 @@ var dico = {}
     <ul>
       <li>Create a trie object</li>
     </ul>
-    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/thai/source/zips/03_trie.zip" target="source">Download the source files</a>
   </div>
 
   <p>The word "trie" comes from the French word for "to choose, classify, filter, pick out, separate, sort". It also sounds like the English word "tree". In computing, it refers to a data structure than starts at a common root and divides multiple times to end in a unique leaf.</p>
@@ -396,7 +398,7 @@ var dico = {}
   <div class="aside preview">In this section, you'll learn how to:<ul>
   <li>Use a trie object to analyze a string of text and split it into known words.</li>
   </ul>
-    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/04_detect.zip" target="source">Download the source files</a> <a href="source/04_detect/" target="test">Test Here</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/thai/source/zips/04_detect.zip" target="source">Download the source files</a> <a href="source/04_detect/" target="test">Test Here</a>
   </div>
 
   <h3>Looking for known words</h3>
@@ -594,12 +596,12 @@ console.log(<span class="new">dico.splitIntoWords("lookforaneedleinthesea", "enx
       <li>Common Thai words that cannot be created by chance across a word boundary</li>
     </ul>
     <p>You'll create a series of regular expressions to detect any of these boundaries, and use them to determine places where there must be a syllable boundary.</p>
-    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/05_rules.zip" target="source">Download the source files</a> <a href="source/05_rules/" target="test">Test Here</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/thai/source/zips/05_rules.zip" target="source">Download the source files</a> <a href="source/05_rules/" target="test">Test Here</a>
   </div>
 
   <h3>Initial and final letters in Thai</h3>
   <p>In English, you are used to seeing vowel sounds that are with multiple vowel characters. For example: "fair" and "fire". In the word "fire", the final "e" appears after the last consonant, but it is not pronounced. Instead, its existence changes the sound of the preceding "i".</p>
-  <p>In Thai, certain vowels are written <em>before</em> the first consonant, but are pronounced <em>after</em> the consonant. The Thai tone-twister ไม้ ใหม่ ไม่ ไหม้ ไหม (máai mài mâi mâi mái, green wood doesn't burn, does it?) uses two of these vowels: ไ and ใ. The character for "m" is ม, which is written after the vowel. You can therefor be sure that wherever you find a ไ or ใ character, it is the first character in a syllable.</p>
+  <p>In Thai, certain vowels are written <em>before</em> the first consonant, but are pronounced <em>after</em> the consonant. The Thai tone-twister ไม้ ใหม่ ไม่ ไหม้ ไหม (máai mài mâi mâi mái, green wood doesn't burn, does it?) uses two of these vowels: ไ and ใ. The character for "m" is ม, which is written after the vowel. You can therefore be sure that wherever you find a ไ or ใ character, it is the first character in a syllable.</p>
   <p>The five vowels that work this way are เ แ โ ใ ไ. Fortunately, they have been placed together in the <a href="https://en.wikipedia.org/wiki/Thai_(Unicode_block)">Thai Unicode block</a>, so you can use the regular expression <code>/[เ-ไ]/</code> for them.</p>
   <<p>There are also a certain number of characters that only ever appear at the end of a syllable. These are more scattered so you need to use each individual character in the regular expression that identifies them all: <code>[ฯะำฺๅๅๆ๎]</code>. If you encounter any of these characters in Thai text, you can be 100% sure that the next character is the start of a new syllable.</p>
 
@@ -795,7 +797,7 @@ console.log(dico.splitIntoWords(
     <ul>
       <li>Do stuff</li>
     </ul>
-    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a> <a href="source/xxx/" target="test">Test Here</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/thai/source/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a> <a href="source/xxx/" target="test">Test Here</a>
   </div>
 
   <h3>Subsection</h3>
@@ -831,7 +833,7 @@ console.log(dico.splitIntoWords(
     <ul>
       <li>Do stuff</li>
     </ul>
-    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a> <a href="source/xxx/" target="test">Test Here</a>
+    <a href="https://github.com/lexogram/openbook/blob/gh-pages/thai/source/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a> <a href="source/xxx/" target="test">Test Here</a>
   </div>
 
   <h3>Subsection</h3>
