@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p>original</p>
+<button type="button">Change</button>
+
+<script>
+  var changes = ["changed", "altered", "updated", "refreshed"]
+  var p = document.querySelector("p")
+  var button = document.querySelector("button")   
+  var observer = new MutationObserver(treatMutations)
+
+  button.onclick = changeContent
+
+  function changeContent() {
+    p.textContent = cycle(changes)
+  }
+
+  function cycle(array) {
+      var value = array.shift()
+      array.push(value)
+      return value
+    }
+
+  function treatMutations(mutations) {
+    mutations.forEach(function (mutation) {
+      console.log(mutation.target.textContent)
+    })  
+  }
+  
+  observer.observe(document.body, {childList: true, subtree: true})
+</script>
+</body>
+</html>

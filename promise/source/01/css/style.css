@@ -1,0 +1,42 @@
+body {
+  font-family: Arial;
+  font-size: 14px;
+  width: 27em;
+  margin: 0 auto;
+}
+
+button {
+  width: 27em;
+  font-family: Arial;
+  font-size: 14px;
+}
+h1 {
+  background-color: #000;
+  color: #fff;
+  width: 13.5em;
+  text-align: right;
+}
+
+.red {
+  background-color: #900;
+}
+
+.olive{
+  background-color: #990;
+}
+
+.green{
+  background-color: #090;
+}
+
+.teal{
+  background-color: #099;
+}
+
+.blue{
+  background-color: #009;
+}
+
+.purple{
+  background-color: #909;
+}
