@@ -1,15 +1,7 @@
-.box {
-  width: 80%;
-  margin: 0 auto;
-  border: 1px solid #ccc;
-  border-top-color: #666;
-  border-left-color: #666;
-  background-color: #f8f8f8;
-  padding: 0.5em;
+body {
+  width: 22em;
 }
-span {
-  color: #c00;
-}
+
 .unselectable {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */
@@ -20,10 +12,4 @@ span {
   -webkit-user-drag: none;
   user-drag: none;
   color: #999;
-}
-.blue {
-  color: #009;
-}
-.green {
-  color: #090;
 }

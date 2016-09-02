@@ -45,7 +45,7 @@ var segment
           "pronunciation": "glohm-"
         , "translation": "round; circular"
         }
-      , "งม" : {
+      , "งม": {
           "pronunciation": "ngohm-"
         , "translation": "to grope; search; seek; fumble for"
         }
@@ -57,31 +57,31 @@ var segment
           "pronunctiation": "dtaak_"
         , "translation": "[is] exposed (e.g., to the sun)"
         }
-      , "ตำ" : {
+      , "ตำ": {
           "pronunciation": "dtam-"
         , "translation": "beat; pound an object; pulverize; to pierce; puncture; prick"
         }
-      , "ตำลึง" : {
+      , "ตำลึง": {
           "pronunciation": "dtam- leung-"
         , "translation": "ancient Thai monetary unit"
         }
-      , "ทอง" : {
+      , "ทอง": {
           "pronunciation": "thaawng-"
         , "translation": " gold"
         }
-      , "นิ่ง" : {
+      , "นิ่ง": {
           "pronunciation": "ning`"
         , "translation": "[is] still; immobile; silent; motionless; quiet"
         }
-      , "พูด" : {
+      , "พูด": {
           "pronunciation": "phuut`"
         , "translation": " to speak; to talk; to say"
         }
-      , "มหา" : {
+      , "มหา": {
           "pronunciation": "ma' haa´"
         , "translation": "great; omnipotent; large; many; much; maximal; paramount; exalted"
         }
-      , "มหาสมุทร" : {
+      , "มหาสมุทร": {
           "pronunciation": "ma' haa´ sa_ moot_"
         , "translation": "ocean"
         }
@@ -89,35 +89,35 @@ var segment
           "pronunciation": "lohm-"
         , "translation": "air; wind; storm"
         }
-      , "สมุทร" : {
+      , "สมุทร": {
           "pronunciation": "sa_  moot_"
         , "translation": "ocean; sea"
         }
-      , "สอง" : {
+      , "สอง": {
           "pronunciation": "saawng´"
         , "translation": "two"
         }
-      , "เข็ม" : {
+      , "เข็ม": {
           "pronunciation": "khem´"
         , "translation": "clasp; brooch; safety pin; needle; sewing pin"
         }
-      , "เบี้ย" : {
+      , "เบี้ย": {
           "pronunciation": "biia`"
         , "translation": "a cowrie shell [formerly used as] money"
         }
-      , "เสีย" : {
+      , "เสีย": {
           "pronunciation": "siia´"
         , "translation": "to spend; use up; lose; give up; sacrifice; pay"
         }
-      , "ใน" : {
+      , "ใน": {
           "pronunciation": "nai-"
         , "translation": "in; inside; within; amidst; into; on; at a particular time"
         }
-      , "ไป" : {
+      , "ไป": {
           "pronunciation": "bpai-"
         , "translation": "to go; <subject> goes"
         }
-      , "ไพ" : {
+      , "ไพ": {
           "pronunciation": "phai-"
         , "translation": "a certain old coin equal in value to 1/32 baht"
         }
@@ -275,7 +275,6 @@ var segment
 
       return { 
         text: string
-   // , segments: segments
       , offsets: offsets
       }
 

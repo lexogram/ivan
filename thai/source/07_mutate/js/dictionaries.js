@@ -1,6 +1,6 @@
 "use strict"
 
-var dico = {}
+var dico
 var segment
 
 ;(function addDictionaries() {
@@ -11,31 +11,46 @@ var segment
         " ": 0
       , "a": 0
       , "air": 0
+      , "be": 0
+      , "can": 0
+      , "cannot": 0
+      , "elect": 0
+      , "elected": 0
+      , "ere": 0
       , "exposed": 0
       , "eye": 0
       , "for": 0
-      , "forane": 0 // nonsense word for testing
       , "gold": 0
       , "he": 0
+      , "here": 0
+      , "hew": 0
       , "in": 0
       , "is": 0    
       , "look": 0
       , "need": 0
       , "needle": 0
+      , "not": 0
       , "old": 0
       , "or": 0
       , "pence": 0
+      , "ran": 0
       , "round": 0
       , "sea": 0
+      , "select": 0
+      , "selected": 0
+      , "she": 0
       , "silence": 0
       , "talk": 0
       , "the": 0
-      , "these": 0
+      , "words": 0
+   // , "these": 0
       , "to": 0
-      , "tot": 0
+   // , "tot": 0
       , "tup": 0
       , "tuppence": 0
       , "up": 0
+      , "word": 0
+      , "words": 0
       , "worth": 0
       }
 
@@ -122,6 +137,35 @@ var segment
           "pronunciation": "phai-"
         , "translation": "a certain old coin equal in value to 1/32 baht"
         }
+        // New words
+      , "คำ": {
+          "pronunciation": "kham-"
+        , "translation": "term; discourse; a mouthful or bite; morsel [numerical classifier for a word, an answer to a question, a spoonful of food]"
+        }
+      , "เหล่า": {
+          "pronunciation": "lao_"
+        , "translation": "[numerical classifier for groups of items]; a group [of items or things]"
+        }
+      , "นี้": {
+          "pronunciation": "nee'"
+        , "translation": "this; these; [is] now"
+        }
+      , "ไม่": {
+          "pronunciation": "mai`"
+        , "translation": "not; no; [auxiliary verb] does not; has not; is not; [negator particle]"
+        }
+      , "สามารถ": {
+          "pronunciation": "saa´ maat`"
+        , "translation": "capable; able; to have the ability to; can; a Thai given name"
+        }
+      , "เลือก": {
+          "pronunciation": "leuuak`"
+        , "translation": "to select or choose; elect; pick"
+        }
+      , "ได้": {
+          "pronunciation": "dai`"
+        , "translation": "can; to be able; is able; am able; may; might [auxiliary of potential, denoting possbility, ability, or permission]; to receive; to obtain; acquire; get; have got; to pick out; to choose; to pass [a test or an exam]"
+        }
       }
     }
 
@@ -169,7 +213,7 @@ var segment
     }
 
   , splitIntoWords: function splitIntoWords(string, languageCode) {
-      var trie = this.tries[languageCode]
+      var trie = this.tries[languageCode]    
       var alternatives = []
       var path = trie
       var words = []
@@ -178,6 +222,10 @@ var segment
       var char
         , next
         , alternative
+
+      if (!trie) {
+        return
+      }
 
       words.index = 0
 
@@ -239,7 +287,7 @@ var segment
       return words
 
       function backtrack(reason) {
-        console.log(reason)
+        // console.log(reason)
 
         // Try the longest earlier alternative ...
         words = alternatives.pop()
@@ -257,9 +305,54 @@ var segment
         found = false
       }
     }
+
+  , getWordMap: function getWordMap(string, languageCode) {
+      var segments = this.splitIntoWords(string, languageCode)
+      var regex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊\u200b]/
+      var offsets
+
+      if (!segments) {
+        // Split unknown language into words by ASCII word boundaries
+        segments = string.split(/\b/)
+      }
+
+      offsets = getOffsets()
+
+      return { 
+        text: string
+   // , segments: segments
+      , offsets: offsets
+      }
+
+      function getOffsets() {
+        var starts = []
+        var ends = []
+        var total = segments.length
+        var index = 0
+        var ii
+          , segment
+          , length
+        
+        for (ii = 0; ii < total; ii += 1) {
+          segment = segments[ii]
+
+          if (regex.test(segment)) {
+            // This segment contains word characters
+            starts.push(index)
+            index += segment.length
+            ends.push(index)
+          } else {
+            // This segment is punctuation or whitespace
+            index += segment.length
+          }
+        }
+
+        return { starts: starts, ends: ends }
+      }
+    }
   }.initialize()
 
-segment = {
+  segment = {
     th: function thai(string) {
       // unambiguous words that are common, like prepositions
       var cw = "(เป็น|ใน|จะ|ไม่|และ|ได้|ให้|ความ|แล้ว|กับ|อยู่|หรือ|กัน|จาก|เขา|ต้อง|ด้วย|นั้น|ผู้|ซึ่ง|โดย|ใช้|ยัง|เข้า|ถึง|เพราะ|จึง|ไว้|ทั้ง|ถ้า|ส่วน|อื่น|สามารถ|ใหม่|ใช่|ใด|ช่วย|ใหญ่|เล็ก|ใส่|เท่า|ใกล้|ทั่ว|ฉบับ|ใต้|เร็ว|ไกล|เช้า|ซ้ำ|เนื่อง|ค้น)"
@@ -336,6 +429,8 @@ segment = {
           , split
           , start
           , end
+          , isWord
+          , offsets
 
         for (ii = 0, total = regexes.length; ii < total; ii++) {
           regex = regexes[ii]
@@ -357,24 +452,52 @@ segment = {
           start = segments[ii]
           segments[ii] = string.slice(start, end)
           end = start
-        }  
+        }
 
-        return segments
+        isWord = segments.map(isThaiWord)
+        offsets = getOffsets()
+
+        return { 
+          text: string
+        , segments: segments
+        , isWord: isWord
+        , offsets: offsets
+        }
+
+        function isThaiWord(value) {
+          var isWord = value.search(isThai) + 1 // characters are +1
+          if (!isWord) {
+            isWord = 0 - (value.search(isNumber) + 1) // numbers are -1
+          }
+          return isWord
+        }
+
+        function getOffsets() {
+          var starts = []
+          var ends = []
+          var total = segments.length
+          var index = 0
+          var ii
+            , segment
+            , length
+          
+          for (ii = 0; ii < total; ii += 1) {
+            segment = segments[ii]
+
+            if (isWord[ii]) {
+              starts.push(index)
+              index += segment.length
+              ends.push(index)
+            } else {
+              index += segment.length
+            }
+          }
+
+          return { starts: starts, ends: ends }
+        }
       }
 
       return splitIntoWords(string)
     }
   }
 })()
-
-console.log(dico.splitIntoWords(
-  "งมเข็มในมหาสมุทร "
-+ "พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง "
-+ "ตากลม ตา​กลม"
-, "th"
-))
-console.log(segment.th(
-  "งมเข็มในมหาสมุทร "
-+ "พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง "
-+ "ตากลม ตา​กลม"
-))

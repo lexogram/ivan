@@ -1,0 +1,41 @@
+You click on a word (to place an anchor point)
+The client checks if it has a word segmentation array for that text
+If so, it uses the existing array
+If not, it sends a request to the server
+When the server replies, the array is stored
+At this point, the selectWord callback can be triggered
+
+You press an arrow key
+The jumpToWord function finds the next entry in the array that contains no spaces and selects that
+Pressing the arrow key before any selection is made has no meaning.
+
+The segmentation arrays can be pre-emptively retrieved on page load.
+
+
+Tutorial:
+A click on a button requests a value from an asynchronous call
+The value returned is augmented by 1 each time: multiple clicks make the number rise
+Assign a random colour each time, so that the 
+
+Create a promise to get the number
+Each time the button is clicked
+
+When mutation occurs:
+* Tunnel down into all the textNodes of the targets
+* Get the innerText of each textNode
+  * Get the Selection start and end range and offset
+  * Set start and end range and offset to encompass the textNode
+  * Get selection.toString()
+* Create entry in textMap for the string
+* Create a promise to get the word segmentation
+
+When the user double-clicks on a word, the browser selects it with no need for help. When the user presses an arrow key, the word segmentation might not be available, so the action may not be possible yet. By the time it is possible, the user may have pressed again.
+
+Do we honour all the presses that occurred while it was not available? Or do we just honour the fact that the arrow key was pressed? What if the user presses left then right?
+
+User can always double-click. Perhaps we just change the colour of the selection to show that it has added powers.
+
+When a new page is loaded, all the textNode data need to be fetched. It's possible that some textNodes contain the same data. It's possible that the data is already available from previously visited pages. Should the data be stored in the NoteBook or the Background?
+
+The Background will always be open, as long as the browser is not closed. The NoteBook may be closed and reopened, in which case all the stored data will be lost. Alternatively, the latest data can be stored in localStorage and reloaded when the NoteBook is launched, so that you have past information all ready. Items could have an access number incremented each time they are required, and old, seldom-accessed items could be purged first.
+

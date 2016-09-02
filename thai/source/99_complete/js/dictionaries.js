@@ -1,6 +1,7 @@
 "use strict"
 
-var dico = {}
+var dico
+var segment
 
 ;(function addDictionaries() {
   dico = {
@@ -15,19 +16,21 @@ var dico = {}
       , "for": 0
       , "forane": 0 // nonsense word for testing
       , "gold": 0
+      , "he": 0
       , "in": 0
-      , "is": 0
+      , "is": 0    
+      , "look": 0
       , "need": 0
       , "needle": 0
+      , "old": 0
       , "or": 0
       , "pence": 0
-      , "sea": 0
-      , "look": 0
       , "round": 0
+      , "sea": 0
       , "silence": 0
       , "talk": 0
       , "the": 0
-      , "these": 0
+   // , "these": 0
       , "to": 0
       , "tup": 0
       , "tuppence": 0
@@ -138,7 +141,6 @@ var dico = {}
       var word
         , ii
         , length
-        , last
         , chars
         , char
         , path
@@ -149,9 +151,7 @@ var dico = {}
         chars = word.split("")
         path = trie
    
-        for (ii = 0, length = word.length, last = length - 1;
-          ii < length; ii += 1 ) {
-
+        for (ii = 0, length = word.length; ii < length; ii += 1 ) {
           char = chars[ii]
           place = path[char]
    
@@ -159,10 +159,8 @@ var dico = {}
             place = {}
             path[char] = place
           }
-
           path = place
         }
-
         path[end] = true
       }
 
@@ -170,7 +168,7 @@ var dico = {}
     }
 
   , splitIntoWords: function splitIntoWords(string, languageCode) {
-      var trie = this.tries[languageCode]
+      var trie = this.tries[languageCode]    
       var alternatives = []
       var path = trie
       var words = []
@@ -179,6 +177,10 @@ var dico = {}
       var char
         , next
         , alternative
+
+      if (!trie) {
+        return
+      }
 
       words.index = 0
 
@@ -221,6 +223,7 @@ var dico = {}
             // This is a one-letter word: found remains true
             words.push(word)
             words.index += word.length
+            next = path
 
           } else {
             found = false
@@ -239,7 +242,7 @@ var dico = {}
       return words
 
       function backtrack(reason) {
-        console.log(reason)
+        // console.log(reason)
 
         // Try the longest earlier alternative ...
         words = alternatives.pop()
@@ -258,17 +261,198 @@ var dico = {}
       }
     }
 
-  , getWordData: function getWordData(word, languageCode) {
-      var dictionary = this.dictionaries[languageCode]
-      if (dictionary) {
-        return dictionary[word]
+  , getWordMap: function getWordMap(string, languageCode) {
+      var segments = this.splitIntoWords(string, languageCode)
+      var regex = /[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊\u200b]/
+      var offsets
+
+      if (!segments) {
+        // Split unknown language into words by ASCII word boundaries
+        segments = string.split(/\b/)
+      }
+
+      offsets = getOffsets()
+
+      return { 
+        text: string
+   // , segments: segments
+      , offsets: offsets
+      }
+
+      function getOffsets() {
+        var starts = []
+        var ends = []
+        var total = segments.length
+        var index = 0
+        var ii
+          , segment
+          , length
+        
+        for (ii = 0; ii < total; ii += 1) {
+          segment = segments[ii]
+
+          if (regex.test(segment)) {
+            // This segment contains word characters
+            starts.push(index)
+            index += segment.length
+            ends.push(index)
+          } else {
+            // This segment is punctuation or whitespace
+            index += segment.length
+          }
+        }
+
+        return { starts: starts, ends: ends }
       }
     }
   }.initialize()
+
+  segment = {
+    th: function thai(string) {
+      // unambiguous words that are common, like prepositions
+      var cw = "(เป็น|ใน|จะ|ไม่|และ|ได้|ให้|ความ|แล้ว|กับ|อยู่|หรือ|กัน|จาก|เขา|ต้อง|ด้วย|นั้น|ผู้|ซึ่ง|โดย|ใช้|ยัง|เข้า|ถึง|เพราะ|จึง|ไว้|ทั้ง|ถ้า|ส่วน|อื่น|สามารถ|ใหม่|ใช่|ใด|ช่วย|ใหญ่|เล็ก|ใส่|เท่า|ใกล้|ทั่ว|ฉบับ|ใต้|เร็ว|ไกล|เช้า|ซ้ำ|เนื่อง|ค้น)"
+      // leading chars
+      var lc = "[เ-ไ]"
+      // final chars
+      var fc = "[ฯะำฺๅๅๆ๎]"
+      // thai chars
+      var tc = "ก-ฺเ-๎" // not including numbers + ฿, ๏ or ๚๛
+      var no = "๐-๙"
+      var isThai = /[ก-ฺเ-๎]/
+      var isNumber = /[๐-๙]/
+
+      var regexes = [
+        // characters that start a syllable
+        new RegExp(lc, "g")
+        // characters than end a syllable
+      , new RegExp(fc, "g")
+         // non-number followed by any Thai number
+      , new RegExp("[^"+no+"](?=["+no+"])", "g")
+         // Thai number followed by any non-number
+      , new RegExp("["+no+"](?=[^"+no+"])", "g")
+         // Thai character followed by a non-Thai character
+      , new RegExp("["+tc+"](?=[^"+tc+"])", "g")
+        // non-Thai character followed by Thai character
+      , new RegExp("[^"+tc+"](?=["+tc+"])", "g")
+        // any char followed by known word
+      , new RegExp("."+cw+"", "g")
+        // known word followed by any character
+      , new RegExp(cw+"(.)", "g")
+        // beginning of a space
+      , /.\s/g
+        // end of a space
+      , /\s+./g
+      ]
+
+      var adjustments = [
+        // characters that start a syllable
+        0
+        // characters that end a syllable
+      , 1
+        // non-number followed by any Thai number
+      , 1
+        // Thai number followed by any non-number
+      , 1
+        // Thai character followed by a non-Thai character
+      , 1
+        // non-Thai character followed by Thai character
+      , 1
+        // any char followed by known word
+      , 1
+        // known word followed by any character
+      , true
+        // spaces
+      , 1
+      , true
+      ]
+
+      function numerical(a, b) {
+        return a - b
+      }
+
+      function removeDuplicates(value, index, array) {
+        return array.indexOf(value) === index
+      }
+
+      function splitIntoWords(string) {
+        var segments = [0]
+        var total
+          , ii
+          , regex
+          , adjust
+          , result
+          , split
+          , start
+          , end
+          , isWord
+          , offsets
+
+        for (ii = 0, total = regexes.length; ii < total; ii++) {
+          regex = regexes[ii]
+          adjust = adjustments[ii]
+          while (result = regex.exec(string)) {
+            split = result.index + (adjust === true
+                           ? result[0].length - 1
+                           : adjust)
+            segments.push(split)
+          }
+        }
+
+        segments.sort(numerical)
+        segments = segments.filter(removeDuplicates)
+
+        end = string.length
+        ii = segments.length
+        while (ii--) {
+          start = segments[ii]
+          segments[ii] = string.slice(start, end)
+          end = start
+        }
+
+        isWord = segments.map(isThaiWord)
+        offsets = getOffsets()
+
+        return { 
+          text: string
+        , segments: segments
+        , isWord: isWord
+        , offsets: offsets
+        }
+
+        function isThaiWord(value) {
+          var isWord = value.search(isThai) + 1 // characters are +1
+          if (!isWord) {
+            isWord = 0 - (value.search(isNumber) + 1) // numbers are -1
+          }
+          return isWord
+        }
+
+        function getOffsets() {
+          var starts = []
+          var ends = []
+          var total = segments.length
+          var index = 0
+          var ii
+            , segment
+            , length
+          
+          for (ii = 0; ii < total; ii += 1) {
+            segment = segments[ii]
+
+            if (isWord[ii]) {
+              starts.push(index)
+              index += segment.length
+              ends.push(index)
+            } else {
+              index += segment.length
+            }
+          }
+
+          return { starts: starts, ends: ends }
+        }
+      }
+
+      return splitIntoWords(string)
+    }
+  }
 })()
-
-console.log(dico.splitIntoWords("งมเข็มในมหาสมุทร พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง ตา&#8203;กลม ตากลม", "th"))
-
-
-
-console.log(JSON.stringify(dico.tries.enx))

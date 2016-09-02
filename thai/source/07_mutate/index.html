@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Selecting Thai words</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+  <h1>Word Segmentation Test</h1>
+  <p>The default <em>lang</em> of this page is <em>en</em>. The paragraphs below are in Thai (<em>th</em>) and EnglishNoSpaces (<em>enx</em>).</p>
+  <p lang="th">งมเข็มในมหาสมุทร <span>พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง</span> <span class="unselectable">คำเหล่านี้ไม่สามารถเลือกได้</span> ตากลม  ตา&#8203;กลม</p>
+  <p lang="enx">lookforaneedleinthesea <span>talkisworthtuppence silenceisworthgold</span> <span class="unselectable">thewordsherecannotbeselected</span> exposedtotheair roundeye</p>
+
+  <button type="button">Remove .unselectable class</button>
+
+  <script>
+  ;(function () {
+    document.querySelector("button").onclick = function (event) {
+      var spans = document.querySelectorAll(".unselectable")
+      for (var ii = 0, length = spans.length; ii < length; ii += 1) {
+        spans[ii].classList.remove("unselectable")
+      }
+      this.setAttribute("disabled", true)
+    }
+  })()
+  </script>
+
+  <script src="js/dictionaries.js"></script>
+  <script src="js/async.js"></script>
+  <script src="js/selection.js"></script>
+</body>
+</html>

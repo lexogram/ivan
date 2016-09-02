@@ -21,6 +21,8 @@
         <li><a href="#detect">Detecting words</a></li>
         <li><a href="#rules">A rule-based system</a></li>
         <li><a href="#async">Asynchronous calls</a></li>
+        <li><a href="#mutation">Detecting text changes</a></li>
+        <li><a href="#jump">Jump to adjacent words</a></li>
         
         <li><a href="#end">Conclusion</a></li>
       </ol>
@@ -55,7 +57,7 @@
     </ul>
     <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/02_dictionary.zip
 
-    02_dictionary.zip" target="source">Download the source files</a> <a href="source/02_dictionary" target="test">Test here</a>
+    02_dictionary.zip" target="source">Download the source files</a> <a href="source/02_dictionary/" target="test">Test here</a>
   </div>
 
   <h3>Mimicking Thai text</h3>
@@ -82,6 +84,8 @@
   &lt;script src="js/dictionaries.js"&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</pre>
+
+  <p class="aside note">For now, the text in the HTML is simply to give you an idea of how Thai text looks. Later, in the section on <a href="#jump">using the arrow keys to jump to the neighbouring words</a>, you'll actually be interacting with Thai text.</p>
 
   <h3>ISO language codes</h3>
   <p>The <a href="https://en.wikipedia.org/wiki/International_Organization_for_Standardization">International Organization for Standardization</a> (ISO) has published a list of two- and three-letter language codes. You can use the <code>lang</code> attribute of an HTML element to indicate which language the text of the element is in. The standard codes for English and Thai <code>en</code> and <code>th</code>.</p>
@@ -550,7 +554,7 @@ console.log(<span class="new">dico.splitIntoWords("lookforaneedleinthesea", "enx
   <h3>Preparing alternatives</h3>
   <p>The <code>splitIntoWords</code> algorithm is greedy: it will keep looking for the longest word that fits, and this may lead it into a blind alley. To test this, you'll find the nonsense word "forane" in the dictionary. After finding "look", the algorithm keeps moving forward. When it has read "for", it will find an object with both a <code>"$": true</code> key pair and the key "a", with a submap that it can continue to follow.</p>
   <p>It adds the word "for" to the <code>words</code> array, and updates the <code>index</code> of the array: <code>index</code> is now the sum of the lengths of the word in the array.</p>
-  <p>The process continues until the <code>{"$": true}</code> object indicating the end of the nonsense word "forane" is found. This time, however, there is already a word that uses the letters "for" in the <code>words</code> array. The <code>splitIntoWords</code> function first uses <code>words.slice(0)</code> to copy the array, and also copies the value of <code>index</code>, to create a full clone. This clone is added to the <code>alternatives</code> array. In the original <code>words</code> array, the last word ("for") is removed and replaced with "forane", and the <code>index</code> value is updated.</p>
+  <p>The process continues until the <code>{"$": true}</code> object, indicating the end of the nonsense word "forane", is found. This time, however, there is already a word that uses the letters "for" in the <code>words</code> array. The <code>splitIntoWords</code> function first uses <code>words.slice(0)</code> to copy the array, and also copies the value of <code>index</code>, to create a full clone. This clone is added to the <code>alternatives</code> array. In the original <code>words</code> array, the last word ("for") is removed and replaced with "forane", and the <code>index</code> value is updated.</p>
   <p>A new word now begins, starting with the letter "e", but at the next iteration, no sub-map of <code>trie</code> is found that corresponds to the word fragment "ed". The <code>splitIntoWords</code> function has reached the end of a blind alley: it calls the <code>backtrack</code> function. This drops the current <code>words</code> array and replaces it with the longest array in <code>alternatives</code>: <code>["look", "for"]</code>, with its <code>index</code> value of 7. It resets the <code>ii</code> iterator so that the next iteration starts building a new word from position <code>ii = 7</code>: the index of the next letter after "lookfor". This time, it finds the words "a" and "need", which is soon replaced by "needle", and continues to read "these", and "a". This is a complete word and the final letter in the string, so the process stops there.</p>
 
   <h3>Issues with a dictionary approach</h3>
@@ -603,12 +607,12 @@ console.log(<span class="new">dico.splitIntoWords("lookforaneedleinthesea", "enx
   <p>In English, you are used to seeing vowel sounds that are with multiple vowel characters. For example: "fair" and "fire". In the word "fire", the final "e" appears after the last consonant, but it is not pronounced. Instead, its existence changes the sound of the preceding "i".</p>
   <p>In Thai, certain vowels are written <em>before</em> the first consonant, but are pronounced <em>after</em> the consonant. The Thai tone-twister ไม้ ใหม่ ไม่ ไหม้ ไหม (máai mài mâi mâi mái, green wood doesn't burn, does it?) uses two of these vowels: ไ and ใ. The character for "m" is ม, which is written after the vowel. You can therefore be sure that wherever you find a ไ or ใ character, it is the first character in a syllable.</p>
   <p>The five vowels that work this way are เ แ โ ใ ไ. Fortunately, they have been placed together in the <a href="https://en.wikipedia.org/wiki/Thai_(Unicode_block)">Thai Unicode block</a>, so you can use the regular expression <code>/[เ-ไ]/</code> for them.</p>
-  <<p>There are also a certain number of characters that only ever appear at the end of a syllable. These are more scattered so you need to use each individual character in the regular expression that identifies them all: <code>[ฯะำฺๅๅๆ๎]</code>. If you encounter any of these characters in Thai text, you can be 100% sure that the next character is the start of a new syllable.</p>
+  <p>There are also a certain number of characters that only ever appear at the end of a syllable. These are more scattered so you need to use each individual character in the regular expression that identifies them all: <code>/[ฯะำฺๅๅๆ๎]/</code>. If you encounter any of these characters in Thai text, you can be 100% sure that the next character is the start of a new syllable.</p>
 
   <h3>Numbers</h3>
   <p>The Thai numbers from 0 to 9 are written as:</p>
   <blockquote>๐ ๑ ๒ ๓ ๔ ๕ ๖ ๗ ๘ ๙</blockquote>
-  <p>Anywhere where a number is followed by a non-number, or a non-number is followed by a number must be the end of a word. These numbers can be expressed in the regular expression: <code>/[๐-๙]/</code>. To define all the Thai characters that are not numbers, you can use <code>/[ก-ฺเ-๎]/</code> </p>
+  <p>Anywhere where a number is followed by a non-number, or a non-number is followed by a number, must be the end of a word. These numbers can be expressed in the regular expression: <code>/[๐-๙]/</code>. To define all the Thai characters that are not numbers, you can use <code>/[ก-ฺเ-๎]/</code> </p>
 
   <h3>Non-Thai characters</h3>
   <p>Thai people often use Western numerals (0 - 9), and Western names may be written in Roman characters. You can be sure that any transition from Thai to non-Thai will occur at a word boundary.</p>
@@ -701,7 +705,7 @@ var dico = {}
       }
 
       function splitIntoWords(string) {
-        var breakPoints = [0]
+        var segments = [0]
         var total
           , ii
           , regex
@@ -718,22 +722,22 @@ var dico = {}
             split = result.index + (adjust === true
                            ? result[0].length - 1
                            : adjust)
-            breakPoints.push(split)
+            segments.push(split)
           }
         }
 
-        breakPoints.sort(numerical)
-        breakPoints = breakPoints.filter(removeDuplicates)
+        segments.sort(numerical)
+        segments = segments.filter(removeDuplicates)
 
         end = string.length
-        ii = breakPoints.length
+        ii = segments.length
         while (ii--) {
-          start = breakPoints[ii]
-          breakPoints[ii] = string.slice(start, end)
+          start = segments[ii]
+          segments[ii] = string.slice(start, end)
           end = start
         }  
 
-        return breakPoints
+        return segments
       }
 
       return splitIntoWords(string)
@@ -762,18 +766,18 @@ console.log(dico.splitIntoWords(
 
   <pre class="console"><span class="output">["งม","เข็ม","ใน","มหาสมุทร"," ",
    "พูด","<span class="green">ไป</span>","<span class="green">สอง</span>","ไพ","เบี้ย"," ","นิ่ง","เสีย","<span class="red">ตำลึง</span>","ทอง"," ",
-   "<span class="green">ตาก</span>","<span class="green">ลม</span>"," ",ตา","​","กลม", index: 62]</span>
+   "<span class="blue">ตาก</span>","<span class="blue">ลม</span>"," ",ตา","​","กลม", index: 62]</span>
 
 <span class="output">["งม","เข็ม","ใน","มหาสมุทร"," ",
    "พูด","<span class="green">ไปสอง</span>","ไพ","เบี้ย"," ","นิ่ง","เสีย<span class="red">ตำ","ลึง</span>ทอง"," ",
-   "<span class="green">ตากลม</span>"," ",ตา","​","กลม"]</span></pre>
+   "<span class="blue">ตากลม</span>"," ",ตา","​","กลม"]</span></pre>
 
   <p>In the majority of cases, the two approaches agree. However:</p>
   <ul>
-  <li>The rule-based approach does not identify a boundary in two cases (shown in green)</li>
+  <li>The rule-based approach does not identify a boundary in four cases (one green, one blue and two either side of the red chunk)</li>
   <li>The rule-based approach splits <a href="http://www.thai-language.com/id/140482">one word</a> (shown in red) along its syllable boundaries, and the two halves fail to be detached from the adjacent words.</li>
   </ul>
-  <p>This rule-based approach can function with moderate accuracy with a dictionary of only a few dozen words. It may make errors but it does not fail if it encounters an unknown word.</p>
+  <p>This rule-based approach can function with moderate accuracy with a dictionary of only a few dozen words. It may make fail to recognize all the syllable boundaries, but it does not fail if it encounters an unknown word.</p>
 
   <div class="aside next">In this section, you've explored an approach based on spelling rules, and compared it to a dictionary approach. It is clear that both approaches have their shortcomings. 
   <p>Attempting to solve the problem in the browser appears unrealistic. In the <a href="#async">next section</a>, you'll see how to make an asynchronous call, to simulate a request for word segmentation data from the server.</p>
@@ -793,18 +797,916 @@ console.log(dico.splitIntoWords(
 <!-- ASYNC -->
 <section id="async">
   <h2>Asynchronous calls</h2>
+  <p>Correctly identifying word boundaries in Thai is not a task that is easy to perform in the browser. A better solution is to send the Thai text to a server for treatment, and to use the results as soon as they are available.</p>
+  <p>Over the next three sections you will be learning to:</p>
+  <ul>
+    <li>Make an asynchronous call to a simulated server</li>
+    <li>Make this call each time new Thai text is found in the web page, whether this is when the page is loaded or when new text is added on the fly</li>
+    <li>Use the results of these calls to identify the neighbouring word when the arrow keys are pressed</li>
+  </ul>
+  <div class="aside preview">In this section, you'll learn how to:
+    <ul>
+      <li>Create an ASYNC object that behaves like <a href="https://docs.meteor.com/api/methods.html#Meteor-call" class="plain"><code>Meteor.call</code></a> in a Meteor environment, or as a wrapper for an plain AJAX call</li>
+      <li>Add a <code>getWordSegmentation</code> method to your global <code>dico</code> object</li>
+      <li>Test an asynchronous call to <code>getWordSegmentation</code> and observe the results in the Developer Console.</li>
+    </ul>
+    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/06_async.zip" target="source">Download the source files</a> <a href="source/06_async/" target="test">Test Here</a>
+  </div>
+
+  <h3>The ASYNC object</h3>
+  <p>You can start by creating a file called <code>async.js</code> and saving it in your <code>js/</code> folder. Here's the code that defines the essential <code>call</code> method:</p>
+
+  <h4><code>js/async.js</code></h4>
+  <pre>"use strict"
+
+var ASYNC
+
+;(function async(){
+  ASYNC = {
+    call: function call(methodName) {
+      var method = this.methods[methodName]
+      var callback
+        , args
+        , result
+        , error
+
+      if (typeof method === "function") {
+        args = [].slice.call(arguments)
+        args.shift()
+
+        callback = args.pop()
+        if (typeof callback === "function") {
+          <span class="comment">// Simulate asynchronous call</span>
+          result = method.apply(this, args)
+
+          if (result instanceof Error) {
+            error = result
+            result = null
+          } else {
+            error = null
+          }
+
+          setTimeout(function () {
+            callback(error, result)
+          }, Math.floor(Math.random() * 2000))
+
+        } else {
+          <span class="comment">// Return result synchronously</span>
+          args.push(callback)
+          return method.apply(this, args)
+        }
+        
+      }
+    }
+
+  , methods: {}
+  }
+})()</pre>
+
+  <p>Just as with <code>Meteor.call</code> you call this using the syntax:</p>
+  <pre>ASYNC.call("methodName"<span class="ymmv">, arguments ... , callback function</span>)</pre>
+  <p>If a callback function is given, it will return the result asynchronously (after a random delay). If no callback is given, a result will be returned synchronously.</p>
+
+  <h3>The <code>getWordSegmentation</code> method</h3>
+  <p>You can add any method you like to the <code>methods</code> object. Here's how you can add a <code>getWordSegmentation</code> method, which will call a <code>getWordMap</code> method that you haven't yet added to the global <code>dico</code> object.</p>
+
+  <h4><code>js/async.js</code></h4>
+  <pre class="revised">"use strict"
+
+var ASYNC
+
+;(function async(){
+  ASYNC = {
+    call: function call(methodName) {      
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , methods: {
+     <span class="comment">/**
+       * getWordSegmentation calls dico.getWordMap() for each 
+       * string in the map object, and returns an object defining
+       * the positionsof the start and end of each word in each
+       * string.
+       * @param  {object} map has the format
+       *                    { &lt;lang code&gt;: [
+       *                        &lt;string&gt;
+       *                      , ...
+       *                      ]
+       *                    , ...
+       *                    }
+       * @return {object}   { &lt;lang code&gt;: [
+       *                        { text: &lt;string&gt;
+       *                        , offsets: { starts: [
+       *                                       &lt;integer&gt;
+       *                                     , ...
+       *                                     ]
+       *                                   , ends: [
+       *                                       &lt;integer&gt;
+       *                                     , ...
+       *                                     ]
+       *                                   }
+       *                           }
+       *                         , ...
+       *                         ]
+       *                       , ...
+       *                       }
+       */</span> 
+    <span class="new">, getWordSegmentation: function getWordSegmentation(map) {      
+        var result = {}
+        var lang
+
+        for (lang in map) {
+          treatLanguage(lang)
+        }
+
+        return result
+
+        function treatLanguage(lang) {
+          var stringArray = map[lang]
+          var langArray = result[lang]
+
+          if (!langArray) {
+            langArray = []
+            result[lang] = langArray
+          }
+
+          ;(function treatStrings() {
+            var ii = stringArray.length
+            var wordMap
+
+            while (ii--) {
+              try {
+                wordMap = dico.getWordMap(stringArray[ii], lang)
+                langArray.push(wordMap)
+              } catch (error) {
+                result = error
+                ii = 0
+              }
+            }
+          })()
+        }
+      }
+    }</span>
+  }
+})()</pre>
+
+  <p>The <code>getWordSegmentation</code> expects as an argument an object map whose keys are <span class="keyword">lang</span> ISO codes, and whose properties are arrays of strings in the given language. You'll have the chance to test it now.</p>
+
+  <h3>Editing <code>index.html</code></h3>
+  <p>You'll your to declare your new <code>async.js</code> script in your <code>index.html</code> file. At the same time, you can add a little JavaScript test to call the <code>getWordSegmentation</code> method in the <code>ASYNC</code> object.</p>
+
+  <h4><code>index.html</code></h4>
+  <pre><span class="revised">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Selecting Thai words&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p lang="th"&gt;งมเข็มในมหาสมุทร พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง ตากลม  ตา&#8203;กลม&lt;/p&gt;
+  &lt;p lang="enx"&gt;lookforaneedleinthesea talkisworthtuppence silenceisworthgold exposedtotheair roundeye&lt;/p&gt;
+
+  &lt;script src="js/dictionaries.js"&gt;&lt;/script&gt;</span>
+  <span class="new">&lt;script src="js/async.js"&gt;&lt;/script&gt;</span>
+  &lt;script&gt;
+    var map = {
+      th: [
+        "งมเข็มในมหาสมุทร"
+      , "พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง"
+      , "ตากลม ตา\u200bกลม"
+      ]
+    , enx: [
+        "lookforaneedleinthesea"
+      , "talkisworthtuppence silenceisworthgold"
+      , "exposedtotheair roundeye"
+      ]
+    }
+
+    ASYNC.call("getWordSegmentation", map, callback)
+
+    function callback(error, result) {
+      console.log(error || JSON.stringify(result))
+    }
+  &lt;/script&gt;
+<span class="revised">&lt;/body&gt;
+&lt;/html&gt;</span></pre>
+
+  <h3>Provoking an error</h3>
+  <p>You may have noticed that you haven't yet added a <code>getWordMap</code> method to your <code>dico</code> object. The JavaScript engine in your browser certainly will. If you save your edited files and refresh your browser, you should see the following in the Developer Console:</p>
+
+  <pre class="console"><span class="output">TypeError: dico.getWordMap is not a function(…)</span></pre>
+
+  <h3>The <code>getWordMap</code> method</h3>
+  <p>To fix this error, you need to add a <code>getWordMap</code> method to your <code>dico</code> object.</p>
+
+  <h4><code>js/dictionaries.js</code></h4>
+  <pre class="revised">"use strict"
+
+var dico
+var segment
+
+;(function addDictionaries() {
+  dico = {
+
+    dictionaries: {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , tries: {}
+
+  , initialize: function createTries(){
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , createTrie: function createTrie(languageMap) {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , splitIntoWords: function splitIntoWords(string, languageCode){
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  <span class="new">, getWordMap: function getWordMap(string, languageCode) {
+      var segments = this.splitIntoWords(string, languageCode)
+      var regex = <span class="red">/[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊\u200b]/</span>
+      var offsets
+
+      if (!segments) {
+        // Split words in unknown language by ASCII word boundaries
+        segments = string.split(/\b/)
+      }
+
+      offsets = getOffsets()
+
+      return { 
+        text: string
+      , offsets: offsets
+      }
+
+      function getOffsets() {
+        var starts = []
+        var ends = []
+        var total = segments.length
+        var index = 0
+        var ii
+          , segment
+          , length
+        
+        for (ii = 0; ii < total; ii += 1) {
+          segment = segments[ii]
+
+          if (regex.test(segment)) {
+            // This segment contains word characters
+            starts.push(index)
+            index += segment.length
+            ends.push(index)
+          } else {
+            // This segment is punctuation or whitespace
+            index += segment.length
+          }
+        }
+
+        return { starts: starts, ends: ends }
+      }
+    }</span>
+  }.initialize()
+
+  segment = {
+    <span class="omit">// code omitted for clarity</span>
+  }
+})()</pre>
+
+  <p>The <code>getWordMap</code> method accepts a string and a language code as arguments. It first checks if the <code>dico</code> object has a dictionary for the given language, and if so, it uses that to split the string into known words. In practice, this would be done on the server by a specialized application. If no dictionary exists for the given language, it splits the string into words and spaces using the simplistic <code>/\b/</code> regular expression, which really only works will with plain English text.</p>
+  <p>For example, it will split the string "talkisworthtuppence silenceisworthgold" into:</p>
+  <pre>["talk", "is", "worth", "tuppence", " ", "silence", "is", "worth", "gold"]</pre>
+
+  <h3>The <code>getOffsets</code> function</h3>
+  <p>The <code>getOffsets</code> function looks at each entry in the <code>segments</code> array in turn, and checks whether or not it contains a non-space character. The regular expression it uses a to do this is rather overkill for this proof-of-concept.</p>
+  <pre>/[^\s!-\/:-@[-`{-~\u00A0-¾—-⁊\u200b]/</pre>
+  <p>This checks that the string contains none of the non-word characters (such as whitespace, zero-width spaces and punctuation) that are used in any European language. If so, the segment must be a word.</p>
+  <p>The <code>getOffsets</code> function populates two lists – <code>starts</code> and <code>ends</code> – with the index of the starting point and end point of each word. For example, for the string "talkisworthtuppence silenceisworthgold", <code>starts</code> will be ...</p>
+  <pre>[0, 4, 6, 11, 20, 27, 29, 34]</pre>
+  <p>... indicating that the word "talk" starts at <code>0</code> , the word "is" starts at <code>4</code> , and so on. The <code>ends</code> array will be ...</p>
+  <pre>   [4, 6, 11, <span class="red">19</span>, 27, 29, 34, 38]</pre>
+  <p>Each end point corresponds to the start point of the next word except for <code>19</code> which indicates the end of "tuppence" and the beginning of a space, while <code>20</code> in the <code>starts</code> array indicates the beginning of the word "silence".</p>
+
+  <h3>Testing a second time</h3>
+  <p>Now that you have added the <code>getWordMap</code> method, you can save your files and refresh your browser. This time you should see more interesting output in the Developer Console. Here's a prettified version, complete with colouring so that you can see how the index numbers and the word boundaries match each other.</p>
+
+  <figure>
+  <pre class="console"><span class="output">{ "th": [
+    { "text": "ตากลม ตา​กลม"
+    , "offsets": {
+        "starts": [0,3,6,9]
+      , "ends":     [3,5,8,12]
+      }
+    }
+  , { "text": "<span class="blue">พูด</span>ไป<span class="blue">สอง</span>ไพ<span class="blue">เบี้ย</span> นิ่ง<span class="blue">เสีย</span>ตำลึง<span class="blue">ทอง</span>"
+    , "offsets": {
+        "starts": [<span class="blue">0</span>,3,<span class="blue">5</span>,8,<span class="blue">10</span>,16,<span class="blue">20</span>,24,<span class="blue">29</span>]
+      , "ends":     [<span class="blue">3</span>,5,<span class="blue">8</span>,10,<span class="blue">15</span>,20,<span class="blue">24</span>,29,<span class="blue">32</span>]
+      }
+    }
+  , { "text": "งมเข็มในมหาสมุทร"
+    , "offsets": {
+        "starts":[0,2,6,8]
+      , "ends":    [2,6,8,16]
+      }
+    }
+  ]
+, "enx": [
+    { "text": "exposedtotheair roundeye"
+    , "offsets": {
+        "starts": [0,7,9,12,16,21]
+      , "ends":     [7,9,12,15,21,24]
+      }
+    }
+  , { "text": "<span class="blue">talk</span>is<span class="blue">worth</span>tuppence <span class="blue">silence</span>is<span class="blue">worth</span>gold"
+    , "offsets": {
+        "starts": [<span class="blue">0</span>,4,<span class="blue">6</span>,11,<span class="blue">20</span>,27,<span class="blue">29</span>,34]
+      , "ends":     [<span class="blue">4</span>,6,<span class="blue">11</span>,19,<span class="blue">27</span>,29,<span class="blue">34</span>,38]
+      }
+    }
+  , { "text": "lookforaneedleinthesea"
+    , "offsets": {
+        "starts": [0,4,7,8,14,16,19]
+      , "ends":     [4,7,8,14,16,19,22]
+      }
+    }
+  ]
+}</span></pre>
+  <figcaption>Figure 1. Prettified output from <code>getWordSegmentation</code></figcaption>
+  </figure>
+
+  <div class="test unselectable">
+    <a href="source/06_async/" target="test">Test Here</a>
+  </div>
+
+  <div class="aside next">In this section, you've ...
+    <ul>
+      <li>Created an <code>async.js</code> script that allows you to simulate an asynchronous call to a server</li>
+      <li>Added a <code>getWordMap</code> method to your <code>dico</code> object that takes a string and a language code as in input and returns an array of start and end points of the words in the string</li>
+      <li>Used <code>ASYNCH.call</code> to send a map of strings in various languages and to receive a callback some time later with the results of the call.</li>
+    </ul>
+    <p>For now, you've simply tested your system using a hard-coded map. In the <a href="#mutation">next section</a>, you'll see how to use a <code>MutationObserver</code> to detect whenever new text is added to the web page, and to trigger <code>ASYNC.call("getWordSegmentation", <span class="ymmv">...</span>) </code> automatically.</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#mutation">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- MUTATION -->
+<section id="mutation">
+  <h2>Detecting text changes</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+    <ul>
+      <li>Use a <code>MutationObserver</code> object to detect each time the text in an HTML page changes</li>
+      <li>Use a <code>TreeWalker</code>  object to find which textNodes have changed</li>
+      <li>Detect the <code>lang</code> associated with a given <code>textNode</code></li>
+      <li>Check whether the user can select the text in a given <code>textNode</code></li>
+      <li>Maintain a map of word boundary data for all relevant <code>textNode</code>s on the page</li>
+    </ul>
+    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/07_mutate.zip" target="source">Download the source files</a> <a href="source/07_mutate/" target="test">Test Here</a>
+  </div>
+
+  <h3>Editing the <code>index.html</code> file</h3>
+  <p>To test the new features that you will be adding in this section, you can edit your <code>index.html</code> file as shown below. These changes:</p>
+  <ul>
+  <li>Set the default value of the <code>lang</code> attribute of the entire HTML page to <code>en</code> (English)</li>
+  <li>Add text that will not need to be treated</li>
+  <li>Add spans to the Thai (<code>th</code>) and EnglishNoSpaces (<code>enx</code>) text, to create a number of <code>textNode</code>s</li>
+  <li>Add two spans with a class of <code>unselectable</code>, which will also not need to be treated</li> 
+  <li>Add a button and code so that you can remove the <code>unselectable</code> class, after the page has loaded</li>
+  </ul>
+
+  <pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;html <span class="new">lang="en"</span>&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Selecting Thai words&lt;/title&gt;
+  <span class="new">&lt;link rel="stylesheet" type="text/css" href="css/style.css"&gt;</span>
+&lt;/head&gt;
+
+&lt;body&gt;
+  <span class="new">&lt;h1&gt;Word Segmentation Test&lt;/h1&gt;
+  &lt;p&gt;The default &lt;em&gt;lang&lt;/em&gt; of this page is &lt;em&gt;en&lt;/em&gt;.
+  The paragraphs below are in Thai (&lt;em&gt;th&lt;/em&gt;) and
+  EnglishNoSpaces (&lt;em&gt;enx&lt;/em&gt;).&lt;/p&gt;</span>
+  &lt;p lang="th"&gt;งมเข็มในมหาสมุทร
+  <span class="new">&lt;span&gt;</span>พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง<span class="new">&lt;/span&gt;</span>
+  <span class="new">&lt;span class="unselectable"&gt;</span>คำเหล่านี้ไม่สามารถเลือกได้<span class="new">&lt;/span&gt;</span>
+  ตากลม  ตา&#8203;กลม&lt;/p&gt;
+  &lt;p lang="enx"&gt;lookforaneedleinthesea
+  <span class="new">&lt;span&gt;</span>talkisworthtuppence silenceisworthgold<span class="new">&lt;/span&gt;</span>
+  <span class="new">&lt;span class="unselectable"&gt;</span>thewordsherecannotbeselected<span class="new">&lt;/span&gt;</span>
+  exposedtotheair roundeye&lt;/p&gt;
+
+  <span class="new">&lt;button type="button"&gt;Remove .unselectable class&lt;/button&gt;
+
+  &lt;script&gt;
+  document.querySelector("button").onclick = function (event) {
+    var spans = document.querySelectorAll(".unselectable")
+    for (var ii = 0, length = spans.length; ii &lt; length; ii += 1) {
+      spans[ii].classList.remove("unselectable")
+    }
+    this.setAttribute("disabled", true)
+  }
+  &lt;/script&gt;</span>
+
+  &lt;script src="js/dictionaries.js"&gt;&lt;/script&gt;
+  &lt;script src="js/async.js"&gt;&lt;/script&gt;
+  <span class="new">&lt;script src="js/selection.js"&gt;&lt;/script&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</span></pre>
+
+  <h3>Updating the dictionaries</h3>
+  <p>This new version of <code>index.html</code> includes new words that you'll need to add to the dictionaries in the <code>dico</code> object:</p>
+
+  <h4><code>js/dictionaries.js</code></h4>
+  <pre class="revised">"use strict"
+
+var dico
+var segment
+
+;(function addDictionaries() {
+  dico = {
+
+    dictionaries: {
+      enx: {
+        " ": 0
+      , "a": 0
+      , "air": 0
+      <span class="new">, "be": 0
+      , "can": 0
+      , "cannot": 0
+      , "elect": 0
+      , "elected": 0
+      , "ere": 0</span>
+      , "exposed": 0
+      , "eye": 0
+      , "for": 0
+      , "gold": 0
+      , "he": 0
+      <span class="new">, "here": 0
+      , "hew": 0</span>
+      , "in": 0
+      , "is": 0    
+      , "look": 0
+      , "need": 0
+      , "needle": 0
+      <span class="new">, "not": 0</span>
+      , "old": 0
+      , "or": 0
+      , "pence": 0
+      , "ran": 0
+      , "round": 0
+      , "sea": 0
+      <span class="new">, "select": 0
+      , "selected": 0</span>
+      , "she": 0
+      , "silence": 0
+      , "talk": 0
+      , "the": 0
+   <span class="comment">// , "these": 0</span>
+      , "to": 0
+   <span class="comment">// , "tot": 0</span>
+      , "tup": 0
+      , "tuppence": 0
+      , "up": 0
+      , "word": 0
+      <span class="new">, "words": 0     
+      , "words": 0</span>
+      , "worth": 0
+      }
+
+    , th: {
+        " ": {}
+      , "​": {} // &#8203;
+      <span class="omit">// code omitted for clarity</span>
+      , "ไพ" : {
+          "pronunciation": "phai-"
+        , "translation": "a certain old coin equal in value to 1/32 baht"
+        }
+      <span class="new">, "คำ": {
+          "pronunciation": "kham-"
+        , "translation": "term; discourse; a mouthful or bite; morsel [numerical classifier for a word, an answer to a question, a spoonful of food]"
+        }
+      , "เหล่า": {
+          "pronunciation": "lao_"
+        , "translation": "[numerical classifier for groups of items]; a group [of items or things]"
+        }
+      , "นี้": {
+          "pronunciation": "nee'"
+        , "translation": "this; these; [is] now"
+        }
+      , "ไม่": {
+          "pronunciation": "mai`"
+        , "translation": "not; no; [auxiliary verb] does not; has not; is not; [negator particle]"
+        }
+      , "สามารถ": {
+          "pronunciation": "saa´ maat`"
+        , "translation": "capable; able; to have the ability to; can; a Thai given name"
+        }
+      , "เลือก": {
+          "pronunciation": "leuuak`"
+        , "translation": "to select or choose; elect; pick"
+        }
+      , "ได้": {
+          "pronunciation": "dai`"
+        , "translation": "can; to be able; is able; am able; may; might [auxiliary of potential, denoting possbility, ability, or permission]; to receive; to obtain; acquire; get; have got; to pick out; to choose; to pass [a test or an exam]"
+        }</span>
+      }
+    }
+
+  , tries: {}
+
+  , initialize: function createTries(){
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , createTrie: function createTrie(languageMap) {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , splitIntoWords: function splitIntoWords(string, languageCode) {
+      <span class="omit">// code omitted for clarity</span>
+    }
+  }.initialize()
+
+  segment = {
+    <span class="omit">// code omitted for clarity</span>
+  }
+})()</pre>
+
+  <h3>Making text unselectable</h3>
+  <p>The <code>unselectable</code> class does nothing without a CSS rule. You can create a file called <code>styles.css</code> and save it in a folder named <code>css</code> alongside your HTML document.</p>
+
+  <h4><code>css/styles.css</code></h4>
+  <pre>body {
+  width: 22em;
+}
+
+.unselectable {
+  -webkit-touch-callout: none; <span class="comment">/* iOS Safari */</span>
+  -webkit-user-select: none;   <span class="comment">/* Chrome/Safari/Opera */</span>
+  -khtml-user-select: none;    <span class="comment">/* Konqueror */</span>
+  -moz-user-select: none;      <span class="comment">/* Firefox */</span>
+  -ms-user-select: none;       <span class="comment">/* Internet Explorer/Edge */</span>
+  user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+  color: #999;
+}
+</pre>
+
+  <h3>Detecting the value of the <code>lang</code> attribute for a node</h3>
+  <p>In the current circumstances, you want to ask the server only for the word boundary data for <code>textNode</code>s in Thai or in our invented EnglishNoSpaces. To choose only text nodes in these languages, you need no detect the closest parent that has a <code>lang</code> attribute, and return the value of that attribute.</p>
+  <p>You can create a new file named <code>selection.js</code> and save it in your <code>js/</code> folder. Here's a <code>getLang</code> function. You can leave it in the global namespace for now.</p>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre>function getLang(node) {
+  var lang = ""
+
+  if(!node.closest) {
+    node = node.parentNode
+  }
+  node = node.closest("[lang]")
+  if (node) {
+    lang = node.getAttribute("lang")
+  }
+
+  return lang
+}</pre>
+
+  <p>You can test this in the Developer Console:</p>
+  <pre class="console"><span class="input">getLang(document.body)</span>
+<span class="output">"en"</span>
+<span class="input">getLang(document.querySelector(".unselectable"))</span>
+<span class="output">"th"</span>
+<span class="input">getLang(document.querySelector("[lang=enx] span"))</span>
+<span class="output">"enx"</span>
+<span class="input">getLang(document.querySelector("button"))</span>
+<span class="output">"en"</span></pre>
+
+  <p class="aside info">Early versions of Internet Explorer do not support the <code><span class="ymmv">element.</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/closest">closest</a>()</code> method. If you need to support such browsers, you can use <a href="https://plainjs.com/javascript/traversing/get-closest-element-by-selector-39/">this polyfill</a>.</p>
+
+  <h3>Detecting unselectable nodes</h3>
+  <p>There is no point asking the server send word boundary information on text that cannot be selected. To make the contents of an HTML element unselectable, your can create a CSS rule based on the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/user-select"><code>user-select</code></a> property. As of August 2016, he major browser vendors have not reached agreement on how this is to be implemented, so there are a number of properties with vendor prefixes that you need to test for.</p>
+  <p>You can use <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle">getComputedStyle</a>(<span class="ymmv">element</span>)</code> to obtain an object with key/value pairs for all properties applied to an element. You can then use the <code><span class="ymmv">array.</span>every</code> method to check all the versions of <code>user-select</code> and to stop looking any further if any of them has a value of <code>none</code>.</p>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre>function elementIsSelectable(element) {
+  var prefixes = [
+    "-webkit-"
+  , "-khtml-"
+  , "-moz-"
+  , "-ms-"
+  , ""
+  ]
+  var style = window.getComputedStyle(element)
+
+  var selectable = prefixes.every(function check(key) {
+    key += "user-select"
+    return style[key] !== "none"
+  })
+
+  return selectable
+}</pre>
+
+<p>You can test this in the Developer Console:</p>
+  <pre class="console"><span class="input">elementIsSelectable(document.body)</span>
+<span class="output">true</span>
+<span class="input">elementIsSelectable(document.querySelector(".unselectable"))</span>
+<span class="output">false</span>
+<span class="input">elementIsSelectable(document.querySelector("[lang=enx] span"))</span>
+<span class="output">true</span>
+<span class="input">elementIsSelectable(document.querySelector("button"))</span>
+<span class="output">true</span></pre>
+
+  <h3>Detecting changes to text on the page</h3>
+  <p>To detect changes to the DOM, you can create a <code><a href="https://developer.mozilla.org/en/docs/Web/API/MutationObserver">MutationsObserver</a></code> object, and tell it which function to call when an mutation is observed.</p>
+  <p class="aside note">In the code listing below, the <code>getLang</code> and <code>elementIsSelectable</code> functions have been moved inside an <a href="https://en.wikipedia.org/wiki/Immediately-invoked_function_expression">immediately-invoked function expression</a>, to take them out of global namespace, now that you have had a chance to test them.</p>
+
+  <pre class="revised"><span class="new">"use strict"
+
+;(function selection() {
+  var observer = new MutationObserver(checkForAlteredTextNodes)
+
+  observer.observe(document.body, { 
+    childList: true
+  , attributes: true
+  , subtree: true
+  })</span>
+
+  function getLang(node) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function elementIsSelectable(element) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  <span class="new">function checkForAlteredTextNodes(mutations) {
+    mutations.forEach(populateNewTextArray)
+
+    function populateNewTextArray(mutation) {
+      <span class="comment">// TODO</span>
+      console.log(mutation.type, mutation.target, mutation)
+    }
+  }
+})()</span></pre>
+
+  <p>A <code>MutationObserver</code> is set up in two steps. First you create the object and define the function to call when any changes are detected. Then you call <code><span class="ymmv">observer.</span>observe(<span class="ymmv">target, mutationOptions</span>)</code>, to tell it which target element to observe, and what changes to observe on that element.</p>
+  <p>The options object needs to set at least one of the following properties to <code>true</code>: <code>attributes</code>, <code>characterData</code> or <code>childList</code>. If your target is a specific <code>textNode</code> then <a href="http://stackoverflow.com/a/33524423/1927589">it is useful to observe <code>characterData</code></a>. If you want to observe changes to the text of all the children of a element (as you do here), then you need to set both <code>childList</code> and <code>subtree</code> to <code>true</code>. In the test that you will run shortly, you will convert unselectable text to selectable text by removing a class from a node; to observe this change, you will also need to set <code>attributes</code> to <code>true</code>.</p>
+  <p>The <code>populateNewTextArray</code> function doesn't do much yet, but it does display information about the mutations that are observed in the Developer Console. Here's what you should see when you refresh the page:</p>
+
+  <figure>
+  <img src="img/mutation.png" alt="The MutationRecord, with its type and target, that is created when the page is loaded" />
+  <figcaption>Figure 2. A MutationRecord with its type and target, that is created when the page is loaded</figcaption>
+  </figure>
+
+  <p>When the page is loaded, the <code>childList</code> of the <code>document.body</code> is altered. When you click on the button, you will change the <code>classList</code> attribute of two spans, and the <code>disabled</code> attribute of the button itself. Here is what these mutations look like:</p>
+  <figure>
+  <img src="img/attributes.png" alt="The Mutation Records created when you click on the button" />
+  <figcaption>Figure 3. The Mutation Records created when you click on the button</figcaption>
+  </figure>
+
+  <h3>Generating the map to send to <code>getWordSegmentation</code> </h3>
+  <p>The purpose of the <code>populateNewTextArray</code> function is to walk through the body of the entire document, looking for <code>textNode</code>s that have been added or changed, and specifically those that need to be set to be treated by the <code>getWordSegmentation</code> method. Once a string has been segmented into words, its segmentation data will be stored in a <code>wordsMap</code> object to be used as needed. The keys in the original empty<code>wordsMap</code> object also indicate which languages need such special treatment.</p>
+
+  <h3>Using a <code>TreeWalker</code></h3>
+  <p>An efficient way of doing this is to use a <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/TreeWalker">TreeWalker</a></code> object. The <code>document.<a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createTreeWalker">createTreeWalker</a></code> method accepts up to four arguments. The fourth is not useful here. The three arguments you can use are:</p>
+  <ul>
+  <li>The root node for the tree to walk</li>
+  <li>An <a href="https://www.w3.org/TR/DOM-Level-2-Traversal-Range/traversal.html#Traversal-NodeFilter">NodeFilter integer</a> to indicate which types of nodes in the tree you want to consider</li>
+  <li>A filter object with an <code>acceptNode</code> method, which will be called for each node that matches the types indicated by the NodeFilter integer</li>
+  </ul>
+  <p>Normally, the <code>acceptNode</code> method is used to return <code>true</code> or <code>false</code>, to indicate whether the node should be returned and added to an array for further treatment. In the code listing below, the <code>acceptNode</code> method is co-opted to do all the work of building the map that will be sent to the <code>getWordSegmentation</code> method.</p>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised">"use strict"
+
+;(function selection() {
+  <span class="new">var wordsMap = { th: {}, enx: {} }</span>
+  var observer = new MutationObserver(checkForAlteredTextNodes)
+
+  observer.observe(document.body, { 
+    childList: true
+  , attributes: true
+  , subtree: true
+  })
+
+  function getLang(node) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function elementIsSelectable(element) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function checkForAlteredTextNodes(mutations) {
+    <span class="new">var newTextMap = {} <span class="comment">// { &lt;lang&gt;: [&lt;string&gt;, ...], ...}</span>
+    var newTextFound = false</span>
+
+    mutations.forEach(populateNewTextArray)
+
+    <span class="new">if (newTextFound) {
+      ASYNC.call("getWordSegmentation", newTextMap, updateWordsMap)
+    }</span>
+
+    function populateNewTextArray(mutation) {
+      <span class="new">var filter = {
+        acceptNode: function(node) {
+          var text = node.data
+          var lang
+            , map
+            , langArray
+
+          if (!/^\s*$/.test(text)) {
+            lang = getLang(node)
+
+            if (map = wordsMap[lang]){
+              if (elementIsSelectable(node.parentNode)) {
+                if (!map[text]) {
+                  if (!(langArray = newTextMap[lang])) {
+                    langArray = []
+                    newTextMap[lang] = langArray
+                  }
+
+                  langArray.push(text)
+                  map[text] = true
+                  newTextFound = true
+                }
+              }
+            }
+          }
+        }
+      }
+      var walker = document.createTreeWalker(
+        mutation.target
+      , NodeFilter.SHOW_TEXT
+      , filter
+      )
+
+      while (walker.nextNode()) {
+        <span class="comment">// Action occurs in filter.acceptNode</span> 
+      }</span>
+    }
+
+    <span class="new">function updateWordsMap(error, result) {
+      <span class="comment">// TODO</span>
+      console.log(error || JSON.stringify(result))
+    }</span>
+  }</span>
+})()</pre>
+
+  <p>For each <code>textNode</code>, the <code><span class="ymmv">filter.</span>acceptNode</code> function is called. This runs through the following checklist:</p>
+  <dl>
+    <dt><code>if (!/^\s*$/.test(text)) {<span class="ymmv">...</span>}</code></dt>
+    <dd>Does this textNode contain anything other than whitespace?</dd>
+    <dt><code>lang = getLang(node); if (map = wordsMap[lang]) {<span class="ymmv">...</span>}</code></dt>        
+    <dd>Is this textNode in a language that needs custom word segmentation?</dd>
+    <dt><code>if (elementIsSelectable(node.parentNode)) {<span class="ymmv">...</span>}</code></dt>
+    <dd>Does this textNode contain text that the user can select?</dd>
+    <dt><code>if (!map[text]) {</code></dt>
+    <dd>Has the string data found in this textNode not already been treated, or started to be treated?</dd>            
+  </dl>
+  <p>If the answer to all these questions is Yes, then the string <code>data</code> of the textNode will be added to the appropriate language array in <code>newTextMap</code>, and an entry will be added in the appropriate place in the <code>wordsMap</code> object, to indicate that the string is about to be treated. If an identical string is found later, the script will know not to make a new request for treatment.</p>
+  <p>When you save your changes and refresh the page in your browser, you should see the same output as is shown in Figure 1 at the end of the previous section. This time, however, the text is taken directly from the HTML page, and not hard-coded in JavaScript.</p>
+  <figure>
+  <img src="img/wordmap.png" alt="Output generated automatically from newTextMap" />
+  <figcaption>Figure 4. Figure 1. Output generated automatically from <code>newTextMap</code></figcaption>
+  </figure>
+
+  <p>If you click on the button, the spans that currently have the <code>unselectable</code> class will lose that class, and the <code>getWordSegmentation</code> method will be called again, with just the text that has become selectable:</p>
+
+  <figure>
+  <img src="img/selectable.png" alt="Making text selectable will trigger the checkForAlteredTextNodes function again" />
+  <figcaption>Figure 5. Making text selectable will trigger the <code>checkForAlteredTextNodes</code> function again</figcaption>
+  </figure>
+
+  <h3><code>updateWordsMap</code></h3>
+  <p>The last step for this section is to update the <code>wordsMap</code> object, to store the data retrived by the asynchronous call to <code>getWordSegmentation</code>. You can make the changes shown below in your <code>selection.js</code> script, and then refresh the page in your browser.</p>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised">"use strict"
+
+;(function selection(){
+  var wordsMap = { th: {}, enx: {} }
+  var observer = new MutationObserver(checkForAlteredTextNodes)
+
+  observer.observe(document.body, { 
+    childList: true
+  , attributes: true
+  , subtree: true
+  })
+
+  function getLang(node) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function elementIsSelectable(element) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function checkForAlteredTextNodes(mutations) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  <span class="comment">/**
+   * updateWordsMap is triggered by a callback from the ASYNC
+   * call to getWordSegmentation. For each language and each
+   * text key, it replaces the existing `true` entry with the
+   * `offsets` array for the word boundaries in the given
+   * string.
+   * @param  {Error|null}  error
+   * @param  {null|object} result 
+   *                       { &lt;lang&gt;: [
+   *                           { "text": <string>
+   *                           , "offsets": {
+   *                               "starts": [&lt;integer&gt;, ...]
+   *                             , "ends": [&lt;integers&gt;, ...]
+   *                             }
+   *                           }
+   *                         , ...
+   *                         ]
+   *                       , ...
+   *                       }
+   */</span>
+  function updateWordsMap(error, result) {    
+    <span class="new">if (error) {
+      return console.log(error)
+    }
+
+    var lang
+      , langArray
+      , langMap
+      , ii
+      , textData
+
+    for (lang in result) {
+      langMap = wordsMap[lang]
+      langArray = result[lang]
+
+      ii = langArray.length
+      while (ii--) {
+        textData = langArray[ii]
+        langMap[textData.text] = textData.offsets
+      }
+    }
+
+    console.log(JSON.stringify(wordsMap))</span>
+  }
+})()</pre>
+
+  <div class="test unselectable">
+    <a href="source/07_mutate/" target="test">Test Here</a>
+  </div>
+
+  <div class="aside next">In this section, you've automated the process of getting word segmentation for Thai text. In particular you've:
+    <ul>
+      <li>Used the <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/closest">closest</a></code> method to find the closest element in the hierarchy with a <code>lang</code> attribute</li>
+      <li>Used <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle">getComputedStyle</a></code> to determine if the text in a given node is selectable</li>
+      <li>Used a <code><a href="https://developer.mozilla.org/en/docs/Web/API/MutationObserver">MutationsObserver</a></code> to detect when text in the page changes</li>
+      <li>Created a <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/TreeWalker">TreeWalker</a></code> to find which textNodes have changed</li>
+    </ul>
+    <p>In the <a href="#jump">next section</a>, you'll use the code that you have created so far to extend a <a href="../selection/">jumpToNextWord</a> function, where pressing arrow keys will select the neighbouring word.</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#jump">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>
+
+<!-- JUMP -->
+<section id="jump">
+  <h2>Title of section</h2>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
       <li>Do stuff</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/06_async.zip" target="source">Download the source files</a> <a href="source/06_async/" target="test">Test Here</a>
+    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a> <a href="source/xxx/" target="test">Test Here</a>
   </div>
 
   <h3>Subsection</h3>
   <p>Stuff goes here</p>
 
   <div class="test unselectable">
-    <a href="source/06_async/" target="test">Test Here</a>
+    <a href="CHANGE_MY_NAME/" target="test">Test Here</a>
   </div>
 
   <div class="aside next">In this section, you've ...
@@ -840,7 +1742,7 @@ console.log(dico.splitIntoWords(
   <p>Stuff goes here</p>
 
   <div class="test unselectable">
-    <a href="CHANGE_MY_NAME" target="test">Test Here</a>
+    <a href="CHANGE_MY_NAME/" target="test">Test Here</a>
   </div>
 
   <div class="aside next">In this section, you've ...
@@ -880,6 +1782,8 @@ console.log(dico.splitIntoWords(
   <h2>Overview</h2>
 
   <p class="top">In a browser, you expect a double-click to select a whole word, regardless of which language that word is written in. A browser like Chrome, the word boundaries for many languages are automatically detected. Other browsers may fail to indentify word boundaries in non-European languages and select either syllables or whole phrases instead. If you want to select a whole word in such browsers, or without using a double-click, you need to know how to analyze text to find word boundaries.</p>
+  <p class="top">The aim of this tutorial is to develop a proof-of-concept system which will allow you to use the arrow keys to jump to neighbouring Thai words. As you will see, distinguishing boundaries between Thai words is best performed asynchronously on the server. This tutorial will show you how to create a minimal word boundary detection system that will run in your browser, and to make asynchronous calls to it, to simulate a connection to the server.</p>
+  <h3>Word boundaries</h3>
   <p>In spoken language, words tend to flow together. In a sentence like "We went on a long journey", you have to wait until the word "journey" is spoken before you can be sure that "a long" is two words. Conversely, if the sentence was "We went on along the road", you would need to wait until the word "the" to know that the same sounds were the single word "along".</p>
   <p>In many written languages, there are visual signs to indicate where words end. In European languages descended from Latin and Greek, a space is used between words, but there is still some ambiguity about whether "can't" is one word or two. In Arabic, letters have different shapes depending on whether they appear at the beginning, in the middle or the end of a word, as an additional clue.</p>
   <p>However, in other languages, such as Chinese and Japanese, there are spaces between sentences, but no spaces between words. In Thai and Lao, there may also be spaces between clauses, so the space character itself is ambiguous. In Vietnamese, there is a space between each syllable, while several syllables may combine to make a single word.</p>
@@ -910,7 +1814,7 @@ console.log(dico.splitIntoWords(
   <div class="aside preview">In this tutorial, you will be learning to:
     <ul>
       <li>Create a trie from a dictionary</li>
-      <li>Use the trie to detect word boundaries in Englishwithnospaces</li>
+      <li>Use the trie to detect word boundaries in EnglishNoSpaces</li>
       <li>Apply the trie technique to Thai text</li>
       <li>Use a "rule-based" system to identify syllable boundaries in Thai text</li>
       <li>Run an asynchronous method (to simulate an AJAX request to a server) to obtain the word segmentation of a chunk of text</li>

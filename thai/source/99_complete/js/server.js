@@ -26,7 +26,7 @@ var SERVER
           }
 
           setTimeout(function () {
-            callback(null, result)
+            callback(error, result)
           }, 2000 + Math.floor(Math.random() * 2000))
 
         } else {

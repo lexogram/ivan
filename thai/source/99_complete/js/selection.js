@@ -1,37 +1,9 @@
 "use strict"
 
-;(function selection(){
-  var pOutput = document.getElementById("output")
-  var pTranslation = document.getElementById("translation")
-  var selection = window.getSelection()
-  // RegExp to detect word boundaries but to allow ' and - in
-  // the middle of words
-  // 1. Match a whole range of non-word characters pairs possibly 
-  //    including a ' or a - (found in the range !-/)
-  var regex = "[\\s!-@\\[-`\\{-~]{2,}"
-  //var regex = "[\\s!-/:-@\\[-`\\{-~]{2,}"
-  // 2. Match a whole range of non-word characters, excluding ' and -,
-  //    on their own
-  regex += "|[\\s!-&\\(-,.-@\\[-`\\{-~]"
-
-  // 3a. Match sequence of single-quotes or hyphens at the beginning
-  var startRegex = new RegExp("^['-]+|" + regex, "g")
-  // 3b. Match  end of the string if there is no other boundary first;
-  //     ignore trailing apostrophe/quote marks
-  var endRegex = new RegExp(regex + "|['-]*$")
-  var special = {
-    
-    enx: {
-      method: useWordSegments
-      cache: {} // "unsegmentedstring": ["unsegmented", "string""]
-    }
-  , th: {
-      method: useWordSegments
-      cache: {}
-    }
-  }
-
+/*
   ;(function showSelection(){
+    var pOutput = document.getElementById("output")
+    var selection = window.getSelection()
     var output = "rangeCount: " + selection.rangeCount
     var range
     var text
@@ -72,165 +44,592 @@
 
     setTimeout(showSelection, 250)
   })()
+*/
 
-  document.body.onmouseup = selectWholeWords
+;(function selection(){
+  var selection = window.getSelection()
+  var _W = "\\s!-\\/:-@[-`{-~\\u00A0-¾—-⁊\\u200b"
+  var startRegex = new RegExp("([^" + _W + "]+'?-?)+['-]$", "g")
+  var endRegex = new RegExp("^['-]('?-?[^" + _W + "]+)+")
+  var edgeRegex = new RegExp("[^" + _W + "]")
+  var lastWordRegex = new RegExp("([^"+ _W +"])+", "g")
+  var nextWordRegex = new RegExp(
+    "([^"+ _W +"])*"
+  + "(["+ _W +"])+"
+  + "(?=[^"+ _W +"])"
+  + "|^(?=[^" + _W + "])"
+  )
+  var wordStartRegex = new RegExp("[^" + _W + "]")
+  var wordEndRegex = new RegExp("[" + _W + "]|$")
 
-  function selectWholeWords(event) {
-    if (event.detail === 3) {
-      // Let triple-clicks take control of the selection
+  var range
+    , container
+    , selectionUpdated
+
+  var box = document.body // querySelector(".box")
+  var observer = new MutationObserver(checkForAlteredTextNodes)
+  var wordsMap = { th: {}, enx: {} }
+
+  observer.observe(document.body, { 
+    childList: true
+  , attributes: true
+  , subtree: true
+  })
+
+  box.ondblclick = selectHyphenatedWords
+  document.body.onkeydown = jumpToNextWord
+
+  function selectHyphenatedWords(event) {
+    if (!selection.rangeCount) {
       return
     }
 
-    if (selection.rangeCount) {
-      var range = selection.getRangeAt(0)
-      getWordOffsets(range, setSelection)
+    selectionUpdated = false
+    range = selection.getRangeAt(0)
+    container = range.startContainer
+    var string = container.textContent
+
+    if (string.substring(range.startOffset, range.endOffset)
+              .search(edgeRegex) < 0) {
+      // There are no word characters selected
+      return
     }
 
-    function setSelection(error, offsets) {
-      // if (!error) {
-        range.setStart(range.startContainer, offsets.start)
-        range.setEnd(range.endContainer, offsets.end)
-      // }
-    }
+    extendSelectionBackBeforeHypen(string, range.startOffset)
+    extendSelectionForwardAfterHyphen(string, range.endOffset)
 
-    function getWordOffsets(range) {
-      var texts = []
-      var container =
-      var lang = getLang(range.startContainer)
-      var textContent = 
-      var offset = getStartOffset(range)
-      range.setStart(range.startContainer, offset)     
-
-      offset = getEndOffset(range)
-      range.setEnd(range.endContainer, offset)
-
+    if (selectionUpdated) {
       selection.removeAllRanges()
       selection.addRange(range)
-
-      showTranslation()
     }
 
-    function getLang(element) {
-      if (element.closest) {
-        element = element.closest("[lang]")
-      } else {
-       element = element.parentNode.closest("[lang]") 
-      }
+    scrollIntoView(range)
+  }
 
-      return element.lang
+  function extendSelectionBackBeforeHypen(string, offset) {
+    var lastIndex = 0
+    var result
+      , index
+    string = string.substring(0, offset)
+
+    while (result = startRegex.exec(string)) {
+      index = result.index
+      lastIndex = startRegex.lastIndex
     }
 
-    function getStartOffset(range) {
-      var container = range.startContainer
-      var offset = range.startOffset
-      var lang = getLang(container)
+    if (lastIndex === offset) {
+      range.setStart(container, index)
+      selectionUpdated = true
+    }
+  }
 
-      console.log("start", offset)
+  function extendSelectionForwardAfterHyphen(string, offset) { 
+    string = string.substring(offset)
+    var result = endRegex.exec(string)
 
-      switch (lang) {
-        case "th":
-        case "enx":
-          return segmentWords(range)
-        break
-        default:
-          return useStartRegex()
+    if (result) {
+      range.setEnd(container, offset + result[0].length)
+      selectionUpdated = true
+    }
+  }
+
+  function jumpToNextWord (event) {
+    var rangeData
+
+    if (!selection.rangeCount) {
+      return
+    } else if (!(range = selection.getRangeAt(0))) {
+      return
+    } else if (!box.contains(range.startContainer)) {
+      return
+    }
+
+    switch (event.keyCode) {
+      case 37: // Left
+        rangeData = jumpLeft()
+      break
+      case 39: // Right
+        rangeData = jumpRight()
+    }
+
+    if (!rangeData) {
+      return
+    }
+
+    if (!box.contains(container)) {
+      return
+    }
+
+    range.setStart(container, rangeData.startOffset)
+    range.setEnd(container, rangeData.endOffset)
+
+    switch (event.keyCode) {
+      case 37: // Left
+        extendSelectionBackBeforeHypen(
+          rangeData.string
+        , rangeData.startOffset
+        )
+      break
+      case 39: // Right
+        extendSelectionForwardAfterHyphen(
+          rangeData.string
+        , rangeData.endOffset
+        )
+      break
+    }
+
+    selection.removeAllRanges()
+    selection.addRange(range)
+    scrollIntoView(range)
+  }
+
+  function jumpLeft() {
+    container = range.endContainer
+    var lang = getLang(container)
+
+    switch (lang) {
+      case "th":
+      case "enx":
+        return jumpLeftByNumbers(container)
+      default:
+        return jumpLeftByRegex(container)
+    }
+
+    function jumpLeftByNumbers(container) {
+      var string = container.textContent
+      var wordMap = wordsMap[lang][string]
+      if (!wordMap) {
+        return console.log("No word map for ", string)
+      }
+      var wordEnds = wordMap.ends
+      var wordStarts = wordMap.starts
+      var endOffset = range.endOffset
+                    + (range.startOffset === string.length)
+      var startOffset
+      var rangeData
+      var result = setOffsets(endOffset)
+
+      if (!result) {     
+        container = getAdjacentTextNode(
+          container
+        , "previousSibling"
+        , "pop"
+        )
+
+        if (container) {
+          endOffset = container.textContent.length
+          range.setStart(container, endOffset)
+          range.setEnd(container, endOffset)
+          return jumpLeft()
+
+        } else {
+          // We're at the very beginning of the selectable text.
+          // There's nothing earlier to select.
+          return
+        }
       }
 
-      function segmentWords(range) {
-        var wordArray = dico.splitIntoWords(container.textContent, lang)
-        var stop = false
-        var temp
+      rangeData = {
+        container: container
+      , startOffset: startOffset
+      , endOffset: endOffset
+      , string: string
+      }
 
+      return rangeData
 
-          return wordArray.reduce(function (index, word) {
-          if (stop || (temp = index + word.length) > offset) {
-            stop = true
-            return index
-          } else {
-            return temp
+      function setOffsets(offset) {
+        var ii = wordEnds.length
+
+        while (ii--) {
+          if ((endOffset = wordEnds[ii]) < offset) {
+            startOffset = wordStarts[ii]
+            ii = 0
           }
-        }, 0)
+        }
+
+        return (startOffset !== undefined)
+      }
+    }
+
+    function jumpLeftByRegex(container) {
+      var string = container.textContent
+      var result = getPreviousWord(string, range.startOffset)
+      var startOffset
+        , endOffset
+        , rangeData
+
+      if (!result) {
+        // There are no more words in this text node. Try the previous.
+        container = getAdjacentTextNode(
+          container
+        , "previousSibling"
+        , "pop"
+        )
+
+        if (container) {          
+          range.setEnd(container, container.textContent.length)
+          return jumpLeft()
+
+        } else {
+          // We're at the very beginning of the selectable text. There's
+          // nothing earlier to select.
+          return
+        }
       }
 
-      function useStartRegex() {
-        var string = container.textContent 
-        var adjust = 0
-        var result
+      startOffset = result.index
+      endOffset = startOffset + result[0].length
+
+      rangeData = {
+        container: container
+      , startOffset: startOffset
+      , endOffset: endOffset
+      , string: string
+      }
+
+      return rangeData
+
+      function getPreviousWord(string, offset) {
         string = string.substring(0, offset)
+        var result
+          , temp
 
-        while (result = startRegex.exec(string)) {
-          offset = result.index
-          adjust = result[0].length
+        while (temp = lastWordRegex.exec(string)) {
+          result = temp
         }
 
-        return adjust ? offset + adjust : 0
-      }
-    }
-
-    function getEndOffset(range) {
-      var container = range.endContainer
-      var offset = range.endOffset
-      var lang = getLang(container)
-      var startOffset = range.startOffset
-
-      if (offset === startOffset
-       && range.endContainer === range.startContainer) {
-         offset += 1
-      }
-
-      console.log("end", offset)
-
-      switch (lang) {
-        case "th":
-        case "enx":
-          return segmentWords()
-        break
-        default:
-          return useEndRegex()
-      }
-
-      function segmentWords() {
-        var textContent = container.textContent
-        var wordArray = dico.splitIntoWords(textContent, lang)
-
-        var output
-        output = wordArray.reduce(function (index, word) {
-          if (index < offset) {
-            return index += word.length
-          } else {
-            return index
-          }
-        }, 0)
-
-        if (textContent.substring(startOffset, output) === " ") {
-          output = startOffset
-        }
-
-        return output
-      }
-
-      function useEndRegex() {
-        var string = container.textContent
-        offset += string.substring(offset).search(endRegex)
-        return offset
+        return result
       }
     }
   }
 
-  function showTranslation() {
-    var word = selection.toString()
-    var data = dico.getWordData(word, "th")
-    var string = "<dl>"
+  function jumpRight() {
+    container = range.startContainer
+    var lang = getLang(container)
 
-    if (data) {
-      for (var key in data) {
-        string += "<dt>" + key + "</dt>"
-        string += "<dd>" + data[key] + "</dd>"
-      }
-
-      string += "</dl>"
+    switch (lang) {
+      case "th":
+      case "enx":
+        return jumpRightByNumbers(container)
+      default:
+        return jumpRightByRegex(container)
     }
 
-    pTranslation.innerHTML = string
+    function jumpRightByNumbers(container) {
+      var string = container.textContent
+      var wordMap = wordsMap[lang][string]
+      if (!wordMap) {
+        return console.log("No word map for ", string)
+      }
+      var wordEnds = wordMap.ends
+      var wordStarts = wordMap.starts
+      var startOffset = range.startOffset - (!range.endOffset)
+      var endOffset
+      var rangeData
+      var result = setOffsets(startOffset)
+
+      if (!result) {     
+        container = getAdjacentTextNode(
+          container
+        , "nextSibling"
+        , "shift"
+        )
+
+        if (container) {
+          range.setStart(container, 0)
+          range.setEnd(container, 0)
+          return jumpRight()
+
+        } else {
+          // We're at the very beginning of the selectable text.
+          // There's nothing earlier to select.
+          return
+        }
+      }
+
+      rangeData = {
+        container: container
+      , startOffset: startOffset
+      , endOffset: endOffset
+      , string: string
+      }
+
+      return rangeData
+
+      function setOffsets(offset) {
+        var ii
+        var length = wordStarts.length
+
+        for (ii = 0; ii < length; ii += 1) {
+          if ((startOffset = wordStarts[ii]) > offset) {
+            endOffset = wordEnds[ii]
+            ii = length
+          }
+        }
+
+        return (endOffset !== undefined)
+      }
+    }
+
+    function jumpRightByRegex(container) {
+      var startOffset = range.endOffset
+      var string = container.textContent
+      var result = nextWordRegex.exec(string.substring(startOffset))
+      var endOffset
+        , rangeData
+
+      if (result) {
+        startOffset += result[0].length
+
+      } else {
+        // There are no more words in this text node. Try the next.
+        container = getAdjacentTextNode(
+          container
+        , "nextSibling"
+        , "shift"
+        )
+
+        if (container) {
+          range.setStart(container, 0)
+          return jumpRight()
+
+        } else {
+          // We're at the very end of the selectable text. There's
+          // nothing more to select.
+          return
+        }
+      }
+
+      result = wordEndRegex.exec(string.substring(startOffset))
+      endOffset = startOffset + result.index
+
+      rangeData = {
+        startOffset: startOffset
+      , endOffset: endOffset
+      , string: string
+      }
+
+      return rangeData
+    }
+  }
+
+  function getAdjacentTextNode(node, whichSibling, arrayMethod) {
+    // <whichSibling> will be "previousSibling" or "nextSibling"
+    // <arrayMethod> will be "pop" or "shift"
+
+    var parent = node.parentNode
+    var adjacentNode
+
+    while (node = node[whichSibling]) {
+      if (node.textContent.search(/\S/) < 0) {         
+      } else if (node.tagName !== "SCRIPT") {
+        // The adjacent child of current parent has non-empty
+        // content but it might not be selectable
+        
+        adjacentNode = getEndNode(node, arrayMethod)
+
+        if (adjacentNode) {
+          return adjacentNode
+        }
+      }
+    } 
+
+    // If we get here, there were no more sibling nodes. Try the 
+    // adjacent sibling of the parent, unless we've reached the
+    // farthest selectable child of the body itself 
+    if (parent !== document.body) {
+      return getAdjacentTextNode(parent, whichSibling, arrayMethod)
+    }
+
+    function getEndNode(node, arrayMethod) {
+      var childNodes = [].slice.call(node.childNodes)
+
+      if (!childNodes.length) {
+        return node
+      }
+
+      while (node = childNodes[arrayMethod]()) {
+        if (node.textContent.search(/\S/) < 0) {         
+        } else if (node.tagName !== "SCRIPT") {
+          if (node.nodeType === 3) {
+            if (elementIsSelectable(node.parentNode)) {
+              return node
+            }
+          } else {
+            node = getEndNode(node, arrayMethod)
+            if (node) {
+              return node
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function elementIsSelectable(element) {
+    var prefixes = [
+      "-webkit-"
+    , "-khtml-"
+    , "-moz-"
+    , "-ms-"
+    , ""
+    ]
+    var style = window.getComputedStyle(element)
+
+    var selectable = prefixes.every(function check(key) {
+      key += "user-select"
+      return style[key] !== "none"
+    })
+
+    return selectable
+  }
+
+  function scrollIntoView(range) {
+    if (!range.getBoundingClientRect) {
+      return
+    }
+    
+      var rect = range.getBoundingClientRect()
+      var parentNode = range.startContainer.parentNode
+      scrollChildIntoView(parentNode, rect.top, rect.bottom)
+
+    function scrollChildIntoView(parentNode, top, bottom) {
+      var parentRect = parentNode.getBoundingClientRect()
+      var topAdjust = parentRect.top - top
+      var adjust = parentRect.bottom - bottom
+
+      if (topAdjust > 0) {
+        adjust = topAdjust
+        parentNode.scrollTop -= adjust
+
+      } else if (adjust < 0) {
+        adjust = Math.max(adjust, topAdjust)
+        parentNode.scrollTop -= adjust
+      } else {
+        adjust = 0
+      }
+
+      parentNode = parentNode.parentNode
+      top += adjust
+      bottom += adjust
+      if (parentNode !== document.body) {
+        scrollChildIntoView(parentNode, top, bottom)
+      } else {
+        scrollWindow(top, bottom)
+      }
+    }
+
+    function scrollWindow(top, bottom) {
+      var viewHeight = document.documentElement.clientHeight
+
+      if (top < 0) {
+        document.body.scrollTop += top
+        document.documentElement.scrollTop += top
+      } else if (bottom > viewHeight) {
+        document.body.scrollTop += bottom - viewHeight
+        document.documentElement.scrollTop += bottom
+                                            - viewHeight
+      }
+    }
+  }
+
+  function getLang(node) {
+    var lang = ""
+    var element = node
+
+    while (!element.closest) {
+      element = element.parentNode
+    }
+
+    element = element.closest("[lang]")
+
+    if (element) {
+      lang = element.getAttribute("lang")
+    }
+
+    return lang
+  }
+
+  function checkForAlteredTextNodes(mutations) {
+    var newTextMap = {} // { <lang>: [<string>, ...], ...}
+
+
+    mutations.forEach(populateNewTextArray)
+
+    SERVER.call("getWordSegmentation", newTextMap, updateWordsMap)
+
+    function populateNewTextArray(mutation) {
+      // http://stackoverflow.com/a/10730777/1927589     
+      var filter = {
+        acceptNode: function(node) {
+          var text = node.data
+          var lang
+            , map
+            , langArray
+
+          if (! /^\s*$/.test(text)) { // node must have non-whitespace
+            lang = getLang(node)
+
+            if (elementIsSelectable(node.parentNode)) {
+              if (map = wordsMap[lang]){// in a language that we map
+                if (!map[text]) {       // and not already be mapped
+                  if (!(langArray = newTextMap[lang])) {
+                    langArray = []
+                    newTextMap[lang] = langArray
+                  }
+
+                  langArray.push(text)
+                  map[text] = true
+                }
+              }
+            }
+          }
+        }
+      }
+      var walker = document.createTreeWalker(
+        mutation.target
+      , NodeFilter.SHOW_TEXT
+      , filter
+      )
+      var textNode
+
+      while (textNode = walker.nextNode()) {
+        // Action occurs in filter.acceptNode       
+      }      
+    }
+  }
+
+  function updateWordsMap(error, result) {
+    // <error>
+    // <result> { <lang>: [{
+      //              "text": <string>
+      //            , "offsets": [[<startOffset>, <length>], ...]
+      //            }
+    //            , ...
+    //            ]
+    //          , ...
+    //          }
+    
+    if (error) {
+      return console.log(error) // TODO
+    }
+
+    var lang
+      , langArray
+      , langMap
+      , ii
+      , textData
+
+    for (lang in result) {
+      langMap = wordsMap[lang]
+      langArray = result[lang]
+
+      ii = langArray.length
+      while (ii--) {
+        textData = langArray[ii]
+        langMap[textData.text] = textData.offsets
+      }
+    }
   }
 })()
