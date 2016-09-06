@@ -547,7 +547,7 @@ console.log(<span class="new">dico.splitIntoWords("lookforaneedleinthesea", "enx
   </ul>
 
   <h3>Adding words</h3>
-  <p>The algorithm will step through the string and tunnel into the trie until it has created the string "look". At this point, it will encounter a {"$": true} object. This tells it to add the word "look" to its current <code>words</code> list, and to set a flag to say that at least one word has been found. Since an array is special kind of object, it can add a property to the array: it adds an <code>index</code> key with a value equal to the length of the string read so far. You'll see in a moment how this is used.</p>
+  <p>The algorithm will step through the string and tunnel into the trie until it has created the string "look". At this point, it will encounter a <code>{"$": true}</code> object. This tells it to add the word "look" to its current <code>words</code> list, and to set a flag to say that at least one word has been found. Since an array is special kind of object, it can add a property to the array: it adds an <code>index</code> key with a value equal to the length of the string read so far. You'll see in a moment how this is used.</p>
 
   <h3>Preparing alternatives</h3>
   <p>The <code>splitIntoWords</code> algorithm is greedy: it will keep looking for the longest word that fits, and this may lead it into a blind alley. To test this, you'll find the nonsense word "forane" in the dictionary. After finding "look", the algorithm keeps moving forward. When it has read "for", it will find an object with both a <code>"$": true</code> key pair and the key "a", with a submap that it can continue to follow.</p>
@@ -600,6 +600,8 @@ console.log(<span class="new">dico.splitIntoWords("lookforaneedleinthesea", "enx
     <p>You'll create a series of regular expressions to detect any of these boundaries, and use them to determine places where there must be a syllable boundary.</p>
     <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/05_rules.zip" target="source" class="unselectable">Download the source files</a> <a href="source/05_rules/" target="test" class="unselectable">Test Here</a>
   </div>
+
+  <p class="aside kudos">The approach described in this section is inspired by the <a href="http://not.siit.net/members/art/thaiwrap.html">ThaiWrap bookmarklet / ตัวตัดบรรทัดข้อความไทย</a> written by Arthit Suriyawongkul / อาทิตย์ สุริยะวงศ์กุล</p>
 
   <h3>Initial and final letters in Thai</h3>
   <p>In English, you are used to seeing vowel sounds that are with multiple vowel characters. For example: "fair" and "fire". In the word "fire", the final "e" appears after the last consonant, but it is not pronounced. Instead, its existence changes the sound of the preceding "i".</p>
