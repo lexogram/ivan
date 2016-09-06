@@ -39,7 +39,7 @@
 
     var selectable = prefixes.every(function check(key) {
       key += "user-select"
-      return style[key] !== "none"
+      return style.getPropertyValue(key) !== "none"
     })
 
     return selectable

@@ -1987,12 +1987,12 @@ function getFirstTextNode(node) {
 ;(function selectWholeWordsWithHyphens(){
   <span class="omit">// code omitted for clarity</span>
 
-  <span class="new">function scrollIntoView(range) {
-    if (!range.getBoundingClientRect) {
+  <span class="new">function scrollIntoView(node) {
+    if (!node.getBoundingClientRect) {
       return
     }
     
-    var rect = range.getBoundingClientRect()
+    var rect = node.getBoundingClientRect()
     var viewHeight = document.documentElement.clientHeight
 
     if (rect.top &lt; 0) {
@@ -2138,43 +2138,43 @@ function getFirstTextNode(node) {
     var rect = range.getBoundingClientRect()
     <span class="new">var parentNode = range.startContainer.parentNode
     scrollChildIntoView(parentNode, rect.top, rect.bottom)
-  }
 
-  function scrollChildIntoView(parentNode, top, bottom) {
-    var parentRect = parentNode.getBoundingClientRect()
-    var topAdjust = parentRect.top - top
-    var adjust = parentRect.bottom - bottom
+    function scrollChildIntoView(parentNode, top, bottom) {
+      var parentRect = parentNode.getBoundingClientRect()
+      var topAdjust = parentRect.top - top
+      var adjust = parentRect.bottom - bottom
 
-    if (topAdjust > 0) {
-      adjust = topAdjust
-      parentNode.scrollTop -= adjust
+      if (topAdjust > 0) {
+        adjust = topAdjust
+        parentNode.scrollTop -= adjust
 
-    } else if (adjust &lt; 0) {
-      adjust = Math.max(adjust, topAdjust)
-      parentNode.scrollTop -= adjust
-    } else {
-      adjust = 0
+      } else if (adjust &lt; 0) {
+        adjust = Math.max(adjust, topAdjust)
+        parentNode.scrollTop -= adjust
+      } else {
+        adjust = 0
+      }
+
+      parentNode = parentNode.parentNode
+      top += adjust
+      bottom += adjust
+      if (parentNode !== document.body) {
+        scrollChildIntoView(parentNode, top, bottom)
+      } else {
+        scrollWindow(top, bottom)
+      }
     }
 
-    parentNode = parentNode.parentNode
-    top += adjust
-    bottom += adjust
-    if (parentNode !== document.body) {
-      scrollChildIntoView(parentNode, top, bottom)
-    } else {
-      scrollWindow(top, bottom)
-    }
-  }
+    function scrollWindow(top, bottom) {</span>
+      var viewHeight = document.documentElement.clientHeight
 
-  function scrollWindow(top, bottom) {</span>
-    var viewHeight = document.documentElement.clientHeight
-
-    if (<span class="new">top</span> &lt; 0) {
-      document.body.scrollTop += <span class="new">top</span>
-      document.documentElement.scrollTop += <span class="new">top</span>
-    } else if (bottom > viewHeight) {
-      document.body.scrollTop += <span class="new">bottom</span> - viewHeight
-      document.documentElement.scrollTop += <span class="new">bottom</span> - viewHeight
+      if (<span class="new">top</span> &lt; 0) {
+        document.body.scrollTop += <span class="new">top</span>
+        document.documentElement.scrollTop += <span class="new">top</span>
+      } else if (bottom > viewHeight) {
+        document.body.scrollTop += <span class="new">bottom</span> - viewHeight
+        document.documentElement.scrollTop += <span class="new">bottom</span> - viewHeight
+      }
     }
   }
 })()</span></pre>
@@ -2399,6 +2399,7 @@ function getFirstTextNode(node) {
 
   <p>This all works well in  languages that read from left to right and that use spaces to separate words, such as the languages of Europe. To get this feature to work in other languages, more work needs to be done. To continue with this topic, you might like to follow tutorial on using a dictionary <a href="https://en.wikipedia.org/wiki/Trie">trie</a> to help with <a href="../thai/">word segmentation in Thai</a>.</p>
 
+  <h3>Where to go from here</h3>
   <p>This feature was designed as a module for the <a href="../notebook/">Lexogram Notebook project</a>. If you are learning a foreign language, you can use the <a href="../annotations/">Annotation</a> extension when you visit a web page in the language you are learning. Any text that you select in that page will appear in a box in a popup window; selecting one word at a time in that box will open up a third-party language reference, such as <a href="https://www.wiktionary.org/">Wiktionary</a>, at the appropriate page. This feature is treated in more detail <a href="../reference/">here</a>.</p>
 
   <p>Congratulations on all you have learned!</p>

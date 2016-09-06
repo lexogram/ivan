@@ -15,7 +15,7 @@
 
     <nav>
       <ol>
-        <li><a href="#top">Overview</a></li></li>
+        <li><a href="#top">Overview</a></li>
         <li><a href="#dictionary">Defining a dictionary</a></li>
         <li><a href="#trie">Creating a trie</a></li>
         <li><a href="#detect">Detecting words</a></li>
@@ -23,7 +23,7 @@
         <li><a href="#async">Asynchronous calls</a></li>
         <li><a href="#mutation">Detecting text changes</a></li>
         <li><a href="#jump">Jump to adjacent words</a></li>
-        
+        <li><a href="#translate">Querying the dictionary</a></li>   
         <li><a href="#end">Conclusion</a></li>
       </ol>
     </nav>
@@ -55,9 +55,7 @@
       <li>Create an HTML file containing some Thai text and an English translation withnospacesbetweenwords</li>
       <li>Create a dictionary object for all the words in the Thai text and all the words that can be found in the English string.</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/02_dictionary.zip
-
-    02_dictionary.zip" target="source">Download the source files</a> <a href="source/02_dictionary/" target="test">Test here</a>
+    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/02_dictionary.zip" target="source" class="unselectable">Download the source files</a> <a href="source/02_dictionary/" target="test" class="unselectable">Test here</a>
   </div>
 
   <h3>Mimicking Thai text</h3>
@@ -240,7 +238,7 @@ var dico = {}
 })()</pre>
 
   <div class="test unselectable">
-    <a href="source/02_dictionary/" target="test">Test Here</a>
+    <a href="source/02_dictionary/" target="test" class="unselectable">Test Here</a>
   </div>
 
   <div class="aside next">In this section, you've created:
@@ -269,7 +267,7 @@ var dico = {}
     <ul>
       <li>Create a trie object</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/03_trie.zip" target="source">Download the source files</a>
+    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/03_trie.zip" target="source" class="unselectable">Download the source files</a>
   </div>
 
   <p>The word "trie" comes from the French word for "to choose, classify, filter, pick out, separate, sort". It also sounds like the English word "tree". In computing, it refers to a data structure than starts at a common root and divides multiple times to end in a unique leaf.</p>
@@ -320,7 +318,7 @@ var dico = {}
         chars = word.split("")
         path = trie
    
-        for (ii = 0, length = word.length; ii < length; ii += 1) {
+        for (ii = 0, length = word.length; ii &lt; length; ii += 1) {
           char = chars[ii]
           place = path[char]
    
@@ -378,7 +376,7 @@ var dico = {}
   <p>Note how the letters of the word "these" (shown in red) have been added to the <code>trie</code> object.</p>
 
   <div class="test unselectable">
-    <a href="source/03_trie/" target="test">Test Here</a>
+    <a href="source/03_trie/" target="test" class="unselectable">Test Here</a>
   </div>
 
   <div class="aside next">In this section, you've taken a flat dictionary object and created a branching trie object from it.
@@ -402,7 +400,7 @@ var dico = {}
   <div class="aside preview">In this section, you'll learn how to:<ul>
   <li>Use a trie object to analyze a string of text and split it into known words.</li>
   </ul>
-    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/04_detect.zip" target="source">Download the source files</a> <a href="source/04_detect/" target="test">Test Here</a>
+    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/04_detect.zip" target="source" class="unselectable">Download the source files</a> <a href="source/04_detect/" target="test" class="unselectable">Test Here</a>
   </div>
 
   <h3>Looking for known words</h3>
@@ -443,7 +441,7 @@ var dico = {}
 
       words.index = 0
 
-      for (var ii = 0, total = string.length; ii < total ; ii += 1) {
+      for (var ii = 0, total = string.length; ii &lt; total ; ii += 1) {
         char = string[ii]
         next = path[char]
 
@@ -530,7 +528,7 @@ console.log(<span class="new">dico.splitIntoWords("lookforaneedleinthesea", "enx
 , "th"))</span></pre>
 
   <div class="test unselectable">
-    <a href="source/04_detect/" target="test">Test Here</a>
+    <a href="source/04_detect/" target="test" class="unselectable">Test Here</a>
   </div>
 
   <p>The output in the Developer Console should look something like this:</p>
@@ -590,7 +588,7 @@ console.log(<span class="new">dico.splitIntoWords("lookforaneedleinthesea", "enx
 
 <!-- RULES -->
 <section id="rules">
-  <h2>A rule-based system for detecting syllables</h2>.</p>
+  <h2>A rule-based system for detecting syllables</h2>
   <div class="aside preview">Even in a language where there are no gaps between words, there are several places that are clearly boundaries between syllables. In this section, you'll learn about:
     <ul>
       <li>Characters that only appear at the beginning of a Thai syllable</li>
@@ -600,7 +598,7 @@ console.log(<span class="new">dico.splitIntoWords("lookforaneedleinthesea", "enx
       <li>Common Thai words that cannot be created by chance across a word boundary</li>
     </ul>
     <p>You'll create a series of regular expressions to detect any of these boundaries, and use them to determine places where there must be a syllable boundary.</p>
-    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/05_rules.zip" target="source">Download the source files</a> <a href="source/05_rules/" target="test">Test Here</a>
+    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/05_rules.zip" target="source" class="unselectable">Download the source files</a> <a href="source/05_rules/" target="test" class="unselectable">Test Here</a>
   </div>
 
   <h3>Initial and final letters in Thai</h3>
@@ -715,7 +713,7 @@ var dico = {}
           , start
           , end
 
-        for (ii = 0, total = regexes.length; ii < total; ii++) {
+        for (ii = 0, total = regexes.length; ii &lt; total; ii++) {
           regex = regexes[ii]
           adjust = adjustments[ii]
           while (result = regex.exec(string)) {
@@ -758,7 +756,7 @@ console.log(dico.splitIntoWords(
 ))</span></pre>
 
   <div class="test unselectable">
-    <a href="source/05_rules/" target="test">Test Here</a>
+    <a href="source/05_rules/" target="test" class="unselectable">Test Here</a>
   </div>
 
   <h3>Results</h3>
@@ -797,20 +795,20 @@ console.log(dico.splitIntoWords(
 <!-- ASYNC -->
 <section id="async">
   <h2>Asynchronous calls</h2>
-  <p>Correctly identifying word boundaries in Thai is not a task that is easy to perform in the browser. A better solution is to send the Thai text to a server for treatment, and to use the results as soon as they are available.</p>
+  <div class="top"><p>Correctly identifying word boundaries in Thai is not a task that is easy to perform in the browser. A better solution is to send the Thai text to a server for treatment, and to use the results as soon as they are available.</p>
   <p>Over the next three sections you will be learning to:</p>
   <ul>
     <li>Make an asynchronous call to a simulated server</li>
     <li>Make this call each time new Thai text is found in the web page, whether this is when the page is loaded or when new text is added on the fly</li>
     <li>Use the results of these calls to identify the neighbouring word when the arrow keys are pressed</li>
-  </ul>
+  </ul></div>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
       <li>Create an ASYNC object that behaves like <a href="https://docs.meteor.com/api/methods.html#Meteor-call" class="plain"><code>Meteor.call</code></a> in a Meteor environment, or as a wrapper for an plain AJAX call</li>
       <li>Add a <code>getWordSegmentation</code> method to your global <code>dico</code> object</li>
       <li>Test an asynchronous call to <code>getWordSegmentation</code> and observe the results in the Developer Console.</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/06_async.zip" target="source">Download the source files</a> <a href="source/06_async/" target="test">Test Here</a>
+    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/06_async.zip" target="source" class="unselectable">Download the source files</a> <a href="source/06_async/" target="test" class="unselectable">Test Here</a>
   </div>
 
   <h3>The ASYNC object</h3>
@@ -823,18 +821,16 @@ var ASYNC
 
 ;(function async(){
   ASYNC = {
-    call: function call(methodName) {
+    call: function call (methodName) {
       var method = this.methods[methodName]
-      var callback
-        , args
-        , result
+      var args = [].slice.call(arguments)
+      var callback = args.pop()
+      var result
         , error
-
+   
       if (typeof method === "function") {
-        args = [].slice.call(arguments)
         args.shift()
-
-        callback = args.pop()
+        
         if (typeof callback === "function") {
           <span class="comment">// Simulate asynchronous call</span>
           result = method.apply(this, args)
@@ -855,7 +851,14 @@ var ASYNC
           args.push(callback)
           return method.apply(this, args)
         }
-        
+
+      } else {
+        error = new Error("Unknown method: " + methodName)
+        if (typeof callback === "function") {
+          callback(error)
+        } else {
+          return error
+        }
       }
     }
 
@@ -1053,7 +1056,7 @@ var segment
           , segment
           , length
         
-        for (ii = 0; ii < total; ii += 1) {
+        for (ii = 0; ii &lt; total; ii += 1) {
           segment = segments[ii]
 
           if (regex.test(segment)) {
@@ -1140,10 +1143,10 @@ var segment
   </figure>
 
   <div class="test unselectable">
-    <a href="source/06_async/" target="test">Test Here</a>
+    <a href="source/06_async/" target="test" class="unselectable">Test Here</a>
   </div>
 
-  <div class="aside next">In this section, you've ...
+  <div class="aside next">In this section, you've made your <code>dictionaries.js</code> script behave asynchronously, is if it were on a server. In particular, you've
     <ul>
       <li>Created an <code>async.js</code> script that allows you to simulate an asynchronous call to a server</li>
       <li>Added a <code>getWordMap</code> method to your <code>dico</code> object that takes a string and a language code as in input and returns an array of start and end points of the words in the string</li>
@@ -1174,7 +1177,7 @@ var segment
       <li>Check whether the user can select the text in a given <code>textNode</code></li>
       <li>Maintain a map of word boundary data for all relevant <code>textNode</code>s on the page</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/07_mutate.zip" target="source">Download the source files</a> <a href="source/07_mutate/" target="test">Test Here</a>
+    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/07_mutate.zip" target="source" class="unselectable">Download the source files</a> <a href="source/07_mutate/" target="test" class="unselectable">Test Here</a>
   </div>
 
   <h3>Editing the <code>index.html</code> file</h3>
@@ -1225,7 +1228,7 @@ var segment
   &lt;script src="js/async.js"&gt;&lt;/script&gt;
   <span class="new">&lt;script src="js/selection.js"&gt;&lt;/script&gt;</span>
 &lt;/body&gt;
-&lt;/html&gt;</span></pre>
+&lt;/html&gt;</pre>
 
   <h3>Updating the dictionaries</h3>
   <p>This new version of <code>index.html</code> includes new words that you'll need to add to the dictionaries in the <code>dico</code> object:</p>
@@ -1275,9 +1278,9 @@ var segment
       , "silence": 0
       , "talk": 0
       , "the": 0
-   <span class="comment">// , "these": 0</span>
+   // , "these": 0
       , "to": 0
-   <span class="comment">// , "tot": 0</span>
+   // , "tot": 0
       , "tup": 0
       , "tuppence": 0
       , "up": 0
@@ -1415,7 +1418,7 @@ var segment
 
   var selectable = prefixes.every(function check(key) {
     key += "user-select"
-    return style[key] !== "none"
+    return style.getPropertyValue(key) !== "none"
   })
 
   return selectable
@@ -1565,7 +1568,7 @@ var segment
       <span class="comment">// TODO</span>
       console.log(error || JSON.stringify(result))
     }</span>
-  }</span>
+  }
 })()</pre>
 
   <p>For each <code>textNode</code>, the <code><span class="ymmv">filter.</span>acceptNode</code> function is called. This runs through the following checklist:</p>
@@ -1630,7 +1633,7 @@ var segment
    * @param  {Error|null}  error
    * @param  {null|object} result 
    *                       { &lt;lang&gt;: [
-   *                           { "text": <string>
+   *                           { "text": &lt;string&gt;
    *                           , "offsets": {
    *                               "starts": [&lt;integer&gt;, ...]
    *                             , "ends": [&lt;integers&gt;, ...]
@@ -1668,7 +1671,7 @@ var segment
 })()</pre>
 
   <div class="test unselectable">
-    <a href="source/07_mutate/" target="test">Test Here</a>
+    <a href="source/07_mutate/" target="test" class="unselectable">Test Here</a>
   </div>
 
   <div class="aside next">In this section, you've automated the process of getting word segmentation for Thai text. In particular you've:
@@ -1694,33 +1697,413 @@ var segment
 
 <!-- JUMP -->
 <section id="jump">
-  <h2>Title of section</h2>
-  <div class="aside preview">In this section, you'll learn how to:
+  <h2>Jump to adjacent words</h2>
+  <div class="top"><p>In the <a href="../selection/">Text Selection tutorial</a>, you can see how to develop a script named <code>selection.js</code> that allows you to use the arrow keys to select the word adjacent to the current selection.</p>
+  <p>The script developed in that tutorial only works with languages where words are separated by spaces. In this current tutorial, you have learned how to generate word segmentation data for a string of Thai text. Now you're ready to merge the two <code>selection.js</code> scripts so that you can use the arrow keys to jump to adjacent words in Thai text too.</p></div>
+  <div class="aside preview">In this section, you'll discover how to extend the <code>selection.js</code> script from the <a href="../selection/" class="plain">Text Selection tutorial</a> so that it also works with the Thai language. You see how to:
     <ul>
-      <li>Do stuff</li>
+      <li>Add the functions you have developed in this tutorial to the original <code>selection.js</code> script</li>
+      <li>Modify the <code>jumpLeft</code> and <code>jumpRight</code> functions of the original <code>selection.js</code> script so that they work with Thai text</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a> <a href="source/xxx/" target="test">Test Here</a>
+    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/08_jump.zip" target="source" class="unselectable">Download the source files</a> <a href="source/08_jump/" target="test" class="unselectable">Test Here</a>
   </div>
+  <p class="aside info">The original <code>selection.js</code> script is quite lengthy. This section shows only the parts of it where you need to make changes. It's a good idea to download the full source code and follow where the changes have been made.</p>
 
-  <h3>Subsection</h3>
-  <p>Stuff goes here</p>
+  <h3>Merging the two <code>selection.js</code> scripts</h3>
+  <p>The abridged code listing below shows where the code from your new <code>selection.js</code> script can be added to the original script. Note that the <code>jumpLeft</code> and <code>jumpRight</code> functions that you will be looking at here are different from those in the original version.</p>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised">"use strict"
+
+;(function selection(){
+  <span class="omit">// code omitted for clarity</span>
+
+  var box = document.<span class="new">body //</span> querySelector(".box")
+  <span class="new">var wordsMap = { th: {}, enx: {} }
+  var observer = new MutationObserver(checkForAlteredTextNodes)
+
+  observer.observe(document.body, { 
+    childList: true
+  , attributes: true
+  , subtree: true
+  })</span>
+
+  box.ondblclick = selectHyphenatedWords
+  document.body.onkeydown = jumpToNextWord
+
+  function selectHyphenatedWords(event) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function extendSelectionBackBeforeHypen(string, offset) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function extendSelectionForwardAfterHyphen(string, offset) { 
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function jumpToNextWord (event) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function jumpLeft() {
+    <span class="new">// code here will be edited</span>
+  }
+
+  function jumpRight() {
+    <span class="new">// code here will be edited</span>
+  }
+
+  function getAdjacentTextNode(node, whichSibling, arrayMethod) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function scrollIntoView(range) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  <span class="new">function getLang(node) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function elementIsSelectable(element) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function checkForAlteredTextNodes(mutations) {
+    <span class="omit">// code omitted for clarity</span>
+  }
+
+  function updateWordsMap(error, result) {
+    <span class="omit">// code omitted for clarity</span>
+  }</span>
+})()</pre>
+
+  <h3>Checking <code>lang</code> in <code>jumpLeft</code></h3>
+  <p>The technique that you will use for selecting the adjacent word will be different when the language is Thai. The code listing below shows how <code>jumpLeft</code> can be split into two internal functions: <code>jumpLeftWithRegex</code>, which behaves use almost exactly the same code as the original <code>jumpLeft</code> function, and <code>jumpLeftWithMap</code> which will use the data in the <code>wordsMap</code> object. A <code>switch</code> statement uses the <code>lang</code> attribute applied to the container node to determine which approach should be taken.</p>
+  <p>Note the minor change in the <code>jumpLeftWithRegex</code> function. If the current word is the first in the current container, word to select will be in the previous textNode. It's possible that the previous textNode is in a different language, and the <code>jumpLeftWithRegex</code> function might not be appropriate for that language.</p>
+  <p>The solution is to:
+  <ul>
+  <li>Create a new <code>range</code> object (so that the selection is not changed if there is nothing earlier to select)</li>
+  <li>Place the <code>range.endOffset</code> at the end of the previous textNode</li>
+  <li>Call the parent <code>jumpLeft</code> function recursively.</li>
+  </ul>
+  <p>The <code>endOffset</code> cannot be placed earlier than the <code>startOffset</code>, so <code>startOffset</code> is now set to exactly the same point. You'll see the importance of this in a moment. This technique ensures that the function used for selecting the last word in the previous textNode is appropriate for the language of that node.</p>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised"><span class="omit">...</span>
+
+  function jumpLeft() {
+    container = range.endContainer
+    <span class="new">var lang = getLang(container)
+
+    switch (lang) {
+      case "th":
+      case "enx":
+        return jumpLeftByMap(container)
+      default:
+        return jumpLeftByRegex(container)
+    }
+
+    function jumpLeftByMap(container) {
+      <span class="comment">// TODO</span>
+    }
+
+    function jumpLeftByRegex(container) {</span>
+      var string = container.textContent
+      var result = getPreviousWord(string, range.startOffset)
+      var startOffset
+        , endOffset
+        , rangeData
+
+      if (!result) {
+        <span class="comment">// There are no more words in this text node. Try the previous.</span>
+        container = getAdjacentTextNode(
+          container
+        , "previousSibling"
+        , "pop"
+        )
+
+        if (container) {
+          <span class="new">range = document.createRange()
+          range.setEnd(container, container.textContent.length)
+          return jumpLeft()</span>
+
+        } else {
+          <span class="comment">// We're at the very beginning of the selectable text. 
+          // There's nothing earlier to select.</span>
+          return
+        }
+      }
+
+      startOffset = result.index
+      endOffset = startOffset + result[0].length
+
+      rangeData = {
+        container: container
+      , startOffset: startOffset
+      , endOffset: endOffset
+      , string: string
+      }
+
+      return rangeData
+
+      function getPreviousWord(string, offset) {
+        string = string.substring(0, offset)
+        var result
+          , temp
+
+        while (temp = lastWordRegex.exec(string)) {
+          result = temp
+        }
+
+        return result
+      }
+    <span class="new">}</span>
+  }
+
+<span class="omit">...</span></pre>
+
+  <h3><code>jumpLeftByMap</code></h3>
+  <p>The <code>jumpLeftByMap</code> function first checks that there is an entry in <code>wordsMap</code> for the textContent of the current node. If the server has not yet called back with the result of the <code>getWordSegmentation</code> call, then the only solution is to cancel the action.</p>
+  <p class="aside issue">In a production version of this feature, it would be good to <a href="https://github.com/lexogram/openbook/issues/3">show a tooltip or a spinner</a> to justify why nothing is happening.</p>
+  <p>If the server has already responded, then <code>endOffset</code> is set to <code>range.endOffset + (range.startOffset === string.length)</code> and the function <code>setOffsets</code> is called to set the values of <code>startOffset</code> and <code>endOffset</code> as required to select the previous word.</p>
+  <p>In most cases, <code>range.startOffset === string.length</code>  will be <code>false</code> so <code>endOffset</code> will be set to <code>range.endOffset</code>. When <code>jumpLeft</code> is called recursively because the current selection is the first word in the next textNode, then the instruction <code>range.setEnd(container, container.textContent.length)</code> described above will also set the <code>startOffset</code> to the end of the previous container. In this case <code>range.startOffset === string.length</code> will be <code>true</code> and <code>endOffset</code> will be set to <code>range.endOffset + 1</code>. This ensures that the <code>setOffsets</code> function will correctly choose the start and end offsets for the last word in the current container.</p>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre><span class="omit">...</span>
+
+    function jumpLeftByMap(container) {
+      var string = container.textContent
+      var wordMap = wordsMap[lang][string]
+      if (typeof wordMap !== "object")) {
+        return console.log("No word map for ", string)
+      }
+      var wordEnds = wordMap.ends
+      var wordStarts = wordMap.starts
+      var endOffset = range.endOffset
+                    + (range.startOffset === string.length)
+      var startOffset
+      var rangeData
+      var result = setOffsets(endOffset)
+
+      if (!result) { 
+        <span class="comment">// TODO</span>
+      }
+
+      rangeData = {
+        container: container
+      , startOffset: startOffset
+      , endOffset: endOffset
+      , string: string
+      }
+
+      return rangeData
+
+      function setOffsets(offset) {
+        var ii = wordEnds.length
+
+        while (ii--) {
+          if ((endOffset = wordEnds[ii]) &lt; offset) {
+            startOffset = wordStarts[ii]
+            ii = 0
+          }
+        }
+
+        return (startOffset !== undefined)
+      }
+    }
+
+<span class="omit">...</span></pre>
+
+  <h3><code>setOffsets</code></h3>
+  <p>The <code>wordEnds</code> variable is an array of index numbers of the next character after the end of each word. For the sentence "lookforaneedleinthesea" <code>wordEnds</code> will be <code>[4,7,8,14,16,19,22]</code>. The <code>setOffsets</code> function receives an offset which may be the current <code>range.endOffset</code> (if a word in this textNode is already selected), or the-last-item-in-<code>wordEnds</code>-plus-1 (if the first word in the next textNode is selected). It works backwards from the end of the <code>wordEnds</code>, looking for the first number that is smaller. If it finds such a number, it sets <code>startOffset</code>to the corresponding entry in <code>wordStarts</code>. However, if the first word in the current textNode is selected, then it won't find a smaller number, and <code>startOffset</code> will remain undefined. When this happens, <code>setOffsets</code> will return <code>false</code>. This will trigger a recursive jump to the previous textNode, as you'll see below.</p>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised"><span class="omit">...</span>
+
+    function jumpLeftByMap(container) {
+      var string = container.textContent
+      var wordMap = wordsMap[lang][string]
+      if (!wordMap) {
+        return console.log("No word map for ", string)
+      }
+      var wordEnds = wordMap.ends
+      var wordStarts = wordMap.starts
+      var endOffset = range.endOffset
+                    + (range.startOffset === string.length)
+      var startOffset
+      var rangeData
+      var result = setOffsets(endOffset)
+
+      if (!result) {     
+        <span class="new">container = getAdjacentTextNode(
+          container
+        , "previousSibling"
+        , "pop"
+        )
+
+        if (container) {
+          range = document.createRange()
+          range.setEnd(container, container.textContent.length)
+          return jumpLeft()
+
+        } else {
+          <span class="comment">// We're at the very beginning of the selectable text.
+          // There's nothing earlier to select.</span>
+          return
+        }</span>
+      }
+
+      rangeData = {
+        container: container
+      , startOffset: startOffset
+      , endOffset: endOffset
+      , string: string
+      }
+
+      return rangeData
+
+      function setOffsets(offset) {
+        <span class="omit">// code omitted for clarity</span>
+      }
+    }
+<span class="omit">...</span></pre>
+
+  <p>The technique for jumping back to the previous textNode is identical to the way it is done in <code>jumpLeftByRegex</code> </p>
+
+  <h3>Jumping to the right</h3>
+  <p>Jumping to the right works in a very similar way.</p>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised">...
+
+  function jumpRight() {
+    container = range.startContainer
+    <span class="new">var lang = getLang(container)
+
+    switch (lang) {
+      case "th":
+      case "enx":
+        return jumpRightByMap(container)
+      default:
+        return jumpRightByRegex(container)
+    }
+
+    function jumpRightByMap(container) {
+      var string = container.textContent
+      var wordMap = wordsMap[lang][string]
+      if (typeof wordMap !== "object") {
+        return console.log("No word map for ", string)
+      }
+      var wordEnds = wordMap.ends
+      var wordStarts = wordMap.starts
+      var startOffset = range.startOffset - (!range.endOffset)
+      var endOffset
+      var rangeData
+      var result = setOffsets(startOffset)
+
+      if (!result) {     
+        container = getAdjacentTextNode(
+          container
+        , "nextSibling"
+        , "shift"
+        )
+
+        if (container) {
+          range = document.createRange()
+          range.setStart(container, 0)
+          return jumpRight()
+
+        } else {
+          // We're at the very beginning of the selectable text.
+          // There's nothing earlier to select.
+          return
+        }
+      }
+
+      rangeData = {
+        container: container
+      , startOffset: startOffset
+      , endOffset: endOffset
+      , string: string
+      }
+
+      return rangeData
+
+      function setOffsets(offset) {
+        var ii
+        var length = wordStarts.length
+
+        for (ii = 0; ii &lt; length; ii += 1) {
+          if ((startOffset = wordStarts[ii]) > offset) {
+            endOffset = wordEnds[ii]
+            ii = length
+          }
+        }
+
+        return (endOffset !== undefined)
+      }
+    }
+
+    function jumpRightByRegex(container) {</span>
+      var startOffset = range.endOffset
+      var string = container.textContent
+      var result = nextWordRegex.exec(string.substring(startOffset))
+      var endOffset
+        , rangeData
+
+      if (result) {
+        startOffset += result[0].length
+
+      } else {
+        // There are no more words in this text node. Try the next.
+        container = getAdjacentTextNode(
+          container
+        , "nextSibling"
+        , "shift"
+        )
+
+        if (container) {
+          <span class="new">range = document.createRange()
+          range.setStart(container, 0)
+          return jumpRight()</span>
+
+        } else {
+          // We're at the very end of the selectable text. There's
+          // nothing more to select.
+          return
+        }
+      }
+
+      result = wordEndRegex.exec(string.substring(startOffset))
+      endOffset = startOffset + result.index
+
+      rangeData = {
+        startOffset: startOffset
+      , endOffset: endOffset
+      , string: string
+      }
+
+      return rangeData
+    }
+  }</pre>
+
+  <p>You can now double-click on a word to select it and use the left and right arrow keys to move the selection to the adjacent word.</p>
 
   <div class="test unselectable">
-    <a href="CHANGE_MY_NAME/" target="test">Test Here</a>
+    <a href="source/08_jump/" target="test" class="unselectable">Test Here</a>
   </div>
 
-  <div class="aside next">In this section, you've ...
-    <ul>
-      <li>Done things</li>
-      <li>Learnt ideas</li>
-    </ul>
-    <p>In the <a href="#end">next section</a>, you'll ....</p>
+  <div class="aside next">In this section, you've added the functions that you recently created in your <code>selection.js</code> script with the <code>selection.js</code> script from an earlier tutorial. You've split the <code>jumpLeft</code> and <code>jumpRight</code> functions to create two ways to select the adjacent word, depending on the language.
+  <p>In the <a href="#translate">next section</a>, you'll see how to simulate querying the server for the translation of the selected word.</p>
   </div>
 
   <footer>
     <ul class="nav">
       <li>
-        <a href="#end">
+        <a href="#translate">
          <img src="../img/arrow.png" alt="next"/>
         </a>
       </li>
@@ -1728,30 +2111,310 @@ var segment
   </footer>
 </section>
 
-<!-- NEXT -->
-<section id="next">
-  <h2>Title of section</h2>
+<!-- TRANSLATE -->
+<section id="translate">
+  <h2>Querying an online dictionary</h2>
   <div class="aside preview">In this section, you'll learn how to:
     <ul>
-      <li>Do stuff</li>
+      <li>Query the <code>dico</code> object asynchronously the translation of the current selection</li>
+      <li>Display the translation in your web page</li>
+      <li>Cache translations in order to display them faster the second and subsequent times they are requested</li>
     </ul>
-    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/CHANGE_MY_NAME.zip" target="source">Download the source files</a> <a href="source/xxx/" target="test">Test Here</a>
+    <a href="https://github.com/lexogram/openbook/raw/gh-pages/thai/source/zips/09_translate.zip" target="source" class="unselectable">Download the source files</a> <a href="source/09_translate/" target="test" class="unselectable">Test Here</a>
   </div>
 
-  <h3>Subsection</h3>
-  <p>Stuff goes here</p>
+  <h3>Simplifying <code>index.hmtl</code></h3>
+  <p>In this final section, you can simplify your <code>index.html</code> file by removing all the text in EnglishNoSpaces. To limit the action of the word selection feature, you can create a box around the Thai text. You can also add a &lt;div&gt; element to contain the translation, when it becomes available.</p>
+
+  <h4><code>index.html</code></h4>
+  <pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Selecting Thai words&lt;/title&gt;
+  &lt;link rel="stylesheet" type="text/css" href="css/style.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;h1&gt;Word Segmentation Test&lt;/h1&gt;
+  <span class="new">&lt;p&gt;Select a Thai word to see its pronounciation and
+  translation.&lt;/p&gt;
+  &lt;div class="box"&gt;
+    &lt;p lang="th"&gt;งมเข็มในมหาสมุทร พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง
+    ตากลม ตา&#8203;กลม&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div id="translation"&gt;&lt;div&gt;</span>
+
+  &lt;script src="js/dictionaries.js"&gt;&lt;/script&gt;
+  &lt;script src="js/async.js"&gt;&lt;/script&gt;
+  &lt;script src="js/selection.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+  <p>You can add some cosmetic CSS, to make the page more elegant.</p>
+
+  <h4><code>css/style.css</code></h4>
+  <pre class="revised">body {
+  width: 22em;
+}
+
+<span class="new">.box {
+background-color: #eef;
+border: 1px solid #ccf;
+border-style:inset;
+}
+.box p {
+  margin: 0.5em;
+}
+
+dt {
+  font-weight: bold;
+}</span></pre>
+
+  <h3>Adding a <code>getWordData</code> method to the dictionary</h3>
+  <p>The <code>th</code> entry in your dictionary is a map object where the keys are Thai words and the values are objects with the format:</p>
+  <pre>{ pronunctiation: &lt;string&gt;
+  , translation: &lt;string&gt;
+  }</pre>
+
+  <p>You can add a <code>getWordData</code> method to the <code>dico</code> object that will return an object with the format:</p>
+  <pre>{ pronunctiation: &lt;string&gt;
+  , translation: &lt;string&gt;
+  , word: &lt;string&gt;
+  , lang: &lt;string&gt;
+  }</pre>
+
+  <p>However, if a request is made for a word that doesn't exist, or for a language for which there is no dictionary, it makes sense to return an object with the format ...</p>
+  <pre>{ 
+  , ⚠: "no data available"
+  , word: &lt;string&gt;
+  , lang: &lt;string&gt;
+  }</pre>
+  <p>... where ⚠ is encoded in JavaScript as <code>"\u26A0"</code>.</p>
+  <p class="aside tip">A fast way to make a deep clone of a JavaScript object is to use <code><span class="ymmv">clone</span> = JSON.parse(JSON.stringify(<span class="ymmv">original</span>))</code> </p>
+
+
+  <h4><code>js/dictionary.js</code></h4>
+  <pre class="revised">"use strict"
+
+var dico
+var segment
+
+;(function addDictionaries() {
+  dico = {
+
+    dictionaries: {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , tries: {}
+
+  , initialize: function createTries(){
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , createTrie: function createTrie(languageMap) {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , splitIntoWords: function splitIntoWords(string, languageCode) {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  , getWordMap: function getWordMap(string, languageCode) {
+      <span class="omit">// code omitted for clarity</span>
+    }
+
+  <span class="new">, getWordData: function getWordData(word, languageCode) {
+      var dictionary = this.dictionaries[languageCode]
+      var data
+
+      if (dictionary) {
+        data = dictionary[word]
+        if (data) {
+          data = JSON.parse(JSON.stringify(data))
+        } else {
+          data = { "\u26A0": "no data available" }
+        }
+        data.word = word
+        data.lang = languageCode
+      }
+
+      return data
+    }</span>
+  }.initialize()
+
+  segment = {
+    <span class="omit">// code omitted for clarity</span>
+  }
+})()</pre>
+
+  <h3>Defining an asynchronous method for calling <code>dico.getWordData</code></h3>
+  <p>To call <code>dico.getWordData</code> asynchronously, you can add the following <code>getTranslation</code> method to your <code>ASYNC</code> object:</p>
+
+  <h4><code>js/async.js</code></h4>
+  <pre class="revised">"use strict"
+
+var ASYNC
+
+;(function async(){
+  ASYNC = {
+    <span class="omit">// code omitted for clarity</span>
+    }
+
+  , methods: {
+      getWordSegmentation: function getWordSegmentation(map) {
+        <span class="omit">// code omitted for clarity</span>
+      }
+
+    <span class="new">, getTranslation: function getTranslation(word, languageCode) {
+        try {
+          return dico.getWordData(word, languageCode)
+        } catch (error) {
+          return error
+        }
+      }
+    }
+  }</span>
+})()</pre>
+
+  <h3>Updating <code>selection.js</code></h3>
+  <p>With all these changes in place, you can now add a <code>requestTranslation</code> function to your <code>selection.js</code> script. You can add calls to this from 3 places:</p>
+  <ul>
+  <li>Any mouseup event on the <code>div.box</code> element, in case the user clicks and drags to make a custom selection</li>
+  <li>Any dblclick event on the <code>div.box</code> element, after a complete word (which may contain hyphens) is selected</li>
+  <li>Any time the user presses the left or right arrow key to select a new word</li>
+  </ul>
+
+  <p>As you will see in the code listing below, the <code>requestTranslation</code> function can work both asynchronously and synchronously. A <code>wordsCache</code> object is created when the code is loaded. The <code>requestTranslation</code> function first checks if this <code>wordsCache</code> object already contains an entry for the selected word and language. If not, it makes a call to <code>ASYNC.call("getTranslation", <span class="ymmv">...</span>)</code>, using the nested <code>showTranslation</code> function as a callback. If the <code>wordsCache</code> object already contains an entry for the word, the <code>showTranslation</code> function is called immediately, with the <code>alreadyCached</code> argument set to <code>true</code>.</p>
+  <p>If the translation is retrieved via the asynchronous call to <code>ASYNC.call("getTranslation", <span class="ymmv">...</span>)</code>, the <code>alreadyCached</code> argument will be <code>undefined</code>, and the incoming data will be added to <code>wordsCach</code>, so that it can be retrieved locally the next time. If the selection has changed in the meantime, the operation ends there. If the selected is string is identical to the <code>word</code> property of the incoming <code>data</code> object, then a header and a description list element (<code>&lt;dl&gt;</code>) are created to show information about the word, and displayed in the <code>div#translation</code> element.</p>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised">;(function selection(){
+  <span class="omit">// code omitted for clarity</span>
+
+  var box = document.<span class="new">querySelector(".box")
+  var wordsCache = {}</span>
+  var wordsMap = { th: {}, enx: {} }
+  var observer = new MutationObserver(checkForAlteredTextNodes)
+
+  observer.observe(document.body, { 
+    childList: true
+  , attributes: true
+  , subtree: true
+  })
+
+  <span class="new">box.onmouseup = requestTranslation</span>
+  box.ondblclick = selectHyphenatedWords
+  document.body.onkeydown = jumpToNextWord
+
+  function selectHyphenatedWords(event) {
+    <span class="omit">// code omitted for clarity</span>
+
+    if (selectionUpdated) {
+      selection.removeAllRanges()
+      selection.addRange(range)
+    }
+
+    scrollIntoView(range)
+    <span class="new">requestTranslation()</span>
+  }
+
+  <span class="omit">// code omitted for clarity</span>
+
+  function jumpToNextWord (event) {
+    <span class="omit">// code omitted for clarity</span>
+
+    selection.removeAllRanges()
+    selection.addRange(range)
+    scrollIntoView(range)
+    <span class="new">requestTranslation()</span>
+  }
+  
+  <span class="omit">// code omitted for clarity</span>
+
+  <span class="new">function requestTranslation() {
+    var word = selection.toString()
+    var lang = getLang(selection.getRangeAt(0).startContainer)
+    var data
+
+    // Ignore word if it is all whitespace
+    word = word.match(lastWordRegex)
+    if (word) {
+      word = word[0]
+    } else {
+      return
+    }
+
+    if ((data = wordsCache[lang]) &amp;&amp; (data = data[word])) {
+      return showTranslation(null, data, true)
+    }
+    
+    ASYNC.call("getTranslation", word, lang, showTranslation)
+
+    function showTranslation (error, data, alreadyCached) {
+      if (error) {
+        return console.log(error)
+      }
+
+      var pTranslation = document.getElementById("translation")
+      var string
+        , word
+        , lang
+
+      if (data) {
+        word = data.word
+        lang = data.lang
+        if (!alreadyCached) {
+          addToWordsCache(lang, word, data)
+        }
+
+        if (word !== selection.toString()) {
+          return
+        }
+
+        string = "&lt;h3&gt;" + word + "&lt;/h3&gt;&lt;dl&gt;"
+
+        for (var key in data) {
+          if (key !== "word" &amp;&amp; key !== "lang") {
+            string += "&lt;dt&gt;" + key + "&lt;/dt&gt;"
+            string += "&lt;dd&gt;" + data[key] + "&lt;/dd&gt;"
+          }
+        }
+
+        string += "&lt;/dl&gt;"
+      }
+
+      pTranslation.innerHTML = string
+    }
+
+    function addToWordsCache(lang, word, data) {
+      var langMap = wordsCache[lang]
+      if (!langMap) {
+        langMap = {}
+        wordsCache[lang] = langMap
+      }
+
+      langMap[word] = data
+    }
+  }</span>
+})()</pre>
 
   <div class="test unselectable">
-    <a href="CHANGE_MY_NAME/" target="test">Test Here</a>
+    <a href="source/09_translate/" target="test" class="unselectable">Test Here</a>
   </div>
 
-  <div class="aside next">In this section, you've ...
-    <ul>
-      <li>Done things</li>
-      <li>Learnt ideas</li>
-    </ul>
-    <p>In the <a href="#end">next section</a>, you'll ....</p>
-  </div>
+  <h3>Testing</h3>
+  <p>After you save your changes and relaunch your web page, you can test the translation feature. You can try both double-clicking on a Thai word or clicking and dragging to make a custom selection.</p>
+  <div class="aside tip">See what happens when you:
+  <ul>
+  <li>Select the individual syllables "มหา" or "สมุทร" in the word "มหาสมุทร"</li>
+  <li>Select all the characters between two spaces, so that more than one word is selected</li>
+  <li>Use the right arrow key to jump to the next word. You can start by moving slowly from word to word, waiting until the asynchronous call returns, and then use the left arrow key to jump back to words whose translation has already been cached. You'll see that the response is much faster.</li>
+  </ul></div>
+
+  <p class="aside next">In this section, you've completed a simulation of calling a server in order to get both word boundary data and word definitions, using a number of techniques that you discovered earlier in this tutorial.</p>
 
   <footer>
     <ul class="nav">
@@ -1767,22 +2430,29 @@ var segment
 <!-- CONCLUSION -->
 <section id="end">
   <h2>Conclusion</h2>
+  <p>If you have made the effort to get this far, well done!</p>
   <div class="aside preview">Here's what you've learnt:
     <ul>
-      <li>98% of good stuff</li>
-      <li>2% salt</li>
+      <li>Finding word boundaries in certain languages requires a call to a dedicated application on a server</li>
+      <li>You can detect when the text on a page changes, and call the server after each change to obtain the word boundary data for the new text</li>
+      <li>You can cache the results of calls to the server to speed up future operations</li>
+      <li>You can use the word boundary data to determine the next and previous words, and use the arrow keys to jump between them.</li>
+      <li>You can query a database for information about the words</li>
     </ul>
   </div>
 
-  <p>Well done!</p>
+  <h3>Where to go from here</h3>
+  <p>The <a href="../reference/">Language Reference</a> tutorial builds on the techniques that you have learned here, to connect to a <a href="https://en.wiktionary.org">Wiktionary page</a> when you select a word in the box at the top of the NoteBook popup window.</p>
 </section>
 
 <!-- OVERVIEW  -->
 <section id="top">
   <h2>Overview</h2>
 
-  <p class="top">In a browser, you expect a double-click to select a whole word, regardless of which language that word is written in. A browser like Chrome, the word boundaries for many languages are automatically detected. Other browsers may fail to indentify word boundaries in non-European languages and select either syllables or whole phrases instead. If you want to select a whole word in such browsers, or without using a double-click, you need to know how to analyze text to find word boundaries.</p>
-  <p class="top">The aim of this tutorial is to develop a proof-of-concept system which will allow you to use the arrow keys to jump to neighbouring Thai words. As you will see, distinguishing boundaries between Thai words is best performed asynchronously on the server. This tutorial will show you how to create a minimal word boundary detection system that will run in your browser, and to make asynchronous calls to it, to simulate a connection to the server.</p>
+  <p class="top">This tutorial is part of a series that describes ho to build a Chrome extension that helps you to learn a foreign language. With the extension, any text you select in any web page will be copied to a pop-up window. If you select a word in the pop-up window, the appropriate Wiktionary page for that word will be shown in an iFrame. An <a href="../selection/">earlier tutoral</a> shows you how to get this to work for European languages, which use spaces as word boundaries. This tutorial shows you how to extend it to Thai (and by extension to other Asian languages), where no spaces are used between words.</p>
+  <p>In a browser, you expect a double-click to select a whole word, regardless of which language that word is written in. A browser like Chrome, the word boundaries for many languages are automatically detected. Other browsers may fail to indentify word boundaries in non-European languages and select either syllables or whole phrases instead. If you want to select a whole word in such browsers, or without using a double-click, you need to know how to analyze text to find word boundaries.</p>
+  <p>The aim of this tutorial is to develop a proof-of-concept system which will allow you to use the arrow keys to jump to neighbouring Thai words. As you will see, distinguishing boundaries between Thai words is best performed asynchronously on the server. This tutorial will show you how to create a minimal word boundary detection system that will run in your browser, and to make asynchronous calls to it, to simulate a connection to the server.</p>
+  <p>The final step is to simulate a connection to a server to retrieve the dictionary definition of the selected word.</p>
   <h3>Word boundaries</h3>
   <p>In spoken language, words tend to flow together. In a sentence like "We went on a long journey", you have to wait until the word "journey" is spoken before you can be sure that "a long" is two words. Conversely, if the sentence was "We went on along the road", you would need to wait until the word "the" to know that the same sounds were the single word "along".</p>
   <p>In many written languages, there are visual signs to indicate where words end. In European languages descended from Latin and Greek, a space is used between words, but there is still some ambiguity about whether "can't" is one word or two. In Arabic, letters have different shapes depending on whether they appear at the beginning, in the middle or the end of a word, as an additional clue.</p>
@@ -1796,7 +2466,7 @@ var segment
   <p>Word boundaries found in identical character sequences can depend on the meaning, which is inaccessible to anyone (including a computer) who does not speak the language. A classic example in Thai is ตากลม, which can be ตา|กลม (round eyes) or ตาก|ลม (exposed to the air). You see a similar kind of ambiguity in the following English sentences:</p>
   <ul>
   <li>Those who <em>died are devils</em></li>
-  <li>The <strong>do or <em>di</strong>e daredevils</em></li>
+  <li>The <strong>do or </strong><em><strong>di</strong>e daredevils</em></li>
   <li>The <strong>door di</strong>d no<em>t o</em>pen</li>
   </ul>
   <p>If this were written with no spaces, a machine or non-English speaker would have no way of knowing where to place the word boundaries. There are multiple ways of dividing the letters to yield real English words.</p>

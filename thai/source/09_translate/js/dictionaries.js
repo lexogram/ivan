@@ -319,7 +319,6 @@ var segment
 
       return { 
         text: string
-   // , segments: segments
       , offsets: offsets
       }
 
@@ -348,6 +347,24 @@ var segment
 
         return { starts: starts, ends: ends }
       }
+    }
+
+  , getWordData: function getWordData(word, languageCode) {
+      var dictionary = this.dictionaries[languageCode]
+      var data
+
+      if (dictionary) {
+        data = dictionary[word]
+        if (data) {
+          data = JSON.parse(JSON.stringify(data))
+        } else {
+          data = { "\u26A0": "no data available" }
+        }
+        data.word = word
+        data.lang = languageCode
+      }
+
+      return data
     }
   }.initialize()
 

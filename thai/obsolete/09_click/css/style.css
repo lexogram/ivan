@@ -1,0 +1,16 @@
+body {
+  width: 22em;
+}
+
+div {
+background-color: #eef;
+border: 1px solid #ccf;
+border-style:inset;
+}
+div p {
+  margin: 0.5em;
+}
+
+dt {
+  font-weight: bold;
+}

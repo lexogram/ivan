@@ -319,7 +319,6 @@ var segment
 
       return { 
         text: string
-   // , segments: segments
       , offsets: offsets
       }
 

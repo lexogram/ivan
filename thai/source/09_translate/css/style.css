@@ -1,0 +1,16 @@
+body {
+  width: 22em;
+}
+
+.box {
+background-color: #eef;
+border: 1px solid #ccf;
+border-style:inset;
+}
+.box p {
+  margin: 0.5em;
+}
+
+dt {
+  font-weight: bold;
+}

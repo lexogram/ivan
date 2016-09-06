@@ -237,9 +237,11 @@ font-weight: normal;
 .preview a.plain {
 margin: 0;
 padding: 0.1em;
+background-color: #ddd;
+border-color: #ddd;
 }
 .preview a.plain code {
-  background-color: #bdc4fb;
+  background-color: transparent;
 }
 .preview code{
 background-color: #e4e4e4;

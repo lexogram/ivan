@@ -1,0 +1,151 @@
+
+
+<!-- CLICK -->
+<section id="click">
+  <h2>Selecting a word with a single click</h2>
+  <div class="aside preview">In this section, you'll learn how to:
+  <ul>
+  <li>Adapt the <code>selectHyphenatedWords</code> function so that you can select a word with a single click.</li>
+  </ul> 
+    <a href="https://github.com/lexogram/notebook-extension/raw/master/tutorial/zips/09_click.zip" target="source" class="unselectable">Download the source files</a> <a href="source/09_click/" target="test" class="unselectable">Test Here</a>
+  </div>
+
+  <h3>Cross-browser compatibility</h3>
+  <p>In Firefox, there is no automatic detection of word boundaries in Thai. As a result, a double-click will select a whole Thai phrase: all the characters between two spaces. Normally in all browsers, a single click will reduce any existing selection to an invisible zero-width zero-character selection at the point where you click. The changes you will make in this section give a single click the effect of a double-click, with the added advantage of choosing the whole (hyphenated) word. A click-and-drag action, however, will behave just as usual.</p>
+
+  <h4><code>index.html</code></h4>
+  <pre class="revised">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Selecting Thai words&lt;/title&gt;
+  &lt;link rel="stylesheet" type="text/css" href="css/style.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;h1&gt;Word Segmentation Test&lt;/h1&gt;
+  pClick once on a word to select it. Use the left and right arrow keys to select the neighbouring words.&lt;/p&gt;
+  &lt;p lang="th"&gt;งมเข็มในมหาสมุทร พูดไปสองไพเบี้ย นิ่งเสียตำลึงทอง ตากลม  ตา&#8203;กลม&lt;/p&gt;
+  &lt;p lang="enx"&gt;lookforaneedleinthesea talkisworthtuppence silenceisworthgold exposedtotheair roundeye&lt;/p&gt;
+
+  &lt;script src="js/dictionaries.js"&gt;&lt;/script&gt;
+  &lt;script src="js/async.js"&gt;&lt;/script&gt;
+  &lt;script src="js/selection.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;<span class="new"></span></pre>
+
+  <h4><code>js/selection.js</code></h4>
+  <pre class="revised">"use strict"
+
+  <span class="omit">// code omitted for clarity</span>
+
+  box.onmouseup = selectHyphenatedWords
+  document.body.onkeydown = jumpToNextWord
+
+  function selectHyphenatedWords(event) {
+    if (!selection.rangeCount) {
+      return
+    } <span class="new">else if (event.detail === 2) {
+      event.preventDefault ? event.preventDefault()
+                           : (event.returnValue = false)
+      return
+    } else if (selection.anchorOffset !== selection.focusOffset
+            || selection.anchorNode !== selection.focusNode) {
+      // The user chose a custom selection
+      return
+    }</span>
+
+    selectionUpdated = false
+    range = selection.getRangeAt(0)
+    container = range.startContainer
+    var string = container.textContent
+    <span class="new">var lang = getLang(container)
+
+    switch (lang) {
+      case "th":
+      case "enx":
+        selectByMap()
+      break
+      default:
+        selectByRegex()
+    }</span>
+  
+    if (selectionUpdated) {
+      selection.removeAllRanges()
+      selection.addRange(range)
+    }
+
+    scrollIntoView(range)
+
+
+    <span class="new">function selectByRegex() {</span>
+      if (string.substring(range.startOffset, range.endOffset)
+                .search(edgeRegex) < 0) {
+        // There are no word characters selected
+        <span class="new">selectionUpdated = false
+        return
+      }</span>
+
+      extendSelectionBackBeforeHypen(string, range.startOffset)
+      extendSelectionForwardAfterHyphen(string, range.endOffset)
+    }
+
+    <span class="new">function selectByMap() {
+      var wordMap = wordsMap[lang]
+      if (wordMap) {
+        wordMap = wordMap[string]
+      }
+
+      if (typeof wordMap !== "object") {
+        return console.log("No word map for ", string)
+      }
+
+      var wordEnds = wordMap.ends
+      var wordStarts = wordMap.starts
+      var offset = range.startOffset // same as range.endOffset
+      var startOffset
+        , endOffset
+      var ii = wordEnds.length
+
+      while (ii-- &amp;&amp; !selectionUpdated) {
+        if ((endOffset = wordEnds[ii]) < offset) {
+          // The selection is not inside a word
+          ii = 0
+        } else {
+          if ((startOffset = wordStarts[ii]) &gt; offset) {             
+          } else {
+            range.setStart(container, startOffset)
+            range.setEnd(container, endOffset)
+            selectionUpdated = true
+          }
+        }
+      }
+    }</span>
+  }
+
+  <span class="omit">// code omitted for clarity</span>
+})()</pre>
+
+  <div class="test unselectable">
+    <a href="source/09_click/" target="test" class="unselectable">Test Here</a>
+  </div>
+
+  <div class="aside next">In this section, you've ...
+    <ul>
+      <li>Done things</li>
+      <li>Learnt ideas</li>
+    </ul>
+    
+    <p>In the <a href="#translate">last section</a>, you'll see how to query the server for the translation and pronounciation data for a selected Thai word.</p>
+  </div>
+
+  <footer>
+    <ul class="nav">
+      <li>
+        <a href="#translate">
+         <img src="../img/arrow.png" alt="next"/>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>

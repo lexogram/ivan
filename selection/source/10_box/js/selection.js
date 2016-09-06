@@ -338,52 +338,52 @@
     return selectable
   }
 
-  function scrollIntoView(range) {
-    if (!range.getBoundingClientRect) {
+    function scrollIntoView(node) {
+    if (!node.getBoundingClientRect) {
       return
     }
     
-    var rect = range.getBoundingClientRect()
-    var parentNode = range.startContainer.parentNode
+    var rect = node.getBoundingClientRect()
+    var parentNode = node.startContainer.parentNode
     scrollChildIntoView(parentNode, rect.top, rect.bottom)
-  }
 
-  function scrollChildIntoView(parentNode, top, bottom) {
-    var parentRect = parentNode.getBoundingClientRect()
-    var topAdjust = parentRect.top - top
-    var adjust = parentRect.bottom - bottom
+    function scrollChildIntoView(parentNode, top, bottom) {
+      var parentRect = parentNode.getBoundingClientRect()
+      var topAdjust = parentRect.top - top
+      var adjust = parentRect.bottom - bottom
 
-    if (topAdjust > 0) {
-      adjust = topAdjust
-      parentNode.scrollTop -= adjust
+      if (topAdjust > 0) {
+        adjust = topAdjust
+        parentNode.scrollTop -= adjust
 
-    } else if (adjust < 0) {
-      adjust = Math.max(adjust, topAdjust)
-      parentNode.scrollTop -= adjust
-    } else {
-      adjust = 0
+      } else if (adjust < 0) {
+        adjust = Math.max(adjust, topAdjust)
+        parentNode.scrollTop -= adjust
+      } else {
+        adjust = 0
+      }
+
+      parentNode = parentNode.parentNode
+      top += adjust
+      bottom += adjust
+      if (parentNode !== document.body) {
+        scrollChildIntoView(parentNode, top, bottom)
+      } else {
+        scrollWindow(top, bottom)
+      }
     }
 
-    parentNode = parentNode.parentNode
-    top += adjust
-    bottom += adjust
-    if (parentNode !== document.body) {
-      scrollChildIntoView(parentNode, top, bottom)
-    } else {
-      scrollWindow(top, bottom)
-    }
-  }
+    function scrollWindow(top, bottom) {
+      var viewHeight = document.documentElement.clientHeight
 
-  function scrollWindow(top, bottom) {
-    var viewHeight = document.documentElement.clientHeight
-
-    if (top < 0) {
-      document.body.scrollTop += top
-      document.documentElement.scrollTop += top
-    } else if (bottom > viewHeight) {
-      document.body.scrollTop += bottom - viewHeight
-      document.documentElement.scrollTop += bottom
-                                          - viewHeight
+      if (top < 0) {
+        document.body.scrollTop += top
+        document.documentElement.scrollTop += top
+      } else if (bottom > viewHeight) {
+        document.body.scrollTop += bottom - viewHeight
+        document.documentElement.scrollTop += bottom
+                                            - viewHeight
+      }
     }
   }
 })()
