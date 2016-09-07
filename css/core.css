@@ -860,26 +860,11 @@ user-drag: none;
 div.test {
 text-align: center;
 }
-/*div.test a {
-padding: 0.5em 1em;
-line-height: 3em;
-background-color: #ccf;
-text-decoration: none;
-color: #009;
-border: 1px solid #eef;
-border-right-color: #669;
-border-bottom-color: #669;
-border-radius: 0.5em;
+iframe{
+  width: 100%;
+  height: 180px;
+  border: 1px solid #eee;
 }
-div.test a:hover {
-  background-color: #ddf;
-}
-div.test a:active {
-  background-color: #bdc4fb;
-  border: 1px solid #669;
-  border-right-color: #ccf;
-  border-bottom-color: #ccf;
-}*/
 
 @media print
 {
