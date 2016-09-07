@@ -16,7 +16,7 @@
   var rowsWithMatches, matchesInRows;
   var timeout;
 
- function initialize() {
+  function initialize() {
     var button, turn;
 
     for (var ii=0; ii<rows.length; ii++) {
@@ -207,7 +207,7 @@
     var rowsWithMultipleMatches = 0;
     var rowToTakeFrom;
 
-    function checkMatchCounts() {
+    (function checkMatchCounts() {
       var matchesInRow;
       for (var ii=0; ii<matchesInRows.length; ii++) {
         matchesInRow = matchesInRows[ii];
@@ -225,6 +225,12 @@
             rowToTakeFrom = ii;
         }
       }
+    })()
+
+    if (rowsWithMultipleMatches < 2) {
+      createOddNumberOfRowsWithOneMatch();
+    } else {
+      reduceXORtoZero();
     }
 
     function createOddNumberOfRowsWithOneMatch() {
@@ -266,13 +272,6 @@
         taken = matchCount - leave;
         break;
       }
-    }
-
-    checkMatchCounts();
-    if (rowsWithMultipleMatches < 2) {
-      createOddNumberOfRowsWithOneMatch();
-    } else {
-      reduceXORtoZero();
     }
   }
 

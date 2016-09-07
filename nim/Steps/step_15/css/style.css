@@ -1,0 +1,14 @@
+body {
+  font-size: 10px;
+}
+
+.matches {
+  text-align: center;
+}
+.matches img{
+  width: 1em;
+  height: 10em;
+  padding: 1em;
+  background-color: gray;
+  border-radius: 1.5em;
+}
