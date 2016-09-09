@@ -16,8 +16,10 @@ position:absolute;
 width:100%;
 height:80%;
 bottom:0;
-background-color: #eee;
+background-color: #fcc;
 overflow: hidden;
+opacity: 0.25;
+pointer-events: none;
 }
 
 .lxo-panel {
@@ -72,45 +74,86 @@ transition: left 0.5s;
 
 #selection {
 background-color: #ccc;
-padding: 0.2em;
+padding: 0.25em;
 padding-bottom: 0;
 }
 
-p#original,
-div#translation {
-margin: 0.25em;
-border: 2px inset #ddd;
+#sync-scroll {
+position: absolute;
+right: 0;
+top: 0;
+visibility: hidden;
+} 
+#sync-scroll + label::before{
+position: absolute;
+top: 6px;
+right: 4px;
+width: 36px;
+height: 36px;
+background-image: url("../img/separate_scroll.png");
+content: "";
+cursor: pointer;
+}
+#sync-scroll:checked + label::before{
+background-image: url("../img/sync_scroll.png");
 }
 
-p#original {
-background-color: #fff;
-height: 2.25em;
+#selection p {
+margin: 2px 4px 6px;
+border: 1px inset #ddd;
 min-height: 2.25em;
-padding: 0.2em;
 overflow-y: auto;
+height: 2.25em;
+width: calc(100% - 50px);
+}
+
+div#original p {
+padding: 0.2em;
+background-color: #fff;
+}
+
+div#translation p {
+width: calc(100% - 8px);
+height: 0;
+min-height: 0;
 }
 
 div#translation {
 position: relative;
-/*background-color: #ccc;*/
 }
 
-div#translation  div {
-color: #666;
-height: 0;
+#toggle-translation {
+position: absolute;
+top: 0;
+left: 0;
+visibility: hidden;
 }
 
-div#translation p{
-width: calc(100% - 42px);
-height: 100%;
-overflow-y: auto;
-margin: 0 0 0 8px;
+#toggle-translation + label::before{
+position: absolute;
+top: -16px;
+left: -1px;
+font-family: asides;
+font-size: 2em;
+content: "\e805";
+cursor: pointer;
+}
+#toggle-translation:checked + label::before{
+top: -10px;
+left: -3px;
+content: "\e806";
+}
+
+#toggle-translation:checked ~ p {
+height: 2.25em;
+padding: 0.2em;
+width: calc(100% - 50px);
 }
 
 div#translation button {
 position: absolute;
 width: 36px;
-height: 100%;
+height: 36px;
 right: 0;
 bottom: 0;
 padding: 0;
@@ -119,35 +162,9 @@ background-size:contain;
 background-repeat: no-repeat;
 background-position: center;
 display: none;
+cursor: pointer;
 }
-
-div#translation input {
-position: absolute;
-top: 0;
-left: 0;
-visibility: hidden;
-}
-
-input + label::before{
-position: absolute;
-top: -18px;
-left: -13px;
-font-family: asides;
-padding: 0 0.5em 0 0.35em;
-font-size: 2em;
-content: "\e805";
-}
-input[type=checkbox]:checked + label::before{
-padding-right: 0.48em; /*To account for change in content */
-padding: 0.2em 0 0 0.15em;
-content: "\e806";
-}
-
-div#translation input[type=checkbox]:checked ~ div {
-height: 2.25em;
-padding: 0.2em;
-}
-div#translation input[type=checkbox]:checked ~ button {
+#toggle-translation:checked ~ button {
 display: block;
 }
 

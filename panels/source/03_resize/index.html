@@ -8,14 +8,21 @@
 <body>
 
 <div id="selection">
-  <p id="original">The hr element controls the height of the two translation paragraphs. It will collapse the taller field until it is the same height as the other, then collapse them both until they are 2 lines high. Pushing up further will hide the lower field, as if the disclosure triangle had been pressed (as a shortcut)</p>
+
+  <input type="checkbox" id="sync-scroll">
+  <label for="sync-scroll"></label>
+
+  <div id="original">
+    <p>The hr element controls the height of the two translation paragraphs. It will collapse the taller field until it is the same height as the other, then collapse them both until they are 2 lines high. Pushing up further will hide the lower field, as if the disclosure triangle had been pressed (as a shortcut)</p>
+  </div>
+
   <div id="translation">
-    <input type="checkbox" id="toggle-translation"/>
+    <input type="checkbox" id="toggle-translation" />
     <label for="toggle-translation"></label>
+
+    <p>L'élément hr contrôle la hauteur des deux points de traduction. Il va s'effondrer le champ plus grand jusqu'à ce qu'il soit à la même hauteur que l'autre, puis les réduire à la fois jusqu'à ce que <span> ils sont 2 lignes haute. </ Span> Pousser jusqu'à plus se cacher le champ inférieur, comme si le triangle avait été pressé (comme un raccourci)</p>
+    
     <button type="button"></button>
-    <div>
-      <p>L'élément hr contrôle la hauteur des deux points de traduction. Il va s'effondrer le champ plus grand jusqu'à ce qu'il soit à la même hauteur que l'autre, puis les réduire à la fois jusqu'à ce que <span> ils sont 2 lignes haute. </ Span> Pousser jusqu'à plus se cacher le champ inférieur, comme si le triangle avait été pressé (comme un raccourci)</p>
-    </div>
   </div>
 
   <hr>
