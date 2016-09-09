@@ -1,0 +1,79 @@
+body, html{
+  height: 100%;
+  margin: 0;
+}
+
+.lxo-panels {
+  position:absolute;
+  width:100%;
+  height:90%;
+  bottom:0;
+  background-color: #eee;
+  overflow: hidden;
+}
+
+.lxo-panel.up {
+  bottom:0;
+}
+
+.lxo-panel.down {
+  top:0;
+}
+
+.lxo-panel {
+  position:absolute;
+  width:100%;
+  height:0;
+  transition: height 0.5s 0.5s;
+}
+
+.lxo-panel.active {
+  transition: height 0.5s;
+  z-index: 1;
+}
+
+.lxo-panel.active {
+  height:calc(100% - 24px);
+}
+
+div.lxo-panel {
+  background-color: #333;
+}
+
+div.red {
+  background-color: #300;
+}
+
+div.green {
+  background-color: #030;
+}
+
+div.blue {
+  background-color: #003;
+}
+
+.lxo-panel .icon {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  z-index: 2;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+  transition: left 0.5s 0.5s;
+}
+
+.lxo-panel.up .icon {
+  top: -24px;
+}
+
+.lxo-panel.down .icon {
+  bottom: -24px;
+}
+
+.lxo-panel:not(.active) > img {
+  -webkit-filter: brightness(0.5);
+  transition: left 0.5s;
+}

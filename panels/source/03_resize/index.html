@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  <title>Panels</title>
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+
+<div id="selection">
+  <p id="original">The hr element controls the height of the two translation paragraphs. It will collapse the taller field until it is the same height as the other, then collapse them both until they are 2 lines high. Pushing up further will hide the lower field, as if the disclosure triangle had been pressed (as a shortcut)</p>
+  <div id="translation">
+    <input type="checkbox" id="toggle-translation"/>
+    <label for="toggle-translation"></label>
+    <button type="button"></button>
+    <div>
+      <p>L'élément hr contrôle la hauteur des deux points de traduction. Il va s'effondrer le champ plus grand jusqu'à ce qu'il soit à la même hauteur que l'autre, puis les réduire à la fois jusqu'à ce que <span> ils sont 2 lignes haute. </ Span> Pousser jusqu'à plus se cacher le champ inférieur, comme si le triangle avait été pressé (comme un raccourci)</p>
+    </div>
+  </div>
+
+  <hr>
+</div>
+
+<script src="/code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="/code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<script src="js/panels.js"></script>
+</body>
+</html>

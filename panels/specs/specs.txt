@@ -1,0 +1,49 @@
+The NoteBook page needs four sections:
+
+1. Text selected in main page
+   Scrollable
+   SelectWholeWords feature attached
+   Ability to resize
+2. Machine translation
+   Choice of:
+   * Google
+   * Yandex
+   * Bing
+   * ...
+   Connection to source tab
+   Ability to resize
+3. Top panels
+4. Bottom panels
+
+Dragging a panels icon up or down should make the complementary panel change height to match. If panel is almost full height, it should snap fully open, and the complementary panel should snap closed.
+
+Icons for panels should be in a scrollable bar, which expands to fill the width available
+
+Icon for active top panel should be on right; for active bottom panel on left, each with a shadow falling on the other content.
+
+Panel may consist of:
+* iFrame
+* custom HTML
+
+Options:
+{ icon: <image>
+, src: <URL if iFrame>
+, html: <string>
+, className: <string>
+, js: <???>
+, 
+} 
+
+A panel may display:
+* an iFrame
+* custom HTML
+
+
+The p#original needs no buttons
+p#translation needs:
+* disclosure triangle
+* goGoogle button
+
+The hr element controls the height of the two translation paragraphs. It will collapse the taller field until it is the same height as the other, then collapse them both until they are 2 lines high. Pushing up further will hide the lower field, as if the disclosure triangle had been pressed (as a shortcut)
+
+Pulling down will extend the open fields equally until either one is at its full height. In that case, the longer one will continue to grow until it reaches its full height. If the lower field is hidden, and the upper one is at full height and you continue to pull, the lower one will open to the same height (or shorter) as the upper one.
