@@ -40,8 +40,7 @@
 
 
 
-;(function create_panelset($, window){
-  
+;(function create_panelset($, window){ 
   $.widget(
     "lxo.panelset"
 
@@ -50,22 +49,26 @@
         panels: [{}]
       , className: "lxo-panels"
       , spacing: 12
+      , top: 200
+      , default: 0
       }
 
     , panels: []
     
     , _create: function panelset_create () {
         this._modifyDOM() 
-        this._setUserActions()  
+        this._setUserActions()
+        this.toggleActive(this.panels[this.options.default], true)
       } 
 
     , _modifyDOM: function panelset_modifyDOM () {
+        var $parent = this.element
         var panelOptions
         var $panel
         var panels  = this.options.panels
-        var $panels = this.$panels = $("<div></div>")
-                                     .addClass(this.options.className)
-        this.element.append($panels)
+        
+        $parent.addClass(this.options.className)
+               .css({ top: this.options.top })
 
         for (var ii = 0, total = panels.length; ii < total; ii ++) {
           $panel = $("<div></div>")
@@ -73,7 +76,7 @@
           panelOptions.rank = ii
           panelOptions.spacing = this.options.spacing
           $panel.panel(panelOptions)
-          $panels.append($panel)
+          $parent.append($panel)
 
           this.panels.push($panel)
         }
@@ -98,22 +101,28 @@
                 $other = panels[ii].data("lxo-panel")
                 
                 if ($other.element !== $panel.element) {
-                  toggleActive($other, false)
+                  self.toggleActive($other.element, false)
                 }
               }
 
-              toggleActive($panel, !$panel.element.hasClass("active"))
+              if(!$panel.element.hasClass("active")) {
+                self.toggleActive($panel.element, true)
+              }
             })
           }
-
-          function toggleActive($panel, makeActive) {
-            if (makeActive) {
-              $panel.element.addClass("active")
-            } else {
-              $panel.element.removeClass("active")
-            }
-          }
         }       
+      }
+
+    , toggleActive:  function toggleActive($panel, makeActive) {
+        if (makeActive) {
+          $panel.addClass("active")
+        } else {
+          $panel.removeClass("active")
+        }
+      }
+
+    , setTop: function setTop(top) {
+        this.element.css({ top: top })
       }
     }
   )
@@ -122,13 +131,14 @@
 
 
 ;(function create_translator(){
-
   $.widget(
     "lxo.translator"
 
   , {
       options: {
         maxHeight: 200
+      , resize: function(height) { console.log("resize", height) }
+      , className: "lxo-translator"
       }
 
     , $syncScroll: 0
@@ -139,13 +149,18 @@
     , $hr: 0
     
     , _create: function translator_create () {
-        this._modifyDOM() 
-        this._setUserActions()  
+        var self = this
+        this._modifyDOM()
+        setTimeout(function (){
+          self._setUserActions()       
+        }, 1)
       } 
 
     , _modifyDOM: function translator_modifyDOM () {
         var $parent = this.element
         var $element
+
+        $parent.addClass(this.options.className)
 
         this.$syncScroll  = ($("<input type='checkbox'>")
                            .attr("id", "sync-scroll")
@@ -202,6 +217,8 @@
           } else {
             hideTranslation()
           }
+
+          self.callbackWithNewHeight()
 
           function showTranslation() {
             var fullHeight = $original.outerHeight() / 2 + border
@@ -270,6 +287,8 @@
 
             prepareFullHeight($original)
             $original.outerHeight(originalStartHeight + deltaY)
+
+            self.callbackWithNewHeight()
           }
 
           function stopDrag(event) {
@@ -307,17 +326,86 @@
           }, 1)
         }
       }
+
+    , getTop: function getTop() {
+        return this.element.outerHeight()
+      }
+
+    , callbackWithNewHeight: function callbackWithNewHeight() {
+        this.options.resize(this.getTop())
+      }
     }
   )
+})()
 
+
+
+;(function create_notebook(){
+
+  $.widget(
+    "lxo.notebook"
+
+  , {
+      options: {
+        separation: 300
+      , default: 0
+      }
+    
+    , _create: function notebook_create () {
+        this._modifyDOM() 
+        this._setUserActions()  
+      } 
+
+    , _modifyDOM: function notebook_modifyDOM () {
+        var self = this
+        var $parent = this.element
+        var separation = this.options.separation
+
+        var options = {
+          maxHeight: separation
+        , resize: function (height) {
+            self.resizeTranslator.call(self, height)
+          }
+        }
+        var $translator = $("<div></div>").translator(options)
+        $parent.append($translator)
+               
+        var top = $translator.translator("getTop")
+
+        options = {
+          panels: [ 
+            { icon: "img/settings.png" 
+            , class: "red"
+            }
+          , { icon: "img/google.png" 
+            , class: "green"
+            }
+          , { icon: "img/wiktionary.png" 
+            , class: "blue"
+            }
+          ]
+        , default: this.options.default
+        , top: top
+        }
+        this.$panelset = $("<div></div>").panelset(options)
+        $parent.append(this.$panelset)
+      }
+          
+    , _setUserActions: function notebook_setUserActions() {
+      }
+
+    , resizeTranslator: function resizeTranslator(height) {
+        console.log("resizeTranslator", height)
+        this.$panelset.panelset("setTop", height)
+      }
+    }
+  )
 })()
 
 
 /*
 TODO
 - Add auto-maximize and auto-minimize buttons
-
-- Adjust top of panels when translation is resized
 
 - Adjust both panels and translator when window height is changed
 - Adjust height of translator as page width is changed
@@ -330,19 +418,8 @@ TODO
 
 
 ;(function ready(){
-  $("body").panelset({
-    panels: [ 
-      { icon: "img/settings.png" 
-      , class: "red"
-      }
-    , { icon: "img/google.png" 
-      , class: "green"
-      }
-    , { icon: "img/wiktionary.png" 
-      , class: "blue"
-      }
-    ]}
-  )
-
-  $(document.querySelector("#selection")).translator()
+  $("body").notebook({
+    separation: 200
+  , default: 1
+  })
 })()
