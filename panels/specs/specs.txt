@@ -55,3 +55,10 @@ The lower panel will change in height to fill the space available. The maximum h
 If both fields are scrollable, and a sync-scroll checkbox is checked, scrolling the upper one will 
 
 As the translation div is extended, the ps may lose their scrollbars and get shorter. You could remove the scrollbars at the start and determine the full height, but there might be a flash. The alternative is to check if the clientHeight is greater than the scrollHeight.
+
+We can calculate the maximum height of each field, and so know what the total drag should be. We know which field has the shorter full length, so we can divide deltaY equally until that length is reached.
+We can set a flag for 
+
+maxHeight should be the height of the div#selection when the ps are at their full height. The maximum height of the ps will be maxHeight - padding 
+
+If selection is resized when collapsed, then remember height to return to it when re-collapsed. If it is resized when open, then use open size.

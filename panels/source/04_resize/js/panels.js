@@ -109,10 +109,8 @@
           function toggleActive($panel, makeActive) {
             if (makeActive) {
               $panel.element.addClass("active")
-              // $panel.$icon.offset({ left: $panel.options.spacing })
             } else {
               $panel.element.removeClass("active")
-              // $panel.$icon.offset({ left: $panel.offset })
             }
           }
         }       
@@ -123,20 +121,13 @@
 
 
 
-
 ;(function create_translation_widget(){
 
   $.widget(
     "lxo.translator"
 
   , {
-      options: {
-        panels: [{}]
-      , classes: {
-
-        }
-      , spacing: 12
-      }
+      options: {}
 
     , $syncScroll: 0
     , $disclosure: 0
@@ -159,8 +150,8 @@
                            .attr("checked", "true"))
         this.$disclosure  = $("<input type='checkbox'>")
                            .attr("id", "toggle-translation")
-        this.$original    = $("<p></p>")
-        this.$translation = $("<p></p>")                      
+        this.$original    = $("<p>abcdef ghi jklm nopqrst uvwx yz. abcdef ghi jklm nopqrst uvwx yz. abcdef ghi jklm nopqrst uvwx yz. abcdef ghi jklm nopqrst uvwx yz.</p>")
+        this.$translation = $("<p>abcdef ghi jklm nopqrst uvwx yz. abcdef ghi jklm nopqrst uvwx yz. abcdef ghi jklm nopqrst uvwx yz. abcdef ghi jklm nopqrst uvwx yz.</p>")                      
         this.$goSource    = $("<button type='button'></button>")
         this.$hr          = $("<hr />")
 
@@ -195,9 +186,10 @@
         var $translation = this.$translation
         var $hr = this.$hr
 
+        var border = parseInt($translation.css("border-top-width"),10)
         var minHeight = $original.outerHeight()
         var maxHeight = 160 // to be reset when window height changes
-        var availableHeight = getAvailableHeight()
+        var collapseSize = minHeight
 
         this.$syncScroll.change(function () {
           toggleSyncScroll()
@@ -205,38 +197,29 @@
 
         this.$disclosure.change(function () {
           if ($(this).is(':checked')) {
-            $parent.removeClass("collapsed")
-            setTranslationHeight()
+            showTranslation()
           } else {
-            $parent.addClass("collapsed")
-            adjustHeights()
+            hideTranslation()
           }
 
-          function setTranslationHeight() {
-            var originalHeight = $original.outerHeight()
-            var fullHeight = getFullHeight($translation[0])
-            if (originalHeight !== getFullHeight($original[0])) {
-              fullHeight = Math.min(fullHeight, originalHeight)
-            }
+          function showTranslation() {
+            var fullHeight = $original.outerHeight() / 2 + border
 
-            if (originalHeight + fullHeight > availableHeight)  {
-              fullHeight = availableHeight / 2
-              $original.outerHeight(fullHeight)
-            }
-
+            prepareFullHeight($original)
+            $original.outerHeight(fullHeight)
             prepareFullHeight($translation)
             $translation.outerHeight(fullHeight)
+
+            $parent.removeClass("collapsed")
           }
 
-          function adjustHeights() {
-            var originalHeight = $original.outerHeight()
-            var fullHeight = getFullHeight($original[0])
+          function hideTranslation() {
+            prepareFullHeight($original)
+            $original.outerHeight(collapseSize)
 
             $translation.height(0)
 
-            if (originalHeight > fullHeight) {
-              $original.outerHeight(fullHeight)
-            }
+            $parent.addClass("collapsed")
           }
         })
 
@@ -268,18 +251,6 @@
           var startY = event.clientY
 
           var originalStartHeight = $original.outerHeight()
-          var originalFullHeight = getFullHeight($original[0])
-
-          var translationStartHeight = $translation.outerHeight()
-          var translationFullHeight = getFullHeight($translation[0])
-
-          var tallOriginal = translationFullHeight<originalFullHeight
-          var breakDelta = tallOriginal
-               ? (translationFullHeight - translationStartHeight) * 2
-               : (originalFullHeight - originalStartHeight) * 2
-          var maxDelta = 
-                translationFullHeight - translationStartHeight
-              + originalFullHeight - originalStartHeight
           var minDelta = minHeight - originalStartHeight
           var maxDrag = maxHeight - $parent.outerHeight()
 
@@ -289,56 +260,23 @@
 
           function drag(event) {
             var deltaY = Math.min(event.clientY - startY, maxDrag)
-            var deltaO
-              , deltaT
 
-            if (collapsed) {
-              deltaY = Math.max(deltaY, minDelta)
-
-              if (deltaY + originalStartHeight > originalFullHeight) {
-                prepareFullHeight($original)
-                deltaY =  originalFullHeight - originalStartHeight
-              }
-
-            } else {
-              deltaY = Math.max(deltaY, minDelta * 2)
-
-              if (deltaY < breakDelta) {
-                deltaO = deltaT = deltaY / 2
-
-              } else if (deltaY < maxDelta) {
-                if (tallOriginal) {
-                  deltaT = breakDelta / 2
-                  deltaO = deltaY - deltaT
-                  prepareFullHeight($translation)
-                } else {
-                  deltaO = breakDelta / 2
-                  deltaT = deltaY - deltaO
-                  prepareFullHeight($original)
-                }
-
-              } else {
-                prepareFullHeight($original)
-                prepareFullHeight($translation)
-
-                if (tallOriginal) {
-                  deltaT = breakDelta / 2
-                  deltaO = maxDelta - deltaT
-                } else {
-                  deltaO = breakDelta / 2
-                  deltaT = maxDelta - deltaO
-                }
-                deltaY = maxDelta
-              }
-
-              $original.outerHeight(originalStartHeight + deltaO)
-              $translation.outerHeight(originalStartHeight + deltaT)
+            if (!collapsed) {
+              deltaY /= 2
+              prepareFullHeight($translation)
+              $translation.outerHeight(originalStartHeight + deltaY)
             }
+
+            prepareFullHeight($original)
+            $original.outerHeight(originalStartHeight + deltaY)
           }
 
           function stopDrag(event) {
             body.removeEventListener("mousemove", drag, false)
             body.removeEventListener("mouseup", stopDrag, false)
+            collapseSize = $original.outerHeight()
+                         + $translation.outerHeight()
+                         - border * 2
             $(body).css("cursor", "default")
           }
         }
@@ -366,14 +304,6 @@
           setTimeout(function () {
             $element[0].style.removeProperty("overflow-y")
           }, 1)
-        }
-
-        function getAvailableHeight() {
-          var padding = $parent.outerHeight()
-          padding -= $original.outerHeight()
-          padding -= $translation.outerHeight()
-
-          return maxHeight - padding
         }
       }
     }

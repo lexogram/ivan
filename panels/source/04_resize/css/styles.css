@@ -151,7 +151,7 @@ content: "\e806";
 }
 #toggle-translation:checked ~ p {
 min-height: 2.85em;
-padding: 0.2em;
+padding: 0.25em;
 }
 #toggle-translation:checked ~ button {
 display: block;
