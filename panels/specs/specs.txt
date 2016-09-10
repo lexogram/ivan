@@ -47,3 +47,11 @@ p#translation needs:
 The hr element controls the height of the two translation paragraphs. It will collapse the taller field until it is the same height as the other, then collapse them both until they are 2 lines high. Pushing up further will hide the lower field, as if the disclosure triangle had been pressed (as a shortcut)
 
 Pulling down will extend the open fields equally until either one is at its full height. In that case, the longer one will continue to grow until it reaches its full height. If the lower field is hidden, and the upper one is at full height and you continue to pull, the lower one will open to the same height (or shorter) as the upper one.
+
+This snapping open may move the bottom of the lower field well past the mouse.
+
+The lower panel will change in height to fill the space available. The maximum height of the upper fields will be the available height of the page, with the lower panels closed.
+
+If both fields are scrollable, and a sync-scroll checkbox is checked, scrolling the upper one will 
+
+As the translation div is extended, the ps may lose their scrollbars and get shorter. You could remove the scrollbars at the start and determine the full height, but there might be a flash. The alternative is to check if the clientHeight is greater than the scrollHeight.
