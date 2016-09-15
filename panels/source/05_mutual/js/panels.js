@@ -395,25 +395,11 @@
       }
 
     , resizeTranslator: function resizeTranslator(height) {
-        console.log("resizeTranslator", height)
         this.$panelset.panelset("setTop", height)
       }
     }
   )
 })()
-
-
-/*
-TODO
-- Add auto-maximize and auto-minimize buttons
-
-- Adjust both panels and translator when window height is changed
-- Adjust height of translator as page width is changed
-  - Reduce if widened (panel height will increase)
-  - Increase to initial value as window becomes narrower
-
-- Allow user to change font size, but limit pixel size
- */
 
 
 
